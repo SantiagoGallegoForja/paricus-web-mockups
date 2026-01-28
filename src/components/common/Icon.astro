@@ -1,0 +1,17 @@
+---
+import { Icon as AstroIcon } from 'astro-icon/components';
+
+interface Props {
+  name: string;
+  class?: string;
+  size?: number;
+  'aria-hidden'?: boolean;
+}
+
+const { name, class: className = '', size = 24, ...attrs } = Astro.props;
+
+// Map common icon names to lucide format
+const iconName = name.startsWith('lucide:') ? name : `lucide:${name}`;
+---
+
+<AstroIcon name={iconName} class={className} width={size} height={size} {...attrs} />

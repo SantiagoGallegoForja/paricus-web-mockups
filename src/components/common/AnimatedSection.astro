@@ -1,0 +1,59 @@
+---
+interface Props {
+  animation?: 'fade' | 'slide-left' | 'slide-right' | 'scale';
+  class?: string;
+  delay?: number;
+  tag?: 'div' | 'section' | 'article' | 'aside';
+}
+
+const {
+  animation = 'fade',
+  class: className = '',
+  delay = 0,
+  tag: Tag = 'div'
+} = Astro.props;
+
+const animationClass = {
+  'fade': 'animate-on-scroll',
+  'slide-left': 'animate-slide-left',
+  'slide-right': 'animate-slide-right',
+  'scale': 'animate-scale',
+}[animation];
+
+const style = delay > 0 ? `transition-delay: ${delay}ms` : undefined;
+---
+
+<Tag
+  class:list={[animationClass, className]}
+  data-animate
+  style={style}
+>
+  <slot />
+</Tag>
+
+<script>
+  // Initialize scroll animation observer
+  function initScrollAnimations() {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('animate-in');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    document.querySelectorAll('[data-animate]:not(.animate-in)').forEach((el) => {
+      observer.observe(el);
+    });
+  }
+
+  // Run on initial load
+  initScrollAnimations();
+
+  // Re-run on Astro page transitions (View Transitions)
+  document.addEventListener('astro:page-load', initScrollAnimations);
+</script>

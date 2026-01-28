@@ -1,0 +1,89 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import AnimatedSection from '../../components/common/AnimatedSection.astro';
+import Icon from '../../components/common/Icon.astro';
+import { t, getLocalizedPath } from '../../i18n/utils';
+
+const lang = 'es';
+
+const certifications = [
+  { nameKey: 'technology.certifications.iso27001.name', descriptionKey: 'technology.certifications.iso27001.description' },
+  { nameKey: 'technology.certifications.iso9001.name', descriptionKey: 'technology.certifications.iso9001.description' },
+  { nameKey: 'technology.certifications.hipaa.name', descriptionKey: 'technology.certifications.hipaa.description' },
+  { nameKey: 'technology.certifications.soc2.name', descriptionKey: 'technology.certifications.soc2.description' }
+];
+
+const technologies = [
+  { icon: 'shield', nameKey: 'technology.stack.security.name', descriptionKey: 'technology.stack.security.description' },
+  { icon: 'zap', nameKey: 'technology.stack.ai.name', descriptionKey: 'technology.stack.ai.description' },
+  { icon: 'database', nameKey: 'technology.stack.analytics.name', descriptionKey: 'technology.stack.analytics.description' },
+  { icon: 'cloud', nameKey: 'technology.stack.cloud.name', descriptionKey: 'technology.stack.cloud.description' }
+];
+---
+
+<Layout title="Tecnologia - Paricus" description="Tecnologia de nivel empresarial y estandares de seguridad." lang={lang} currentPath="/es/technology">
+  <section class="py-20 lg:py-32 bg-[#FAFAF8] pt-40">
+    <div class="max-w-[1600px] mx-auto px-6 lg:px-12">
+      <AnimatedSection class="text-center max-w-3xl mx-auto mb-16">
+        <h1 class="text-4xl lg:text-5xl font-bold text-[#2C3E50] mb-6">{t('technology.heading', lang)}</h1>
+        <p class="text-lg text-[#5D6D7E]">{t('technology.description', lang)}</p>
+      </AnimatedSection>
+      <AnimatedSection animation="scale" class="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-20" tag="div">
+        <div>
+          <h2 class="text-2xl font-bold text-[#2C3E50] mb-8 flex items-center">
+            <Icon name="lock" class="w-6 h-6 text-[#52C17A] mr-3" size={24} />
+            {t('technology.certificationsTitle', lang)}
+          </h2>
+          <div class="grid grid-cols-2 gap-4">
+            {certifications.map((cert) => (
+              <div class="group relative bg-white rounded-2xl p-6 border border-[#D5E8D4] overflow-hidden cursor-pointer transition-all duration-500 hover:-translate-y-2 hover:shadow-xl hover:border-[#52C17A]">
+                <div class="absolute inset-0 bg-gradient-to-br from-[#E8F5E9] to-white opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <div class="relative z-10">
+                  <div class="flex items-center mb-2">
+                    <Icon name="check-circle-2" class="w-5 h-5 text-[#52C17A] mr-2" size={20} />
+                    <h3 class="text-lg font-bold text-[#2C3E50] group-hover:text-[#52C17A] transition-colors">{t(cert.nameKey, lang)}</h3>
+                  </div>
+                  <p class="text-sm text-[#5D6D7E]">{t(cert.descriptionKey, lang)}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div>
+          <h2 class="text-2xl font-bold text-[#2C3E50] mb-8 flex items-center">
+            <Icon name="zap" class="w-6 h-6 text-[#52C17A] mr-3" size={24} />
+            {t('technology.techStackTitle', lang)}
+          </h2>
+          <div class="space-y-4">
+            {technologies.map((tech) => (
+              <div class="group relative bg-white rounded-2xl p-6 border border-[#D5E8D4] flex items-start gap-4 overflow-hidden cursor-pointer transition-all duration-500 hover:-translate-y-2 hover:shadow-xl hover:border-[#52C17A]">
+                <div class="absolute inset-0 bg-gradient-to-r from-[#E8F5E9] to-white opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <div class="relative z-10 flex items-start gap-4 w-full">
+                  <div class="w-14 h-14 rounded-2xl bg-[#E8F5E9] flex items-center justify-center flex-shrink-0 group-hover:scale-110 group-hover:rotate-6 group-hover:bg-gradient-to-br group-hover:from-[#52C17A] group-hover:to-[#3D9E5F] transition-all duration-500">
+                    <Icon name={tech.icon} class="w-7 h-7 text-[#52C17A] group-hover:text-white transition-colors" size={28} />
+                  </div>
+                  <div>
+                    <h3 class="text-lg font-bold text-[#2C3E50] mb-1 group-hover:text-[#52C17A] transition-colors">{t(tech.nameKey, lang)}</h3>
+                    <p class="text-sm text-[#5D6D7E]">{t(tech.descriptionKey, lang)}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </AnimatedSection>
+      <AnimatedSection class="relative bg-gradient-to-br from-[#52C17A] to-[#3D9E5F] rounded-3xl p-10 lg:p-16 text-center text-white overflow-hidden" tag="div">
+        <div class="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-0 left-0 w-48 h-48 bg-white/10 rounded-full blur-2xl"></div>
+        <div class="relative z-10">
+          <Icon name="shield" class="w-16 h-16 mx-auto mb-6 opacity-90" size={64} />
+          <h2 class="text-3xl lg:text-4xl font-bold mb-4">{t('technology.securityTitle', lang)}</h2>
+          <p class="text-lg opacity-90 max-w-2xl mx-auto mb-8">{t('technology.securityDescription', lang)}</p>
+          <a href={getLocalizedPath('/contact', lang)} class="inline-flex items-center justify-center px-8 py-4 rounded-2xl bg-white text-[#52C17A] font-semibold hover:bg-[#FAFAF8] transition-all shadow-lg">
+            {t('technology.learnMore', lang)}
+          </a>
+        </div>
+      </AnimatedSection>
+    </div>
+  </section>
+</Layout>

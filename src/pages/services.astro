@@ -1,0 +1,112 @@
+---
+import Layout from '../layouts/Layout.astro';
+import AnimatedSection from '../components/common/AnimatedSection.astro';
+import Icon from '../components/common/Icon.astro';
+import { t, tArray, getLocalizedPath } from '../i18n/utils';
+
+const lang = 'en';
+
+const services = [
+  {
+    icon: 'headphones',
+    titleKey: 'services.customerService.title',
+    descriptionKey: 'services.customerService.description',
+    featuresKey: 'services.customerService.features'
+  },
+  {
+    icon: 'file-text',
+    titleKey: 'services.backOffice.title',
+    descriptionKey: 'services.backOffice.description',
+    featuresKey: 'services.backOffice.features'
+  },
+  {
+    icon: 'calculator',
+    titleKey: 'services.sales.title',
+    descriptionKey: 'services.sales.description',
+    featuresKey: 'services.sales.features'
+  },
+  {
+    icon: 'wrench',
+    titleKey: 'services.technical.title',
+    descriptionKey: 'services.technical.description',
+    featuresKey: 'services.technical.features'
+  }
+];
+---
+
+<Layout
+  title="Services - Paricus"
+  description="Comprehensive BPO solutions designed to optimize your operations and accelerate growth."
+  lang={lang}
+  currentPath="/services"
+>
+  <section class="py-20 lg:py-32 bg-[#FAFAF8] pt-40" aria-labelledby="services-heading">
+    <div class="max-w-[1600px] mx-auto px-6 lg:px-12">
+      <AnimatedSection class="max-w-3xl mb-16">
+        <h1 id="services-heading" class="text-4xl lg:text-5xl font-bold text-[#2C3E50] mb-6 leading-tight">
+          {t('services.heading', lang)}
+        </h1>
+        <p class="text-lg text-[#5D6D7E] leading-relaxed">
+          {t('services.description', lang)}
+        </p>
+      </AnimatedSection>
+
+      <AnimatedSection animation="scale" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {services.map((service, index) => {
+          const features = tArray(service.featuresKey, lang);
+          return (
+            <article
+              class="group relative bg-white border border-[#D5E8D4] rounded-2xl p-8 overflow-hidden cursor-pointer transition-all duration-500 hover:-translate-y-4 hover:shadow-2xl hover:shadow-[#52C17A]/20 hover:border-[#52C17A]"
+              aria-labelledby={`service-title-${index}`}
+            >
+              <!-- Animated gradient background on hover -->
+              <div class="absolute inset-0 bg-gradient-to-br from-[#E8F5E9] to-white opacity-0 group-hover:opacity-100 transition-opacity duration-500" aria-hidden="true"></div>
+
+              <!-- Card content -->
+              <div class="relative z-10">
+                <!-- Icon with fancy animation -->
+                <div class="w-16 h-16 rounded-2xl bg-[#E8F5E9] flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-3 group-hover:bg-gradient-to-br group-hover:from-[#52C17A] group-hover:to-[#3D9E5F] transition-all duration-500 shadow-sm group-hover:shadow-lg group-hover:shadow-[#52C17A]/30" aria-hidden="true">
+                  <Icon name={service.icon} class="w-8 h-8 text-[#52C17A] group-hover:text-white transition-all duration-500 group-hover:scale-110" size={32} />
+                </div>
+
+                <h2 id={`service-title-${index}`} class="text-2xl font-bold text-[#2C3E50] mb-3 group-hover:text-[#52C17A] group-hover:translate-x-2 transition-all duration-300">
+                  {t(service.titleKey, lang)}
+                </h2>
+
+                <p class="text-base text-[#5D6D7E] mb-6 leading-relaxed group-hover:translate-x-1 transition-transform duration-300">
+                  {t(service.descriptionKey, lang)}
+                </p>
+
+                <!-- Features with staggered animation -->
+                <ul class="space-y-3 mb-6" aria-label={`${t(service.titleKey, lang)} features`}>
+                  {features.map((feature, idx) => (
+                    <li
+                      class="flex items-center text-sm text-[#5D6D7E] group-hover:translate-x-2 transition-transform duration-300"
+                      style={`transition-delay: ${idx * 50}ms`}
+                    >
+                      <span class="w-2 h-2 rounded-full bg-[#52C17A] mr-3 group-hover:scale-125 transition-transform duration-300" aria-hidden="true"></span>
+                      {feature}
+                    </li>
+                  ))}
+                </ul>
+
+                <!-- CTA with arrow animation -->
+                <a
+                  href={getLocalizedPath('/contact', lang)}
+                  class="inline-flex items-center text-[#52C17A] font-semibold text-sm group-hover:gap-3 transition-all duration-300"
+                  aria-label={`Learn more about ${t(service.titleKey, lang)}`}
+                >
+                  Learn more
+                  <Icon name="arrow-right" class="ml-1 w-5 h-5 group-hover:translate-x-2 transition-transform duration-300" size={20} aria-hidden="true" />
+                </a>
+              </div>
+
+              <!-- Decorative corner element -->
+              <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-[#52C17A]/10 to-transparent rounded-bl-full opacity-0 group-hover:opacity-100 transition-opacity duration-500" aria-hidden="true"></div>
+            </article>
+          );
+        })}
+      </AnimatedSection>
+    </div>
+  </section>
+</Layout>

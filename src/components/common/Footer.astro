@@ -1,0 +1,180 @@
+---
+import { t, getLocalizedPath } from '../../i18n/utils';
+
+interface Props {
+  lang?: string;
+}
+
+const { lang = 'en' } = Astro.props;
+---
+
+<footer class="bg-[#2C3E50] text-white py-16 lg:py-20" role="contentinfo">
+  <div class="max-w-[1440px] mx-auto px-6 lg:px-12">
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 mb-12">
+      <!-- Logo & Description -->
+      <div class="col-span-2 md:col-span-3 lg:col-span-1">
+        <img
+          src="/assets/PARICUS LOGO (COLOR-NO BG) - Copy.png"
+          alt="Paricus Logo"
+          class="h-10 w-auto mb-4"
+        />
+        <p class="text-sm text-gray-300 leading-relaxed">
+          {t('footer.description', lang)}
+        </p>
+      </div>
+
+      <!-- Quick Links -->
+      <nav aria-label="Quick links">
+        <h4 class="text-sm font-bold mb-4 uppercase tracking-wide">{t('footer.quickLinks', lang)}</h4>
+        <ul class="space-y-3">
+          <li>
+            <a href={getLocalizedPath('/services', lang)} class="text-sm text-gray-300 hover:text-[#52C17A] transition-colors smooth-hover">
+              {t('nav.services', lang)}
+            </a>
+          </li>
+          <li>
+            <a href={getLocalizedPath('/about', lang)} class="text-sm text-gray-300 hover:text-[#52C17A] transition-colors smooth-hover">
+              {t('nav.about', lang)}
+            </a>
+          </li>
+          <li>
+            <a href={getLocalizedPath('/industries', lang)} class="text-sm text-gray-300 hover:text-[#52C17A] transition-colors smooth-hover">
+              {t('nav.industries', lang)}
+            </a>
+          </li>
+          <li>
+            <a href={getLocalizedPath('/careers', lang)} class="text-sm text-gray-300 hover:text-[#52C17A] transition-colors smooth-hover">
+              {t('nav.careers', lang)}
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- Services -->
+      <nav aria-label="Services links">
+        <h4 class="text-sm font-bold mb-4 uppercase tracking-wide">{t('footer.services', lang)}</h4>
+        <ul class="space-y-3">
+          <li>
+            <a href={getLocalizedPath('/services', lang)} class="text-sm text-gray-300 hover:text-[#52C17A] transition-colors smooth-hover">
+              {t('services.customerService.title', lang)}
+            </a>
+          </li>
+          <li>
+            <a href={getLocalizedPath('/services', lang)} class="text-sm text-gray-300 hover:text-[#52C17A] transition-colors smooth-hover">
+              {t('services.backOffice.title', lang)}
+            </a>
+          </li>
+          <li>
+            <a href={getLocalizedPath('/services', lang)} class="text-sm text-gray-300 hover:text-[#52C17A] transition-colors smooth-hover">
+              {t('services.sales.title', lang)}
+            </a>
+          </li>
+          <li>
+            <a href={getLocalizedPath('/services', lang)} class="text-sm text-gray-300 hover:text-[#52C17A] transition-colors smooth-hover">
+              {t('services.technical.title', lang)}
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- Industries -->
+      <nav aria-label="Industries links">
+        <h4 class="text-sm font-bold mb-4 uppercase tracking-wide">{t('nav.industries', lang)}</h4>
+        <ul class="space-y-3">
+          <li>
+            <a href={getLocalizedPath('/industries', lang)} class="text-sm text-gray-300 hover:text-[#52C17A] transition-colors smooth-hover">
+              {t('industries.healthcare.title', lang)}
+            </a>
+          </li>
+          <li>
+            <a href={getLocalizedPath('/industries', lang)} class="text-sm text-gray-300 hover:text-[#52C17A] transition-colors smooth-hover">
+              {t('industries.ecommerce.title', lang)}
+            </a>
+          </li>
+          <li>
+            <a href={getLocalizedPath('/industries', lang)} class="text-sm text-gray-300 hover:text-[#52C17A] transition-colors smooth-hover">
+              {t('industries.technology.title', lang)}
+            </a>
+          </li>
+          <li>
+            <a href={getLocalizedPath('/industries', lang)} class="text-sm text-gray-300 hover:text-[#52C17A] transition-colors smooth-hover">
+              {t('industries.finance.title', lang)}
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- Resources -->
+      <nav aria-label="Resources links">
+        <h4 class="text-sm font-bold mb-4 uppercase tracking-wide">{t('nav.blog', lang)}</h4>
+        <ul class="space-y-3">
+          <li>
+            <a href={getLocalizedPath('/case-studies', lang)} class="text-sm text-gray-300 hover:text-[#52C17A] transition-colors smooth-hover">
+              {t('nav.caseStudies', lang)}
+            </a>
+          </li>
+          <li>
+            <a href={getLocalizedPath('/blog', lang)} class="text-sm text-gray-300 hover:text-[#52C17A] transition-colors smooth-hover">
+              {t('nav.blog', lang)}
+            </a>
+          </li>
+          <li>
+            <a href={getLocalizedPath('/technology', lang)} class="text-sm text-gray-300 hover:text-[#52C17A] transition-colors smooth-hover">
+              {t('nav.technology', lang)}
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- Contact -->
+      <nav aria-label="Contact links">
+        <h4 class="text-sm font-bold mb-4 uppercase tracking-wide">{t('nav.contact', lang)}</h4>
+        <ul class="space-y-3">
+          <li>
+            <a href={getLocalizedPath('/contact', lang)} class="text-sm text-gray-300 hover:text-[#52C17A] transition-colors smooth-hover">
+              {t('contact.info.getInTouch', lang)}
+            </a>
+          </li>
+          <li>
+            <a href={getLocalizedPath('/about', lang)} class="text-sm text-gray-300 hover:text-[#52C17A] transition-colors smooth-hover">
+              {t('about.leadership', lang)}
+            </a>
+          </li>
+          <li>
+            <a href={getLocalizedPath('/careers', lang)} class="text-sm text-gray-300 hover:text-[#52C17A] transition-colors smooth-hover">
+              {t('nav.careers', lang)}
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+
+    <!-- Bottom Bar -->
+    <div class="pt-8 border-t border-[#3D5A6C]">
+      <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+        <p class="text-sm text-gray-300">
+          &copy; 2025 Paricus. {t('footer.rights', lang)}
+        </p>
+        <nav aria-label="Legal links">
+          <ul class="flex gap-6">
+            <li>
+              <a href="#" class="text-sm text-gray-300 hover:text-[#52C17A] transition-colors smooth-hover">
+                {t('footer.privacy', lang)}
+              </a>
+            </li>
+            <li>
+              <a href="#" class="text-sm text-gray-300 hover:text-[#52C17A] transition-colors smooth-hover">
+                {t('footer.terms', lang)}
+              </a>
+            </li>
+            <li>
+              <a href="#" class="text-sm text-gray-300 hover:text-[#52C17A] transition-colors smooth-hover">
+                {t('footer.security', lang)}
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+</footer>

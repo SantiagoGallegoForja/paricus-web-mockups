@@ -1,0 +1,108 @@
+---
+import Layout from '../layouts/Layout.astro';
+import AnimatedSection from '../components/common/AnimatedSection.astro';
+import Icon from '../components/common/Icon.astro';
+import { t, getLocalizedPath } from '../i18n/utils';
+
+const lang = 'en';
+
+const articles = [
+  {
+    categoryKey: 'blog.posts.futureOfBPO.category',
+    titleKey: 'blog.posts.futureOfBPO.title',
+    excerptKey: 'blog.posts.futureOfBPO.excerpt',
+    dateKey: 'blog.posts.futureOfBPO.date',
+    readTime: '5 min read'
+  },
+  {
+    categoryKey: 'blog.posts.customerExperience.category',
+    titleKey: 'blog.posts.customerExperience.title',
+    excerptKey: 'blog.posts.customerExperience.excerpt',
+    dateKey: 'blog.posts.customerExperience.date',
+    readTime: '4 min read'
+  },
+  {
+    categoryKey: 'blog.posts.scaling.category',
+    titleKey: 'blog.posts.scaling.title',
+    excerptKey: 'blog.posts.scaling.excerpt',
+    dateKey: 'blog.posts.scaling.date',
+    readTime: '6 min read'
+  }
+];
+---
+
+<Layout
+  title="Blog - Paricus"
+  description="Stay updated with industry trends, best practices, and thought leadership from our experts."
+  lang={lang}
+  currentPath="/blog"
+>
+  <section class="py-20 lg:py-32 bg-[#FAFAF8] pt-40" aria-labelledby="blog-heading">
+    <div class="max-w-[1600px] mx-auto px-6 lg:px-12">
+      <AnimatedSection class="flex flex-col sm:flex-row sm:items-end sm:justify-between mb-16">
+        <div class="max-w-2xl mb-6 sm:mb-0">
+          <h1 id="blog-heading" class="text-4xl lg:text-5xl font-bold text-[#2C3E50] mb-4 leading-tight">
+            {t('blog.heading', lang)}
+          </h1>
+          <p class="text-lg text-[#5D6D7E] leading-relaxed">
+            {t('blog.description', lang)}
+          </p>
+        </div>
+        <a
+          href={getLocalizedPath('/contact', lang)}
+          class="inline-flex items-center text-[#52C17A] font-semibold group-hover:gap-3 transition-all group"
+          aria-label="View all blog articles"
+        >
+          View all articles
+          <Icon name="arrow-right" class="ml-1 w-5 h-5 group-hover:translate-x-2 transition-transform" size={20} aria-hidden="true" />
+        </a>
+      </AnimatedSection>
+
+      <AnimatedSection class="grid grid-cols-1 md:grid-cols-3 gap-8" tag="div">
+        {articles.map((article, index) => (
+          <article
+            class="group relative bg-white border border-[#D5E8D4] rounded-2xl overflow-hidden cursor-pointer transition-all duration-500 hover:-translate-y-4 hover:shadow-2xl hover:shadow-[#52C17A]/20 hover:border-[#52C17A]"
+            style={`transition-delay: ${index * 100}ms`}
+          >
+            <!-- Gradient header image with animation -->
+            <div class="relative h-48 bg-gradient-to-br from-[#E8F5E9] via-[#52C17A]/20 to-[#4DB6AC]/30 overflow-hidden" aria-hidden="true">
+              <div class="absolute inset-0 bg-gradient-to-br from-[#52C17A] to-[#3D9E5F] opacity-0 group-hover:opacity-20 transition-opacity duration-500"></div>
+              <div class="absolute bottom-4 right-4">
+                <div class="w-16 h-16 rounded-full bg-white/20 backdrop-blur-sm border border-white/30 flex items-center justify-center group-hover:scale-110 group-hover:rotate-12 transition-all duration-500">
+                  <Icon name="arrow-right" class="w-6 h-6 text-white" size={24} />
+                </div>
+              </div>
+            </div>
+
+            <div class="p-6">
+              <span class="inline-block px-4 py-2 bg-[#E8F5E9] text-[#52C17A] text-xs font-semibold rounded-full mb-4 group-hover:scale-105 group-hover:bg-[#52C17A] group-hover:text-white transition-all duration-300">
+                {t(article.categoryKey, lang)}
+              </span>
+              <h2 class="text-xl font-bold text-[#2C3E50] mb-3 leading-snug group-hover:text-[#52C17A] group-hover:translate-x-2 transition-all duration-300">
+                {t(article.titleKey, lang)}
+              </h2>
+              <p class="text-sm text-[#5D6D7E] mb-4 leading-relaxed group-hover:translate-x-1 transition-transform duration-300">
+                {t(article.excerptKey, lang)}
+              </p>
+              <div class="flex items-center justify-between text-xs text-[#5D6D7E] mb-4 pt-4 border-t border-[#D5E8D4]">
+                <time class="flex items-center" datetime={t(article.dateKey, lang)}>
+                  <Icon name="calendar" class="w-4 h-4 mr-1.5 group-hover:text-[#52C17A] transition-colors" size={16} aria-hidden="true" />
+                  {t(article.dateKey, lang)}
+                </time>
+                <span>{article.readTime}</span>
+              </div>
+              <a
+                href={getLocalizedPath('/contact', lang)}
+                class="inline-flex items-center text-[#52C17A] font-semibold text-sm group-hover:gap-3 transition-all"
+                aria-label={`Read article: ${t(article.titleKey, lang)}`}
+              >
+                {t('blog.readMore', lang)}
+                <Icon name="arrow-right" class="ml-1 w-4 h-4 group-hover:translate-x-2 transition-transform" size={16} aria-hidden="true" />
+              </a>
+            </div>
+          </article>
+        ))}
+      </AnimatedSection>
+    </div>
+  </section>
+</Layout>

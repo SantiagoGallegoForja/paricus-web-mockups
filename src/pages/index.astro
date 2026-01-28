@@ -1,0 +1,15 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/home/Hero.astro';
+
+const lang = 'en';
+---
+
+<Layout
+  title="Paricus - Your Trusted BPO Partner"
+  description="Paricus helps global companies streamline operations, improve efficiency, and scale with confidence."
+  lang={lang}
+  currentPath="/"
+>
+  <Hero lang={lang} />
+</Layout>

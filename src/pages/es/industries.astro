@@ -1,0 +1,41 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import AnimatedSection from '../../components/common/AnimatedSection.astro';
+import Icon from '../../components/common/Icon.astro';
+import { t } from '../../i18n/utils';
+
+const lang = 'es';
+
+const industries = [
+  { icon: 'heart', titleKey: 'industries.healthcare.title', descriptionKey: 'industries.healthcare.description' },
+  { icon: 'package', titleKey: 'industries.ecommerce.title', descriptionKey: 'industries.ecommerce.description' },
+  { icon: 'cpu', titleKey: 'industries.technology.title', descriptionKey: 'industries.technology.description' },
+  { icon: 'landmark', titleKey: 'industries.finance.title', descriptionKey: 'industries.finance.description' },
+  { icon: 'shopping-bag', titleKey: 'industries.travel.title', descriptionKey: 'industries.travel.description' }
+];
+---
+
+<Layout title="Industrias - Paricus" description="Experiencia especializada en diversos sectores." lang={lang} currentPath="/es/industries">
+  <section class="py-20 lg:py-32 bg-[#FAFAF8] pt-40">
+    <div class="max-w-[1600px] mx-auto px-6 lg:px-12">
+      <AnimatedSection class="text-center max-w-3xl mx-auto mb-16">
+        <h1 class="text-4xl lg:text-5xl font-bold text-[#2C3E50] mb-6">{t('industries.heading', lang)}</h1>
+        <p class="text-lg text-[#5D6D7E]">{t('industries.description', lang)}</p>
+      </AnimatedSection>
+      <AnimatedSection animation="scale" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6" tag="div">
+        {industries.map((industry) => (
+          <article class="group relative bg-white border border-[#D5E8D4] rounded-2xl p-8 overflow-hidden cursor-pointer transition-all duration-500 hover:-translate-y-3 hover:shadow-2xl hover:border-[#52C17A] text-center">
+            <div class="absolute inset-0 bg-gradient-to-br from-[#E8F5E9] to-white opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+            <div class="relative z-10">
+              <div class="w-16 h-16 mx-auto rounded-2xl bg-[#E8F5E9] flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-6 group-hover:bg-gradient-to-br group-hover:from-[#52C17A] group-hover:to-[#3D9E5F] transition-all duration-500">
+                <Icon name={industry.icon} class="w-8 h-8 text-[#52C17A] group-hover:text-white transition-all duration-500" size={32} />
+              </div>
+              <h2 class="text-xl font-bold text-[#2C3E50] mb-3 group-hover:text-[#52C17A] transition-all">{t(industry.titleKey, lang)}</h2>
+              <p class="text-sm text-[#5D6D7E]">{t(industry.descriptionKey, lang)}</p>
+            </div>
+          </article>
+        ))}
+      </AnimatedSection>
+    </div>
+  </section>
+</Layout>

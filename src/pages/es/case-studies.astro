@@ -1,0 +1,95 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import AnimatedSection from '../../components/common/AnimatedSection.astro';
+import Icon from '../../components/common/Icon.astro';
+import { t, getLocalizedPath } from '../../i18n/utils';
+
+const lang = 'es';
+
+const caseStudies = [
+  {
+    titleKey: 'caseStudies.healthcare.title', industryKey: 'caseStudies.healthcare.industry',
+    challengeKey: 'caseStudies.healthcare.challenge', solutionKey: 'caseStudies.healthcare.solution',
+    results: [
+      { icon: 'trending-up', metric: '40%', labelKey: 'caseStudies.healthcare.efficiencyIncrease' },
+      { icon: 'clock', metric: '30%', labelKey: 'caseStudies.healthcare.fasterResponse' },
+      { icon: 'users', metric: '95%', labelKey: 'caseStudies.healthcare.patientSatisfaction' }
+    ]
+  },
+  {
+    titleKey: 'caseStudies.ecommerce.title', industryKey: 'caseStudies.ecommerce.industry',
+    challengeKey: 'caseStudies.ecommerce.challenge', solutionKey: 'caseStudies.ecommerce.solution',
+    results: [
+      { icon: 'trending-up', metric: '3x', labelKey: 'caseStudies.ecommerce.volumeHandled' },
+      { icon: 'clock', metric: '50%', labelKey: 'caseStudies.ecommerce.costReduction' },
+      { icon: 'users', metric: '98%', labelKey: 'caseStudies.ecommerce.orderAccuracy' }
+    ]
+  },
+  {
+    titleKey: 'caseStudies.technology.title', industryKey: 'caseStudies.technology.industry',
+    challengeKey: 'caseStudies.technology.challenge', solutionKey: 'caseStudies.technology.solution',
+    results: [
+      { icon: 'trending-up', metric: '60%', labelKey: 'caseStudies.technology.firstCallResolution' },
+      { icon: 'clock', metric: '45%', labelKey: 'caseStudies.technology.reducedWaitTime' },
+      { icon: 'users', metric: '92%', labelKey: 'caseStudies.technology.csatScore' }
+    ]
+  }
+];
+---
+
+<Layout title="Casos de Exito - Paricus" description="Historias de exito reales que demuestran nuestro impacto." lang={lang} currentPath="/es/case-studies">
+  <section class="py-20 lg:py-32 bg-white pt-40">
+    <div class="max-w-[1600px] mx-auto px-6 lg:px-12">
+      <AnimatedSection class="max-w-3xl mb-16">
+        <h1 class="text-4xl lg:text-5xl font-bold text-[#2C3E50] mb-6">{t('caseStudies.heading', lang)}</h1>
+        <p class="text-lg text-[#5D6D7E]">{t('caseStudies.description', lang)}</p>
+      </AnimatedSection>
+      <AnimatedSection class="space-y-8">
+        {caseStudies.map((study) => (
+          <article class="group relative bg-[#FAFAF8] rounded-2xl border border-[#D5E8D4] overflow-hidden hover:border-[#52C17A] hover:shadow-2xl transition-all duration-500 cursor-pointer">
+            <div class="p-8 lg:p-10">
+              <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-8">
+                <div class="flex-1">
+                  <span class="inline-block px-4 py-2 bg-[#E8F5E9] text-[#52C17A] text-xs font-semibold rounded-full mb-4">{t(study.industryKey, lang)}</span>
+                  <h2 class="text-2xl lg:text-3xl font-bold text-[#2C3E50] mb-6 group-hover:text-[#52C17A] transition-all">{t(study.titleKey, lang)}</h2>
+                  <div class="space-y-6 mb-8">
+                    <div>
+                      <h3 class="text-sm font-bold text-[#2C3E50] mb-2 uppercase tracking-wide">{t('caseStudies.challenge', lang)}</h3>
+                      <p class="text-base text-[#5D6D7E]">{t(study.challengeKey, lang)}</p>
+                    </div>
+                    <div>
+                      <h3 class="text-sm font-bold text-[#2C3E50] mb-2 uppercase tracking-wide">{t('caseStudies.solution', lang)}</h3>
+                      <p class="text-base text-[#5D6D7E]">{t(study.solutionKey, lang)}</p>
+                    </div>
+                  </div>
+                  <a href={getLocalizedPath('/contact', lang)} class="inline-flex items-center text-[#52C17A] font-semibold text-sm">
+                    {t('caseStudies.viewFullCase', lang)}
+                    <Icon name="arrow-right" class="ml-1 w-5 h-5" size={20} />
+                  </a>
+                </div>
+                <aside class="lg:w-80 flex-shrink-0">
+                  <div class="bg-white rounded-2xl p-6 border border-[#D5E8D4]">
+                    <h3 class="text-sm font-bold text-[#2C3E50] mb-6 uppercase tracking-wide">{t('caseStudies.results', lang)}</h3>
+                    <div class="space-y-6">
+                      {study.results.map((result) => (
+                        <div class="flex items-start gap-4">
+                          <div class="w-12 h-12 rounded-xl bg-[#E8F5E9] flex items-center justify-center flex-shrink-0">
+                            <Icon name={result.icon} class="w-6 h-6 text-[#52C17A]" size={24} />
+                          </div>
+                          <div>
+                            <div class="text-3xl font-bold text-[#52C17A] mb-1">{result.metric}</div>
+                            <div class="text-sm text-[#5D6D7E]">{t(result.labelKey, lang)}</div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </aside>
+              </div>
+            </div>
+          </article>
+        ))}
+      </AnimatedSection>
+    </div>
+  </section>
+</Layout>

@@ -1,0 +1,282 @@
+{
+  "nav": {
+    "services": "Servicios",
+    "about": "Nosotros",
+    "industries": "Industrias",
+    "caseStudies": "Casos de Exito",
+    "technology": "Tecnologia",
+    "careers": "Carreras",
+    "blog": "Blog",
+    "contact": "Contacto",
+    "getStarted": "Comenzar"
+  },
+  "hero": {
+    "badge": "Tu Socio BPO de Confianza",
+    "title": "Transforma Tus Operaciones con Outsourcing",
+    "titleHighlight": "Amigable",
+    "titleEnd": "",
+    "description": "Paricus ayuda a empresas globales a optimizar operaciones, mejorar eficiencia y escalar con confianza — como trabajar con amigos de confianza.",
+    "exploreServices": "Explorar Servicios",
+    "getInTouch": "Contactanos",
+    "teamMembers": "Miembros del Equipo",
+    "yearsExperience": "Anos de Experiencia",
+    "satisfactionRate": "Tasa de Satisfaccion"
+  },
+  "services": {
+    "heading": "Servicios Que Elevan Tu Negocio",
+    "description": "Soluciones BPO integrales disenadas para optimizar tus operaciones y acelerar el crecimiento.",
+    "customerService": {
+      "title": "Servicio al Cliente",
+      "description": "Equipos de soporte profesional que representan tu marca con cuidado y experiencia.",
+      "features": [
+        "Soporte Multilingue 24/7",
+        "Soluciones Omnicanal",
+        "Programas de Aseguramiento de Calidad"
+      ]
+    },
+    "backOffice": {
+      "title": "Operaciones de Back Office",
+      "description": "Manejo eficiente de procesos empresariales esenciales para mantener tus operaciones funcionando sin problemas.",
+      "features": [
+        "Entrada y Gestion de Datos",
+        "Procesamiento de Documentos",
+        "Soporte Administrativo"
+      ]
+    },
+    "sales": {
+      "title": "Ventas y Generacion de Leads",
+      "description": "Servicios estrategicos de alcance y calificacion para impulsar tu pipeline de ventas.",
+      "features": [
+        "Campanas de Ventas Salientes",
+        "Calificacion de Leads",
+        "Investigacion de Mercado"
+      ]
+    },
+    "technical": {
+      "title": "Soporte Tecnico",
+      "description": "Asistencia tecnica experta para resolver problemas y apoyar a tus clientes de manera efectiva.",
+      "features": [
+        "Soporte Nivel 1-3",
+        "Resolucion Remota de Problemas",
+        "Documentacion Tecnica"
+      ]
+    }
+  },
+  "about": {
+    "heading": "Tu",
+    "headingHighlight": "Amigo de Confianza",
+    "headingEnd": "en Operaciones Empresariales Globales",
+    "description1": "Paricus combina la calidez de la colaboracion con la confianza de la experiencia. Somos mas que un proveedor de BPO — somos tus aliados de confianza en crecimiento, innovacion y experiencia del cliente.",
+    "description2": "Nuestro compromiso con la excelencia, mejora continua y exito genuino del cliente nos ha convertido en la opcion preferida para empresas que buscan optimizar operaciones y escalar con confianza.",
+    "partnerWithUs": "Asociate con Nosotros",
+    "stats": {
+      "teamMembers": "Miembros del Equipo",
+      "countriesServed": "Paises Atendidos",
+      "yearsExperience": "Anos de Experiencia",
+      "clientSatisfaction": "Satisfaccion del Cliente"
+    },
+    "leadership": "Equipo de Liderazgo",
+    "managingPartner": "Socio Gerente"
+  },
+  "industries": {
+    "heading": "Industrias Que Servimos",
+    "description": "Experiencia especializada en diversos sectores, entregando soluciones personalizadas que comprenden tus desafios unicos.",
+    "healthcare": {
+      "title": "Salud",
+      "description": "Soporte conforme a HIPAA para coordinacion de atencion al paciente, programacion de citas y facturacion medica."
+    },
+    "ecommerce": {
+      "title": "E-Commerce",
+      "description": "Soporte al cliente de extremo a extremo, gestion de pedidos y coordinacion logistica para minoristas en linea."
+    },
+    "technology": {
+      "title": "Tecnologia",
+      "description": "Soporte tecnico, exito del cliente y asistencia de producto para empresas de software y SaaS."
+    },
+    "finance": {
+      "title": "Servicios Financieros",
+      "description": "Soporte seguro y conforme para operaciones bancarias, de seguros y fintech."
+    },
+    "travel": {
+      "title": "Viajes y Hospitalidad",
+      "description": "Gestion de reservas, servicio al cliente y soporte de conserjeria para negocios de viajes."
+    }
+  },
+  "caseStudies": {
+    "heading": "Resultados Comprobados para Clientes Globales",
+    "description": "Historias de exito reales que demuestran nuestro compromiso de entregar impacto medible.",
+    "viewFullCase": "Ver caso completo",
+    "results": "Resultados",
+    "challenge": "Desafio",
+    "solution": "Solucion",
+    "healthcare": {
+      "title": "Como Paricus Mejoro la Eficiencia para un Cliente de Salud",
+      "industry": "Salud",
+      "challenge": "Gestionar altos volumenes de llamadas durante horas pico manteniendo la calidad",
+      "solution": "Implementamos equipo de soporte 24/7 con capacitacion especializada en salud",
+      "efficiencyIncrease": "Aumento de Eficiencia",
+      "fasterResponse": "Respuesta Mas Rapida",
+      "patientSatisfaction": "Satisfaccion del Paciente"
+    },
+    "ecommerce": {
+      "title": "Historia de Exito de Escalamiento E-Commerce",
+      "industry": "E-Commerce",
+      "challenge": "Picos de volumen estacionales que requieren soluciones de personal flexibles",
+      "solution": "Modelo de soporte escalable con miembros del equipo capacitados en multiples areas",
+      "volumeHandled": "Volumen Manejado",
+      "costReduction": "Reduccion de Costos",
+      "orderAccuracy": "Precision de Pedidos"
+    },
+    "technology": {
+      "title": "Transformacion del Soporte de Empresa Tecnologica",
+      "industry": "Tecnologia",
+      "challenge": "Problemas tecnicos complejos que requieren experiencia especializada",
+      "solution": "Estructura de soporte por niveles con capacitacion tecnica continua",
+      "firstCallResolution": "Resolucion en Primera Llamada",
+      "reducedWaitTime": "Tiempo de Espera Reducido",
+      "csatScore": "Puntuacion CSAT"
+    }
+  },
+  "technology": {
+    "heading": "Tecnologia e Innovacion",
+    "description": "Tecnologia de nivel empresarial y estandares de seguridad que impulsan operaciones empresariales excepcionales.",
+    "certificationsTitle": "Certificaciones y Cumplimiento",
+    "techStackTitle": "Stack Tecnologico",
+    "certifications": {
+      "iso27001": {
+        "name": "ISO 27001",
+        "description": "Seguridad de la Informacion"
+      },
+      "iso9001": {
+        "name": "ISO 9001",
+        "description": "Gestion de Calidad"
+      },
+      "hipaa": {
+        "name": "HIPAA",
+        "description": "Cumplimiento de Salud"
+      },
+      "soc2": {
+        "name": "SOC 2",
+        "description": "Seguridad y Disponibilidad"
+      }
+    },
+    "stack": {
+      "security": {
+        "name": "Seguridad Avanzada",
+        "description": "Cifrado de extremo a extremo y proteccion de datos"
+      },
+      "ai": {
+        "name": "IA y Automatizacion",
+        "description": "Flujos de trabajo inteligentes y analisis predictivo"
+      },
+      "analytics": {
+        "name": "Analitica de Datos",
+        "description": "Informacion en tiempo real y reportes"
+      },
+      "cloud": {
+        "name": "Infraestructura en la Nube",
+        "description": "Sistemas escalables y confiables"
+      }
+    },
+    "securityTitle": "Enfoque de Seguridad Primero",
+    "securityDescription": "La seguridad de tus datos es nuestra maxima prioridad. Implementamos medidas de seguridad lideres en la industria, realizamos auditorias regulares y mantenemos estandares de cumplimiento estrictos para proteger tu negocio.",
+    "learnMore": "Conoce Nuestra Seguridad"
+  },
+  "careers": {
+    "heading": "Unete a Nuestro Equipo en Crecimiento",
+    "description": "Se parte de una empresa que valora el crecimiento, la innovacion y el equilibrio entre vida laboral y personal. Siempre buscamos personas talentosas apasionadas por la experiencia del cliente.",
+    "whyJoin": "Por Que Unirte a Paricus?",
+    "benefits": {
+      "growth": {
+        "title": "Crecimiento Profesional",
+        "description": "Rutas de avance claras y oportunidades de desarrollo profesional"
+      },
+      "culture": {
+        "title": "Cultura Inclusiva",
+        "description": "Ambiente diverso y de apoyo donde todos pueden prosperar"
+      },
+      "benefits": {
+        "title": "Beneficios Competitivos",
+        "description": "Seguro medico, bonos por rendimiento y equilibrio vida-trabajo"
+      },
+      "training": {
+        "title": "Capacitacion Continua",
+        "description": "Programas de aprendizaje continuo para desarrollar tus habilidades"
+      }
+    },
+    "positions": "Posiciones Abiertas",
+    "positionsList": {
+      "customerService": {
+        "title": "Representante de Servicio al Cliente",
+        "type": "Tiempo Completo",
+        "location": "Remoto"
+      },
+      "technical": {
+        "title": "Especialista en Soporte Tecnico",
+        "type": "Tiempo Completo",
+        "location": "Hibrido"
+      },
+      "operations": {
+        "title": "Gerente de Operaciones",
+        "type": "Tiempo Completo",
+        "location": "Presencial"
+      }
+    },
+    "applyNow": "Aplicar Ahora",
+    "viewAll": "Ver Todas las Vacantes"
+  },
+  "blog": {
+    "heading": "Perspectivas y Recursos",
+    "description": "Mantente actualizado con tendencias de la industria, mejores practicas y liderazgo de pensamiento de nuestros expertos.",
+    "readMore": "Leer Mas",
+    "posts": {
+      "futureOfBPO": {
+        "title": "El Futuro del BPO: IA y Toque Humano",
+        "date": "15 de Marzo, 2024",
+        "excerpt": "Explorando como la inteligencia artificial esta transformando la industria BPO mientras mantiene el valor irremplazable de la conexion humana.",
+        "category": "Perspectivas de Industria"
+      },
+      "customerExperience": {
+        "title": "5 Formas de Mejorar la Experiencia del Cliente",
+        "date": "10 de Marzo, 2024",
+        "excerpt": "Estrategias practicas para mejorar la satisfaccion del cliente y construir relaciones duraderas en el panorama competitivo actual.",
+        "category": "Mejores Practicas"
+      },
+      "scaling": {
+        "title": "Escalando Tu Negocio con BPO",
+        "date": "5 de Marzo, 2024",
+        "excerpt": "Una guia completa para aprovechar los servicios BPO para un crecimiento sostenible y eficiencia operativa.",
+        "category": "Estrategia de Crecimiento"
+      }
+    }
+  },
+  "contact": {
+    "heading": "Iniciemos una Conversacion",
+    "description": "Listo para transformar tus operaciones? Ponte en contacto con nuestro equipo para discutir como Paricus puede ayudar a tu negocio a prosperar.",
+    "form": {
+      "name": "Nombre Completo",
+      "email": "Correo Electronico",
+      "company": "Nombre de la Empresa",
+      "message": "Cuentanos sobre tus necesidades",
+      "send": "Enviar Mensaje"
+    },
+    "info": {
+      "getInTouch": "Ponte en Contacto",
+      "email": "Correo",
+      "phone": "Telefono",
+      "location": "Ubicacion",
+      "locationValue": "Operaciones Globales",
+      "followUs": "Siguenos"
+    }
+  },
+  "footer": {
+    "description": "Tu socio de confianza en operaciones empresariales globales. Entregando excelencia, innovacion y servicio amigable desde 2009.",
+    "quickLinks": "Enlaces Rapidos",
+    "services": "Servicios",
+    "legal": "Legal",
+    "privacy": "Politica de Privacidad",
+    "terms": "Terminos de Servicio",
+    "security": "Seguridad",
+    "rights": "Todos los derechos reservados."
+  }
+}

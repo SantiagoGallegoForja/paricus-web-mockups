@@ -1,0 +1,141 @@
+---
+import { t, getLocalizedPath, getAlternatePath } from '../../i18n/utils';
+import Icon from './Icon.astro';
+
+interface Props {
+  lang?: string;
+  currentPath?: string;
+}
+
+const { lang = 'en', currentPath = '/' } = Astro.props;
+
+const navItems = [
+  { href: '/services', key: 'nav.services' },
+  { href: '/about', key: 'nav.about' },
+  { href: '/industries', key: 'nav.industries' },
+  { href: '/case-studies', key: 'nav.caseStudies' },
+  { href: '/technology', key: 'nav.technology' },
+  { href: '/careers', key: 'nav.careers' },
+  { href: '/blog', key: 'nav.blog' },
+];
+
+const alternatePath = getAlternatePath(currentPath, lang);
+const alternateLabel = lang === 'en' ? 'ES' : 'EN';
+---
+
+<nav class="fixed top-4 left-0 right-0 z-50 px-6" role="navigation" aria-label="Main navigation">
+  <div class="max-w-[1600px] mx-auto">
+    <div class="bg-white/80 backdrop-blur-xl rounded-2xl shadow-lg shadow-black/5 border border-white/20 px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20">
+        <!-- Logo -->
+        <div class="flex-shrink-0">
+          <a href={getLocalizedPath('/', lang)} class="flex items-center" aria-label="Paricus home">
+            <img
+              src="/assets/PARICUS LOGO (COLOR-NO BG) - Copy.png"
+              alt="Paricus Logo"
+              class="h-12 w-auto transition-transform hover:scale-105 smooth-hover"
+            />
+          </a>
+        </div>
+
+        <!-- Desktop Navigation -->
+        <div class="hidden lg:flex items-center space-x-2" role="menubar">
+          {navItems.map((item) => (
+            <a
+              href={getLocalizedPath(item.href, lang)}
+              class:list={[
+                "relative px-4 py-2 text-sm font-medium transition-all smooth-hover rounded-xl group",
+                currentPath.includes(item.href.replace('/', ''))
+                  ? "text-[#52C17A] bg-[#E8F5E9]/50"
+                  : "text-[#2C3E50] hover:text-[#52C17A] hover:bg-[#E8F5E9]/50"
+              ]}
+              role="menuitem"
+            >
+              <span class="relative z-10">{t(item.key, lang)}</span>
+            </a>
+          ))}
+        </div>
+
+        <!-- Language Toggle & CTA -->
+        <div class="hidden lg:flex items-center space-x-3">
+          <a
+            href={alternatePath}
+            class="flex items-center space-x-2 px-4 py-2 text-[#2C3E50] hover:text-[#52C17A] text-sm font-medium transition-all smooth-hover rounded-xl hover:bg-[#E8F5E9]/50"
+            aria-label="Change language"
+          >
+            <Icon name="globe" class="w-4 h-4" size={16} />
+            <span>{alternateLabel}</span>
+          </a>
+          <a
+            href={getLocalizedPath('/contact', lang)}
+            class="inline-flex items-center justify-center px-8 py-3 rounded-full bg-gradient-to-r from-[#52C17A] to-[#3D9E5F] text-white text-sm font-semibold hover:shadow-xl hover:shadow-[#52C17A]/40 hover:scale-105 transition-all duration-300 smooth-hover"
+            aria-label="Contact us"
+          >
+            {t('nav.contact', lang)}
+          </a>
+        </div>
+
+        <!-- Mobile Menu Button -->
+        <button
+          id="mobile-menu-btn"
+          class="lg:hidden p-2 text-[#2C3E50] hover:bg-[#E8F5E9] rounded-xl transition-colors"
+          aria-label="Open menu"
+          aria-expanded="false"
+        >
+          <Icon name="menu" class="w-6 h-6" size={24} id="menu-icon" />
+          <Icon name="x" class="w-6 h-6 hidden" size={24} id="close-icon" />
+        </button>
+      </div>
+
+      <!-- Mobile Menu -->
+      <div id="mobile-menu" class="hidden lg:hidden py-6 border-t border-[#D5E8D4]" role="menu">
+        <div class="flex flex-col space-y-2">
+          {navItems.map((item) => (
+            <a
+              href={getLocalizedPath(item.href, lang)}
+              class="px-4 py-3 text-[#2C3E50] hover:text-[#52C17A] hover:bg-[#E8F5E9] text-sm font-medium rounded-xl transition-all"
+              role="menuitem"
+            >
+              {t(item.key, lang)}
+            </a>
+          ))}
+          <a
+            href={alternatePath}
+            class="flex items-center justify-center space-x-2 px-4 py-3 text-[#2C3E50] hover:text-[#52C17A] hover:bg-[#E8F5E9] text-sm font-medium rounded-xl transition-all"
+            aria-label="Change language"
+          >
+            <Icon name="globe" class="w-4 h-4" size={16} />
+            <span>{lang === 'en' ? 'Espanol' : 'English'}</span>
+          </a>
+          <a
+            href={getLocalizedPath('/contact', lang)}
+            class="inline-flex items-center justify-center px-8 py-3 mt-4 rounded-full bg-gradient-to-r from-[#52C17A] to-[#3D9E5F] text-white text-sm font-semibold hover:shadow-lg transition-all"
+            role="menuitem"
+          >
+            {t('nav.contact', lang)}
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<script>
+  function initMobileMenu() {
+    const btn = document.getElementById('mobile-menu-btn');
+    const menu = document.getElementById('mobile-menu');
+    const menuIcon = document.getElementById('menu-icon');
+    const closeIcon = document.getElementById('close-icon');
+
+    btn?.addEventListener('click', () => {
+      const isHidden = menu?.classList.toggle('hidden');
+      menuIcon?.classList.toggle('hidden');
+      closeIcon?.classList.toggle('hidden');
+      btn?.setAttribute('aria-expanded', String(!isHidden));
+      btn?.setAttribute('aria-label', isHidden ? 'Open menu' : 'Close menu');
+    });
+  }
+
+  initMobileMenu();
+  document.addEventListener('astro:page-load', initMobileMenu);
+</script>

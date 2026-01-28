@@ -1,0 +1,282 @@
+{
+  "nav": {
+    "services": "Services",
+    "about": "About",
+    "industries": "Industries",
+    "caseStudies": "Case Studies",
+    "technology": "Technology",
+    "careers": "Careers",
+    "blog": "Blog",
+    "contact": "Contact",
+    "getStarted": "Get Started"
+  },
+  "hero": {
+    "badge": "Your Trusted BPO Partner",
+    "title": "Transform Your Operations with",
+    "titleHighlight": "Friendly",
+    "titleEnd": "Outsourcing",
+    "description": "Paricus helps global companies streamline operations, improve efficiency, and scale with confidence — like working with trusted friends.",
+    "exploreServices": "Explore Services",
+    "getInTouch": "Get in Touch",
+    "teamMembers": "Team Members",
+    "yearsExperience": "Years of Experience",
+    "satisfactionRate": "Satisfaction Rate"
+  },
+  "services": {
+    "heading": "Services That Elevate Your Business",
+    "description": "Comprehensive BPO solutions designed to optimize your operations and accelerate growth.",
+    "customerService": {
+      "title": "Customer Service",
+      "description": "Professional support teams that represent your brand with care and expertise.",
+      "features": [
+        "24/7 Multilingual Support",
+        "Omnichannel Solutions",
+        "Quality Assurance Programs"
+      ]
+    },
+    "backOffice": {
+      "title": "Back Office Operations",
+      "description": "Efficient handling of essential business processes to keep your operations running smoothly.",
+      "features": [
+        "Data Entry & Management",
+        "Document Processing",
+        "Administrative Support"
+      ]
+    },
+    "sales": {
+      "title": "Sales & Lead Generation",
+      "description": "Strategic outreach and qualification services to fuel your sales pipeline.",
+      "features": [
+        "Outbound Sales Campaigns",
+        "Lead Qualification",
+        "Market Research"
+      ]
+    },
+    "technical": {
+      "title": "Technical Support",
+      "description": "Expert technical assistance to resolve issues and support your customers effectively.",
+      "features": [
+        "Tier 1-3 Support",
+        "Remote Troubleshooting",
+        "Technical Documentation"
+      ]
+    }
+  },
+  "about": {
+    "heading": "Your",
+    "headingHighlight": "Trusted Friend",
+    "headingEnd": "in Global Business Operations",
+    "description1": "Paricus combines the warmth of partnership with the confidence of expertise. We're more than a BPO provider — we're your trusted allies in growth, innovation, and customer experience.",
+    "description2": "Our commitment to excellence, continuous improvement, and genuine client success has made us the preferred choice for companies looking to optimize operations and scale with confidence.",
+    "partnerWithUs": "Partner with Us",
+    "stats": {
+      "teamMembers": "Team Members",
+      "countriesServed": "Countries Served",
+      "yearsExperience": "Years Experience",
+      "clientSatisfaction": "Client Satisfaction"
+    },
+    "leadership": "Leadership Team",
+    "managingPartner": "Managing Partner"
+  },
+  "industries": {
+    "heading": "Industries We Serve",
+    "description": "Specialized expertise across diverse sectors, delivering tailored solutions that understand your unique challenges.",
+    "healthcare": {
+      "title": "Healthcare",
+      "description": "HIPAA-compliant support for patient care coordination, appointment scheduling, and medical billing."
+    },
+    "ecommerce": {
+      "title": "E-Commerce",
+      "description": "End-to-end customer support, order management, and logistics coordination for online retailers."
+    },
+    "technology": {
+      "title": "Technology",
+      "description": "Technical support, customer success, and product assistance for software and SaaS companies."
+    },
+    "finance": {
+      "title": "Financial Services",
+      "description": "Secure, compliant support for banking, insurance, and fintech operations."
+    },
+    "travel": {
+      "title": "Travel & Hospitality",
+      "description": "Reservation management, customer service, and concierge support for travel businesses."
+    }
+  },
+  "caseStudies": {
+    "heading": "Proven Results for Global Clients",
+    "description": "Real success stories demonstrating our commitment to delivering measurable impact.",
+    "viewFullCase": "View full case study",
+    "results": "Results",
+    "challenge": "Challenge",
+    "solution": "Solution",
+    "healthcare": {
+      "title": "How Paricus Improved Efficiency for a Healthcare Client",
+      "industry": "Healthcare",
+      "challenge": "Managing high call volumes during peak hours while maintaining quality",
+      "solution": "Implemented 24/7 support team with specialized healthcare training",
+      "efficiencyIncrease": "Efficiency Increase",
+      "fasterResponse": "Faster Response",
+      "patientSatisfaction": "Patient Satisfaction"
+    },
+    "ecommerce": {
+      "title": "E-Commerce Scale-Up Success Story",
+      "industry": "E-Commerce",
+      "challenge": "Seasonal volume spikes requiring flexible staffing solutions",
+      "solution": "Scalable support model with cross-trained team members",
+      "volumeHandled": "Volume Handled",
+      "costReduction": "Cost Reduction",
+      "orderAccuracy": "Order Accuracy"
+    },
+    "technology": {
+      "title": "Technology Company Support Transformation",
+      "industry": "Technology",
+      "challenge": "Complex technical issues requiring specialized expertise",
+      "solution": "Tier-based support structure with ongoing technical training",
+      "firstCallResolution": "First Call Resolution",
+      "reducedWaitTime": "Reduced Wait Time",
+      "csatScore": "CSAT Score"
+    }
+  },
+  "technology": {
+    "heading": "Technology & Innovation",
+    "description": "Enterprise-grade technology and security standards that power exceptional business operations.",
+    "certificationsTitle": "Certifications & Compliance",
+    "techStackTitle": "Technology Stack",
+    "certifications": {
+      "iso27001": {
+        "name": "ISO 27001",
+        "description": "Information Security"
+      },
+      "iso9001": {
+        "name": "ISO 9001",
+        "description": "Quality Management"
+      },
+      "hipaa": {
+        "name": "HIPAA",
+        "description": "Healthcare Compliance"
+      },
+      "soc2": {
+        "name": "SOC 2",
+        "description": "Security & Availability"
+      }
+    },
+    "stack": {
+      "security": {
+        "name": "Advanced Security",
+        "description": "End-to-end encryption and data protection"
+      },
+      "ai": {
+        "name": "AI & Automation",
+        "description": "Smart workflows and predictive analytics"
+      },
+      "analytics": {
+        "name": "Data Analytics",
+        "description": "Real-time insights and reporting"
+      },
+      "cloud": {
+        "name": "Cloud Infrastructure",
+        "description": "Scalable and reliable systems"
+      }
+    },
+    "securityTitle": "Security-First Approach",
+    "securityDescription": "Your data security is our top priority. We implement industry-leading security measures, conduct regular audits, and maintain strict compliance standards to protect your business.",
+    "learnMore": "Learn About Our Security"
+  },
+  "careers": {
+    "heading": "Join Our Growing Team",
+    "description": "Be part of a company that values growth, innovation, and work-life balance. We're always looking for talented individuals who are passionate about customer experience.",
+    "whyJoin": "Why Join Paricus?",
+    "benefits": {
+      "growth": {
+        "title": "Career Growth",
+        "description": "Clear advancement paths and professional development opportunities"
+      },
+      "culture": {
+        "title": "Inclusive Culture",
+        "description": "Diverse, supportive environment where everyone can thrive"
+      },
+      "benefits": {
+        "title": "Competitive Benefits",
+        "description": "Health insurance, performance bonuses, and work-life balance"
+      },
+      "training": {
+        "title": "Continuous Training",
+        "description": "Ongoing learning programs to develop your skills"
+      }
+    },
+    "positions": "Open Positions",
+    "positionsList": {
+      "customerService": {
+        "title": "Customer Service Representative",
+        "type": "Full-time",
+        "location": "Remote"
+      },
+      "technical": {
+        "title": "Technical Support Specialist",
+        "type": "Full-time",
+        "location": "Hybrid"
+      },
+      "operations": {
+        "title": "Operations Manager",
+        "type": "Full-time",
+        "location": "On-site"
+      }
+    },
+    "applyNow": "Apply Now",
+    "viewAll": "View All Openings"
+  },
+  "blog": {
+    "heading": "Insights & Resources",
+    "description": "Stay updated with industry trends, best practices, and thought leadership from our experts.",
+    "readMore": "Read More",
+    "posts": {
+      "futureOfBPO": {
+        "title": "The Future of BPO: AI and Human Touch",
+        "date": "March 15, 2024",
+        "excerpt": "Exploring how artificial intelligence is transforming the BPO industry while maintaining the irreplaceable value of human connection.",
+        "category": "Industry Insights"
+      },
+      "customerExperience": {
+        "title": "5 Ways to Improve Customer Experience",
+        "date": "March 10, 2024",
+        "excerpt": "Practical strategies for enhancing customer satisfaction and building lasting relationships in today's competitive landscape.",
+        "category": "Best Practices"
+      },
+      "scaling": {
+        "title": "Scaling Your Business with BPO",
+        "date": "March 5, 2024",
+        "excerpt": "A comprehensive guide to leveraging BPO services for sustainable growth and operational efficiency.",
+        "category": "Growth Strategy"
+      }
+    }
+  },
+  "contact": {
+    "heading": "Let's Start a Conversation",
+    "description": "Ready to transform your operations? Get in touch with our team to discuss how Paricus can help your business thrive.",
+    "form": {
+      "name": "Full Name",
+      "email": "Email Address",
+      "company": "Company Name",
+      "message": "Tell us about your needs",
+      "send": "Send Message"
+    },
+    "info": {
+      "getInTouch": "Get in Touch",
+      "email": "Email",
+      "phone": "Phone",
+      "location": "Location",
+      "locationValue": "Global Operations",
+      "followUs": "Follow Us"
+    }
+  },
+  "footer": {
+    "description": "Your trusted partner in global business operations. Delivering excellence, innovation, and friendly service since 2009.",
+    "quickLinks": "Quick Links",
+    "services": "Services",
+    "legal": "Legal",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service",
+    "security": "Security",
+    "rights": "All rights reserved."
+  }
+}

@@ -1,0 +1,217 @@
+---
+import Layout from '../layouts/Layout.astro';
+import AnimatedSection from '../components/common/AnimatedSection.astro';
+import Icon from '../components/common/Icon.astro';
+import { t } from '../i18n/utils';
+
+const lang = 'en';
+---
+
+<Layout
+  title="Contact Us - Paricus"
+  description="Ready to transform your operations? Get in touch with our team."
+  lang={lang}
+  currentPath="/contact"
+>
+  <section class="py-20 lg:py-32 bg-white pt-40" aria-labelledby="contact-heading">
+    <div class="max-w-[1600px] mx-auto px-6 lg:px-12">
+      <AnimatedSection class="text-center max-w-3xl mx-auto mb-16">
+        <h1 id="contact-heading" class="text-4xl lg:text-5xl font-bold text-[#2C3E50] mb-6 leading-tight">
+          {t('contact.heading', lang)}
+        </h1>
+        <p class="text-lg text-[#5D6D7E] leading-relaxed">
+          {t('contact.description', lang)}
+        </p>
+      </AnimatedSection>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <!-- Form Section -->
+        <AnimatedSection animation="slide-left">
+          <div class="bg-[#FAFAF8] rounded-3xl p-8 lg:p-10 border border-[#D5E8D4]">
+            <h2 class="text-2xl font-bold text-[#2C3E50] mb-6">
+              {t('contact.info.getInTouch', lang)}
+            </h2>
+            <form class="space-y-6" aria-label="Contact form">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div>
+                  <label for="firstName" class="block text-sm font-semibold text-[#2C3E50] mb-2">
+                    {t('contact.form.name', lang)}
+                  </label>
+                  <input
+                    type="text"
+                    id="firstName"
+                    name="firstName"
+                    class="w-full px-4 py-3 rounded-xl border border-[#D5E8D4] bg-white focus:border-[#52C17A] focus:ring-2 focus:ring-[#52C17A] focus:ring-opacity-20 outline-none transition-all"
+                    placeholder="John"
+                    required
+                    aria-required="true"
+                  />
+                </div>
+                <div>
+                  <label for="lastName" class="block text-sm font-semibold text-[#2C3E50] mb-2">
+                    Last Name
+                  </label>
+                  <input
+                    type="text"
+                    id="lastName"
+                    name="lastName"
+                    class="w-full px-4 py-3 rounded-xl border border-[#D5E8D4] bg-white focus:border-[#52C17A] focus:ring-2 focus:ring-[#52C17A] focus:ring-opacity-20 outline-none transition-all"
+                    placeholder="Doe"
+                    required
+                    aria-required="true"
+                  />
+                </div>
+              </div>
+              <div>
+                <label for="email" class="block text-sm font-semibold text-[#2C3E50] mb-2">
+                  {t('contact.form.email', lang)}
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  class="w-full px-4 py-3 rounded-xl border border-[#D5E8D4] bg-white focus:border-[#52C17A] focus:ring-2 focus:ring-[#52C17A] focus:ring-opacity-20 outline-none transition-all"
+                  placeholder="john.doe@company.com"
+                  required
+                  aria-required="true"
+                />
+              </div>
+              <div>
+                <label for="company" class="block text-sm font-semibold text-[#2C3E50] mb-2">
+                  {t('contact.form.company', lang)}
+                </label>
+                <input
+                  type="text"
+                  id="company"
+                  name="company"
+                  class="w-full px-4 py-3 rounded-xl border border-[#D5E8D4] bg-white focus:border-[#52C17A] focus:ring-2 focus:ring-[#52C17A] focus:ring-opacity-20 outline-none transition-all"
+                  placeholder="Your Company"
+                />
+              </div>
+              <div>
+                <label for="message" class="block text-sm font-semibold text-[#2C3E50] mb-2">
+                  {t('contact.form.message', lang)}
+                </label>
+                <textarea
+                  id="message"
+                  name="message"
+                  rows="4"
+                  class="w-full px-4 py-3 rounded-xl border border-[#D5E8D4] bg-white focus:border-[#52C17A] focus:ring-2 focus:ring-[#52C17A] focus:ring-opacity-20 outline-none transition-all resize-none"
+                  placeholder="Tell us about your needs..."
+                  required
+                  aria-required="true"
+                ></textarea>
+              </div>
+              <button
+                type="submit"
+                class="w-full px-8 py-4 rounded-2xl bg-gradient-to-r from-[#52C17A] to-[#3D9E5F] text-white text-base font-semibold hover:shadow-2xl hover:shadow-[#52C17A]/50 hover:scale-105 transition-all duration-300"
+                aria-label="Send your message"
+              >
+                {t('contact.form.send', lang)}
+              </button>
+            </form>
+          </div>
+        </AnimatedSection>
+
+        <!-- Info Section -->
+        <AnimatedSection animation="slide-right" class="space-y-8">
+          <div>
+            <h2 class="text-2xl font-bold text-[#2C3E50] mb-6">
+              {t('contact.info.getInTouch', lang)}
+            </h2>
+            <address class="space-y-6 not-italic">
+              <div class="group flex items-start gap-4 cursor-pointer transition-all duration-300 hover:translate-x-2">
+                <div class="w-14 h-14 rounded-2xl bg-[#E8F5E9] flex items-center justify-center flex-shrink-0 group-hover:scale-110 group-hover:rotate-6 group-hover:bg-gradient-to-br group-hover:from-[#52C17A] group-hover:to-[#3D9E5F] transition-all duration-500" aria-hidden="true">
+                  <Icon name="phone" class="w-6 h-6 text-[#52C17A] group-hover:text-white transition-colors" size={24} />
+                </div>
+                <div>
+                  <h3 class="text-sm font-bold text-[#2C3E50] mb-1 uppercase tracking-wide">
+                    {t('contact.info.phone', lang)}
+                  </h3>
+                  <a href="tel:+15551234567" class="text-base text-[#5D6D7E] hover:text-[#52C17A] transition-colors">
+                    +1 (555) 123-4567
+                  </a>
+                </div>
+              </div>
+              <div class="group flex items-start gap-4 cursor-pointer transition-all duration-300 hover:translate-x-2">
+                <div class="w-14 h-14 rounded-2xl bg-[#E8F5E9] flex items-center justify-center flex-shrink-0 group-hover:scale-110 group-hover:rotate-6 group-hover:bg-gradient-to-br group-hover:from-[#52C17A] group-hover:to-[#3D9E5F] transition-all duration-500" aria-hidden="true">
+                  <Icon name="mail" class="w-6 h-6 text-[#52C17A] group-hover:text-white transition-colors" size={24} />
+                </div>
+                <div>
+                  <h3 class="text-sm font-bold text-[#2C3E50] mb-1 uppercase tracking-wide">
+                    {t('contact.info.email', lang)}
+                  </h3>
+                  <a href="mailto:contact@paricus.com" class="text-base text-[#5D6D7E] hover:text-[#52C17A] transition-colors">
+                    contact@paricus.com
+                  </a>
+                </div>
+              </div>
+              <div class="group flex items-start gap-4 cursor-pointer transition-all duration-300 hover:translate-x-2">
+                <div class="w-14 h-14 rounded-2xl bg-[#E8F5E9] flex items-center justify-center flex-shrink-0 group-hover:scale-110 group-hover:rotate-6 group-hover:bg-gradient-to-br group-hover:from-[#52C17A] group-hover:to-[#3D9E5F] transition-all duration-500" aria-hidden="true">
+                  <Icon name="map-pin" class="w-6 h-6 text-[#52C17A] group-hover:text-white transition-colors" size={24} />
+                </div>
+                <div>
+                  <h3 class="text-sm font-bold text-[#2C3E50] mb-1 uppercase tracking-wide">
+                    {t('contact.info.location', lang)}
+                  </h3>
+                  <p class="text-base text-[#5D6D7E]">
+                    {t('contact.info.locationValue', lang)}
+                  </p>
+                </div>
+              </div>
+            </address>
+          </div>
+
+          <div>
+            <h2 class="text-2xl font-bold text-[#2C3E50] mb-6">
+              {t('contact.info.followUs', lang)}
+            </h2>
+            <div class="flex gap-4" role="list" aria-label="Social media links">
+              <a
+                href="#"
+                class="group w-14 h-14 rounded-2xl bg-[#E8F5E9] flex items-center justify-center hover:scale-110 hover:rotate-6 hover:bg-gradient-to-br hover:from-[#52C17A] hover:to-[#3D9E5F] transition-all duration-500"
+                aria-label="Follow us on LinkedIn"
+              >
+                <Icon name="linkedin" class="w-6 h-6 text-[#52C17A] group-hover:text-white transition-colors" size={24} />
+              </a>
+              <a
+                href="#"
+                class="group w-14 h-14 rounded-2xl bg-[#E8F5E9] flex items-center justify-center hover:scale-110 hover:rotate-6 hover:bg-gradient-to-br hover:from-[#52C17A] hover:to-[#3D9E5F] transition-all duration-500"
+                aria-label="Follow us on Instagram"
+              >
+                <Icon name="instagram" class="w-6 h-6 text-[#52C17A] group-hover:text-white transition-colors" size={24} />
+              </a>
+              <a
+                href="#"
+                class="group w-14 h-14 rounded-2xl bg-[#E8F5E9] flex items-center justify-center hover:scale-110 hover:rotate-6 hover:bg-gradient-to-br hover:from-[#52C17A] hover:to-[#3D9E5F] transition-all duration-500"
+                aria-label="Follow us on Facebook"
+              >
+                <Icon name="facebook" class="w-6 h-6 text-[#52C17A] group-hover:text-white transition-colors" size={24} />
+              </a>
+            </div>
+          </div>
+
+          <div class="bg-[#FAFAF8] rounded-3xl p-8 border border-[#D5E8D4]">
+            <h3 class="text-lg font-bold text-[#2C3E50] mb-4">
+              Business Hours
+            </h3>
+            <dl class="space-y-3 text-sm text-[#5D6D7E]">
+              <div class="flex justify-between py-2 border-b border-[#D5E8D4]">
+                <dt class="font-medium">Monday - Friday</dt>
+                <dd>9:00 AM - 6:00 PM EST</dd>
+              </div>
+              <div class="flex justify-between py-2 border-b border-[#D5E8D4]">
+                <dt class="font-medium">Saturday</dt>
+                <dd>10:00 AM - 4:00 PM EST</dd>
+              </div>
+              <div class="flex justify-between py-2">
+                <dt class="font-medium">Sunday</dt>
+                <dd>Closed</dd>
+              </div>
+            </dl>
+          </div>
+        </AnimatedSection>
+      </div>
+    </div>
+  </section>
+</Layout>

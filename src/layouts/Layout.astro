@@ -1,0 +1,48 @@
+---
+import '../styles/global.css';
+import Navigation from '../components/common/Navigation.astro';
+import Footer from '../components/common/Footer.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+  lang?: string;
+  currentPath?: string;
+}
+
+const {
+  title = 'Paricus - Your Trusted BPO Partner',
+  description = 'Paricus helps global companies streamline operations, improve efficiency, and scale with confidence.',
+  lang = 'en',
+  currentPath = '/'
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="description" content={description} />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+  </head>
+  <body class="min-h-screen bg-[#FAFAF8]">
+    <Navigation lang={lang} currentPath={currentPath} />
+    <main>
+      <slot />
+    </main>
+    <Footer lang={lang} />
+  </body>
+</html>
+
+<style>
+  html,
+  body {
+    margin: 0;
+    width: 100%;
+    min-height: 100%;
+  }
+</style>
