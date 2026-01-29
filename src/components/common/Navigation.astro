@@ -5,9 +5,10 @@ import Icon from './Icon.astro';
 interface Props {
   lang?: string;
   currentPath?: string;
+  alternatePath?: string; // Custom alternate path for articles with different slugs per language
 }
 
-const { lang = 'en', currentPath = '/' } = Astro.props;
+const { lang = 'en', currentPath = '/', alternatePath: customAlternatePath } = Astro.props;
 
 const navItems = [
   { href: '/services', key: 'nav.services' },
@@ -19,7 +20,8 @@ const navItems = [
   { href: '/blog', key: 'nav.blog' },
 ];
 
-const alternatePath = getAlternatePath(currentPath, lang);
+// Use custom alternate path if provided, otherwise calculate it
+const alternatePath = customAlternatePath || getAlternatePath(currentPath, lang);
 const alternateLabel = lang === 'en' ? 'ES' : 'EN';
 ---
 

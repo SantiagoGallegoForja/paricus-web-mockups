@@ -1,0 +1,351 @@
+// Strapi API connection with cache and i18n support
+
+const STRAPI_URL = 'https://miraculous-action-c5f583a855.strapiapp.com';
+
+// Cache configuration
+const CACHE_TTL = 5 * 60 * 1000; // 5 minutes
+const isDev = import.meta.env.DEV;
+
+interface CacheEntry<T> {
+  data: T;
+  timestamp: number;
+}
+
+const cache = new Map<string, CacheEntry<any>>();
+
+function getCached<T>(key: string): T | null {
+  const entry = cache.get(key);
+  if (!entry) return null;
+
+  const isExpired = Date.now() - entry.timestamp > CACHE_TTL;
+  if (isExpired) {
+    cache.delete(key);
+    return null;
+  }
+
+  if (isDev) console.log(`[Strapi Cache] HIT: ${key}`);
+  return entry.data;
+}
+
+function setCache<T>(key: string, data: T): void {
+  cache.set(key, { data, timestamp: Date.now() });
+  if (isDev) console.log(`[Strapi Cache] SET: ${key}`);
+}
+
+export function clearCache(): void {
+  cache.clear();
+  console.log('[Strapi Cache] Cleared');
+}
+
+// Types
+export interface StrapiImage {
+  url: string;
+  alternativeText?: string;
+  width?: number;
+  height?: number;
+}
+
+export interface StrapiAuthor {
+  id: number;
+  name: string;
+  email?: string;
+  avatar?: StrapiImage;
+}
+
+export interface StrapiCategory {
+  id: number;
+  name: string;
+  slug: string;
+  description?: string;
+}
+
+export interface StrapiArticle {
+  id: number;
+  documentId?: string;
+  title: string;
+  slug: string;
+  description: string;
+  cover?: StrapiImage;
+  author?: StrapiAuthor;
+  category?: StrapiCategory;
+  blocks?: any[];
+  publishedAt: string;
+  createdAt: string;
+  locale?: string;
+  localizations?: StrapiArticle[];
+}
+
+export interface StrapiResponse<T> {
+  data: T;
+  meta?: {
+    pagination?: {
+      page: number;
+      pageSize: number;
+      pageCount: number;
+      total: number;
+    };
+  };
+}
+
+// Locale mapping
+type SupportedLocale = 'en' | 'es';
+
+function getStrapiLocale(lang: string): string {
+  const localeMap: Record<string, string> = {
+    'en': 'en',
+    'es': 'es-CO', // Strapi uses es-CO for Spanish (Colombia)
+  };
+  return localeMap[lang] || 'en';
+}
+
+// Helper to build full image URL
+export function getStrapiImageUrl(image?: StrapiImage): string | null {
+  if (!image?.url) return null;
+  if (image.url.startsWith('http')) return image.url;
+  return `${STRAPI_URL}${image.url}`;
+}
+
+// Fetch all articles by locale
+export async function getArticles(lang: SupportedLocale = 'en'): Promise<StrapiArticle[]> {
+  const locale = getStrapiLocale(lang);
+  const cacheKey = `articles:${locale}`;
+
+  const cached = getCached<StrapiArticle[]>(cacheKey);
+  if (cached) return cached;
+
+  try {
+    if (isDev) console.log(`[Strapi API] Fetching articles for locale: ${locale}`);
+
+    // Try with locale filter first (for i18n enabled)
+    let url = `${STRAPI_URL}/api/articles?populate=*&sort=publishedAt:desc&locale=${locale}`;
+
+    let response = await fetch(url);
+
+    // If locale filter fails or returns empty, try without locale (backward compatible)
+    if (!response.ok) {
+      if (isDev) console.log('[Strapi API] Locale filter failed, trying without locale...');
+      url = `${STRAPI_URL}/api/articles?populate=*&sort=publishedAt:desc`;
+      response = await fetch(url);
+    }
+
+    if (!response.ok) {
+      console.error('Failed to fetch articles:', response.status);
+      return [];
+    }
+
+    const json: StrapiResponse<StrapiArticle[]> = await response.json();
+    let articles = json.data || [];
+
+    // If i18n is not enabled, return all articles
+    // If i18n is enabled but returns empty for locale, the array will be empty
+
+    setCache(cacheKey, articles);
+    return articles;
+  } catch (error) {
+    console.error('Error fetching articles:', error);
+    return [];
+  }
+}
+
+// Fetch single article by slug and locale
+export async function getArticleBySlug(slug: string, lang: SupportedLocale = 'en'): Promise<StrapiArticle | null> {
+  const locale = getStrapiLocale(lang);
+  const cacheKey = `article:${slug}:${locale}`;
+
+  const cached = getCached<StrapiArticle | null>(cacheKey);
+  if (cached !== null) return cached;
+
+  try {
+    if (isDev) console.log(`[Strapi API] Fetching article: ${slug} (${locale})`);
+
+    // Try with locale filter first, include localizations for alternate language links
+    let url = `${STRAPI_URL}/api/articles?filters[slug][$eq]=${slug}&populate[cover]=*&populate[author][populate]=avatar&populate[category]=*&populate[blocks]=*&populate[localizations][fields][0]=slug&populate[localizations][fields][1]=locale&locale=${locale}`;
+
+    let response = await fetch(url);
+    let json: StrapiResponse<StrapiArticle[]> = await response.json();
+    let article = json.data?.[0] || null;
+
+    // If not found with locale, try without locale (backward compatible)
+    if (!article) {
+      if (isDev) console.log('[Strapi API] Article not found with locale, trying without...');
+      url = `${STRAPI_URL}/api/articles?filters[slug][$eq]=${slug}&populate=*`;
+      response = await fetch(url);
+      json = await response.json();
+      article = json.data?.[0] || null;
+    }
+
+    setCache(cacheKey, article);
+    return article;
+  } catch (error) {
+    console.error('Error fetching article:', error);
+    return null;
+  }
+}
+
+// Helper to get the alternate language article path
+export function getAlternateArticlePath(article: StrapiArticle, currentLang: SupportedLocale): string | null {
+  if (!article.localizations || article.localizations.length === 0) {
+    return null;
+  }
+
+  // Map to Strapi locales
+  const alternateStrapiLocale = currentLang === 'en' ? 'es-CO' : 'en';
+  const alternateArticle = article.localizations.find(
+    (loc) => loc.locale === alternateStrapiLocale
+  );
+
+  if (!alternateArticle?.slug) {
+    return null;
+  }
+
+  // Return the full path for the alternate language
+  if (currentLang === 'en') {
+    return `/es/blog/${alternateArticle.slug}`;
+  } else {
+    return `/blog/${alternateArticle.slug}`;
+  }
+}
+
+// Fetch all categories by locale
+export async function getCategories(lang: SupportedLocale = 'en'): Promise<StrapiCategory[]> {
+  const locale = getStrapiLocale(lang);
+  const cacheKey = `categories:${locale}`;
+
+  const cached = getCached<StrapiCategory[]>(cacheKey);
+  if (cached) return cached;
+
+  try {
+    if (isDev) console.log(`[Strapi API] Fetching categories for locale: ${locale}`);
+
+    let url = `${STRAPI_URL}/api/categories?locale=${locale}`;
+    let response = await fetch(url);
+
+    if (!response.ok) {
+      url = `${STRAPI_URL}/api/categories`;
+      response = await fetch(url);
+    }
+
+    if (!response.ok) {
+      console.error('Failed to fetch categories:', response.status);
+      return [];
+    }
+
+    const json: StrapiResponse<StrapiCategory[]> = await response.json();
+    const categories = json.data || [];
+
+    setCache(cacheKey, categories);
+    return categories;
+  } catch (error) {
+    console.error('Error fetching categories:', error);
+    return [];
+  }
+}
+
+// Get all article slugs for all locales (for static paths)
+export async function getAllArticleSlugs(): Promise<{ slug: string; locale: string }[]> {
+  const cacheKey = 'all-article-slugs';
+
+  const cached = getCached<{ slug: string; locale: string }[]>(cacheKey);
+  if (cached) return cached;
+
+  try {
+    // Fetch articles for all locales
+    const [enArticles, esArticles] = await Promise.all([
+      getArticles('en'),
+      getArticles('es'),
+    ]);
+
+    const slugs: { slug: string; locale: string }[] = [];
+
+    enArticles.forEach((article) => {
+      slugs.push({ slug: article.slug, locale: 'en' });
+    });
+
+    esArticles.forEach((article) => {
+      slugs.push({ slug: article.slug, locale: 'es' });
+    });
+
+    // Remove duplicates (in case i18n is not enabled)
+    const uniqueSlugs = slugs.filter((item, index, self) =>
+      index === self.findIndex((t) => t.slug === item.slug && t.locale === item.locale)
+    );
+
+    setCache(cacheKey, uniqueSlugs);
+    return uniqueSlugs;
+  } catch (error) {
+    console.error('Error fetching all slugs:', error);
+    return [];
+  }
+}
+
+// Homepage types
+export interface HeroStat {
+  id: number;
+  value: string;
+  label: string;
+}
+
+export interface HomepageHero {
+  badge?: string;
+  title?: string;
+  titleHighlight?: string;
+  titleEnd?: string;
+  description?: string;
+  primaryButtonText?: string;
+  secondaryButtonText?: string;
+  stats?: HeroStat[];
+}
+
+export interface Homepage {
+  hero?: HomepageHero;
+}
+
+// Fetch homepage content by locale
+export async function getHomepage(lang: SupportedLocale = 'en'): Promise<Homepage | null> {
+  const locale = getStrapiLocale(lang);
+  const cacheKey = `homepage:${locale}`;
+
+  const cached = getCached<Homepage | null>(cacheKey);
+  if (cached !== null) return cached;
+
+  try {
+    if (isDev) console.log(`[Strapi API] Fetching homepage for locale: ${locale}`);
+
+    // Fetch homepage single type with nested hero component
+    let url = `${STRAPI_URL}/api/homepage?populate[hero][populate]=stats&locale=${locale}`;
+
+    let response = await fetch(url);
+
+    if (!response.ok) {
+      // Try without locale (backward compatible)
+      if (isDev) console.log('[Strapi API] Homepage not found with locale, trying without...');
+      url = `${STRAPI_URL}/api/homepage?populate[hero][populate]=stats`;
+      response = await fetch(url);
+    }
+
+    if (!response.ok) {
+      if (isDev) console.log('[Strapi API] Homepage not found');
+      setCache(cacheKey, null);
+      return null;
+    }
+
+    const json = await response.json();
+    const homepage = json.data || null;
+
+    setCache(cacheKey, homepage);
+    return homepage;
+  } catch (error) {
+    console.error('Error fetching homepage:', error);
+    return null;
+  }
+}
+
+// Format date for display
+export function formatDate(dateString: string, lang: string = 'en'): string {
+  const date = new Date(dateString);
+  return date.toLocaleDateString(lang === 'es' ? 'es-ES' : 'en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  });
+}

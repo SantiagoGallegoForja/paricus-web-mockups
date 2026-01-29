@@ -1,0 +1,423 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import AnimatedSection from '../../components/common/AnimatedSection.astro';
+import Icon from '../../components/common/Icon.astro';
+import { t } from '../../i18n/utils';
+import { getArticles, getArticleBySlug, getStrapiImageUrl, formatDate, getAlternateArticlePath } from '../../lib/strapi';
+
+const lang = 'en';
+const SITE_URL = 'https://paricus.com';
+
+// Get all articles for static paths
+export async function getStaticPaths() {
+  const articles = await getArticles('en');
+  return articles.map((article) => ({
+    params: { slug: article.slug },
+  }));
+}
+
+const { slug } = Astro.params;
+const article = await getArticleBySlug(slug as string, lang);
+
+if (!article) {
+  return Astro.redirect('/blog');
+}
+
+const coverUrl = getStrapiImageUrl(article.cover);
+const canonicalUrl = `${SITE_URL}/blog/${article.slug}`;
+// Get the alternate article path (with correct slug for the other language)
+const alternatePath = getAlternateArticlePath(article, lang) || `/es/blog/${article.slug}`;
+const alternateUrl = `${SITE_URL}${alternatePath}`;
+
+// Calculate reading time (approx 200 words per minute)
+const wordCount = article.blocks?.reduce((acc: number, block: any) => {
+  if (block.__component === 'shared.rich-text' && block.body) {
+    return acc + block.body.split(/\s+/).length;
+  }
+  return acc;
+}, 0) || 0;
+const readingTime = Math.max(1, Math.ceil(wordCount / 200));
+
+// JSON-LD Schema for Article
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": article.title,
+  "description": article.description,
+  "image": coverUrl || `${SITE_URL}/assets/PARICUS LOGO (COLOR-NO BG) - Copy.png`,
+  "author": {
+    "@type": "Person",
+    "name": article.author?.name || "Paricus Team"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Paricus",
+    "logo": {
+      "@type": "ImageObject",
+      "url": `${SITE_URL}/assets/PARICUS LOGO (COLOR-NO BG) - Copy.png`
+    }
+  },
+  "datePublished": article.publishedAt,
+  "dateModified": article.createdAt,
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": canonicalUrl
+  },
+  "inLanguage": "en-US",
+  "articleSection": article.category?.name || "Business",
+  "wordCount": wordCount,
+  "url": canonicalUrl
+};
+
+// Breadcrumb Schema
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": SITE_URL
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Blog",
+      "item": `${SITE_URL}/blog`
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": article.title,
+      "item": canonicalUrl
+    }
+  ]
+};
+---
+
+<Layout
+  title={`${article.title} | Paricus Blog`}
+  description={article.description}
+  lang={lang}
+  currentPath={`/blog/${article.slug}`}
+  alternatePath={alternatePath}
+  ogImage={coverUrl || undefined}
+  ogType="article"
+  canonicalUrl={canonicalUrl}
+  publishedTime={article.publishedAt}
+  modifiedTime={article.createdAt}
+  author={article.author?.name}
+  tags={article.category ? [article.category.name] : []}
+>
+  <!-- JSON-LD Schemas -->
+  <Fragment slot="schema">
+    <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+  </Fragment>
+
+  <article class="py-20 lg:py-32 bg-[#FAFAF8] pt-40" itemscope itemtype="https://schema.org/Article">
+    <div class="max-w-[900px] mx-auto px-6 lg:px-12">
+
+      <!-- Breadcrumbs -->
+      <AnimatedSection>
+        <nav aria-label="Breadcrumb" class="mb-8">
+          <ol class="flex items-center gap-2 text-sm text-[#5D6D7E]" itemscope itemtype="https://schema.org/BreadcrumbList">
+            <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+              <a href="/" itemprop="item" class="hover:text-[#52C17A] transition-colors">
+                <span itemprop="name">Home</span>
+              </a>
+              <meta itemprop="position" content="1" />
+            </li>
+            <li class="text-[#D5E8D4]">/</li>
+            <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+              <a href="/blog" itemprop="item" class="hover:text-[#52C17A] transition-colors">
+                <span itemprop="name">Blog</span>
+              </a>
+              <meta itemprop="position" content="2" />
+            </li>
+            <li class="text-[#D5E8D4]">/</li>
+            <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem" class="text-[#52C17A] font-medium truncate max-w-[200px]">
+              <span itemprop="name">{article.title}</span>
+              <meta itemprop="position" content="3" />
+            </li>
+          </ol>
+        </nav>
+      </AnimatedSection>
+
+      <!-- Header -->
+      <AnimatedSection>
+        <header class="mb-8">
+          {article.category && (
+            <a
+              href={`/blog?category=${article.category.slug}`}
+              class="inline-block px-4 py-2 bg-[#E8F5E9] text-[#52C17A] text-xs font-semibold rounded-full mb-4 hover:bg-[#52C17A] hover:text-white transition-colors"
+              itemprop="articleSection"
+            >
+              {article.category.name}
+            </a>
+          )}
+          <h1
+            class="text-4xl lg:text-5xl font-bold text-[#2C3E50] mb-6 leading-tight"
+            itemprop="headline"
+          >
+            {article.title}
+          </h1>
+          <p
+            class="text-xl text-[#5D6D7E] leading-relaxed mb-6"
+            itemprop="description"
+          >
+            {article.description}
+          </p>
+
+          <!-- Meta info -->
+          <div class="flex flex-wrap items-center gap-4 lg:gap-6 text-sm text-[#5D6D7E] pb-6 border-b border-[#D5E8D4]">
+            <time
+              class="flex items-center"
+              datetime={article.publishedAt}
+              itemprop="datePublished"
+            >
+              <Icon name="calendar" class="w-4 h-4 mr-2" size={16} />
+              {formatDate(article.publishedAt, lang)}
+            </time>
+            {article.author && (
+              <span class="flex items-center" itemprop="author" itemscope itemtype="https://schema.org/Person">
+                <Icon name="user" class="w-4 h-4 mr-2" size={16} />
+                <span itemprop="name">{article.author.name}</span>
+              </span>
+            )}
+            <span class="flex items-center">
+              <Icon name="clock" class="w-4 h-4 mr-2" size={16} />
+              {readingTime} min read
+            </span>
+          </div>
+        </header>
+      </AnimatedSection>
+
+      <!-- Cover Image -->
+      {coverUrl && (
+        <AnimatedSection class="mb-10">
+          <figure>
+            <img
+              src={coverUrl}
+              alt={article.cover?.alternativeText || article.title}
+              class="w-full h-auto rounded-2xl shadow-lg"
+              itemprop="image"
+              loading="eager"
+            />
+          </figure>
+        </AnimatedSection>
+      )}
+
+      <!-- Content Blocks -->
+      <AnimatedSection>
+        <div class="prose prose-lg max-w-none" itemprop="articleBody">
+          {article.blocks && article.blocks.map((block: any) => {
+            if (block.__component === 'shared.rich-text') {
+              return (
+                <div class="text-[#5D6D7E] leading-relaxed mb-6" set:html={block.body} />
+              );
+            }
+            if (block.__component === 'shared.quote') {
+              return (
+                <blockquote class="border-l-4 border-[#52C17A] pl-6 my-8 italic text-[#5D6D7E]">
+                  <p class="text-xl">{block.body}</p>
+                  {block.title && <cite class="text-sm font-semibold not-italic">- {block.title}</cite>}
+                </blockquote>
+              );
+            }
+            if (block.__component === 'shared.media') {
+              const mediaUrl = getStrapiImageUrl(block.file);
+              return mediaUrl && (
+                <figure class="my-8">
+                  <img
+                    src={mediaUrl}
+                    alt={block.file?.alternativeText || ''}
+                    class="w-full rounded-xl"
+                    loading="lazy"
+                  />
+                </figure>
+              );
+            }
+            if (block.__component === 'shared.slider' && block.files) {
+              return (
+                <div class="my-8 grid grid-cols-2 gap-4">
+                  {block.files.map((file: any) => {
+                    const fileUrl = getStrapiImageUrl(file);
+                    return fileUrl && (
+                      <img
+                        src={fileUrl}
+                        alt={file.alternativeText || ''}
+                        class="w-full rounded-xl"
+                        loading="lazy"
+                      />
+                    );
+                  })}
+                </div>
+              );
+            }
+            return null;
+          })}
+        </div>
+      </AnimatedSection>
+
+      <!-- Tags -->
+      {article.category && (
+        <AnimatedSection class="mt-8 pt-8 border-t border-[#D5E8D4]">
+          <div class="flex items-center gap-2">
+            <Icon name="tag" class="w-4 h-4 text-[#5D6D7E]" size={16} />
+            <span class="text-sm text-[#5D6D7E]">Tags:</span>
+            <a
+              href={`/blog?category=${article.category.slug}`}
+              class="px-3 py-1 bg-[#E8F5E9] text-[#52C17A] text-xs font-medium rounded-full hover:bg-[#52C17A] hover:text-white transition-colors"
+            >
+              {article.category.name}
+            </a>
+          </div>
+        </AnimatedSection>
+      )}
+
+      <!-- Author Card -->
+      {article.author && (
+        <AnimatedSection class="mt-8">
+          <div
+            class="flex items-center gap-4 p-6 bg-white rounded-2xl border border-[#D5E8D4]"
+            itemprop="author"
+            itemscope
+            itemtype="https://schema.org/Person"
+          >
+            {article.author.avatar && (
+              <img
+                src={getStrapiImageUrl(article.author.avatar) || ''}
+                alt={article.author.name}
+                class="w-16 h-16 rounded-full object-cover"
+                itemprop="image"
+              />
+            )}
+            <div>
+              <p class="text-sm text-[#5D6D7E] mb-1">Written by</p>
+              <p class="text-lg font-semibold text-[#2C3E50]" itemprop="name">{article.author.name}</p>
+            </div>
+          </div>
+        </AnimatedSection>
+      )}
+
+      <!-- Share Buttons -->
+      <AnimatedSection class="mt-8">
+        <div class="flex items-center gap-4">
+          <span class="text-sm font-medium text-[#5D6D7E]">Share:</span>
+          <a
+            href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(canonicalUrl)}&text=${encodeURIComponent(article.title)}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="w-10 h-10 rounded-full bg-[#E8F5E9] flex items-center justify-center hover:bg-[#52C17A] hover:text-white text-[#52C17A] transition-colors"
+            aria-label="Share on Twitter"
+          >
+            <Icon name="twitter" class="w-5 h-5" size={20} />
+          </a>
+          <a
+            href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(canonicalUrl)}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="w-10 h-10 rounded-full bg-[#E8F5E9] flex items-center justify-center hover:bg-[#52C17A] hover:text-white text-[#52C17A] transition-colors"
+            aria-label="Share on LinkedIn"
+          >
+            <Icon name="linkedin" class="w-5 h-5" size={20} />
+          </a>
+          <a
+            href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(canonicalUrl)}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="w-10 h-10 rounded-full bg-[#E8F5E9] flex items-center justify-center hover:bg-[#52C17A] hover:text-white text-[#52C17A] transition-colors"
+            aria-label="Share on Facebook"
+          >
+            <Icon name="facebook" class="w-5 h-5" size={20} />
+          </a>
+          <button
+            onclick={`navigator.clipboard.writeText('${canonicalUrl}')`}
+            class="w-10 h-10 rounded-full bg-[#E8F5E9] flex items-center justify-center hover:bg-[#52C17A] hover:text-white text-[#52C17A] transition-colors"
+            aria-label="Copy link"
+          >
+            <Icon name="link" class="w-5 h-5" size={20} />
+          </button>
+        </div>
+      </AnimatedSection>
+
+      <!-- CTA -->
+      <AnimatedSection class="mt-12 text-center p-8 bg-gradient-to-br from-[#E8F5E9] to-white rounded-2xl border border-[#D5E8D4]">
+        <h3 class="text-2xl font-bold text-[#2C3E50] mb-4">Ready to transform your operations?</h3>
+        <p class="text-[#5D6D7E] mb-6">Let's discuss how Paricus can help your business grow.</p>
+        <a
+          href="/contact"
+          class="inline-flex items-center px-8 py-4 rounded-full bg-gradient-to-r from-[#52C17A] to-[#3D9E5F] text-white font-semibold hover:shadow-xl hover:shadow-[#52C17A]/40 hover:scale-105 transition-all"
+        >
+          Get in Touch
+          <Icon name="arrow-right" class="ml-2 w-5 h-5" size={20} />
+        </a>
+      </AnimatedSection>
+
+      <!-- Back to Blog -->
+      <AnimatedSection class="mt-8 text-center">
+        <a
+          href="/blog"
+          class="inline-flex items-center text-[#5D6D7E] hover:text-[#52C17A] font-medium transition-colors"
+        >
+          <Icon name="arrow-left" class="w-4 h-4 mr-2" size={16} />
+          Back to all articles
+        </a>
+      </AnimatedSection>
+    </div>
+  </article>
+</Layout>
+
+<style>
+  .prose h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #2C3E50;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+  }
+  .prose h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #2C3E50;
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+  }
+  .prose p {
+    color: #5D6D7E;
+    line-height: 1.75;
+    margin-bottom: 1rem;
+  }
+  .prose ul, .prose ol {
+    color: #5D6D7E;
+    margin-bottom: 1rem;
+    padding-left: 1.5rem;
+  }
+  .prose li {
+    margin-bottom: 0.5rem;
+  }
+  .prose a {
+    color: #52C17A;
+  }
+  .prose a:hover {
+    text-decoration: underline;
+  }
+  .prose strong {
+    color: #2C3E50;
+  }
+  .prose img {
+    border-radius: 0.75rem;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  .prose blockquote {
+    border-left: 4px solid #52C17A;
+    padding-left: 1.5rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    font-style: italic;
+    color: #5D6D7E;
+  }
+</style>

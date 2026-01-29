@@ -8,14 +8,42 @@ interface Props {
   description?: string;
   lang?: string;
   currentPath?: string;
+  alternatePath?: string; // Custom alternate path for articles with different slugs per language
+  // SEO Props
+  ogImage?: string;
+  ogType?: 'website' | 'article';
+  canonicalUrl?: string;
+  publishedTime?: string;
+  modifiedTime?: string;
+  author?: string;
+  tags?: string[];
+  noindex?: boolean;
 }
+
+const SITE_URL = 'https://paricus.com';
 
 const {
   title = 'Paricus - Your Trusted BPO Partner',
   description = 'Paricus helps global companies streamline operations, improve efficiency, and scale with confidence.',
   lang = 'en',
-  currentPath = '/'
+  currentPath = '/',
+  alternatePath,
+  ogImage = '/assets/PARICUS LOGO (COLOR-NO BG) - Copy.png',
+  ogType = 'website',
+  canonicalUrl,
+  publishedTime,
+  modifiedTime,
+  author,
+  tags = [],
+  noindex = false,
 } = Astro.props;
+
+const fullCanonicalUrl = canonicalUrl || `${SITE_URL}${currentPath}`;
+const fullOgImage = ogImage.startsWith('http') ? ogImage : `${SITE_URL}${ogImage}`;
+// Use custom alternatePath if provided (for articles with different slugs), otherwise calculate it
+const alternateUrl = alternatePath
+  ? `${SITE_URL}${alternatePath}`
+  : (lang === 'en' ? `${SITE_URL}/es${currentPath}` : `${SITE_URL}${currentPath.replace('/es', '')}`);
 ---
 
 <!doctype html>
@@ -23,18 +51,70 @@ const {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" href="/assets/PARICUS LOGO (COLOR-NO BG) - Copy.png" />
+
+    <!-- Primary Meta Tags -->
+    <title>{title}</title>
+    <meta name="title" content={title} />
     <meta name="description" content={description} />
     <meta name="generator" content={Astro.generator} />
-    <title>{title}</title>
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+
+    <!-- Canonical & Alternate Languages -->
+    <link rel="canonical" href={fullCanonicalUrl} />
+    <link rel="alternate" hreflang={lang} href={fullCanonicalUrl} />
+    <link rel="alternate" hreflang={lang === 'en' ? 'es' : 'en'} href={alternateUrl} />
+    <link rel="alternate" hreflang="x-default" href={`${SITE_URL}${currentPath.replace('/es', '')}`} />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content={ogType} />
+    <meta property="og:url" content={fullCanonicalUrl} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={fullOgImage} />
+    <meta property="og:locale" content={lang === 'en' ? 'en_US' : 'es_ES'} />
+    <meta property="og:locale:alternate" content={lang === 'en' ? 'es_ES' : 'en_US'} />
+    <meta property="og:site_name" content="Paricus" />
+
+    <!-- Article specific Open Graph -->
+    {ogType === 'article' && publishedTime && (
+      <meta property="article:published_time" content={publishedTime} />
+    )}
+    {ogType === 'article' && modifiedTime && (
+      <meta property="article:modified_time" content={modifiedTime} />
+    )}
+    {ogType === 'article' && author && (
+      <meta property="article:author" content={author} />
+    )}
+    {ogType === 'article' && tags.map((tag) => (
+      <meta property="article:tag" content={tag} />
+    ))}
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content={fullCanonicalUrl} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={fullOgImage} />
+
+    <!-- Additional SEO -->
+    <meta name="author" content={author || 'Paricus'} />
+    <meta name="theme-color" content="#52C17A" />
+
+    <slot name="head" />
   </head>
   <body class="min-h-screen bg-[#FAFAF8]">
-    <Navigation lang={lang} currentPath={currentPath} />
+    <Navigation lang={lang} currentPath={currentPath} alternatePath={alternatePath} />
     <main>
       <slot />
     </main>
     <Footer lang={lang} />
+
+    <slot name="schema" />
   </body>
 </html>
 
