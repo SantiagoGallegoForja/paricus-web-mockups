@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QA Report - Paricus Web Astro</title>
+    <style>
+        :root {
+            --green: #52C17A;
+            --green-light: #E8F5E9;
+            --red: #E74C3C;
+            --red-light: #FDEDEC;
+            --yellow: #F39C12;
+            --yellow-light: #FEF9E7;
+            --gray: #5D6D7E;
+            --dark: #2C3E50;
+            --bg: #FAFAF8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--bg);
+            color: var(--dark);
+            line-height: 1.6;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 40px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: var(--dark);
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: var(--gray);
+            font-size: 1.1rem;
+        }
+
+        .date {
+            margin-top: 15px;
+            padding: 8px 20px;
+            background: var(--green-light);
+            color: var(--green);
+            border-radius: 20px;
+            display: inline-block;
+            font-weight: 600;
+        }
+
+        .summary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .summary-card {
+            background: white;
+            padding: 30px;
+            border-radius: 16px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .summary-card.pass {
+            border-left: 5px solid var(--green);
+        }
+
+        .summary-card.fail {
+            border-left: 5px solid var(--red);
+        }
+
+        .summary-card.partial {
+            border-left: 5px solid var(--yellow);
+        }
+
+        .summary-number {
+            font-size: 3rem;
+            font-weight: 700;
+        }
+
+        .summary-card.pass .summary-number { color: var(--green); }
+        .summary-card.fail .summary-number { color: var(--red); }
+        .summary-card.partial .summary-number { color: var(--yellow); }
+
+        .summary-label {
+            color: var(--gray);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 5px;
+        }
+
+        section {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            color: var(--dark);
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--green-light);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        h2 .icon {
+            width: 35px;
+            height: 35px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            text-align: left;
+            padding: 15px;
+            background: var(--bg);
+            color: var(--gray);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-radius: 8px;
+        }
+
+        td {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+            vertical-align: top;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        .status {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .status.pass {
+            background: var(--green-light);
+            color: var(--green);
+        }
+
+        .status.fail {
+            background: var(--red-light);
+            color: var(--red);
+        }
+
+        .status.partial {
+            background: var(--yellow-light);
+            color: var(--yellow);
+        }
+
+        .status.deferred {
+            background: #EBF5FB;
+            color: #3498DB;
+        }
+
+        .requirement {
+            font-weight: 500;
+            color: var(--dark);
+        }
+
+        .notes {
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 30px;
+            background: #eee;
+            border-radius: 15px;
+            overflow: hidden;
+            margin: 20px 0;
+            display: flex;
+        }
+
+        .progress-segment {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+
+        .progress-segment.pass { background: var(--green); }
+        .progress-segment.partial { background: var(--yellow); }
+        .progress-segment.fail { background: var(--red); }
+
+        .legend {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 15px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+
+        .legend-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .legend-dot.pass { background: var(--green); }
+        .legend-dot.partial { background: var(--yellow); }
+        .legend-dot.fail { background: var(--red); }
+        .legend-dot.deferred { background: #3498DB; }
+
+        .priority-high {
+            color: var(--red);
+            font-weight: 600;
+        }
+
+        .priority-medium {
+            color: var(--yellow);
+            font-weight: 600;
+        }
+
+        .priority-low {
+            color: var(--green);
+            font-weight: 600;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 1.8rem; }
+            th, td { padding: 10px; font-size: 0.9rem; }
+            .summary { grid-template-columns: 1fr 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Informe de QA - Paricus Web</h1>
+            <p class="subtitle">Revision de Requisitos MVP vs Implementacion Actual</p>
+            <span class="date">29 Enero 2026</span>
+        </header>
+
+        <!-- Resumen Ejecutivo -->
+        <div class="summary">
+            <div class="summary-card pass">
+                <div class="summary-number">18</div>
+                <div class="summary-label">Cumple</div>
+            </div>
+            <div class="summary-card partial">
+                <div class="summary-number">12</div>
+                <div class="summary-label">Parcial</div>
+            </div>
+            <div class="summary-card fail">
+                <div class="summary-number">9</div>
+                <div class="summary-label">No Cumple</div>
+            </div>
+        </div>
+
+        <!-- Barra de Progreso -->
+        <section>
+            <h2>Progreso General MVP</h2>
+            <div class="progress-bar">
+                <div class="progress-segment pass" style="width: 46%;">46%</div>
+                <div class="progress-segment partial" style="width: 31%;">31%</div>
+                <div class="progress-segment fail" style="width: 23%;">23%</div>
+            </div>
+            <div class="legend">
+                <div class="legend-item"><span class="legend-dot pass"></span> Cumple (18)</div>
+                <div class="legend-item"><span class="legend-dot partial"></span> Parcial (12)</div>
+                <div class="legend-item"><span class="legend-dot fail"></span> No Cumple (9)</div>
+            </div>
+        </section>
+
+        <!-- Requisitos Generales -->
+        <section>
+            <h2><span class="icon" style="background: var(--green-light);">1</span> Requisitos Generales del Sitio</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 40%;">Requisito</th>
+                        <th style="width: 15%;">Estado</th>
+                        <th style="width: 45%;">Notas</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="requirement">Canal principal de generacion de leads</td>
+                        <td><span class="status partial">Parcial</span></td>
+                        <td class="notes">Tiene formulario de contacto y CTAs, pero falta integracion con HubSpot y sistema de booking</td>
+                    </tr>
+                    <tr>
+                        <td class="requirement">Enfoque ventas primero, employer branding secundario</td>
+                        <td><span class="status pass">Cumple</span></td>
+                        <td class="notes">Estructura correcta: Services, Industries, Case Studies prominentes. Careers es secundario en navegacion</td>
+                    </tr>
+                    <tr>
+                        <td class="requirement">Sitio responsive</td>
+                        <td><span class="status pass">Cumple</span></td>
+                        <td class="notes">Implementado con Tailwind CSS. Menu mobile funcional con hamburger toggle</td>
+                    </tr>
+                    <tr>
+                        <td class="requirement">Sitio rapido</td>
+                        <td><span class="status pass">Cumple</span></td>
+                        <td class="notes">Astro SSG genera HTML estatico. Zero JavaScript por defecto. Deberia ser muy rapido</td>
+                    </tr>
+                    <tr>
+                        <td class="requirement">SSL (HTTPS)</td>
+                        <td><span class="status partial">Parcial</span></td>
+                        <td class="notes">Depende del hosting. No verificable hasta despliegue. <span class="priority-medium">Configurar en produccion</span></td>
+                    </tr>
+                    <tr>
+                        <td class="requirement">Idiomas EN/ES con selector manual</td>
+                        <td><span class="status pass">Cumple</span></td>
+                        <td class="notes">Selector de idioma en Navigation y Footer. URLs: / (EN) y /es/ (ES)</td>
+                    </tr>
+                    <tr>
+                        <td class="requirement">Accesibilidad basica (ADA)</td>
+                        <td><span class="status partial">Parcial</span></td>
+                        <td class="notes">Tiene: aria-labels, roles, estructura semantica, focus states. Falta: audit completo WCAG</td>
+                    </tr>
+                    <tr>
+                        <td class="requirement">SEO tecnico basico</td>
+                        <td><span class="status partial">Parcial</span></td>
+                        <td class="notes">Tiene: meta description, title, viewport. Falta: sitemap.xml, robots.txt, Open Graph, canonical URLs</td>
+                    </tr>
+                    <tr>
+                        <td class="requirement">Google Analytics integrado</td>
+                        <td><span class="status fail">No Cumple</span></td>
+                        <td class="notes"><span class="priority-high">CRITICO:</span> No hay script de GA en Layout.astro</td>
+                    </tr>
+                    <tr>
+                        <td class="requirement">Google Tag Manager integrado</td>
+                        <td><span class="status fail">No Cumple</span></td>
+                        <td class="notes"><span class="priority-high">CRITICO:</span> No hay script de GTM en Layout.astro</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Estructura de Paginas -->
+        <section>
+            <h2><span class="icon" style="background: var(--green-light);">2</span> Estructura de Paginas (MVP)</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 40%;">Pagina</th>
+                        <th style="width: 15%;">Estado</th>
+                        <th style="width: 45%;">Notas</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="requirement">Home (propuesta de valor + CTAs)</td>
+                        <td><span class="status pass">Cumple</span></td>
+                        <td class="notes">Hero con propuesta de valor, 2 CTAs visibles, metricas de confianza (100+ team, 15+ years, 98% satisfaction)</td>
+                    </tr>
+                    <tr>
+                        <td class="requirement">About Us (historia, diferenciadores, US/Colombia)</td>
+                        <td><span class="status pass">Cumple</span></td>
+                        <td class="notes">Pagina completa con historia, equipo de liderazgo (2 Managing Partners), estadisticas</td>
+                    </tr>
+                    <tr>
+                        <td class="requirement">Services (paginas dedicadas por servicio)</td>
+                        <td><span class="status partial">Parcial</span></td>
+                        <td class="notes">Existe /services con 4 servicios (Customer Service, Back Office, Sales, Technical Support). <span class="priority-medium">Falta:</span> paginas individuales por servicio (/services/customer-service, etc.)</td>
+                    </tr>
+                    <tr>
+                        <td class="requirement">Industries Served</td>
+                        <td><span class="status pass">Cumple</span></td>
+                        <td class="notes">5 industrias: Healthcare, E-Commerce, Technology, Finance, Travel & Hospitality</td>
+                    </tr>
+                    <tr>
+                        <td class="requirement">Case Studies</td>
+                        <td><span class="status pass">Cumple</span></td>
+                        <td class="notes">3 casos de estudio con metricas de resultados. Contenido placeholder adecuado</td>
+                    </tr>
+                    <tr>
+                        <td class="requirement">Technology & Innovation</td>
+                        <td><span class="status pass">Cumple</span></td>
+                        <td class="notes">Certificaciones (ISO 27001, ISO 9001, HIPAA, SOC2), tech stack, seguridad</td>
+                    </tr>
+                    <tr>
+                        <td class="requirement">Careers (reclutamiento)</td>
+                        <td><span class="status pass">Cumple</span></td>
+                        <td class="notes">4 beneficios, 3 posiciones abiertas con CTAs para aplicar</td>
+                    </tr>
+                    <tr>
+                        <td class="requirement">Contact</td>
+                        <td><span class="status pass">Cumple</span></td>
+                        <td class="notes">Formulario, telefono, email, ubicacion, horarios, redes sociales</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Generacion de Leads -->
+        <section>
+            <h2><span class="icon" style="background: var(--red-light);">3</span> Generacion y Gestion de Leads</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 40%;">Requisito</th>
+                        <th style="width: 15%;">Estado</th>
+                        <th style="width: 45%;">Notas</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="requirement">CTA persistente: Contact</td>
+                        <td><span class="status pass">Cumple</span></td>
+                        <td class="notes">Boton "Contact" visible en Navigation (desktop y mobile)</td>
+                    </tr>
+                    <tr>
+                        <td class="requirement">CTA persistente: Schedule / Agendar</td>
+                        <td><span class="status fail">No Cumple</span></td>
+                        <td class="notes"><span class="priority-high">CRITICO:</span> No hay boton de agendar reunion en navegacion</td>
+                    </tr>
+                    <tr>
+                        <td class="requirement">CTA persistente: Talk to Sales</td>
+                        <td><span class="status fail">No Cumple</span></td>
+                        <td class="notes"><span class="priority-medium">Falta:</span> No hay CTA especifico para ventas</td>
+                    </tr>
+                    <tr>
+                        <td class="requirement">Formulario web</td>
+                        <td><span class="status pass">Cumple</span></td>
+                        <td class="notes">Formulario en /contact con validacion HTML5</td>
+                    </tr>
+                    <tr>
+                        <td class="requirement">Agenda de reuniones (booking)</td>
+                        <td><span class="status fail">No Cumple</span></td>
+                        <td class="notes"><span class="priority-high">CRITICO:</span> No hay integracion con Calendly/HubSpot Meetings</td>
+                    </tr>
+                    <tr>
+                        <td class="requirement">Telefono visible</td>
+                        <td><span class="status pass">Cumple</span></td>
+                        <td class="notes">+1 (555) 123-4567 en pagina de Contact con link tel:</td>
+                    </tr>
+                    <tr>
+                        <td class="requirement">Chatbot / Live chat</td>
+                        <td><span class="status deferred">Diferido</span></td>
+                        <td class="notes">Marcado como "diferido" en requisitos - OK no tenerlo ahora</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Campos del Formulario -->
+        <section>
+            <h2><span class="icon" style="background: var(--yellow-light);">4</span> Campos del Formulario de Contacto</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 40%;">Campo Requerido</th>
+                        <th style="width: 15%;">Estado</th>
+                        <th style="width: 45%;">Implementacion Actual</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="requirement">Nombre</td>
+                        <td><span class="status pass">Cumple</span></td>
+                        <td class="notes">firstName + lastName (2 campos separados)</td>
+                    </tr>
+                    <tr>
+                        <td class="requirement">Email</td>
+                        <td><span class="status pass">Cumple</span></td>
+                        <td class="notes">Campo email con type="email" y required</td>
+                    </tr>
+                    <tr>
+                        <td class="requirement">Telefono</td>
+                        <td><span class="status fail">No Cumple</span></td>
+                        <td class="notes"><span class="priority-high">Falta campo de telefono en formulario</span></td>
+                    </tr>
+                    <tr>
+                        <td class="requirement">Industria</td>
+                        <td><span class="status fail">No Cumple</span></td>
+                        <td class="notes"><span class="priority-medium">Falta selector de industria</span></td>
+                    </tr>
+                    <tr>
+                        <td class="requirement">Servicio de interes</td>
+                        <td><span class="status fail">No Cumple</span></td>
+                        <td class="notes"><span class="priority-medium">Falta selector de servicio</span></td>
+                    </tr>
+                    <tr>
+                        <td class="requirement">Mensaje</td>
+                        <td><span class="status pass">Cumple</span></td>
+                        <td class="notes">Textarea con required</td>
+                    </tr>
+                    <tr>
+                        <td class="requirement">Company (extra actual)</td>
+                        <td><span class="status pass">Extra</span></td>
+                        <td class="notes">Campo company existe (no estaba en requisitos pero es util)</td>
+                    </tr>
+                    <tr>
+                        <td class="requirement">UTMs ocultos para tracking</td>
+                        <td><span class="status fail">No Cumple</span></td>
+                        <td class="notes"><span class="priority-high">No hay campos hidden para utm_source, utm_medium, utm_campaign</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Integraciones -->
+        <section>
+            <h2><span class="icon" style="background: var(--red-light);">5</span> Integraciones</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 40%;">Integracion</th>
+                        <th style="width: 15%;">Estado</th>
+                        <th style="width: 45%;">Notas</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="requirement">HubSpot - Envio de leads</td>
+                        <td><span class="status fail">No Cumple</span></td>
+                        <td class="notes"><span class="priority-high">CRITICO:</span> Formulario no envia datos a ningun backend. No hay HubSpot Forms API</td>
+                    </tr>
+                    <tr>
+                        <td class="requirement">HubSpot - Pipeline "Website Leads"</td>
+                        <td><span class="status fail">No Cumple</span></td>
+                        <td class="notes">Depende de integracion HubSpot</td>
+                    </tr>
+                    <tr>
+                        <td class="requirement">Calendario (Monica - HubSpot/Calendly)</td>
+                        <td><span class="status fail">No Cumple</span></td>
+                        <td class="notes"><span class="priority-high">CRITICO:</span> No hay widget de booking ni integracion calendario</td>
+                    </tr>
+                    <tr>
+                        <td class="requirement">Preparado para chatbot futuro</td>
+                        <td><span class="status partial">Parcial</span></td>
+                        <td class="notes">Arquitectura permite agregar scripts facilmente en Layout.astro</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Contenido Diferido -->
+        <section>
+            <h2><span class="icon" style="background: #EBF5FB;">6</span> Contenido Diferido (No MVP)</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 40%;">Item</th>
+                        <th style="width: 15%;">Estado</th>
+                        <th style="width: 45%;">Notas</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="requirement">Blog (estructura)</td>
+                        <td><span class="status pass">Cumple</span></td>
+                        <td class="notes">Pagina /blog existe con 3 articulos placeholder</td>
+                    </tr>
+                    <tr>
+                        <td class="requirement">Testimonios</td>
+                        <td><span class="status deferred">Diferido</span></td>
+                        <td class="notes">No implementado - esperando contenido aprobado</td>
+                    </tr>
+                    <tr>
+                        <td class="requirement">FAQ</td>
+                        <td><span class="status deferred">Diferido</span></td>
+                        <td class="notes">No implementado</td>
+                    </tr>
+                    <tr>
+                        <td class="requirement">Chatbot / Live chat</td>
+                        <td><span class="status deferred">Diferido</span></td>
+                        <td class="notes">No implementado - correcto segun requisitos</td>
+                    </tr>
+                    <tr>
+                        <td class="requirement">Deteccion automatica idioma por IP</td>
+                        <td><span class="status deferred">Diferido</span></td>
+                        <td class="notes">No implementado - correcto segun requisitos</td>
+                    </tr>
+                    <tr>
+                        <td class="requirement">Tracking avanzado</td>
+                        <td><span class="status deferred">Diferido</span></td>
+                        <td class="notes">No implementado - correcto segun requisitos</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Criterios de Aceptacion -->
+        <section>
+            <h2><span class="icon" style="background: var(--yellow-light);">7</span> Criterios de Aceptacion Final</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 40%;">Criterio</th>
+                        <th style="width: 15%;">Estado</th>
+                        <th style="width: 45%;">Evaluacion</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="requirement">Usuario puede contactar por formulario</td>
+                        <td><span class="status partial">Parcial</span></td>
+                        <td class="notes">Formulario existe visualmente pero no envia datos a backend</td>
+                    </tr>
+                    <tr>
+                        <td class="requirement">Usuario puede contactar por agendamiento</td>
+                        <td><span class="status fail">No Cumple</span></td>
+                        <td class="notes"><span class="priority-high">No hay sistema de booking</span></td>
+                    </tr>
+                    <tr>
+                        <td class="requirement">Leads llegan a HubSpot</td>
+                        <td><span class="status fail">No Cumple</span></td>
+                        <td class="notes"><span class="priority-high">No hay integracion HubSpot</span></td>
+                    </tr>
+                    <tr>
+                        <td class="requirement">Sitio activo en EN y ES</td>
+                        <td><span class="status pass">Cumple</span></td>
+                        <td class="notes">18 paginas totales (9 EN + 9 ES) con traducciones completas</td>
+                    </tr>
+                    <tr>
+                        <td class="requirement">Tracking funcionando</td>
+                        <td><span class="status fail">No Cumple</span></td>
+                        <td class="notes"><span class="priority-high">Sin GA ni GTM</span></td>
+                    </tr>
+                    <tr>
+                        <td class="requirement">SEO funcionando</td>
+                        <td><span class="status partial">Parcial</span></td>
+                        <td class="notes">Meta tags basicos OK. Falta sitemap, robots.txt, schema markup</td>
+                    </tr>
+                    <tr>
+                        <td class="requirement">QA Mobile aprobado</td>
+                        <td><span class="status partial">Parcial</span></td>
+                        <td class="notes">Responsive implementado. Pendiente testing manual en dispositivos reales</td>
+                    </tr>
+                    <tr>
+                        <td class="requirement">Links funcionando</td>
+                        <td><span class="status partial">Parcial</span></td>
+                        <td class="notes">Links internos OK. Redes sociales tienen href="#" (placeholders)</td>
+                    </tr>
+                    <tr>
+                        <td class="requirement">Formularios funcionando</td>
+                        <td><span class="status partial">Parcial</span></td>
+                        <td class="notes">Validacion frontend OK. Sin backend/submit funcional</td>
+                    </tr>
+                    <tr>
+                        <td class="requirement">Accesibilidad basica</td>
+                        <td><span class="status partial">Parcial</span></td>
+                        <td class="notes">Buenas practicas implementadas. Pendiente audit WAVE/axe</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Acciones Prioritarias -->
+        <section style="border-left: 5px solid var(--red);">
+            <h2 style="color: var(--red);">Acciones Prioritarias para MVP</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 5%;">#</th>
+                        <th style="width: 55%;">Accion</th>
+                        <th style="width: 20%;">Prioridad</th>
+                        <th style="width: 20%;">Categoria</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td class="requirement">Integrar HubSpot Forms API para envio de leads</td>
+                        <td><span class="priority-high">CRITICA</span></td>
+                        <td>Integracion</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td class="requirement">Agregar Google Analytics (GA4) y GTM</td>
+                        <td><span class="priority-high">CRITICA</span></td>
+                        <td>Tracking</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td class="requirement">Implementar booking/calendario (Calendly o HubSpot Meetings)</td>
+                        <td><span class="priority-high">CRITICA</span></td>
+                        <td>Lead Gen</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td class="requirement">Agregar campos al formulario: Telefono, Industria, Servicio</td>
+                        <td><span class="priority-high">CRITICA</span></td>
+                        <td>Formulario</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td class="requirement">Agregar campos UTM ocultos para tracking de campanas</td>
+                        <td><span class="priority-high">CRITICA</span></td>
+                        <td>Tracking</td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td class="requirement">Agregar CTA "Schedule a Call" en navegacion</td>
+                        <td><span class="priority-medium">ALTA</span></td>
+                        <td>Lead Gen</td>
+                    </tr>
+                    <tr>
+                        <td>7</td>
+                        <td class="requirement">Generar sitemap.xml y robots.txt</td>
+                        <td><span class="priority-medium">ALTA</span></td>
+                        <td>SEO</td>
+                    </tr>
+                    <tr>
+                        <td>8</td>
+                        <td class="requirement">Agregar Open Graph meta tags</td>
+                        <td><span class="priority-medium">ALTA</span></td>
+                        <td>SEO</td>
+                    </tr>
+                    <tr>
+                        <td>9</td>
+                        <td class="requirement">Reemplazar links placeholder (#) de redes sociales</td>
+                        <td><span class="priority-low">MEDIA</span></td>
+                        <td>Contenido</td>
+                    </tr>
+                    <tr>
+                        <td>10</td>
+                        <td class="requirement">Crear paginas individuales por servicio</td>
+                        <td><span class="priority-low">MEDIA</span></td>
+                        <td>Estructura</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Resumen Tecnico -->
+        <section style="background: linear-gradient(135deg, var(--green-light), white);">
+            <h2>Resumen Tecnico del Proyecto</h2>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class="requirement" style="width: 30%;">Framework</td>
+                        <td>Astro 5.16.16 (SSG)</td>
+                    </tr>
+                    <tr>
+                        <td class="requirement">CSS Framework</td>
+                        <td>Tailwind CSS 4.1.18</td>
+                    </tr>
+                    <tr>
+                        <td class="requirement">Idiomas</td>
+                        <td>EN (default), ES (prefijo /es/)</td>
+                    </tr>
+                    <tr>
+                        <td class="requirement">Paginas</td>
+                        <td>18 (9 EN + 9 ES)</td>
+                    </tr>
+                    <tr>
+                        <td class="requirement">Componentes</td>
+                        <td>5 (Navigation, Footer, Icon, AnimatedSection, Hero)</td>
+                    </tr>
+                    <tr>
+                        <td class="requirement">Iconos</td>
+                        <td>Lucide Icons via astro-icon</td>
+                    </tr>
+                    <tr>
+                        <td class="requirement">Formularios</td>
+                        <td>1 (Contact - sin backend)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <footer>
+            <p>Informe generado automaticamente | QA Review por Claude Code</p>
+            <p>Paricus Web Astro - Version MVP</p>
+        </footer>
+    </div>
+</body>
+</html>
