@@ -648,6 +648,72 @@ export async function getCaseStudiesPage(lang: SupportedLocale = 'en'): Promise<
   }
 }
 
+// Technology Page types
+export interface Certification {
+  id: number;
+  name: string;
+  description: string;
+}
+
+export interface TechItem {
+  id: number;
+  icon: string;
+  name: string;
+  description: string;
+}
+
+export interface TechnologyPage {
+  heading?: string;
+  description?: string;
+  certificationsTitle?: string;
+  certifications?: Certification[];
+  techStackTitle?: string;
+  technologies?: TechItem[];
+  securityTitle?: string;
+  securityDescription?: string;
+  ctaButtonText?: string;
+  metaTitle?: string;
+  metaDescription?: string;
+}
+
+// Fetch technology page content by locale
+export async function getTechnologyPage(lang: SupportedLocale = 'en'): Promise<TechnologyPage | null> {
+  const locale = getStrapiLocale(lang);
+  const cacheKey = `technology-page:${locale}`;
+
+  const cached = getCached<TechnologyPage | null>(cacheKey);
+  if (cached !== null) return cached;
+
+  try {
+    if (isDev) console.log(`[Strapi API] Fetching technology page for locale: ${locale}`);
+
+    let url = `${STRAPI_URL}/api/technology-page?populate[certifications]=*&populate[technologies]=*&locale=${locale}`;
+
+    let response = await fetch(url);
+
+    if (!response.ok) {
+      if (isDev) console.log('[Strapi API] Technology page not found with locale, trying without...');
+      url = `${STRAPI_URL}/api/technology-page?populate[certifications]=*&populate[technologies]=*`;
+      response = await fetch(url);
+    }
+
+    if (!response.ok) {
+      if (isDev) console.log('[Strapi API] Technology page not found');
+      setCache(cacheKey, null);
+      return null;
+    }
+
+    const json = await response.json();
+    const technologyPage = json.data || null;
+
+    setCache(cacheKey, technologyPage);
+    return technologyPage;
+  } catch (error) {
+    console.error('Error fetching technology page:', error);
+    return null;
+  }
+}
+
 // Form Config types
 export interface FormOption {
   id: number;
