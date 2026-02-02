@@ -491,6 +491,7 @@ export interface CaseStudy {
   results: ResultMetric[];
   order?: number;
   featured?: boolean;
+  blocks?: any[];
 }
 
 export interface CaseStudiesPage {
@@ -552,7 +553,7 @@ export async function getCaseStudyBySlug(slug: string, lang: SupportedLocale = '
   try {
     if (isDev) console.log(`[Strapi API] Fetching case study: ${slug} (${locale})`);
 
-    let url = `${STRAPI_URL}/api/case-studies?filters[slug][$eq]=${slug}&populate[results]=*&locale=${locale}`;
+    let url = `${STRAPI_URL}/api/case-studies?filters[slug][$eq]=${slug}&populate[results]=*&populate[blocks][populate]=*&locale=${locale}`;
 
     let response = await fetch(url);
     let json: StrapiResponse<CaseStudy[]> = await response.json();
@@ -560,7 +561,7 @@ export async function getCaseStudyBySlug(slug: string, lang: SupportedLocale = '
 
     if (!caseStudy) {
       if (isDev) console.log('[Strapi API] Case study not found with locale, trying without...');
-      url = `${STRAPI_URL}/api/case-studies?filters[slug][$eq]=${slug}&populate[results]=*`;
+      url = `${STRAPI_URL}/api/case-studies?filters[slug][$eq]=${slug}&populate[results]=*&populate[blocks][populate]=*`;
       response = await fetch(url);
       json = await response.json();
       caseStudy = json.data?.[0] || null;
