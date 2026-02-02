@@ -60,7 +60,12 @@
         "Remote Troubleshooting",
         "Technical Documentation"
       ]
-    }
+    },
+    "viewDetails": "Learn More",
+    "backToServices": "Back to Services",
+    "benefitsTitle": "Benefits",
+    "useCasesTitle": "Use Cases",
+    "getStarted": "Get Started"
   },
   "about": {
     "heading": "Your",
@@ -223,7 +228,17 @@
       }
     },
     "applyNow": "Apply Now",
-    "viewAll": "View All Openings"
+    "viewAll": "View All Openings",
+    "openPositions": "Open Positions",
+    "viewDetails": "View Details",
+    "requirements": "Requirements",
+    "responsibilities": "Responsibilities",
+    "jobBenefits": "Benefits",
+    "backToJobs": "Back to Careers",
+    "noPositions": "No open positions at the moment. Check back soon!",
+    "department": "Department",
+    "location": "Location",
+    "type": "Type"
   },
   "blog": {
     "heading": "Insights & Resources",

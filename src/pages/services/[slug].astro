@@ -1,0 +1,223 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import AnimatedSection from '../../components/common/AnimatedSection.astro';
+import Icon from '../../components/common/Icon.astro';
+import { t, getLocalizedPath } from '../../i18n/utils';
+import { getServiceBySlug } from '../../lib/strapi';
+
+const lang = 'en';
+const { slug } = Astro.params;
+
+// Fetch service
+const service = slug ? await getServiceBySlug(slug, lang) : null;
+
+// 404 if not found
+if (!service) {
+  return Astro.redirect('/404');
+}
+
+const metaTitle = service.metaTitle || `${service.title} - Services | Paricus`;
+const metaDescription = service.metaDescription || service.shortDescription.slice(0, 160);
+---
+
+<Layout
+  title={metaTitle}
+  description={metaDescription}
+  lang={lang}
+  currentPath={`/services/${slug}`}
+>
+  <article class="py-20 lg:py-32 bg-white pt-40">
+    <div class="max-w-[1200px] mx-auto px-6 lg:px-12">
+      <!-- Back link -->
+      <AnimatedSection>
+        <a
+          href={getLocalizedPath('/services', lang)}
+          class="inline-flex items-center text-[#5D6D7E] hover:text-[#52C17A] transition-colors mb-8 group"
+        >
+          <Icon name="arrow-left" class="w-5 h-5 mr-2 group-hover:-translate-x-1 transition-transform" size={20} />
+          {t('services.backToServices', lang)}
+        </a>
+      </AnimatedSection>
+
+      <!-- Header -->
+      <AnimatedSection class="mb-12">
+        <div class="flex items-start gap-6 mb-8">
+          <!-- Icon -->
+          <div class="w-20 h-20 rounded-2xl bg-gradient-to-br from-[#52C17A] to-[#3D9E5F] flex items-center justify-center flex-shrink-0 shadow-lg shadow-[#52C17A]/30">
+            <Icon name={service.icon} class="w-10 h-10 text-white" size={40} />
+          </div>
+          <div>
+            {service.featured && (
+              <span class="inline-block px-4 py-2 bg-[#52C17A]/10 text-[#52C17A] text-sm font-semibold rounded-full mb-4">
+                Featured Service
+              </span>
+            )}
+            <h1 class="text-4xl lg:text-5xl font-bold text-[#2C3E50] leading-tight">
+              {service.title}
+            </h1>
+          </div>
+        </div>
+        <p class="text-xl text-[#5D6D7E] leading-relaxed max-w-3xl">
+          {service.shortDescription}
+        </p>
+      </AnimatedSection>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+        <!-- Main content -->
+        <div class="lg:col-span-2 space-y-10">
+          <!-- Features -->
+          {service.features && service.features.length > 0 && (
+            <AnimatedSection>
+              <div class="bg-[#FAFAF8] rounded-2xl p-8 border border-[#D5E8D4]">
+                <h2 class="text-xl font-bold text-[#2C3E50] mb-6 flex items-center">
+                  <Icon name="check-circle" class="w-6 h-6 mr-3 text-[#52C17A]" size={24} />
+                  Key Features
+                </h2>
+                <ul class="space-y-3">
+                  {service.features.map((item) => (
+                    <li class="flex items-start gap-3 text-[#5D6D7E]">
+                      <Icon name="check" class="w-5 h-5 text-[#52C17A] flex-shrink-0 mt-0.5" size={20} />
+                      <span>{item.text}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </AnimatedSection>
+          )}
+
+          <!-- Full Description (Rich Text) -->
+          {service.fullDescription && (
+            <AnimatedSection>
+              <div class="prose prose-lg max-w-none">
+                <div class="text-[#5D6D7E] leading-relaxed" set:html={service.fullDescription} />
+              </div>
+            </AnimatedSection>
+          )}
+
+          <!-- Benefits -->
+          {service.benefits && service.benefits.length > 0 && (
+            <AnimatedSection>
+              <div class="bg-[#FAFAF8] rounded-2xl p-8 border border-[#D5E8D4]">
+                <h2 class="text-xl font-bold text-[#2C3E50] mb-6 flex items-center">
+                  <Icon name="award" class="w-6 h-6 mr-3 text-[#52C17A]" size={24} />
+                  {t('services.benefitsTitle', lang)}
+                </h2>
+                <ul class="space-y-3">
+                  {service.benefits.map((item) => (
+                    <li class="flex items-start gap-3 text-[#5D6D7E]">
+                      <Icon name="check" class="w-5 h-5 text-[#52C17A] flex-shrink-0 mt-0.5" size={20} />
+                      <span>{item.text}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </AnimatedSection>
+          )}
+
+          <!-- Use Cases -->
+          {service.useCases && service.useCases.length > 0 && (
+            <AnimatedSection>
+              <div class="bg-[#FAFAF8] rounded-2xl p-8 border border-[#D5E8D4]">
+                <h2 class="text-xl font-bold text-[#2C3E50] mb-6 flex items-center">
+                  <Icon name="briefcase" class="w-6 h-6 mr-3 text-[#52C17A]" size={24} />
+                  {t('services.useCasesTitle', lang)}
+                </h2>
+                <ul class="space-y-3">
+                  {service.useCases.map((item) => (
+                    <li class="flex items-start gap-3 text-[#5D6D7E]">
+                      <Icon name="check" class="w-5 h-5 text-[#52C17A] flex-shrink-0 mt-0.5" size={20} />
+                      <span>{item.text}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </AnimatedSection>
+          )}
+        </div>
+
+        <!-- Sidebar with CTA -->
+        <aside class="lg:col-span-1">
+          <AnimatedSection>
+            <div class="bg-gradient-to-br from-[#52C17A] to-[#3D9E5F] rounded-2xl p-8 text-white sticky top-32">
+              <h2 class="text-xl font-bold mb-4">
+                Ready to Get Started?
+              </h2>
+              <p class="text-white/90 mb-8 text-sm leading-relaxed">
+                Let us help you transform your operations with our expert {service.title.toLowerCase()} solutions.
+              </p>
+              <a
+                href={getLocalizedPath('/contact', lang)}
+                class="flex items-center justify-center w-full px-6 py-4 rounded-xl bg-white text-[#52C17A] font-semibold hover:bg-gray-100 transition-colors shadow-lg"
+              >
+                {service.ctaText || t('services.getStarted', lang)}
+                <Icon name="arrow-right" class="w-5 h-5 ml-2" size={20} />
+              </a>
+              <div class="mt-8 pt-6 border-t border-white/20">
+                <h3 class="text-sm font-semibold mb-4 uppercase tracking-wide">
+                  Why Choose Us?
+                </h3>
+                <ul class="space-y-3 text-sm">
+                  <li class="flex items-center gap-2">
+                    <Icon name="check" class="w-4 h-4 text-white/70" size={16} />
+                    <span>Industry-leading expertise</span>
+                  </li>
+                  <li class="flex items-center gap-2">
+                    <Icon name="check" class="w-4 h-4 text-white/70" size={16} />
+                    <span>24/7 availability</span>
+                  </li>
+                  <li class="flex items-center gap-2">
+                    <Icon name="check" class="w-4 h-4 text-white/70" size={16} />
+                    <span>Scalable solutions</span>
+                  </li>
+                  <li class="flex items-center gap-2">
+                    <Icon name="check" class="w-4 h-4 text-white/70" size={16} />
+                    <span>Dedicated support team</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </AnimatedSection>
+        </aside>
+      </div>
+    </div>
+  </article>
+</Layout>
+
+<style>
+  .prose h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #2C3E50;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+  }
+  .prose h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #2C3E50;
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+  }
+  .prose p {
+    color: #5D6D7E;
+    line-height: 1.75;
+    margin-bottom: 1rem;
+  }
+  .prose ul, .prose ol {
+    color: #5D6D7E;
+    margin-bottom: 1rem;
+    padding-left: 1.5rem;
+  }
+  .prose li {
+    margin-bottom: 0.5rem;
+  }
+  .prose a {
+    color: #52C17A;
+  }
+  .prose a:hover {
+    text-decoration: underline;
+  }
+  .prose strong {
+    color: #2C3E50;
+  }
+</style>

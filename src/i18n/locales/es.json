@@ -60,7 +60,12 @@
         "Resolucion Remota de Problemas",
         "Documentacion Tecnica"
       ]
-    }
+    },
+    "viewDetails": "Saber Mas",
+    "backToServices": "Volver a Servicios",
+    "benefitsTitle": "Beneficios",
+    "useCasesTitle": "Casos de Uso",
+    "getStarted": "Comenzar"
   },
   "about": {
     "heading": "Tu",
@@ -223,7 +228,17 @@
       }
     },
     "applyNow": "Aplicar Ahora",
-    "viewAll": "Ver Todas las Vacantes"
+    "viewAll": "Ver Todas las Vacantes",
+    "openPositions": "Posiciones Abiertas",
+    "viewDetails": "Ver Detalles",
+    "requirements": "Requisitos",
+    "responsibilities": "Responsabilidades",
+    "jobBenefits": "Beneficios",
+    "backToJobs": "Volver a Carreras",
+    "noPositions": "No hay posiciones abiertas en este momento. Vuelve pronto!",
+    "department": "Departamento",
+    "location": "Ubicacion",
+    "type": "Tipo"
   },
   "blog": {
     "heading": "Perspectivas y Recursos",

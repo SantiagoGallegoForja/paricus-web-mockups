@@ -350,6 +350,133 @@ export function formatDate(dateString: string, lang: string = 'en'): string {
   });
 }
 
+// Job Opening types
+export interface ListItem {
+  id: number;
+  text: string;
+}
+
+export interface JobOpening {
+  id: number;
+  title: string;
+  slug: string;
+  department: string;
+  location: string;
+  jobType: string;
+  summary: string;
+  description?: string;
+  requirements?: ListItem[];
+  responsibilities?: ListItem[];
+  benefits?: ListItem[];
+  order?: number;
+  featured?: boolean;
+}
+
+// Fetch all job openings by locale
+export async function getJobOpenings(lang: SupportedLocale = 'en'): Promise<JobOpening[]> {
+  const locale = getStrapiLocale(lang);
+  const cacheKey = `job-openings:${locale}`;
+
+  const cached = getCached<JobOpening[]>(cacheKey);
+  if (cached) return cached;
+
+  try {
+    if (isDev) console.log(`[Strapi API] Fetching job openings for locale: ${locale}`);
+
+    let url = `${STRAPI_URL}/api/job-openings?populate[requirements]=*&populate[responsibilities]=*&populate[benefits]=*&sort[0]=order:asc&sort[1]=featured:desc&locale=${locale}`;
+
+    let response = await fetch(url);
+
+    if (!response.ok) {
+      if (isDev) console.log('[Strapi API] Job openings not found with locale, trying without...');
+      url = `${STRAPI_URL}/api/job-openings?populate[requirements]=*&populate[responsibilities]=*&populate[benefits]=*&sort[0]=order:asc&sort[1]=featured:desc`;
+      response = await fetch(url);
+    }
+
+    if (!response.ok) {
+      console.error('Failed to fetch job openings:', response.status);
+      return [];
+    }
+
+    const json: StrapiResponse<JobOpening[]> = await response.json();
+    const jobOpenings = json.data || [];
+
+    setCache(cacheKey, jobOpenings);
+    return jobOpenings;
+  } catch (error) {
+    console.error('Error fetching job openings:', error);
+    return [];
+  }
+}
+
+// Fetch single job opening by slug
+export async function getJobOpeningBySlug(slug: string, lang: SupportedLocale = 'en'): Promise<JobOpening | null> {
+  const locale = getStrapiLocale(lang);
+  const cacheKey = `job-opening:${slug}:${locale}`;
+
+  const cached = getCached<JobOpening | null>(cacheKey);
+  if (cached !== null) return cached;
+
+  try {
+    if (isDev) console.log(`[Strapi API] Fetching job opening: ${slug} (${locale})`);
+
+    let url = `${STRAPI_URL}/api/job-openings?filters[slug][$eq]=${slug}&populate[requirements]=*&populate[responsibilities]=*&populate[benefits]=*&locale=${locale}`;
+
+    let response = await fetch(url);
+    let json: StrapiResponse<JobOpening[]> = await response.json();
+    let jobOpening = json.data?.[0] || null;
+
+    if (!jobOpening) {
+      if (isDev) console.log('[Strapi API] Job opening not found with locale, trying without...');
+      url = `${STRAPI_URL}/api/job-openings?filters[slug][$eq]=${slug}&populate[requirements]=*&populate[responsibilities]=*&populate[benefits]=*`;
+      response = await fetch(url);
+      json = await response.json();
+      jobOpening = json.data?.[0] || null;
+    }
+
+    setCache(cacheKey, jobOpening);
+    return jobOpening;
+  } catch (error) {
+    console.error('Error fetching job opening:', error);
+    return null;
+  }
+}
+
+// Get all job opening slugs for static paths
+export async function getAllJobOpeningSlugs(): Promise<{ slug: string; locale: string }[]> {
+  const cacheKey = 'all-job-opening-slugs';
+
+  const cached = getCached<{ slug: string; locale: string }[]>(cacheKey);
+  if (cached) return cached;
+
+  try {
+    const [enJobs, esJobs] = await Promise.all([
+      getJobOpenings('en'),
+      getJobOpenings('es'),
+    ]);
+
+    const slugs: { slug: string; locale: string }[] = [];
+
+    enJobs.forEach((job) => {
+      slugs.push({ slug: job.slug, locale: 'en' });
+    });
+
+    esJobs.forEach((job) => {
+      slugs.push({ slug: job.slug, locale: 'es' });
+    });
+
+    const uniqueSlugs = slugs.filter((item, index, self) =>
+      index === self.findIndex((t) => t.slug === item.slug && t.locale === item.locale)
+    );
+
+    setCache(cacheKey, uniqueSlugs);
+    return uniqueSlugs;
+  } catch (error) {
+    console.error('Error fetching all job opening slugs:', error);
+    return [];
+  }
+}
+
 // About Page types
 export interface AboutStat {
   id: number;
@@ -786,5 +913,189 @@ export async function getFormConfig(): Promise<FormConfig> {
   } catch (error) {
     console.error('Error fetching form config:', error);
     return defaultConfig;
+  }
+}
+
+// Service types
+export interface Service {
+  id: number;
+  title: string;
+  slug: string;
+  icon: string;
+  shortDescription: string;
+  features?: ListItem[];
+  fullDescription?: string;
+  benefits?: ListItem[];
+  useCases?: ListItem[];
+  ctaText?: string;
+  order?: number;
+  featured?: boolean;
+  metaTitle?: string;
+  metaDescription?: string;
+}
+
+// Fetch all services by locale
+export async function getServices(lang: SupportedLocale = 'en'): Promise<Service[]> {
+  const locale = getStrapiLocale(lang);
+  const cacheKey = `services:${locale}`;
+
+  const cached = getCached<Service[]>(cacheKey);
+  if (cached) return cached;
+
+  try {
+    if (isDev) console.log(`[Strapi API] Fetching services for locale: ${locale}`);
+
+    let url = `${STRAPI_URL}/api/services?populate[features]=*&populate[benefits]=*&populate[useCases]=*&sort[0]=order:asc&sort[1]=featured:desc&locale=${locale}`;
+
+    let response = await fetch(url);
+
+    if (!response.ok) {
+      if (isDev) console.log('[Strapi API] Services not found with locale, trying without...');
+      url = `${STRAPI_URL}/api/services?populate[features]=*&populate[benefits]=*&populate[useCases]=*&sort[0]=order:asc&sort[1]=featured:desc`;
+      response = await fetch(url);
+    }
+
+    if (!response.ok) {
+      console.error('Failed to fetch services:', response.status);
+      return [];
+    }
+
+    const json: StrapiResponse<Service[]> = await response.json();
+    const services = json.data || [];
+
+    setCache(cacheKey, services);
+    return services;
+  } catch (error) {
+    console.error('Error fetching services:', error);
+    return [];
+  }
+}
+
+// Fetch single service by slug
+export async function getServiceBySlug(slug: string, lang: SupportedLocale = 'en'): Promise<Service | null> {
+  const locale = getStrapiLocale(lang);
+  const cacheKey = `service:${slug}:${locale}`;
+
+  const cached = getCached<Service | null>(cacheKey);
+  if (cached !== null) return cached;
+
+  try {
+    if (isDev) console.log(`[Strapi API] Fetching service: ${slug} (${locale})`);
+
+    let url = `${STRAPI_URL}/api/services?filters[slug][$eq]=${slug}&populate[features]=*&populate[benefits]=*&populate[useCases]=*&locale=${locale}`;
+
+    let response = await fetch(url);
+    let json: StrapiResponse<Service[]> = await response.json();
+    let service = json.data?.[0] || null;
+
+    if (!service) {
+      if (isDev) console.log('[Strapi API] Service not found with locale, trying without...');
+      url = `${STRAPI_URL}/api/services?filters[slug][$eq]=${slug}&populate[features]=*&populate[benefits]=*&populate[useCases]=*`;
+      response = await fetch(url);
+      json = await response.json();
+      service = json.data?.[0] || null;
+    }
+
+    setCache(cacheKey, service);
+    return service;
+  } catch (error) {
+    console.error('Error fetching service:', error);
+    return null;
+  }
+}
+
+// Get all service slugs for static paths
+export async function getAllServiceSlugs(): Promise<{ slug: string; locale: string }[]> {
+  const cacheKey = 'all-service-slugs';
+
+  const cached = getCached<{ slug: string; locale: string }[]>(cacheKey);
+  if (cached) return cached;
+
+  try {
+    const [enServices, esServices] = await Promise.all([
+      getServices('en'),
+      getServices('es'),
+    ]);
+
+    const slugs: { slug: string; locale: string }[] = [];
+
+    enServices.forEach((service) => {
+      slugs.push({ slug: service.slug, locale: 'en' });
+    });
+
+    esServices.forEach((service) => {
+      slugs.push({ slug: service.slug, locale: 'es' });
+    });
+
+    const uniqueSlugs = slugs.filter((item, index, self) =>
+      index === self.findIndex((t) => t.slug === item.slug && t.locale === item.locale)
+    );
+
+    setCache(cacheKey, uniqueSlugs);
+    return uniqueSlugs;
+  } catch (error) {
+    console.error('Error fetching all service slugs:', error);
+    return [];
+  }
+}
+
+// Contact Page types
+export interface BusinessHour {
+  id: number;
+  day: string;
+  hours: string;
+}
+
+export interface ContactPage {
+  heading?: string;
+  description?: string;
+  formTitle?: string;
+  phone?: string;
+  email?: string;
+  location?: string;
+  linkedinUrl?: string;
+  instagramUrl?: string;
+  facebookUrl?: string;
+  businessHoursTitle?: string;
+  businessHours?: BusinessHour[];
+  metaTitle?: string;
+  metaDescription?: string;
+}
+
+// Fetch contact page content by locale
+export async function getContactPage(lang: SupportedLocale = 'en'): Promise<ContactPage | null> {
+  const locale = getStrapiLocale(lang);
+  const cacheKey = `contact-page:${locale}`;
+
+  const cached = getCached<ContactPage | null>(cacheKey);
+  if (cached !== null) return cached;
+
+  try {
+    if (isDev) console.log(`[Strapi API] Fetching contact page for locale: ${locale}`);
+
+    let url = `${STRAPI_URL}/api/contact-page?populate[businessHours]=*&locale=${locale}`;
+
+    let response = await fetch(url);
+
+    if (!response.ok) {
+      if (isDev) console.log('[Strapi API] Contact page not found with locale, trying without...');
+      url = `${STRAPI_URL}/api/contact-page?populate[businessHours]=*`;
+      response = await fetch(url);
+    }
+
+    if (!response.ok) {
+      if (isDev) console.log('[Strapi API] Contact page not found');
+      setCache(cacheKey, null);
+      return null;
+    }
+
+    const json = await response.json();
+    const contactPage = json.data || null;
+
+    setCache(cacheKey, contactPage);
+    return contactPage;
+  } catch (error) {
+    console.error('Error fetching contact page:', error);
+    return null;
   }
 }
