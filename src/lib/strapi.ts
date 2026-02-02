@@ -3,7 +3,7 @@
 const STRAPI_URL = 'https://miraculous-action-c5f583a855.strapiapp.com';
 
 // Cache configuration
-const CACHE_TTL = 5 * 60 * 1000; // 5 minutes
+const CACHE_TTL = 60 * 60 * 1000; // 1 hora (aumentado para complementar ISR)
 const isDev = import.meta.env.DEV;
 
 interface CacheEntry<T> {
@@ -348,4 +348,148 @@ export function formatDate(dateString: string, lang: string = 'en'): string {
     month: 'long',
     day: 'numeric'
   });
+}
+
+// About Page types
+export interface AboutStat {
+  id: number;
+  icon: string;
+  value: string;
+  label: string;
+}
+
+export interface AboutLeader {
+  id: number;
+  name: string;
+  position: string;
+  photo?: StrapiImage;
+}
+
+export interface AboutPage {
+  heading?: string;
+  headingHighlight?: string;
+  headingEnd?: string;
+  description1?: string;
+  description2?: string;
+  buttonText?: string;
+  stats?: AboutStat[];
+  leadershipTitle?: string;
+  leaders?: AboutLeader[];
+  metaTitle?: string;
+  metaDescription?: string;
+}
+
+// Fetch about page content by locale
+export async function getAboutPage(lang: SupportedLocale = 'en'): Promise<AboutPage | null> {
+  const locale = getStrapiLocale(lang);
+  const cacheKey = `about-page:${locale}`;
+
+  const cached = getCached<AboutPage | null>(cacheKey);
+  if (cached !== null) return cached;
+
+  try {
+    if (isDev) console.log(`[Strapi API] Fetching about page for locale: ${locale}`);
+
+    // Fetch about-page single type with nested components
+    let url = `${STRAPI_URL}/api/about-page?populate[stats]=*&populate[leaders][populate]=photo&locale=${locale}`;
+
+    let response = await fetch(url);
+
+    if (!response.ok) {
+      // Try without locale (backward compatible)
+      if (isDev) console.log('[Strapi API] About page not found with locale, trying without...');
+      url = `${STRAPI_URL}/api/about-page?populate[stats]=*&populate[leaders][populate]=photo`;
+      response = await fetch(url);
+    }
+
+    if (!response.ok) {
+      if (isDev) console.log('[Strapi API] About page not found');
+      setCache(cacheKey, null);
+      return null;
+    }
+
+    const json = await response.json();
+    const aboutPage = json.data || null;
+
+    setCache(cacheKey, aboutPage);
+    return aboutPage;
+  } catch (error) {
+    console.error('Error fetching about page:', error);
+    return null;
+  }
+}
+
+// Form Config types
+export interface FormOption {
+  id: number;
+  name_en: string;
+  name_es: string;
+  value: string;
+  enabled: boolean;
+}
+
+export interface FormConfig {
+  industries: FormOption[];
+  services: FormOption[];
+}
+
+// Fetch form configuration (industries and services dropdowns)
+export async function getFormConfig(): Promise<FormConfig> {
+  const cacheKey = 'form-config';
+
+  const cached = getCached<FormConfig>(cacheKey);
+  if (cached) return cached;
+
+  // Default fallback values
+  const defaultConfig: FormConfig = {
+    industries: [
+      { id: 1, name_en: 'Healthcare', name_es: 'Salud', value: 'healthcare', enabled: true },
+      { id: 2, name_en: 'E-Commerce', name_es: 'Comercio Electrónico', value: 'ecommerce', enabled: true },
+      { id: 3, name_en: 'Technology', name_es: 'Tecnología', value: 'technology', enabled: true },
+      { id: 4, name_en: 'Finance', name_es: 'Finanzas', value: 'finance', enabled: true },
+      { id: 5, name_en: 'Travel & Hospitality', name_es: 'Viajes y Hospitalidad', value: 'travel', enabled: true },
+    ],
+    services: [
+      { id: 1, name_en: 'Customer Service', name_es: 'Servicio al Cliente', value: 'customer-service', enabled: true },
+      { id: 2, name_en: 'Back Office Support', name_es: 'Soporte Back Office', value: 'back-office', enabled: true },
+      { id: 3, name_en: 'Multilingual Support', name_es: 'Soporte Multilingüe', value: 'multilingual', enabled: true },
+      { id: 4, name_en: 'Tech Support', name_es: 'Soporte Técnico', value: 'tech-support', enabled: true },
+    ],
+  };
+
+  try {
+    if (isDev) console.log('[Strapi API] Fetching form config');
+
+    const url = `${STRAPI_URL}/api/form-config?populate=*`;
+    const response = await fetch(url);
+
+    if (!response.ok) {
+      if (isDev) console.log('[Strapi API] Form config not found, using defaults');
+      setCache(cacheKey, defaultConfig);
+      return defaultConfig;
+    }
+
+    const json = await response.json();
+    const data = json.data;
+
+    if (!data) {
+      setCache(cacheKey, defaultConfig);
+      return defaultConfig;
+    }
+
+    const formConfig: FormConfig = {
+      industries: (data.industries || []).filter((i: FormOption) => i.enabled),
+      services: (data.services || []).filter((s: FormOption) => s.enabled),
+    };
+
+    // Use defaults if empty
+    if (formConfig.industries.length === 0) formConfig.industries = defaultConfig.industries;
+    if (formConfig.services.length === 0) formConfig.services = defaultConfig.services;
+
+    setCache(cacheKey, formConfig);
+    return formConfig;
+  } catch (error) {
+    console.error('Error fetching form config:', error);
+    return defaultConfig;
+  }
 }
