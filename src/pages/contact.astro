@@ -3,15 +3,35 @@ import Layout from '../layouts/Layout.astro';
 import AnimatedSection from '../components/common/AnimatedSection.astro';
 import Icon from '../components/common/Icon.astro';
 import { t } from '../i18n/utils';
-import { getFormConfig } from '../lib/strapi';
+import { getFormConfig, getContactPage } from '../lib/strapi';
 
 const lang = 'en';
 const formConfig = await getFormConfig();
+const contactPage = await getContactPage(lang);
+
+// Defaults for when CMS is empty
+const heading = contactPage?.heading || t('contact.heading', lang);
+const description = contactPage?.description || t('contact.description', lang);
+const formTitle = contactPage?.formTitle || t('contact.info.getInTouch', lang);
+const phone = contactPage?.phone || '+1 (555) 123-4567';
+const email = contactPage?.email || 'contact@paricus.com';
+const location = contactPage?.location || t('contact.info.locationValue', lang);
+const linkedinUrl = contactPage?.linkedinUrl || '#';
+const instagramUrl = contactPage?.instagramUrl || '#';
+const facebookUrl = contactPage?.facebookUrl || '#';
+const businessHoursTitle = contactPage?.businessHoursTitle || 'Business Hours';
+const businessHours = contactPage?.businessHours || [
+  { id: 1, day: 'Monday - Friday', hours: '9:00 AM - 6:00 PM EST' },
+  { id: 2, day: 'Saturday', hours: '10:00 AM - 4:00 PM EST' },
+  { id: 3, day: 'Sunday', hours: 'Closed' }
+];
+const metaTitle = contactPage?.metaTitle || 'Contact Us - Paricus';
+const metaDescription = contactPage?.metaDescription || 'Ready to transform your operations? Get in touch with our team.';
 ---
 
 <Layout
-  title="Contact Us - Paricus"
-  description="Ready to transform your operations? Get in touch with our team."
+  title={metaTitle}
+  description={metaDescription}
   lang={lang}
   currentPath="/contact"
 >
@@ -19,10 +39,10 @@ const formConfig = await getFormConfig();
     <div class="max-w-[1600px] mx-auto px-6 lg:px-12">
       <AnimatedSection class="text-center max-w-3xl mx-auto mb-16">
         <h1 id="contact-heading" class="text-4xl lg:text-5xl font-bold text-[#2C3E50] mb-6 leading-tight">
-          {t('contact.heading', lang)}
+          {heading}
         </h1>
         <p class="text-lg text-[#5D6D7E] leading-relaxed">
-          {t('contact.description', lang)}
+          {description}
         </p>
       </AnimatedSection>
 
@@ -31,7 +51,7 @@ const formConfig = await getFormConfig();
         <AnimatedSection animation="slide-left">
           <div class="bg-[#FAFAF8] rounded-3xl p-8 lg:p-10 border border-[#D5E8D4]">
             <h2 class="text-2xl font-bold text-[#2C3E50] mb-6">
-              {t('contact.info.getInTouch', lang)}
+              {formTitle}
             </h2>
             <form class="space-y-6" aria-label="Contact form">
               <!-- Hidden UTM fields -->
@@ -200,8 +220,8 @@ const formConfig = await getFormConfig();
                   <h3 class="text-sm font-bold text-[#2C3E50] mb-1 uppercase tracking-wide">
                     {t('contact.info.phone', lang)}
                   </h3>
-                  <a href="tel:+15551234567" class="text-base text-[#5D6D7E] hover:text-[#52C17A] transition-colors">
-                    +1 (555) 123-4567
+                  <a href={`tel:${phone.replace(/\s/g, '')}`} class="text-base text-[#5D6D7E] hover:text-[#52C17A] transition-colors">
+                    {phone}
                   </a>
                 </div>
               </div>
@@ -213,8 +233,8 @@ const formConfig = await getFormConfig();
                   <h3 class="text-sm font-bold text-[#2C3E50] mb-1 uppercase tracking-wide">
                     {t('contact.info.email', lang)}
                   </h3>
-                  <a href="mailto:contact@paricus.com" class="text-base text-[#5D6D7E] hover:text-[#52C17A] transition-colors">
-                    contact@paricus.com
+                  <a href={`mailto:${email}`} class="text-base text-[#5D6D7E] hover:text-[#52C17A] transition-colors">
+                    {email}
                   </a>
                 </div>
               </div>
@@ -227,7 +247,7 @@ const formConfig = await getFormConfig();
                     {t('contact.info.location', lang)}
                   </h3>
                   <p class="text-base text-[#5D6D7E]">
-                    {t('contact.info.locationValue', lang)}
+                    {location}
                   </p>
                 </div>
               </div>
@@ -239,47 +259,66 @@ const formConfig = await getFormConfig();
               {t('contact.info.followUs', lang)}
             </h2>
             <div class="flex gap-4" role="list" aria-label="Social media links">
-              <a
-                href="#"
-                class="group w-14 h-14 rounded-2xl bg-[#E8F5E9] flex items-center justify-center hover:scale-110 hover:rotate-6 hover:bg-gradient-to-br hover:from-[#52C17A] hover:to-[#3D9E5F] transition-all duration-500"
-                aria-label="Follow us on LinkedIn"
-              >
-                <Icon name="linkedin" class="w-6 h-6 text-[#52C17A] group-hover:text-white transition-colors" size={24} />
-              </a>
-              <a
-                href="#"
-                class="group w-14 h-14 rounded-2xl bg-[#E8F5E9] flex items-center justify-center hover:scale-110 hover:rotate-6 hover:bg-gradient-to-br hover:from-[#52C17A] hover:to-[#3D9E5F] transition-all duration-500"
-                aria-label="Follow us on Instagram"
-              >
-                <Icon name="instagram" class="w-6 h-6 text-[#52C17A] group-hover:text-white transition-colors" size={24} />
-              </a>
-              <a
-                href="#"
-                class="group w-14 h-14 rounded-2xl bg-[#E8F5E9] flex items-center justify-center hover:scale-110 hover:rotate-6 hover:bg-gradient-to-br hover:from-[#52C17A] hover:to-[#3D9E5F] transition-all duration-500"
-                aria-label="Follow us on Facebook"
-              >
-                <Icon name="facebook" class="w-6 h-6 text-[#52C17A] group-hover:text-white transition-colors" size={24} />
-              </a>
+              {linkedinUrl && linkedinUrl !== '#' && (
+                <a
+                  href={linkedinUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="group w-14 h-14 rounded-2xl bg-[#E8F5E9] flex items-center justify-center hover:scale-110 hover:rotate-6 hover:bg-gradient-to-br hover:from-[#52C17A] hover:to-[#3D9E5F] transition-all duration-500"
+                  aria-label="Follow us on LinkedIn"
+                >
+                  <Icon name="linkedin" class="w-6 h-6 text-[#52C17A] group-hover:text-white transition-colors" size={24} />
+                </a>
+              )}
+              {instagramUrl && instagramUrl !== '#' && (
+                <a
+                  href={instagramUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="group w-14 h-14 rounded-2xl bg-[#E8F5E9] flex items-center justify-center hover:scale-110 hover:rotate-6 hover:bg-gradient-to-br hover:from-[#52C17A] hover:to-[#3D9E5F] transition-all duration-500"
+                  aria-label="Follow us on Instagram"
+                >
+                  <Icon name="instagram" class="w-6 h-6 text-[#52C17A] group-hover:text-white transition-colors" size={24} />
+                </a>
+              )}
+              {facebookUrl && facebookUrl !== '#' && (
+                <a
+                  href={facebookUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="group w-14 h-14 rounded-2xl bg-[#E8F5E9] flex items-center justify-center hover:scale-110 hover:rotate-6 hover:bg-gradient-to-br hover:from-[#52C17A] hover:to-[#3D9E5F] transition-all duration-500"
+                  aria-label="Follow us on Facebook"
+                >
+                  <Icon name="facebook" class="w-6 h-6 text-[#52C17A] group-hover:text-white transition-colors" size={24} />
+                </a>
+              )}
+              {(!linkedinUrl || linkedinUrl === '#') && (!instagramUrl || instagramUrl === '#') && (!facebookUrl || facebookUrl === '#') && (
+                <>
+                  <a href="#" class="group w-14 h-14 rounded-2xl bg-[#E8F5E9] flex items-center justify-center hover:scale-110 hover:rotate-6 hover:bg-gradient-to-br hover:from-[#52C17A] hover:to-[#3D9E5F] transition-all duration-500" aria-label="Follow us on LinkedIn">
+                    <Icon name="linkedin" class="w-6 h-6 text-[#52C17A] group-hover:text-white transition-colors" size={24} />
+                  </a>
+                  <a href="#" class="group w-14 h-14 rounded-2xl bg-[#E8F5E9] flex items-center justify-center hover:scale-110 hover:rotate-6 hover:bg-gradient-to-br hover:from-[#52C17A] hover:to-[#3D9E5F] transition-all duration-500" aria-label="Follow us on Instagram">
+                    <Icon name="instagram" class="w-6 h-6 text-[#52C17A] group-hover:text-white transition-colors" size={24} />
+                  </a>
+                  <a href="#" class="group w-14 h-14 rounded-2xl bg-[#E8F5E9] flex items-center justify-center hover:scale-110 hover:rotate-6 hover:bg-gradient-to-br hover:from-[#52C17A] hover:to-[#3D9E5F] transition-all duration-500" aria-label="Follow us on Facebook">
+                    <Icon name="facebook" class="w-6 h-6 text-[#52C17A] group-hover:text-white transition-colors" size={24} />
+                  </a>
+                </>
+              )}
             </div>
           </div>
 
           <div class="bg-[#FAFAF8] rounded-3xl p-8 border border-[#D5E8D4]">
             <h3 class="text-lg font-bold text-[#2C3E50] mb-4">
-              Business Hours
+              {businessHoursTitle}
             </h3>
             <dl class="space-y-3 text-sm text-[#5D6D7E]">
-              <div class="flex justify-between py-2 border-b border-[#D5E8D4]">
-                <dt class="font-medium">Monday - Friday</dt>
-                <dd>9:00 AM - 6:00 PM EST</dd>
-              </div>
-              <div class="flex justify-between py-2 border-b border-[#D5E8D4]">
-                <dt class="font-medium">Saturday</dt>
-                <dd>10:00 AM - 4:00 PM EST</dd>
-              </div>
-              <div class="flex justify-between py-2">
-                <dt class="font-medium">Sunday</dt>
-                <dd>Closed</dd>
-              </div>
+              {businessHours.map((hour, index) => (
+                <div class={`flex justify-between py-2 ${index < businessHours.length - 1 ? 'border-b border-[#D5E8D4]' : ''}`}>
+                  <dt class="font-medium">{hour.day}</dt>
+                  <dd>{hour.hours}</dd>
+                </div>
+              ))}
             </dl>
           </div>
         </AnimatedSection>

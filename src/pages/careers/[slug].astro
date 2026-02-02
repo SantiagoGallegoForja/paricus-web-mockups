@@ -1,0 +1,236 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import AnimatedSection from '../../components/common/AnimatedSection.astro';
+import Icon from '../../components/common/Icon.astro';
+import { t, getLocalizedPath } from '../../i18n/utils';
+import { getJobOpeningBySlug } from '../../lib/strapi';
+
+const lang = 'en';
+const { slug } = Astro.params;
+
+// Fetch job opening
+const job = slug ? await getJobOpeningBySlug(slug, lang) : null;
+
+// 404 if not found
+if (!job) {
+  return Astro.redirect('/404');
+}
+
+const metaTitle = `${job.title} - Careers | Paricus`;
+const metaDescription = job.summary.slice(0, 160);
+---
+
+<Layout
+  title={metaTitle}
+  description={metaDescription}
+  lang={lang}
+  currentPath={`/careers/${slug}`}
+>
+  <article class="py-20 lg:py-32 bg-white pt-40">
+    <div class="max-w-[1200px] mx-auto px-6 lg:px-12">
+      <!-- Back link -->
+      <AnimatedSection>
+        <a
+          href={getLocalizedPath('/careers', lang)}
+          class="inline-flex items-center text-[#5D6D7E] hover:text-[#52C17A] transition-colors mb-8 group"
+        >
+          <Icon name="arrow-left" class="w-5 h-5 mr-2 group-hover:-translate-x-1 transition-transform" size={20} />
+          {t('careers.backToJobs', lang)}
+        </a>
+      </AnimatedSection>
+
+      <!-- Header -->
+      <AnimatedSection class="mb-12">
+        <div class="flex flex-wrap items-center gap-3 mb-6">
+          {job.featured && (
+            <span class="px-4 py-2 bg-[#52C17A]/10 text-[#52C17A] text-sm font-semibold rounded-full">
+              Featured
+            </span>
+          )}
+          <span class="px-4 py-2 bg-[#E8F5E9] text-[#2C3E50] text-sm font-semibold rounded-full">
+            {job.department}
+          </span>
+        </div>
+        <h1 class="text-4xl lg:text-5xl font-bold text-[#2C3E50] mb-6 leading-tight">
+          {job.title}
+        </h1>
+        <div class="flex flex-wrap gap-6 text-[#5D6D7E]">
+          <span class="flex items-center gap-2">
+            <Icon name="map-pin" size={20} class="text-[#52C17A]" />
+            {job.location}
+          </span>
+          <span class="flex items-center gap-2">
+            <Icon name="clock" size={20} class="text-[#52C17A]" />
+            {job.jobType}
+          </span>
+          <span class="flex items-center gap-2">
+            <Icon name="briefcase" size={20} class="text-[#52C17A]" />
+            {job.department}
+          </span>
+        </div>
+      </AnimatedSection>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+        <!-- Main content -->
+        <div class="lg:col-span-2 space-y-10">
+          <!-- Summary -->
+          <AnimatedSection>
+            <div class="bg-[#FAFAF8] rounded-2xl p-8 border border-[#D5E8D4]">
+              <p class="text-lg text-[#5D6D7E] leading-relaxed">
+                {job.summary}
+              </p>
+            </div>
+          </AnimatedSection>
+
+          <!-- Description (Rich Text) -->
+          {job.description && (
+            <AnimatedSection>
+              <div class="prose prose-lg max-w-none">
+                <div class="text-[#5D6D7E] leading-relaxed" set:html={job.description} />
+              </div>
+            </AnimatedSection>
+          )}
+
+          <!-- Responsibilities -->
+          {job.responsibilities && job.responsibilities.length > 0 && (
+            <AnimatedSection>
+              <div class="bg-[#FAFAF8] rounded-2xl p-8 border border-[#D5E8D4]">
+                <h2 class="text-xl font-bold text-[#2C3E50] mb-6 flex items-center">
+                  <Icon name="clipboard-list" class="w-6 h-6 mr-3 text-[#52C17A]" size={24} />
+                  {t('careers.responsibilities', lang)}
+                </h2>
+                <ul class="space-y-3">
+                  {job.responsibilities.map((item) => (
+                    <li class="flex items-start gap-3 text-[#5D6D7E]">
+                      <Icon name="check" class="w-5 h-5 text-[#52C17A] flex-shrink-0 mt-0.5" size={20} />
+                      <span>{item.text}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </AnimatedSection>
+          )}
+
+          <!-- Requirements -->
+          {job.requirements && job.requirements.length > 0 && (
+            <AnimatedSection>
+              <div class="bg-[#FAFAF8] rounded-2xl p-8 border border-[#D5E8D4]">
+                <h2 class="text-xl font-bold text-[#2C3E50] mb-6 flex items-center">
+                  <Icon name="award" class="w-6 h-6 mr-3 text-[#52C17A]" size={24} />
+                  {t('careers.requirements', lang)}
+                </h2>
+                <ul class="space-y-3">
+                  {job.requirements.map((item) => (
+                    <li class="flex items-start gap-3 text-[#5D6D7E]">
+                      <Icon name="check" class="w-5 h-5 text-[#52C17A] flex-shrink-0 mt-0.5" size={20} />
+                      <span>{item.text}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </AnimatedSection>
+          )}
+
+          <!-- Benefits -->
+          {job.benefits && job.benefits.length > 0 && (
+            <AnimatedSection>
+              <div class="bg-[#FAFAF8] rounded-2xl p-8 border border-[#D5E8D4]">
+                <h2 class="text-xl font-bold text-[#2C3E50] mb-6 flex items-center">
+                  <Icon name="gift" class="w-6 h-6 mr-3 text-[#52C17A]" size={24} />
+                  {t('careers.jobBenefits', lang)}
+                </h2>
+                <ul class="space-y-3">
+                  {job.benefits.map((item) => (
+                    <li class="flex items-start gap-3 text-[#5D6D7E]">
+                      <Icon name="check" class="w-5 h-5 text-[#52C17A] flex-shrink-0 mt-0.5" size={20} />
+                      <span>{item.text}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </AnimatedSection>
+          )}
+        </div>
+
+        <!-- Sidebar with Apply CTA -->
+        <aside class="lg:col-span-1">
+          <AnimatedSection>
+            <div class="bg-gradient-to-br from-[#52C17A] to-[#3D9E5F] rounded-2xl p-8 text-white sticky top-32">
+              <h2 class="text-xl font-bold mb-4">
+                Interested in this role?
+              </h2>
+              <p class="text-white/90 mb-8 text-sm leading-relaxed">
+                Join our team and be part of a company that values growth, innovation, and work-life balance.
+              </p>
+              <a
+                href={getLocalizedPath('/contact', lang)}
+                class="flex items-center justify-center w-full px-6 py-4 rounded-xl bg-white text-[#52C17A] font-semibold hover:bg-gray-100 transition-colors shadow-lg"
+              >
+                {t('careers.applyNow', lang)}
+                <Icon name="arrow-right" class="w-5 h-5 ml-2" size={20} />
+              </a>
+              <div class="mt-8 pt-6 border-t border-white/20">
+                <h3 class="text-sm font-semibold mb-4 uppercase tracking-wide">
+                  Job Details
+                </h3>
+                <div class="space-y-3 text-sm">
+                  <div class="flex justify-between">
+                    <span class="text-white/70">{t('careers.department', lang)}</span>
+                    <span class="font-medium">{job.department}</span>
+                  </div>
+                  <div class="flex justify-between">
+                    <span class="text-white/70">{t('careers.location', lang)}</span>
+                    <span class="font-medium">{job.location}</span>
+                  </div>
+                  <div class="flex justify-between">
+                    <span class="text-white/70">{t('careers.type', lang)}</span>
+                    <span class="font-medium">{job.jobType}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </AnimatedSection>
+        </aside>
+      </div>
+    </div>
+  </article>
+</Layout>
+
+<style>
+  .prose h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #2C3E50;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+  }
+  .prose h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #2C3E50;
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+  }
+  .prose p {
+    color: #5D6D7E;
+    line-height: 1.75;
+    margin-bottom: 1rem;
+  }
+  .prose ul, .prose ol {
+    color: #5D6D7E;
+    margin-bottom: 1rem;
+    padding-left: 1.5rem;
+  }
+  .prose li {
+    margin-bottom: 0.5rem;
+  }
+  .prose a {
+    color: #52C17A;
+  }
+  .prose a:hover {
+    text-decoration: underline;
+  }
+  .prose strong {
+    color: #2C3E50;
+  }
+</style>

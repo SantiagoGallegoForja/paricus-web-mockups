@@ -3,6 +3,7 @@ import Layout from '../../layouts/Layout.astro';
 import AnimatedSection from '../../components/common/AnimatedSection.astro';
 import Icon from '../../components/common/Icon.astro';
 import { t, getLocalizedPath } from '../../i18n/utils';
+import { getJobOpenings } from '../../lib/strapi';
 
 const lang = 'es';
 
@@ -12,6 +13,8 @@ const benefits = [
   { icon: 'heart', titleKey: 'careers.benefits.benefits.title', descriptionKey: 'careers.benefits.benefits.description' },
   { icon: 'briefcase', titleKey: 'careers.benefits.training.title', descriptionKey: 'careers.benefits.training.description' }
 ];
+
+const jobOpenings = await getJobOpenings(lang);
 ---
 
 <Layout title="Carreras - Paricus" description="Se parte de una empresa que valora el crecimiento e innovacion." lang={lang} currentPath="/es/careers">
@@ -22,7 +25,7 @@ const benefits = [
           <h1 class="text-4xl lg:text-5xl font-bold text-[#2C3E50] mb-6">{t('careers.heading', lang)}</h1>
           <p class="text-lg text-[#5D6D7E] mb-8">{t('careers.description', lang)}</p>
           <div class="flex flex-col sm:flex-row gap-4">
-            <a href={getLocalizedPath('/contact', lang)} class="inline-flex items-center justify-center px-10 py-5 rounded-2xl bg-gradient-to-r from-[#52C17A] to-[#3D9E5F] text-white font-semibold hover:shadow-2xl hover:scale-105 transition-all duration-300 group">
+            <a href="#open-positions" class="inline-flex items-center justify-center px-10 py-5 rounded-2xl bg-gradient-to-r from-[#52C17A] to-[#3D9E5F] text-white font-semibold hover:shadow-2xl hover:scale-105 transition-all duration-300 group">
               {t('careers.viewAll', lang)}
               <Icon name="arrow-right" class="ml-2 w-5 h-5 group-hover:translate-x-2 transition-transform" size={20} />
             </a>
@@ -46,6 +49,72 @@ const benefits = [
           ))}
         </AnimatedSection>
       </div>
+    </div>
+  </section>
+
+  <!-- Job Openings Section -->
+  <section id="open-positions" class="py-20 lg:py-32 bg-[#FAFAF8]" aria-labelledby="positions-heading">
+    <div class="max-w-[1600px] mx-auto px-6 lg:px-12">
+      <AnimatedSection animation="fade-up" class="text-center mb-16">
+        <h2 id="positions-heading" class="text-3xl lg:text-4xl font-bold text-[#2C3E50] mb-4">
+          {t('careers.openPositions', lang)}
+        </h2>
+      </AnimatedSection>
+
+      {jobOpenings.length > 0 ? (
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {jobOpenings.map((job, index) => (
+            <AnimatedSection animation="fade-up" style={`transition-delay: ${index * 100}ms`}>
+              <article class="group bg-white rounded-2xl p-6 border border-[#D5E8D4] hover:border-[#52C17A] hover:shadow-xl hover:shadow-[#52C17A]/10 transition-all duration-300 h-full flex flex-col">
+                <div class="flex-1">
+                  <div class="flex items-center gap-2 mb-4">
+                    {job.featured && (
+                      <span class="px-3 py-1 bg-[#52C17A]/10 text-[#52C17A] text-xs font-semibold rounded-full">
+                        Destacado
+                      </span>
+                    )}
+                    <span class="px-3 py-1 bg-[#E8F5E9] text-[#2C3E50] text-xs font-medium rounded-full">
+                      {job.department}
+                    </span>
+                  </div>
+                  <h3 class="text-xl font-bold text-[#2C3E50] mb-3 group-hover:text-[#52C17A] transition-colors">
+                    {job.title}
+                  </h3>
+                  <p class="text-[#5D6D7E] text-sm mb-4 line-clamp-3">
+                    {job.summary}
+                  </p>
+                  <div class="flex flex-wrap gap-3 text-sm text-[#5D6D7E]">
+                    <span class="flex items-center gap-1">
+                      <Icon name="map-pin" size={16} class="text-[#52C17A]" />
+                      {job.location}
+                    </span>
+                    <span class="flex items-center gap-1">
+                      <Icon name="clock" size={16} class="text-[#52C17A]" />
+                      {job.jobType}
+                    </span>
+                  </div>
+                </div>
+                <a
+                  href={`/es/careers/${job.slug}`}
+                  class="mt-6 inline-flex items-center justify-center w-full px-6 py-3 rounded-xl bg-[#E8F5E9] text-[#52C17A] font-semibold hover:bg-[#52C17A] hover:text-white transition-all duration-300 group/btn"
+                >
+                  {t('careers.viewDetails', lang)}
+                  <Icon name="arrow-right" class="ml-2 w-4 h-4 group-hover/btn:translate-x-1 transition-transform" size={16} />
+                </a>
+              </article>
+            </AnimatedSection>
+          ))}
+        </div>
+      ) : (
+        <AnimatedSection animation="fade-up" class="text-center">
+          <div class="bg-white rounded-2xl p-12 border border-[#D5E8D4]">
+            <Icon name="briefcase" size={48} class="text-[#D5E8D4] mx-auto mb-4" />
+            <p class="text-[#5D6D7E] text-lg">
+              {t('careers.noPositions', lang)}
+            </p>
+          </div>
+        </AnimatedSection>
+      )}
     </div>
   </section>
 </Layout>
