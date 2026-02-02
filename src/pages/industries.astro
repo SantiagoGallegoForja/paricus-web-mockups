@@ -3,21 +3,33 @@ import Layout from '../layouts/Layout.astro';
 import AnimatedSection from '../components/common/AnimatedSection.astro';
 import Icon from '../components/common/Icon.astro';
 import { t } from '../i18n/utils';
+import { getIndustriesPage } from '../lib/strapi';
 
 const lang = 'en';
 
-const industries = [
-  { icon: 'heart', titleKey: 'industries.healthcare.title', descriptionKey: 'industries.healthcare.description' },
-  { icon: 'package', titleKey: 'industries.ecommerce.title', descriptionKey: 'industries.ecommerce.description' },
-  { icon: 'cpu', titleKey: 'industries.technology.title', descriptionKey: 'industries.technology.description' },
-  { icon: 'landmark', titleKey: 'industries.finance.title', descriptionKey: 'industries.finance.description' },
-  { icon: 'shopping-bag', titleKey: 'industries.travel.title', descriptionKey: 'industries.travel.description' }
+// Fetch CMS content
+const industriesData = await getIndustriesPage(lang);
+
+// Fallback values if CMS is not configured
+const defaultIndustries = [
+  { id: 1, icon: 'heart', title: 'Healthcare', description: 'Supporting patient care with compassionate, HIPAA-compliant support services.' },
+  { id: 2, icon: 'package', title: 'E-Commerce', description: 'Scaling your online business with seamless customer experiences.' },
+  { id: 3, icon: 'cpu', title: 'Technology', description: 'Technical support that speaks your customers\' language.' },
+  { id: 4, icon: 'landmark', title: 'Finance', description: 'Secure, compliant support for financial services.' },
+  { id: 5, icon: 'shopping-bag', title: 'Travel & Hospitality', description: 'Creating memorable experiences from first contact.' }
 ];
+
+// Use CMS data with fallbacks
+const heading = industriesData?.heading || t('industries.heading', lang);
+const description = industriesData?.description || t('industries.description', lang);
+const industries = industriesData?.industries?.length ? industriesData.industries : defaultIndustries;
+const metaTitle = industriesData?.metaTitle || 'Industries - Paricus';
+const metaDescription = industriesData?.metaDescription || 'Specialized expertise across diverse sectors, delivering tailored solutions.';
 ---
 
 <Layout
-  title="Industries - Paricus"
-  description="Specialized expertise across diverse sectors, delivering tailored solutions."
+  title={metaTitle}
+  description={metaDescription}
   lang={lang}
   currentPath="/industries"
 >
@@ -25,10 +37,10 @@ const industries = [
     <div class="max-w-[1600px] mx-auto px-6 lg:px-12">
       <AnimatedSection class="text-center max-w-3xl mx-auto mb-16">
         <h1 id="industries-heading" class="text-4xl lg:text-5xl font-bold text-[#2C3E50] mb-6 leading-tight">
-          {t('industries.heading', lang)}
+          {heading}
         </h1>
         <p class="text-lg text-[#5D6D7E] leading-relaxed">
-          {t('industries.description', lang)}
+          {description}
         </p>
       </AnimatedSection>
 
@@ -46,10 +58,10 @@ const industries = [
                 <Icon name={industry.icon} class="w-8 h-8 text-[#52C17A] group-hover:text-white transition-all duration-500 group-hover:scale-110" size={32} />
               </div>
               <h2 class="text-xl font-bold text-[#2C3E50] mb-3 group-hover:text-[#52C17A] group-hover:scale-105 transition-all duration-300">
-                {t(industry.titleKey, lang)}
+                {industry.title}
               </h2>
               <p class="text-sm text-[#5D6D7E] leading-relaxed group-hover:translate-y-1 transition-transform duration-300">
-                {t(industry.descriptionKey, lang)}
+                {industry.description}
               </p>
             </div>
 

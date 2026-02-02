@@ -419,6 +419,60 @@ export async function getAboutPage(lang: SupportedLocale = 'en'): Promise<AboutP
   }
 }
 
+// Industries Page types
+export interface IndustryCard {
+  id: number;
+  icon: string;
+  title: string;
+  description: string;
+}
+
+export interface IndustriesPage {
+  heading?: string;
+  description?: string;
+  industries?: IndustryCard[];
+  metaTitle?: string;
+  metaDescription?: string;
+}
+
+// Fetch industries page content by locale
+export async function getIndustriesPage(lang: SupportedLocale = 'en'): Promise<IndustriesPage | null> {
+  const locale = getStrapiLocale(lang);
+  const cacheKey = `industries-page:${locale}`;
+
+  const cached = getCached<IndustriesPage | null>(cacheKey);
+  if (cached !== null) return cached;
+
+  try {
+    if (isDev) console.log(`[Strapi API] Fetching industries page for locale: ${locale}`);
+
+    let url = `${STRAPI_URL}/api/industries-page?populate[industries]=*&locale=${locale}`;
+
+    let response = await fetch(url);
+
+    if (!response.ok) {
+      if (isDev) console.log('[Strapi API] Industries page not found with locale, trying without...');
+      url = `${STRAPI_URL}/api/industries-page?populate[industries]=*`;
+      response = await fetch(url);
+    }
+
+    if (!response.ok) {
+      if (isDev) console.log('[Strapi API] Industries page not found');
+      setCache(cacheKey, null);
+      return null;
+    }
+
+    const json = await response.json();
+    const industriesPage = json.data || null;
+
+    setCache(cacheKey, industriesPage);
+    return industriesPage;
+  } catch (error) {
+    console.error('Error fetching industries page:', error);
+    return null;
+  }
+}
+
 // Form Config types
 export interface FormOption {
   id: number;
