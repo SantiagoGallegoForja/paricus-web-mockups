@@ -473,6 +473,112 @@ export async function getIndustriesPage(lang: SupportedLocale = 'en'): Promise<I
   }
 }
 
+// Case Study types
+export interface ResultMetric {
+  id: number;
+  icon: string;
+  metric: string;
+  label: string;
+}
+
+export interface CaseStudy {
+  id: number;
+  title: string;
+  slug: string;
+  industry: string;
+  challenge: string;
+  solution: string;
+  results: ResultMetric[];
+  order?: number;
+  featured?: boolean;
+}
+
+export interface CaseStudiesPage {
+  heading?: string;
+  description?: string;
+  challengeLabel?: string;
+  solutionLabel?: string;
+  resultsLabel?: string;
+  ctaText?: string;
+  metaTitle?: string;
+  metaDescription?: string;
+}
+
+// Fetch all case studies by locale
+export async function getCaseStudies(lang: SupportedLocale = 'en'): Promise<CaseStudy[]> {
+  const locale = getStrapiLocale(lang);
+  const cacheKey = `case-studies:${locale}`;
+
+  const cached = getCached<CaseStudy[]>(cacheKey);
+  if (cached) return cached;
+
+  try {
+    if (isDev) console.log(`[Strapi API] Fetching case studies for locale: ${locale}`);
+
+    let url = `${STRAPI_URL}/api/case-studies?populate[results]=*&sort=order:asc&locale=${locale}`;
+
+    let response = await fetch(url);
+
+    if (!response.ok) {
+      if (isDev) console.log('[Strapi API] Case studies not found with locale, trying without...');
+      url = `${STRAPI_URL}/api/case-studies?populate[results]=*&sort=order:asc`;
+      response = await fetch(url);
+    }
+
+    if (!response.ok) {
+      console.error('Failed to fetch case studies:', response.status);
+      return [];
+    }
+
+    const json: StrapiResponse<CaseStudy[]> = await response.json();
+    const caseStudies = json.data || [];
+
+    setCache(cacheKey, caseStudies);
+    return caseStudies;
+  } catch (error) {
+    console.error('Error fetching case studies:', error);
+    return [];
+  }
+}
+
+// Fetch case studies page settings by locale
+export async function getCaseStudiesPage(lang: SupportedLocale = 'en'): Promise<CaseStudiesPage | null> {
+  const locale = getStrapiLocale(lang);
+  const cacheKey = `case-studies-page:${locale}`;
+
+  const cached = getCached<CaseStudiesPage | null>(cacheKey);
+  if (cached !== null) return cached;
+
+  try {
+    if (isDev) console.log(`[Strapi API] Fetching case studies page for locale: ${locale}`);
+
+    let url = `${STRAPI_URL}/api/case-studies-page?locale=${locale}`;
+
+    let response = await fetch(url);
+
+    if (!response.ok) {
+      if (isDev) console.log('[Strapi API] Case studies page not found with locale, trying without...');
+      url = `${STRAPI_URL}/api/case-studies-page`;
+      response = await fetch(url);
+    }
+
+    if (!response.ok) {
+      if (isDev) console.log('[Strapi API] Case studies page not found');
+      setCache(cacheKey, null);
+      return null;
+    }
+
+    const json = await response.json();
+    const pageSettings = json.data || null;
+
+    setCache(cacheKey, pageSettings);
+    return pageSettings;
+  } catch (error) {
+    console.error('Error fetching case studies page:', error);
+    return null;
+  }
+}
+
 // Form Config types
 export interface FormOption {
   id: number;

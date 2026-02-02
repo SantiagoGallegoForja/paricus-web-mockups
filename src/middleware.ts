@@ -8,6 +8,8 @@ const ISR_PAGES = [
   '/es/about',
   '/industries',
   '/es/industries',
+  '/case-studies',
+  '/es/case-studies',
   '/contact',
   '/es/contact',
   '/blog',

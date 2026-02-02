@@ -3,49 +3,74 @@ import Layout from '../layouts/Layout.astro';
 import AnimatedSection from '../components/common/AnimatedSection.astro';
 import Icon from '../components/common/Icon.astro';
 import { t, getLocalizedPath } from '../i18n/utils';
+import { getCaseStudies, getCaseStudiesPage } from '../lib/strapi';
 
 const lang = 'en';
 
-const caseStudies = [
+// Fetch CMS content
+const [caseStudiesData, pageSettings] = await Promise.all([
+  getCaseStudies(lang),
+  getCaseStudiesPage(lang)
+]);
+
+// Fallback values if CMS is not configured
+const defaultCaseStudies = [
   {
-    titleKey: 'caseStudies.healthcare.title',
-    industryKey: 'caseStudies.healthcare.industry',
-    challengeKey: 'caseStudies.healthcare.challenge',
-    solutionKey: 'caseStudies.healthcare.solution',
+    id: 1,
+    title: 'Transforming Healthcare Support',
+    slug: 'healthcare-support',
+    industry: 'Healthcare',
+    challenge: 'A leading healthcare provider struggled with patient support during high-demand periods.',
+    solution: 'We deployed a dedicated bilingual team with HIPAA certification and healthcare expertise.',
     results: [
-      { icon: 'trending-up', metric: '40%', labelKey: 'caseStudies.healthcare.efficiencyIncrease' },
-      { icon: 'clock', metric: '30%', labelKey: 'caseStudies.healthcare.fasterResponse' },
-      { icon: 'users', metric: '95%', labelKey: 'caseStudies.healthcare.patientSatisfaction' }
+      { id: 1, icon: 'trending-up', metric: '40%', label: 'Efficiency Increase' },
+      { id: 2, icon: 'clock', metric: '30%', label: 'Faster Response' },
+      { id: 3, icon: 'users', metric: '95%', label: 'Patient Satisfaction' }
     ]
   },
   {
-    titleKey: 'caseStudies.ecommerce.title',
-    industryKey: 'caseStudies.ecommerce.industry',
-    challengeKey: 'caseStudies.ecommerce.challenge',
-    solutionKey: 'caseStudies.ecommerce.solution',
+    id: 2,
+    title: 'E-Commerce Growth Partner',
+    slug: 'ecommerce-growth',
+    industry: 'E-Commerce',
+    challenge: 'A fast-growing online retailer needed to scale support while maintaining quality.',
+    solution: 'We implemented a flexible support model with seamless peak-season scaling.',
     results: [
-      { icon: 'trending-up', metric: '3x', labelKey: 'caseStudies.ecommerce.volumeHandled' },
-      { icon: 'clock', metric: '50%', labelKey: 'caseStudies.ecommerce.costReduction' },
-      { icon: 'users', metric: '98%', labelKey: 'caseStudies.ecommerce.orderAccuracy' }
+      { id: 1, icon: 'trending-up', metric: '3x', label: 'Volume Handled' },
+      { id: 2, icon: 'clock', metric: '50%', label: 'Cost Reduction' },
+      { id: 3, icon: 'users', metric: '98%', label: 'Order Accuracy' }
     ]
   },
   {
-    titleKey: 'caseStudies.technology.title',
-    industryKey: 'caseStudies.technology.industry',
-    challengeKey: 'caseStudies.technology.challenge',
-    solutionKey: 'caseStudies.technology.solution',
+    id: 3,
+    title: 'Tech Support Excellence',
+    slug: 'tech-support',
+    industry: 'Technology',
+    challenge: 'A SaaS company faced challenges with technical support quality and response times.',
+    solution: 'We established a specialized technical support team with product expertise.',
     results: [
-      { icon: 'trending-up', metric: '60%', labelKey: 'caseStudies.technology.firstCallResolution' },
-      { icon: 'clock', metric: '45%', labelKey: 'caseStudies.technology.reducedWaitTime' },
-      { icon: 'users', metric: '92%', labelKey: 'caseStudies.technology.csatScore' }
+      { id: 1, icon: 'trending-up', metric: '60%', label: 'First Call Resolution' },
+      { id: 2, icon: 'clock', metric: '45%', label: 'Reduced Wait Time' },
+      { id: 3, icon: 'users', metric: '92%', label: 'CSAT Score' }
     ]
   }
 ];
+
+// Use CMS data with fallbacks
+const caseStudies = caseStudiesData.length ? caseStudiesData : defaultCaseStudies;
+const heading = pageSettings?.heading || t('caseStudies.heading', lang);
+const description = pageSettings?.description || t('caseStudies.description', lang);
+const challengeLabel = pageSettings?.challengeLabel || t('caseStudies.challenge', lang);
+const solutionLabel = pageSettings?.solutionLabel || t('caseStudies.solution', lang);
+const resultsLabel = pageSettings?.resultsLabel || t('caseStudies.results', lang);
+const ctaText = pageSettings?.ctaText || t('caseStudies.viewFullCase', lang);
+const metaTitle = pageSettings?.metaTitle || 'Case Studies - Paricus';
+const metaDescription = pageSettings?.metaDescription || 'Real success stories demonstrating our commitment to delivering measurable impact.';
 ---
 
 <Layout
-  title="Case Studies - Paricus"
-  description="Real success stories demonstrating our commitment to delivering measurable impact."
+  title={metaTitle}
+  description={metaDescription}
   lang={lang}
   currentPath="/case-studies"
 >
@@ -53,10 +78,10 @@ const caseStudies = [
     <div class="max-w-[1600px] mx-auto px-6 lg:px-12">
       <AnimatedSection class="max-w-3xl mb-16">
         <h1 id="case-studies-heading" class="text-4xl lg:text-5xl font-bold text-[#2C3E50] mb-6 leading-tight">
-          {t('caseStudies.heading', lang)}
+          {heading}
         </h1>
         <p class="text-lg text-[#5D6D7E] leading-relaxed">
-          {t('caseStudies.description', lang)}
+          {description}
         </p>
       </AnimatedSection>
 
@@ -69,27 +94,27 @@ const caseStudies = [
               <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-8">
                 <div class="flex-1">
                   <span class="inline-block px-4 py-2 bg-[#E8F5E9] text-[#52C17A] text-xs font-semibold rounded-full mb-4 group-hover:scale-105 group-hover:bg-[#52C17A] group-hover:text-white transition-all duration-300">
-                    {t(study.industryKey, lang)}
+                    {study.industry}
                   </span>
                   <h2 class="text-2xl lg:text-3xl font-bold text-[#2C3E50] mb-6 group-hover:text-[#52C17A] group-hover:translate-x-2 transition-all duration-300">
-                    {t(study.titleKey, lang)}
+                    {study.title}
                   </h2>
 
                   <div class="space-y-6 mb-8">
                     <div class="group-hover:translate-x-1 transition-transform duration-300">
                       <h3 class="text-sm font-bold text-[#2C3E50] mb-2 uppercase tracking-wide">
-                        {t('caseStudies.challenge', lang)}
+                        {challengeLabel}
                       </h3>
                       <p class="text-base text-[#5D6D7E] leading-relaxed">
-                        {t(study.challengeKey, lang)}
+                        {study.challenge}
                       </p>
                     </div>
                     <div class="group-hover:translate-x-1 transition-transform duration-300" style="transition-delay: 100ms">
                       <h3 class="text-sm font-bold text-[#2C3E50] mb-2 uppercase tracking-wide">
-                        {t('caseStudies.solution', lang)}
+                        {solutionLabel}
                       </h3>
                       <p class="text-base text-[#5D6D7E] leading-relaxed">
-                        {t(study.solutionKey, lang)}
+                        {study.solution}
                       </p>
                     </div>
                   </div>
@@ -97,9 +122,9 @@ const caseStudies = [
                   <a
                     href={getLocalizedPath('/contact', lang)}
                     class="inline-flex items-center text-[#52C17A] font-semibold text-sm group-hover:gap-3 transition-all duration-300"
-                    aria-label={`View full case study: ${t(study.titleKey, lang)}`}
+                    aria-label={`View full case study: ${study.title}`}
                   >
-                    {t('caseStudies.viewFullCase', lang)}
+                    {ctaText}
                     <Icon name="arrow-right" class="ml-1 w-5 h-5 group-hover:translate-x-2 transition-transform duration-300" size={20} aria-hidden="true" />
                   </a>
                 </div>
@@ -107,7 +132,7 @@ const caseStudies = [
                 <aside class="lg:w-80 flex-shrink-0" aria-label="Case study results">
                   <div class="bg-white rounded-2xl p-6 border border-[#D5E8D4] group-hover:border-[#52C17A] group-hover:shadow-lg transition-all duration-500">
                     <h3 class="text-sm font-bold text-[#2C3E50] mb-6 uppercase tracking-wide">
-                      {t('caseStudies.results', lang)}
+                      {resultsLabel}
                     </h3>
                     <div class="space-y-6">
                       {study.results.map((result, idx) => (
@@ -123,7 +148,7 @@ const caseStudies = [
                               {result.metric}
                             </div>
                             <div class="text-sm text-[#5D6D7E] font-medium">
-                              {t(result.labelKey, lang)}
+                              {result.label}
                             </div>
                           </div>
                         </div>
