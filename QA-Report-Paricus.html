@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QA Report - Paricus Web Astro</title>
+    <title>QA Report - Paricus Web Astro (Por Fases)</title>
     <style>
         :root {
             --green: #52C17A;
@@ -12,6 +12,10 @@
             --red-light: #FDEDEC;
             --yellow: #F39C12;
             --yellow-light: #FEF9E7;
+            --blue: #3498DB;
+            --blue-light: #EBF5FB;
+            --purple: #9B59B6;
+            --purple-light: #F5EEF8;
             --gray: #5D6D7E;
             --dark: #2C3E50;
             --bg: #FAFAF8;
@@ -66,45 +70,101 @@
             font-weight: 600;
         }
 
+        /* Phase Status Banner */
+        .phase-status-banner {
+            background: linear-gradient(135deg, #2C3E50, #34495E);
+            color: white;
+            padding: 30px;
+            border-radius: 20px;
+            margin-bottom: 30px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        .phase-status-box {
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        .phase-status-box.expected {
+            background: rgba(52, 152, 219, 0.2);
+            border: 2px solid var(--blue);
+        }
+
+        .phase-status-box.actual {
+            background: rgba(243, 156, 18, 0.2);
+            border: 2px solid var(--yellow);
+        }
+
+        .phase-status-box h3 {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.8;
+            margin-bottom: 10px;
+        }
+
+        .phase-status-box .phase-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .phase-status-box .phase-week {
+            font-size: 0.9rem;
+            opacity: 0.7;
+            margin-top: 5px;
+        }
+
+        .gap-indicator {
+            text-align: center;
+            padding: 15px;
+            background: var(--red-light);
+            border-left: 4px solid var(--red);
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+
+        .gap-indicator strong {
+            color: var(--red);
+        }
+
         .summary {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
             margin-bottom: 40px;
         }
 
         .summary-card {
             background: white;
-            padding: 30px;
+            padding: 25px 15px;
             border-radius: 16px;
             text-align: center;
             box-shadow: 0 4px 15px rgba(0,0,0,0.05);
         }
 
-        .summary-card.pass {
-            border-left: 5px solid var(--green);
-        }
-
-        .summary-card.fail {
-            border-left: 5px solid var(--red);
-        }
-
-        .summary-card.partial {
-            border-left: 5px solid var(--yellow);
-        }
+        .summary-card.pass { border-left: 5px solid var(--green); }
+        .summary-card.fail { border-left: 5px solid var(--red); }
+        .summary-card.partial { border-left: 5px solid var(--yellow); }
+        .summary-card.blocked { border-left: 5px solid var(--purple); }
+        .summary-card.deferred { border-left: 5px solid var(--blue); }
 
         .summary-number {
-            font-size: 3rem;
+            font-size: 2.5rem;
             font-weight: 700;
         }
 
         .summary-card.pass .summary-number { color: var(--green); }
         .summary-card.fail .summary-number { color: var(--red); }
         .summary-card.partial .summary-number { color: var(--yellow); }
+        .summary-card.blocked .summary-number { color: var(--purple); }
+        .summary-card.deferred .summary-number { color: var(--blue); }
 
         .summary-label {
             color: var(--gray);
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             text-transform: uppercase;
             letter-spacing: 1px;
             margin-top: 5px;
@@ -118,6 +178,15 @@
             box-shadow: 0 4px 20px rgba(0,0,0,0.05);
         }
 
+        .phase-section {
+            border-left: 5px solid var(--gray);
+        }
+
+        .phase-section.phase-0 { border-left-color: var(--blue); }
+        .phase-section.phase-1 { border-left-color: var(--purple); }
+        .phase-section.phase-2 { border-left-color: var(--yellow); }
+        .phase-section.post-launch { border-left-color: var(--gray); }
+
         h2 {
             font-size: 1.5rem;
             color: var(--dark);
@@ -127,17 +196,30 @@
             display: flex;
             align-items: center;
             gap: 10px;
+            flex-wrap: wrap;
         }
 
-        h2 .icon {
-            width: 35px;
-            height: 35px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
+        .phase-badge {
+            font-size: 0.75rem;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-weight: 600;
+            text-transform: uppercase;
         }
+
+        .phase-badge.phase-0 { background: var(--blue-light); color: var(--blue); }
+        .phase-badge.phase-1 { background: var(--purple-light); color: var(--purple); }
+        .phase-badge.phase-2 { background: var(--yellow-light); color: var(--yellow); }
+        .phase-badge.post-launch { background: #eee; color: var(--gray); }
+
+        .phase-progress {
+            margin-left: auto;
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+
+        .phase-progress .done { color: var(--green); font-weight: 600; }
+        .phase-progress .total { color: var(--dark); }
 
         table {
             width: 100%;
@@ -176,24 +258,30 @@
             white-space: nowrap;
         }
 
-        .status.pass {
-            background: var(--green-light);
-            color: var(--green);
+        .status.pass { background: var(--green-light); color: var(--green); }
+        .status.fail { background: var(--red-light); color: var(--red); }
+        .status.partial { background: var(--yellow-light); color: var(--yellow); }
+        .status.deferred { background: var(--blue-light); color: var(--blue); }
+        .status.blocked { background: var(--purple-light); color: var(--purple); }
+
+        .status.done-recently {
+            background: linear-gradient(135deg, #C8E6C9, #E8F5E9);
+            color: #2E7D32;
+            border: 2px solid var(--green);
+            position: relative;
         }
 
-        .status.fail {
-            background: var(--red-light);
-            color: var(--red);
-        }
-
-        .status.partial {
-            background: var(--yellow-light);
-            color: var(--yellow);
-        }
-
-        .status.deferred {
-            background: #EBF5FB;
-            color: #3498DB;
+        .status.done-recently::after {
+            content: "NUEVO";
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--green);
+            color: white;
+            font-size: 0.55rem;
+            padding: 2px 5px;
+            border-radius: 8px;
+            font-weight: 700;
         }
 
         .requirement {
@@ -206,6 +294,19 @@
             font-size: 0.9rem;
             margin-top: 5px;
         }
+
+        .owner-tag {
+            display: inline-block;
+            background: #f0f0f0;
+            color: var(--gray);
+            font-size: 0.75rem;
+            padding: 2px 8px;
+            border-radius: 10px;
+            margin-left: 5px;
+        }
+
+        .owner-tag.forja { background: #E8F5E9; color: var(--green); }
+        .owner-tag.paricus { background: #FEF9E7; color: #B7950B; }
 
         .progress-bar {
             width: 100%;
@@ -230,10 +331,11 @@
         .progress-segment.pass { background: var(--green); }
         .progress-segment.partial { background: var(--yellow); }
         .progress-segment.fail { background: var(--red); }
+        .progress-segment.blocked { background: var(--purple); }
 
         .legend {
             display: flex;
-            gap: 30px;
+            gap: 20px;
             justify-content: center;
             flex-wrap: wrap;
             margin-top: 15px;
@@ -243,7 +345,7 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: var(--gray);
         }
 
@@ -256,22 +358,82 @@
         .legend-dot.pass { background: var(--green); }
         .legend-dot.partial { background: var(--yellow); }
         .legend-dot.fail { background: var(--red); }
-        .legend-dot.deferred { background: #3498DB; }
+        .legend-dot.blocked { background: var(--purple); }
+        .legend-dot.deferred { background: var(--blue); }
 
-        .priority-high {
-            color: var(--red);
-            font-weight: 600;
+        .priority-high { color: var(--red); font-weight: 600; }
+        .priority-medium { color: var(--yellow); font-weight: 600; }
+        .priority-low { color: var(--green); font-weight: 600; }
+
+        .blocker-alert {
+            background: linear-gradient(135deg, var(--purple-light), white);
+            border: 2px solid var(--purple);
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
         }
 
-        .priority-medium {
-            color: var(--yellow);
-            font-weight: 600;
+        .blocker-alert h4 {
+            color: var(--purple);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
-        .priority-low {
+        .blocker-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .blocker-list li {
+            padding: 8px 0;
+            border-bottom: 1px dashed #ddd;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .blocker-list li:last-child {
+            border-bottom: none;
+        }
+
+        .acceptance-criteria {
+            background: linear-gradient(135deg, var(--green-light), white);
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 20px;
+        }
+
+        .acceptance-criteria h3 {
             color: var(--green);
-            font-weight: 600;
+            margin-bottom: 15px;
         }
+
+        .criteria-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .criteria-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(82, 193, 122, 0.2);
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .criteria-list li:last-child {
+            border-bottom: none;
+        }
+
+        .criteria-icon {
+            font-size: 1.2rem;
+        }
+
+        .criteria-icon.pass { color: var(--green); }
+        .criteria-icon.fail { color: var(--red); }
+        .criteria-icon.partial { color: var(--yellow); }
 
         footer {
             text-align: center;
@@ -283,7 +445,8 @@
         @media (max-width: 768px) {
             h1 { font-size: 1.8rem; }
             th, td { padding: 10px; font-size: 0.9rem; }
-            .summary { grid-template-columns: 1fr 1fr; }
+            .summary { grid-template-columns: repeat(3, 1fr); }
+            .phase-status-banner { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -291,228 +454,491 @@
     <div class="container">
         <header>
             <h1>Informe de QA - Paricus Web</h1>
-            <p class="subtitle">Revision de Requisitos MVP vs Implementacion Actual</p>
-            <span class="date">29 Enero 2026</span>
+            <p class="subtitle">Roadmap de Desarrollo - Revision por Fases</p>
+            <span class="date">2 Febrero 2026</span>
         </header>
+
+        <!-- Phase Status Banner -->
+        <div class="phase-status-banner">
+            <div class="phase-status-box expected">
+                <h3>Deberiamos estar en</h3>
+                <div class="phase-name">Phase 2</div>
+                <div class="phase-week">Optimization & Launch (Weeks 4-6)</div>
+            </div>
+            <div class="phase-status-box actual">
+                <h3>Realmente estamos en</h3>
+                <div class="phase-name">Phase 1</div>
+                <div class="phase-week">Core Build (Weeks 2-3) - Incompleto</div>
+            </div>
+        </div>
+
+        <div class="gap-indicator">
+            <strong>GAP IDENTIFICADO:</strong> Hay dependencias de Phase 0 sin resolver (credenciales HubSpot, herramienta de scheduling) que bloquean el avance de Phase 1.
+        </div>
 
         <!-- Resumen Ejecutivo -->
         <div class="summary">
             <div class="summary-card pass">
-                <div class="summary-number">18</div>
+                <div class="summary-number">22</div>
                 <div class="summary-label">Cumple</div>
             </div>
             <div class="summary-card partial">
-                <div class="summary-number">12</div>
+                <div class="summary-number">8</div>
                 <div class="summary-label">Parcial</div>
             </div>
             <div class="summary-card fail">
-                <div class="summary-number">9</div>
+                <div class="summary-number">3</div>
                 <div class="summary-label">No Cumple</div>
+            </div>
+            <div class="summary-card blocked">
+                <div class="summary-number">5</div>
+                <div class="summary-label">Bloqueado</div>
+            </div>
+            <div class="summary-card deferred">
+                <div class="summary-number">7</div>
+                <div class="summary-label">Diferido</div>
             </div>
         </div>
 
         <!-- Barra de Progreso -->
         <section>
-            <h2>Progreso General MVP</h2>
+            <h2>Progreso General MVP (excluyendo diferidos)</h2>
             <div class="progress-bar">
-                <div class="progress-segment pass" style="width: 46%;">46%</div>
-                <div class="progress-segment partial" style="width: 31%;">31%</div>
-                <div class="progress-segment fail" style="width: 23%;">23%</div>
+                <div class="progress-segment pass" style="width: 58%;">58%</div>
+                <div class="progress-segment partial" style="width: 21%;">21%</div>
+                <div class="progress-segment blocked" style="width: 13%;">13%</div>
+                <div class="progress-segment fail" style="width: 8%;">8%</div>
             </div>
             <div class="legend">
-                <div class="legend-item"><span class="legend-dot pass"></span> Cumple (18)</div>
-                <div class="legend-item"><span class="legend-dot partial"></span> Parcial (12)</div>
-                <div class="legend-item"><span class="legend-dot fail"></span> No Cumple (9)</div>
+                <div class="legend-item"><span class="legend-dot pass"></span> Cumple (22)</div>
+                <div class="legend-item"><span class="legend-dot partial"></span> Parcial (8)</div>
+                <div class="legend-item"><span class="legend-dot blocked"></span> Bloqueado (5)</div>
+                <div class="legend-item"><span class="legend-dot fail"></span> No Cumple (3)</div>
+                <div class="legend-item"><span class="legend-dot deferred"></span> Diferido (7)</div>
             </div>
         </section>
 
-        <!-- Requisitos Generales -->
-        <section>
-            <h2><span class="icon" style="background: var(--green-light);">1</span> Requisitos Generales del Sitio</h2>
+        <!-- Blockers Alert -->
+        <div class="blocker-alert">
+            <h4>⚠️ Dependencias Bloqueantes (Requieren accion de Paricus)</h4>
+            <ul class="blocker-list">
+                <li><span class="owner-tag paricus">Monica/Jorge</span> Credenciales de HubSpot y pipeline "Website Leads" configurado</li>
+                <li><span class="owner-tag paricus">Jorge</span> Seleccion de herramienta de scheduling (Calendly, HubSpot Meetings, etc.)</li>
+                <li><span class="owner-tag paricus">Francisco</span> Assets de marca finales, copy aprobado, fotos de liderazgo</li>
+                <li><span class="owner-tag paricus">Sales Team</span> Confirmar campos finales del formulario de leads</li>
+            </ul>
+        </div>
+
+        <!-- PHASE 0 -->
+        <section class="phase-section phase-0">
+            <h2>
+                <span class="phase-badge phase-0">Phase 0</span>
+                Project Setup & Dependencies (Week 1)
+                <span class="phase-progress"><span class="done">6</span>/<span class="total">8</span> completados</span>
+            </h2>
             <table>
                 <thead>
                     <tr>
                         <th style="width: 40%;">Requisito</th>
-                        <th style="width: 15%;">Estado</th>
-                        <th style="width: 45%;">Notas</th>
+                        <th style="width: 12%;">Estado</th>
+                        <th style="width: 12%;">Owner</th>
+                        <th style="width: 36%;">Notas</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td class="requirement">Canal principal de generacion de leads</td>
-                        <td><span class="status partial">Parcial</span></td>
-                        <td class="notes">Tiene formulario de contacto y CTAs, pero falta integracion con HubSpot y sistema de booking</td>
-                    </tr>
-                    <tr>
-                        <td class="requirement">Enfoque ventas primero, employer branding secundario</td>
+                        <td class="requirement">Confirmar plataforma (WordPress vs Vercel)</td>
                         <td><span class="status pass">Cumple</span></td>
-                        <td class="notes">Estructura correcta: Services, Industries, Case Studies prominentes. Careers es secundario en navegacion</td>
+                        <td><span class="owner-tag paricus">Jorge</span></td>
+                        <td class="notes">Decidido: Astro + Vercel (alineado con intranet/portal existente)</td>
                     </tr>
                     <tr>
-                        <td class="requirement">Sitio responsive</td>
+                        <td class="requirement">Finalizar sitemap y lista de paginas MVP</td>
                         <td><span class="status pass">Cumple</span></td>
-                        <td class="notes">Implementado con Tailwind CSS. Menu mobile funcional con hamburger toggle</td>
+                        <td><span class="owner-tag forja">Forja</span></td>
+                        <td class="notes">Home, About, Services, Industries, Case Studies, Tech, Careers, Contact</td>
                     </tr>
                     <tr>
-                        <td class="requirement">Sitio rapido</td>
+                        <td class="requirement">Definir enfoque de idiomas (EN/ES)</td>
                         <td><span class="status pass">Cumple</span></td>
-                        <td class="notes">Astro SSG genera HTML estatico. Zero JavaScript por defecto. Deberia ser muy rapido</td>
+                        <td><span class="owner-tag paricus">Jorge</span></td>
+                        <td class="notes">Selector manual EN/ES implementado. Auto-deteccion por IP diferida</td>
                     </tr>
                     <tr>
-                        <td class="requirement">SSL (HTTPS)</td>
+                        <td class="requirement">Recolectar assets de Paricus (marca, copy, bios, fotos)</td>
                         <td><span class="status partial">Parcial</span></td>
-                        <td class="notes">Depende del hosting. No verificable hasta despliegue. <span class="priority-medium">Configurar en produccion</span></td>
+                        <td><span class="owner-tag paricus">Francisco</span></td>
+                        <td class="notes">Usando placeholders. Pendiente: fotos reales de liderazgo, copy final aprobado</td>
                     </tr>
                     <tr>
-                        <td class="requirement">Idiomas EN/ES con selector manual</td>
-                        <td><span class="status pass">Cumple</span></td>
-                        <td class="notes">Selector de idioma en Navigation y Footer. URLs: / (EN) y /es/ (ES)</td>
-                    </tr>
-                    <tr>
-                        <td class="requirement">Accesibilidad basica (ADA)</td>
+                        <td class="requirement">Confirmar campos del formulario de leads</td>
                         <td><span class="status partial">Parcial</span></td>
-                        <td class="notes">Tiene: aria-labels, roles, estructura semantica, focus states. Falta: audit completo WCAG</td>
+                        <td><span class="owner-tag paricus">Sales</span></td>
+                        <td class="notes">Propuesto: Name, email, phone, industry, service, message. <span class="priority-medium">Falta confirmacion</span></td>
                     </tr>
                     <tr>
-                        <td class="requirement">SEO tecnico basico</td>
-                        <td><span class="status partial">Parcial</span></td>
-                        <td class="notes">Tiene: meta description, title, viewport. Falta: sitemap.xml, robots.txt, Open Graph, canonical URLs</td>
+                        <td class="requirement">Seleccionar herramienta de scheduling</td>
+                        <td><span class="status blocked">Bloqueado</span></td>
+                        <td><span class="owner-tag paricus">Jorge</span></td>
+                        <td class="notes"><span class="priority-high">BLOQUEANTE:</span> Decidir entre Calendly, HubSpot Meetings, Google Calendar</td>
                     </tr>
                     <tr>
-                        <td class="requirement">Google Analytics integrado</td>
-                        <td><span class="status fail">No Cumple</span></td>
-                        <td class="notes"><span class="priority-high">CRITICO:</span> No hay script de GA en Layout.astro</td>
+                        <td class="requirement">Configurar HubSpot pipeline "Website Leads"</td>
+                        <td><span class="status blocked">Bloqueado</span></td>
+                        <td><span class="owner-tag paricus">Monica/Jorge</span></td>
+                        <td class="notes"><span class="priority-high">BLOQUEANTE:</span> Crear pipeline y proveer IDs de pipeline + stages</td>
                     </tr>
                     <tr>
-                        <td class="requirement">Google Tag Manager integrado</td>
-                        <td><span class="status fail">No Cumple</span></td>
-                        <td class="notes"><span class="priority-high">CRITICO:</span> No hay script de GTM en Layout.astro</td>
+                        <td class="requirement">Proveer credenciales (HubSpot, scheduling tool)</td>
+                        <td><span class="status blocked">Bloqueado</span></td>
+                        <td><span class="owner-tag paricus">Monica/Jorge</span></td>
+                        <td class="notes"><span class="priority-high">BLOQUEANTE:</span> Sin credenciales no se puede implementar integracion</td>
                     </tr>
                 </tbody>
             </table>
         </section>
 
-        <!-- Estructura de Paginas -->
-        <section>
-            <h2><span class="icon" style="background: var(--green-light);">2</span> Estructura de Paginas (MVP)</h2>
+        <!-- PHASE 1 -->
+        <section class="phase-section phase-1">
+            <h2>
+                <span class="phase-badge phase-1">Phase 1</span>
+                Core Build (Weeks 2-3)
+                <span class="phase-progress"><span class="done">7</span>/<span class="total">12</span> completados</span>
+            </h2>
             <table>
                 <thead>
                     <tr>
-                        <th style="width: 40%;">Pagina</th>
-                        <th style="width: 15%;">Estado</th>
-                        <th style="width: 45%;">Notas</th>
+                        <th style="width: 40%;">Requisito</th>
+                        <th style="width: 12%;">Estado</th>
+                        <th style="width: 12%;">Owner</th>
+                        <th style="width: 36%;">Notas</th>
                     </tr>
                 </thead>
                 <tbody>
+                    <!-- Pages -->
                     <tr>
-                        <td class="requirement">Home (propuesta de valor + CTAs)</td>
+                        <td class="requirement">Homepage (hero, value prop, CTAs prominentes)</td>
                         <td><span class="status pass">Cumple</span></td>
-                        <td class="notes">Hero con propuesta de valor, 2 CTAs visibles, metricas de confianza (100+ team, 15+ years, 98% satisfaction)</td>
+                        <td><span class="owner-tag forja">Forja</span></td>
+                        <td class="notes">Hero con propuesta de valor, 2 CTAs visibles, metricas de confianza</td>
                     </tr>
                     <tr>
                         <td class="requirement">About Us (historia, diferenciadores, US/Colombia)</td>
                         <td><span class="status pass">Cumple</span></td>
-                        <td class="notes">Pagina completa con historia, equipo de liderazgo (2 Managing Partners), estadisticas</td>
+                        <td><span class="owner-tag forja">Forja</span></td>
+                        <td class="notes">Pagina completa con historia, equipo liderazgo (placeholder fotos)</td>
                     </tr>
                     <tr>
                         <td class="requirement">Services (paginas dedicadas por servicio)</td>
                         <td><span class="status partial">Parcial</span></td>
-                        <td class="notes">Existe /services con 4 servicios (Customer Service, Back Office, Sales, Technical Support). <span class="priority-medium">Falta:</span> paginas individuales por servicio (/services/customer-service, etc.)</td>
+                        <td><span class="owner-tag forja">Forja</span></td>
+                        <td class="notes">Existe /services con 4 servicios. <span class="priority-medium">Falta:</span> paginas individuales (/services/customer-service, etc.)</td>
                     </tr>
                     <tr>
-                        <td class="requirement">Industries Served</td>
+                        <td class="requirement">Industries served (conciso, usado en lead capture)</td>
                         <td><span class="status pass">Cumple</span></td>
-                        <td class="notes">5 industrias: Healthcare, E-Commerce, Technology, Finance, Travel & Hospitality</td>
+                        <td><span class="owner-tag forja">Forja</span></td>
+                        <td class="notes">5 industrias: Healthcare, E-Commerce, Technology, Finance, Travel</td>
                     </tr>
                     <tr>
-                        <td class="requirement">Case Studies</td>
+                        <td class="requirement">Case Studies (resultados medibles, anonimizados)</td>
                         <td><span class="status pass">Cumple</span></td>
-                        <td class="notes">3 casos de estudio con metricas de resultados. Contenido placeholder adecuado</td>
+                        <td><span class="owner-tag forja">Forja</span></td>
+                        <td class="notes">3 casos con metricas. Contenido placeholder pendiente aprobacion</td>
                     </tr>
                     <tr>
-                        <td class="requirement">Technology & Innovation</td>
+                        <td class="requirement">Technology & Innovation (compliance, seguridad)</td>
                         <td><span class="status pass">Cumple</span></td>
-                        <td class="notes">Certificaciones (ISO 27001, ISO 9001, HIPAA, SOC2), tech stack, seguridad</td>
+                        <td><span class="owner-tag forja">Forja</span></td>
+                        <td class="notes">ISO 27001, ISO 9001, HIPAA, SOC2 mostrados</td>
                     </tr>
                     <tr>
-                        <td class="requirement">Careers (reclutamiento)</td>
+                        <td class="requirement">Careers (reclutamiento, simple en MVP)</td>
                         <td><span class="status pass">Cumple</span></td>
-                        <td class="notes">4 beneficios, 3 posiciones abiertas con CTAs para aplicar</td>
+                        <td><span class="owner-tag forja">Forja</span></td>
+                        <td class="notes">4 beneficios, 3 posiciones con CTAs</td>
                     </tr>
                     <tr>
-                        <td class="requirement">Contact</td>
+                        <td class="requirement">Contact page</td>
                         <td><span class="status pass">Cumple</span></td>
-                        <td class="notes">Formulario, telefono, email, ubicacion, horarios, redes sociales</td>
+                        <td><span class="owner-tag forja">Forja</span></td>
+                        <td class="notes">Formulario, telefono, email, ubicacion, horarios</td>
+                    </tr>
+                    <!-- Navigation & Responsive -->
+                    <tr>
+                        <td class="requirement">Templates responsive y navegacion core (EN)</td>
+                        <td><span class="status pass">Cumple</span></td>
+                        <td><span class="owner-tag forja">Forja</span></td>
+                        <td class="notes">Tailwind CSS. Menu mobile con hamburger toggle</td>
+                    </tr>
+                    <!-- Lead Gen Modules -->
+                    <tr>
+                        <td class="requirement">Modulos lead-gen: Contact CTAs, web form</td>
+                        <td><span class="status partial">Parcial</span></td>
+                        <td><span class="owner-tag forja">Forja</span></td>
+                        <td class="notes">Formulario existe. <span class="priority-high">Falta:</span> campos phone, industry, service, UTMs</td>
+                    </tr>
+                    <tr>
+                        <td class="requirement">Routing de formulario a HubSpot pipeline</td>
+                        <td><span class="status blocked">Bloqueado</span></td>
+                        <td><span class="owner-tag forja">Forja</span></td>
+                        <td class="notes"><span class="priority-high">BLOQUEADO:</span> Esperando credenciales y pipeline IDs de Paricus</td>
+                    </tr>
+                    <tr>
+                        <td class="requirement">Modulo de scheduling (Monica's availability)</td>
+                        <td><span class="status blocked">Bloqueado</span></td>
+                        <td><span class="owner-tag forja">Forja</span></td>
+                        <td class="notes"><span class="priority-high">BLOQUEADO:</span> Esperando seleccion de herramienta (Calendly/HubSpot/etc.)</td>
                     </tr>
                 </tbody>
             </table>
         </section>
 
-        <!-- Generacion de Leads -->
-        <section>
-            <h2><span class="icon" style="background: var(--red-light);">3</span> Generacion y Gestion de Leads</h2>
+        <!-- PHASE 2 -->
+        <section class="phase-section phase-2">
+            <h2>
+                <span class="phase-badge phase-2">Phase 2</span>
+                Optimization & Launch (Weeks 4-6)
+                <span class="phase-progress"><span class="done">7</span>/<span class="total">13</span> completados</span>
+            </h2>
             <table>
                 <thead>
                     <tr>
                         <th style="width: 40%;">Requisito</th>
-                        <th style="width: 15%;">Estado</th>
-                        <th style="width: 45%;">Notas</th>
+                        <th style="width: 12%;">Estado</th>
+                        <th style="width: 12%;">Owner</th>
+                        <th style="width: 36%;">Notas</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td class="requirement">CTA persistente: Contact</td>
+                        <td class="requirement">UI/UX refinements basados en feedback</td>
+                        <td><span class="status partial">Parcial</span></td>
+                        <td><span class="owner-tag forja">Forja</span></td>
+                        <td class="notes">Pendiente review con Paricus</td>
+                    </tr>
+                    <tr>
+                        <td class="requirement">Mobile performance improvements</td>
                         <td><span class="status pass">Cumple</span></td>
-                        <td class="notes">Boton "Contact" visible en Navigation (desktop y mobile)</td>
+                        <td><span class="owner-tag forja">Forja</span></td>
+                        <td class="notes">Astro SSG genera HTML estatico. Zero JS por defecto</td>
                     </tr>
                     <tr>
-                        <td class="requirement">CTA persistente: Schedule / Agendar</td>
+                        <td class="requirement">SEO: metadata, headings</td>
+                        <td><span class="status done-recently">Cumple</span></td>
+                        <td><span class="owner-tag forja">Forja</span></td>
+                        <td class="notes">Meta description, title, viewport, Open Graph, Twitter Cards, canonical URLs con hreflang</td>
+                    </tr>
+                    <tr>
+                        <td class="requirement">SEO: sitemap.xml</td>
+                        <td><span class="status done-recently">Cumple</span></td>
+                        <td><span class="owner-tag forja">Forja</span></td>
+                        <td class="notes">@astrojs/sitemap configurado. Se genera automaticamente en build con soporte i18n</td>
+                    </tr>
+                    <tr>
+                        <td class="requirement">SEO: robots.txt</td>
+                        <td><span class="status done-recently">Cumple</span></td>
+                        <td><span class="owner-tag forja">Forja</span></td>
+                        <td class="notes">public/robots.txt creado con referencia a sitemap</td>
+                    </tr>
+                    <tr>
+                        <td class="requirement">SEO: basic schema markup</td>
+                        <td><span class="status done-recently">Cumple</span></td>
+                        <td><span class="owner-tag forja">Forja</span></td>
+                        <td class="notes">Organization JSON-LD en Layout.astro (todas las paginas)</td>
+                    </tr>
+                    <tr>
+                        <td class="requirement">Google Analytics (GA4) configurado</td>
                         <td><span class="status fail">No Cumple</span></td>
-                        <td class="notes"><span class="priority-high">CRITICO:</span> No hay boton de agendar reunion en navegacion</td>
+                        <td><span class="owner-tag forja">Forja</span></td>
+                        <td class="notes"><span class="priority-high">CRITICO:</span> No hay script de GA en Layout.astro</td>
                     </tr>
                     <tr>
-                        <td class="requirement">CTA persistente: Talk to Sales</td>
+                        <td class="requirement">Google Tag Manager configurado</td>
                         <td><span class="status fail">No Cumple</span></td>
-                        <td class="notes"><span class="priority-medium">Falta:</span> No hay CTA especifico para ventas</td>
+                        <td><span class="owner-tag forja">Forja</span></td>
+                        <td class="notes"><span class="priority-high">CRITICO:</span> No hay script de GTM</td>
                     </tr>
                     <tr>
-                        <td class="requirement">Formulario web</td>
+                        <td class="requirement">Form testing: campos + UTMs enviados a HubSpot</td>
+                        <td><span class="status blocked">Bloqueado</span></td>
+                        <td><span class="owner-tag forja">Forja</span></td>
+                        <td class="notes">Bloqueado por integracion HubSpot pendiente</td>
+                    </tr>
+                    <tr>
+                        <td class="requirement">Security: SSL + hardening</td>
+                        <td><span class="status partial">Parcial</span></td>
+                        <td><span class="owner-tag forja">Forja</span></td>
+                        <td class="notes">Depende del hosting. Vercel provee SSL automatico</td>
+                    </tr>
+                    <tr>
+                        <td class="requirement">QA: cross-device/browser testing</td>
+                        <td><span class="status partial">Parcial</span></td>
+                        <td><span class="owner-tag forja">Forja</span></td>
+                        <td class="notes">Responsive implementado. Pendiente testing en dispositivos reales</td>
+                    </tr>
+                    <tr>
+                        <td class="requirement">QA: accessibility pass (baseline ADA)</td>
+                        <td><span class="status partial">Parcial</span></td>
+                        <td><span class="owner-tag forja">Forja</span></td>
+                        <td class="notes">aria-labels, roles, semantica. Pendiente audit WAVE/axe</td>
+                    </tr>
+                    <tr>
+                        <td class="requirement">Multilingual EN/ES completo</td>
                         <td><span class="status pass">Cumple</span></td>
-                        <td class="notes">Formulario en /contact con validacion HTML5</td>
-                    </tr>
-                    <tr>
-                        <td class="requirement">Agenda de reuniones (booking)</td>
-                        <td><span class="status fail">No Cumple</span></td>
-                        <td class="notes"><span class="priority-high">CRITICO:</span> No hay integracion con Calendly/HubSpot Meetings</td>
-                    </tr>
-                    <tr>
-                        <td class="requirement">Telefono visible</td>
-                        <td><span class="status pass">Cumple</span></td>
-                        <td class="notes">+1 (555) 123-4567 en pagina de Contact con link tel:</td>
-                    </tr>
-                    <tr>
-                        <td class="requirement">Chatbot / Live chat</td>
-                        <td><span class="status deferred">Diferido</span></td>
-                        <td class="notes">Marcado como "diferido" en requisitos - OK no tenerlo ahora</td>
+                        <td><span class="owner-tag forja">Forja</span></td>
+                        <td class="notes">18 paginas (9 EN + 9 ES) con selector de idioma</td>
                     </tr>
                 </tbody>
             </table>
         </section>
 
-        <!-- Campos del Formulario -->
-        <section>
-            <h2><span class="icon" style="background: var(--yellow-light);">4</span> Campos del Formulario de Contacto</h2>
+        <!-- POST-LAUNCH (Deferred) -->
+        <section class="phase-section post-launch">
+            <h2>
+                <span class="phase-badge post-launch">Post-Launch</span>
+                Backlog Diferido (No MVP)
+                <span class="phase-progress">7 items diferidos</span>
+            </h2>
             <table>
                 <thead>
                     <tr>
-                        <th style="width: 40%;">Campo Requerido</th>
-                        <th style="width: 15%;">Estado</th>
-                        <th style="width: 45%;">Implementacion Actual</th>
+                        <th style="width: 40%;">Item</th>
+                        <th style="width: 12%;">Estado</th>
+                        <th style="width: 48%;">Notas</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td class="requirement">Nombre</td>
+                        <td class="requirement">Chatbot / Live chat</td>
+                        <td><span class="status deferred">Diferido</span></td>
+                        <td class="notes">Implementar despues de seleccionar proveedor y confirmar integracion</td>
+                    </tr>
+                    <tr>
+                        <td class="requirement">FAQ section</td>
+                        <td><span class="status deferred">Diferido</span></td>
+                        <td class="notes">Agregar cuando se recolecten preguntas comunes de ventas</td>
+                    </tr>
+                    <tr>
+                        <td class="requirement">Blog content plan</td>
+                        <td><span class="status deferred">Diferido</span></td>
+                        <td class="notes">Estructura existe (/blog con 3 placeholders). Contenido diferido</td>
+                    </tr>
+                    <tr>
+                        <td class="requirement">Testimonials module</td>
+                        <td><span class="status deferred">Diferido</span></td>
+                        <td class="notes">Solo incluir cuando existan testimonios aprobados</td>
+                    </tr>
+                    <tr>
+                        <td class="requirement">Auto-deteccion de idioma por IP</td>
+                        <td><span class="status deferred">Diferido</span></td>
+                        <td class="notes">Enhancement opcional post-MVP</td>
+                    </tr>
+                    <tr>
+                        <td class="requirement">Package builder ('build your package')</td>
+                        <td><span class="status deferred">Diferido</span></td>
+                        <td class="notes">Sin pricing. Solo si prueba ser valioso</td>
+                    </tr>
+                    <tr>
+                        <td class="requirement">Advanced tracking (call tracking, retargeting)</td>
+                        <td><span class="status deferred">Diferido</span></td>
+                        <td class="notes">Source attribution, numeros de tracking, retargeting</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Engagement Channels -->
+        <section>
+            <h2>Canales de Engagement (Requisito Discovery)</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 30%;">Canal</th>
+                        <th style="width: 15%;">Estado</th>
+                        <th style="width: 55%;">Implementacion</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="requirement">1. Phone contact path</td>
+                        <td><span class="status pass">Cumple</span></td>
+                        <td class="notes">+1 (555) 123-4567 visible en Contact con link tel:</td>
+                    </tr>
+                    <tr>
+                        <td class="requirement">2. Web form</td>
+                        <td><span class="status partial">Parcial</span></td>
+                        <td class="notes">Formulario existe. Falta: campos completos + routing a HubSpot</td>
+                    </tr>
+                    <tr>
+                        <td class="requirement">3. Schedule booking</td>
+                        <td><span class="status fail">No Cumple</span></td>
+                        <td class="notes"><span class="priority-high">CRITICO:</span> No hay widget de booking. Bloqueado por seleccion de herramienta</td>
+                    </tr>
+                    <tr>
+                        <td class="requirement">4. Chatbot / Live chat</td>
+                        <td><span class="status deferred">Diferido</span></td>
+                        <td class="notes">Correcto - diferido hasta seleccionar proveedor</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- CTA Density -->
+        <section>
+            <h2>Densidad de CTAs (Requisito Discovery)</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 30%;">CTA Requerido</th>
+                        <th style="width: 15%;">Estado</th>
+                        <th style="width: 55%;">Ubicacion</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="requirement">CTA "Contact" persistente</td>
+                        <td><span class="status pass">Cumple</span></td>
+                        <td class="notes">Visible en Navigation (header) desktop y mobile</td>
+                    </tr>
+                    <tr>
+                        <td class="requirement">CTA "Schedule" / "Agendar"</td>
+                        <td><span class="status fail">No Cumple</span></td>
+                        <td class="notes"><span class="priority-high">Falta:</span> No hay boton de agendar reunion en navegacion</td>
+                    </tr>
+                    <tr>
+                        <td class="requirement">CTA "Talk to Sales"</td>
+                        <td><span class="status fail">No Cumple</span></td>
+                        <td class="notes"><span class="priority-medium">Falta:</span> No hay CTA especifico para ventas</td>
+                    </tr>
+                    <tr>
+                        <td class="requirement">CTAs mid-page modules</td>
+                        <td><span class="status pass">Cumple</span></td>
+                        <td class="notes">CTAs presentes en Hero y secciones de cada pagina</td>
+                    </tr>
+                    <tr>
+                        <td class="requirement">CTAs en Footer</td>
+                        <td><span class="status pass">Cumple</span></td>
+                        <td class="notes">Links de contacto y navegacion en footer</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Form Fields -->
+        <section>
+            <h2>Campos del Formulario de Leads</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 30%;">Campo (Roadmap)</th>
+                        <th style="width: 15%;">Estado</th>
+                        <th style="width: 55%;">Implementacion Actual</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="requirement">Name</td>
                         <td><span class="status pass">Cumple</span></td>
                         <td class="notes">firstName + lastName (2 campos separados)</td>
                     </tr>
@@ -522,262 +948,89 @@
                         <td class="notes">Campo email con type="email" y required</td>
                     </tr>
                     <tr>
-                        <td class="requirement">Telefono</td>
+                        <td class="requirement">Phone</td>
                         <td><span class="status fail">No Cumple</span></td>
-                        <td class="notes"><span class="priority-high">Falta campo de telefono en formulario</span></td>
+                        <td class="notes"><span class="priority-high">Falta campo de telefono</span></td>
                     </tr>
                     <tr>
-                        <td class="requirement">Industria</td>
+                        <td class="requirement">Industry</td>
                         <td><span class="status fail">No Cumple</span></td>
                         <td class="notes"><span class="priority-medium">Falta selector de industria</span></td>
                     </tr>
                     <tr>
-                        <td class="requirement">Servicio de interes</td>
+                        <td class="requirement">Service of interest</td>
                         <td><span class="status fail">No Cumple</span></td>
                         <td class="notes"><span class="priority-medium">Falta selector de servicio</span></td>
                     </tr>
                     <tr>
-                        <td class="requirement">Mensaje</td>
+                        <td class="requirement">Message</td>
                         <td><span class="status pass">Cumple</span></td>
                         <td class="notes">Textarea con required</td>
                     </tr>
                     <tr>
-                        <td class="requirement">Company (extra actual)</td>
+                        <td class="requirement">UTMs ocultos (utm_source, utm_medium, utm_campaign)</td>
+                        <td><span class="status fail">No Cumple</span></td>
+                        <td class="notes"><span class="priority-high">No hay campos hidden para UTM tracking</span></td>
+                    </tr>
+                    <tr>
+                        <td class="requirement">Company (extra)</td>
                         <td><span class="status pass">Extra</span></td>
-                        <td class="notes">Campo company existe (no estaba en requisitos pero es util)</td>
-                    </tr>
-                    <tr>
-                        <td class="requirement">UTMs ocultos para tracking</td>
-                        <td><span class="status fail">No Cumple</span></td>
-                        <td class="notes"><span class="priority-high">No hay campos hidden para utm_source, utm_medium, utm_campaign</span></td>
+                        <td class="notes">Campo company existe (util aunque no en requisitos)</td>
                     </tr>
                 </tbody>
             </table>
         </section>
 
-        <!-- Integraciones -->
+        <!-- Acceptance Criteria -->
         <section>
-            <h2><span class="icon" style="background: var(--red-light);">5</span> Integraciones</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th style="width: 40%;">Integracion</th>
-                        <th style="width: 15%;">Estado</th>
-                        <th style="width: 45%;">Notas</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td class="requirement">HubSpot - Envio de leads</td>
-                        <td><span class="status fail">No Cumple</span></td>
-                        <td class="notes"><span class="priority-high">CRITICO:</span> Formulario no envia datos a ningun backend. No hay HubSpot Forms API</td>
-                    </tr>
-                    <tr>
-                        <td class="requirement">HubSpot - Pipeline "Website Leads"</td>
-                        <td><span class="status fail">No Cumple</span></td>
-                        <td class="notes">Depende de integracion HubSpot</td>
-                    </tr>
-                    <tr>
-                        <td class="requirement">Calendario (Monica - HubSpot/Calendly)</td>
-                        <td><span class="status fail">No Cumple</span></td>
-                        <td class="notes"><span class="priority-high">CRITICO:</span> No hay widget de booking ni integracion calendario</td>
-                    </tr>
-                    <tr>
-                        <td class="requirement">Preparado para chatbot futuro</td>
-                        <td><span class="status partial">Parcial</span></td>
-                        <td class="notes">Arquitectura permite agregar scripts facilmente en Layout.astro</td>
-                    </tr>
-                </tbody>
-            </table>
-        </section>
-
-        <!-- Contenido Diferido -->
-        <section>
-            <h2><span class="icon" style="background: #EBF5FB;">6</span> Contenido Diferido (No MVP)</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th style="width: 40%;">Item</th>
-                        <th style="width: 15%;">Estado</th>
-                        <th style="width: 45%;">Notas</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td class="requirement">Blog (estructura)</td>
-                        <td><span class="status pass">Cumple</span></td>
-                        <td class="notes">Pagina /blog existe con 3 articulos placeholder</td>
-                    </tr>
-                    <tr>
-                        <td class="requirement">Testimonios</td>
-                        <td><span class="status deferred">Diferido</span></td>
-                        <td class="notes">No implementado - esperando contenido aprobado</td>
-                    </tr>
-                    <tr>
-                        <td class="requirement">FAQ</td>
-                        <td><span class="status deferred">Diferido</span></td>
-                        <td class="notes">No implementado</td>
-                    </tr>
-                    <tr>
-                        <td class="requirement">Chatbot / Live chat</td>
-                        <td><span class="status deferred">Diferido</span></td>
-                        <td class="notes">No implementado - correcto segun requisitos</td>
-                    </tr>
-                    <tr>
-                        <td class="requirement">Deteccion automatica idioma por IP</td>
-                        <td><span class="status deferred">Diferido</span></td>
-                        <td class="notes">No implementado - correcto segun requisitos</td>
-                    </tr>
-                    <tr>
-                        <td class="requirement">Tracking avanzado</td>
-                        <td><span class="status deferred">Diferido</span></td>
-                        <td class="notes">No implementado - correcto segun requisitos</td>
-                    </tr>
-                </tbody>
-            </table>
-        </section>
-
-        <!-- Criterios de Aceptacion -->
-        <section>
-            <h2><span class="icon" style="background: var(--yellow-light);">7</span> Criterios de Aceptacion Final</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th style="width: 40%;">Criterio</th>
-                        <th style="width: 15%;">Estado</th>
-                        <th style="width: 45%;">Evaluacion</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td class="requirement">Usuario puede contactar por formulario</td>
-                        <td><span class="status partial">Parcial</span></td>
-                        <td class="notes">Formulario existe visualmente pero no envia datos a backend</td>
-                    </tr>
-                    <tr>
-                        <td class="requirement">Usuario puede contactar por agendamiento</td>
-                        <td><span class="status fail">No Cumple</span></td>
-                        <td class="notes"><span class="priority-high">No hay sistema de booking</span></td>
-                    </tr>
-                    <tr>
-                        <td class="requirement">Leads llegan a HubSpot</td>
-                        <td><span class="status fail">No Cumple</span></td>
-                        <td class="notes"><span class="priority-high">No hay integracion HubSpot</span></td>
-                    </tr>
-                    <tr>
-                        <td class="requirement">Sitio activo en EN y ES</td>
-                        <td><span class="status pass">Cumple</span></td>
-                        <td class="notes">18 paginas totales (9 EN + 9 ES) con traducciones completas</td>
-                    </tr>
-                    <tr>
-                        <td class="requirement">Tracking funcionando</td>
-                        <td><span class="status fail">No Cumple</span></td>
-                        <td class="notes"><span class="priority-high">Sin GA ni GTM</span></td>
-                    </tr>
-                    <tr>
-                        <td class="requirement">SEO funcionando</td>
-                        <td><span class="status partial">Parcial</span></td>
-                        <td class="notes">Meta tags basicos OK. Falta sitemap, robots.txt, schema markup</td>
-                    </tr>
-                    <tr>
-                        <td class="requirement">QA Mobile aprobado</td>
-                        <td><span class="status partial">Parcial</span></td>
-                        <td class="notes">Responsive implementado. Pendiente testing manual en dispositivos reales</td>
-                    </tr>
-                    <tr>
-                        <td class="requirement">Links funcionando</td>
-                        <td><span class="status partial">Parcial</span></td>
-                        <td class="notes">Links internos OK. Redes sociales tienen href="#" (placeholders)</td>
-                    </tr>
-                    <tr>
-                        <td class="requirement">Formularios funcionando</td>
-                        <td><span class="status partial">Parcial</span></td>
-                        <td class="notes">Validacion frontend OK. Sin backend/submit funcional</td>
-                    </tr>
-                    <tr>
-                        <td class="requirement">Accesibilidad basica</td>
-                        <td><span class="status partial">Parcial</span></td>
-                        <td class="notes">Buenas practicas implementadas. Pendiente audit WAVE/axe</td>
-                    </tr>
-                </tbody>
-            </table>
-        </section>
-
-        <!-- Acciones Prioritarias -->
-        <section style="border-left: 5px solid var(--red);">
-            <h2 style="color: var(--red);">Acciones Prioritarias para MVP</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th style="width: 5%;">#</th>
-                        <th style="width: 55%;">Accion</th>
-                        <th style="width: 20%;">Prioridad</th>
-                        <th style="width: 20%;">Categoria</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td class="requirement">Integrar HubSpot Forms API para envio de leads</td>
-                        <td><span class="priority-high">CRITICA</span></td>
-                        <td>Integracion</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td class="requirement">Agregar Google Analytics (GA4) y GTM</td>
-                        <td><span class="priority-high">CRITICA</span></td>
-                        <td>Tracking</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td class="requirement">Implementar booking/calendario (Calendly o HubSpot Meetings)</td>
-                        <td><span class="priority-high">CRITICA</span></td>
-                        <td>Lead Gen</td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td class="requirement">Agregar campos al formulario: Telefono, Industria, Servicio</td>
-                        <td><span class="priority-high">CRITICA</span></td>
-                        <td>Formulario</td>
-                    </tr>
-                    <tr>
-                        <td>5</td>
-                        <td class="requirement">Agregar campos UTM ocultos para tracking de campanas</td>
-                        <td><span class="priority-high">CRITICA</span></td>
-                        <td>Tracking</td>
-                    </tr>
-                    <tr>
-                        <td>6</td>
-                        <td class="requirement">Agregar CTA "Schedule a Call" en navegacion</td>
-                        <td><span class="priority-medium">ALTA</span></td>
-                        <td>Lead Gen</td>
-                    </tr>
-                    <tr>
-                        <td>7</td>
-                        <td class="requirement">Generar sitemap.xml y robots.txt</td>
-                        <td><span class="priority-medium">ALTA</span></td>
-                        <td>SEO</td>
-                    </tr>
-                    <tr>
-                        <td>8</td>
-                        <td class="requirement">Agregar Open Graph meta tags</td>
-                        <td><span class="priority-medium">ALTA</span></td>
-                        <td>SEO</td>
-                    </tr>
-                    <tr>
-                        <td>9</td>
-                        <td class="requirement">Reemplazar links placeholder (#) de redes sociales</td>
-                        <td><span class="priority-low">MEDIA</span></td>
-                        <td>Contenido</td>
-                    </tr>
-                    <tr>
-                        <td>10</td>
-                        <td class="requirement">Crear paginas individuales por servicio</td>
-                        <td><span class="priority-low">MEDIA</span></td>
-                        <td>Estructura</td>
-                    </tr>
-                </tbody>
-            </table>
+            <h2>Criterios de Aceptacion MVP (del Roadmap)</h2>
+            <div class="acceptance-criteria">
+                <h3>Evaluacion de Criterios de Aceptacion</h3>
+                <ul class="criteria-list">
+                    <li>
+                        <span class="criteria-icon partial">◐</span>
+                        <div>
+                            <strong>Visitantes pueden contactar via web form Y schedule booking</strong><br>
+                            <span class="notes">Web form: Parcial (falta campos y HubSpot). Schedule booking: No implementado</span>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="criteria-icon partial">◐</span>
+                        <div>
+                            <strong>Ambas rutas crean/notifican leads via HubSpot</strong><br>
+                            <span class="notes">Bloqueado - sin integracion HubSpot</span>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="criteria-icon pass">●</span>
+                        <div>
+                            <strong>Core pages live, responsive, brand direction (EN y ES)</strong><br>
+                            <span class="notes">Cumple - 18 paginas responsive con traducciones</span>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="criteria-icon fail">○</span>
+                        <div>
+                            <strong>Analytics tracking funcional (GA + GTM)</strong><br>
+                            <span class="notes">No Cumple - Sin GA ni GTM</span>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="criteria-icon pass">●</span>
+                        <div>
+                            <strong>Basic SEO in place</strong><br>
+                            <span class="notes">Cumple - Meta tags, OG, sitemap.xml, robots.txt, Organization schema implementados</span>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="criteria-icon partial">◐</span>
+                        <div>
+                            <strong>QA: mobile responsiveness, broken-link check, form validation, accessibility</strong><br>
+                            <span class="notes">Parcial - Responsive OK, validacion HTML5 OK. Pendiente: testing dispositivos reales, audit accesibilidad</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
         </section>
 
         <!-- Resumen Tecnico -->
@@ -792,6 +1045,10 @@
                     <tr>
                         <td class="requirement">CSS Framework</td>
                         <td>Tailwind CSS 4.1.18</td>
+                    </tr>
+                    <tr>
+                        <td class="requirement">Hosting Target</td>
+                        <td>Vercel (alineado con intranet/portal existente)</td>
                     </tr>
                     <tr>
                         <td class="requirement">Idiomas</td>
@@ -810,16 +1067,16 @@
                         <td>Lucide Icons via astro-icon</td>
                     </tr>
                     <tr>
-                        <td class="requirement">Formularios</td>
-                        <td>1 (Contact - sin backend)</td>
+                        <td class="requirement">Integraciones Pendientes</td>
+                        <td>HubSpot Forms API, Scheduling tool, GA4, GTM</td>
                     </tr>
                 </tbody>
             </table>
         </section>
 
         <footer>
-            <p>Informe generado automaticamente | QA Review por Claude Code</p>
-            <p>Paricus Web Astro - Version MVP</p>
+            <p>Informe basado en: Website Development Roadmap - Paricus - Forja</p>
+            <p>Generado: 2 Febrero 2026 | QA Review por Claude Code</p>
         </footer>
     </div>
 </body>

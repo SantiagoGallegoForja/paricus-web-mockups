@@ -3,8 +3,10 @@ import Layout from '../layouts/Layout.astro';
 import AnimatedSection from '../components/common/AnimatedSection.astro';
 import Icon from '../components/common/Icon.astro';
 import { t } from '../i18n/utils';
+import { getFormConfig } from '../lib/strapi';
 
 const lang = 'en';
+const formConfig = await getFormConfig();
 ---
 
 <Layout
@@ -32,6 +34,13 @@ const lang = 'en';
               {t('contact.info.getInTouch', lang)}
             </h2>
             <form class="space-y-6" aria-label="Contact form">
+              <!-- Hidden UTM fields -->
+              <input type="hidden" name="utm_source" id="utm_source" />
+              <input type="hidden" name="utm_medium" id="utm_medium" />
+              <input type="hidden" name="utm_campaign" id="utm_campaign" />
+              <input type="hidden" name="utm_term" id="utm_term" />
+              <input type="hidden" name="utm_content" id="utm_content" />
+
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <div>
                   <label for="firstName" class="block text-sm font-semibold text-[#2C3E50] mb-2">
@@ -62,19 +71,33 @@ const lang = 'en';
                   />
                 </div>
               </div>
-              <div>
-                <label for="email" class="block text-sm font-semibold text-[#2C3E50] mb-2">
-                  {t('contact.form.email', lang)}
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  class="w-full px-4 py-3 rounded-xl border border-[#D5E8D4] bg-white focus:border-[#52C17A] focus:ring-2 focus:ring-[#52C17A] focus:ring-opacity-20 outline-none transition-all"
-                  placeholder="john.doe@company.com"
-                  required
-                  aria-required="true"
-                />
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div>
+                  <label for="email" class="block text-sm font-semibold text-[#2C3E50] mb-2">
+                    {t('contact.form.email', lang)}
+                  </label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    class="w-full px-4 py-3 rounded-xl border border-[#D5E8D4] bg-white focus:border-[#52C17A] focus:ring-2 focus:ring-[#52C17A] focus:ring-opacity-20 outline-none transition-all"
+                    placeholder="john.doe@company.com"
+                    required
+                    aria-required="true"
+                  />
+                </div>
+                <div>
+                  <label for="phone" class="block text-sm font-semibold text-[#2C3E50] mb-2">
+                    Phone
+                  </label>
+                  <input
+                    type="tel"
+                    id="phone"
+                    name="phone"
+                    class="w-full px-4 py-3 rounded-xl border border-[#D5E8D4] bg-white focus:border-[#52C17A] focus:ring-2 focus:ring-[#52C17A] focus:ring-opacity-20 outline-none transition-all"
+                    placeholder="+1 (555) 123-4567"
+                  />
+                </div>
               </div>
               <div>
                 <label for="company" class="block text-sm font-semibold text-[#2C3E50] mb-2">
@@ -87,6 +110,40 @@ const lang = 'en';
                   class="w-full px-4 py-3 rounded-xl border border-[#D5E8D4] bg-white focus:border-[#52C17A] focus:ring-2 focus:ring-[#52C17A] focus:ring-opacity-20 outline-none transition-all"
                   placeholder="Your Company"
                 />
+              </div>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div>
+                  <label for="industry" class="block text-sm font-semibold text-[#2C3E50] mb-2">
+                    Industry
+                  </label>
+                  <select
+                    id="industry"
+                    name="industry"
+                    class="w-full px-4 py-3 rounded-xl border border-[#D5E8D4] bg-white focus:border-[#52C17A] focus:ring-2 focus:ring-[#52C17A] focus:ring-opacity-20 outline-none transition-all"
+                  >
+                    <option value="">Select your industry</option>
+                    {formConfig.industries.map((industry) => (
+                      <option value={industry.value}>{industry.name_en}</option>
+                    ))}
+                    <option value="other">Other</option>
+                  </select>
+                </div>
+                <div>
+                  <label for="service" class="block text-sm font-semibold text-[#2C3E50] mb-2">
+                    Service of Interest
+                  </label>
+                  <select
+                    id="service"
+                    name="service"
+                    class="w-full px-4 py-3 rounded-xl border border-[#D5E8D4] bg-white focus:border-[#52C17A] focus:ring-2 focus:ring-[#52C17A] focus:ring-opacity-20 outline-none transition-all"
+                  >
+                    <option value="">Select a service</option>
+                    {formConfig.services.map((service) => (
+                      <option value={service.value}>{service.name_en}</option>
+                    ))}
+                    <option value="other">Other</option>
+                  </select>
+                </div>
               </div>
               <div>
                 <label for="message" class="block text-sm font-semibold text-[#2C3E50] mb-2">
@@ -110,6 +167,21 @@ const lang = 'en';
                 {t('contact.form.send', lang)}
               </button>
             </form>
+
+            <!-- UTM Capture Script -->
+            <script>
+              document.addEventListener('DOMContentLoaded', () => {
+                const params = new URLSearchParams(window.location.search);
+                const utmFields = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'];
+                utmFields.forEach(field => {
+                  const value = params.get(field);
+                  const input = document.getElementById(field) as HTMLInputElement;
+                  if (input && value) {
+                    input.value = value;
+                  }
+                });
+              });
+            </script>
           </div>
         </AnimatedSection>
 

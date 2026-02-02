@@ -105,6 +105,31 @@ const alternateUrl = alternatePath
     <meta name="author" content={author || 'Paricus'} />
     <meta name="theme-color" content="#52C17A" />
 
+    <!-- Organization Schema (JSON-LD) -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Paricus",
+      "url": "https://paricus.com",
+      "logo": "https://paricus.com/assets/PARICUS LOGO (COLOR-NO BG) - Copy.png",
+      "description": lang === 'en'
+        ? "Nearshore BPO partner delivering bilingual customer service, back-office support, and tech solutions from Colombia to US companies."
+        : "Socio BPO nearshore que ofrece servicio al cliente bilingue, soporte back-office y soluciones tecnologicas desde Colombia para empresas de EE.UU.",
+      "address": {
+        "@type": "PostalAddress",
+        "addressCountry": "CO"
+      },
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+1-555-123-4567",
+        "contactType": "sales",
+        "availableLanguage": ["English", "Spanish"]
+      },
+      "sameAs": [
+        "https://linkedin.com/company/paricus"
+      ]
+    })} />
+
     <slot name="head" />
   </head>
   <body class="min-h-screen bg-[#FAFAF8]">

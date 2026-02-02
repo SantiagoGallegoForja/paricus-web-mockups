@@ -541,6 +541,74 @@ export async function getCaseStudies(lang: SupportedLocale = 'en'): Promise<Case
   }
 }
 
+// Fetch single case study by slug
+export async function getCaseStudyBySlug(slug: string, lang: SupportedLocale = 'en'): Promise<CaseStudy | null> {
+  const locale = getStrapiLocale(lang);
+  const cacheKey = `case-study:${slug}:${locale}`;
+
+  const cached = getCached<CaseStudy | null>(cacheKey);
+  if (cached !== null) return cached;
+
+  try {
+    if (isDev) console.log(`[Strapi API] Fetching case study: ${slug} (${locale})`);
+
+    let url = `${STRAPI_URL}/api/case-studies?filters[slug][$eq]=${slug}&populate[results]=*&locale=${locale}`;
+
+    let response = await fetch(url);
+    let json: StrapiResponse<CaseStudy[]> = await response.json();
+    let caseStudy = json.data?.[0] || null;
+
+    if (!caseStudy) {
+      if (isDev) console.log('[Strapi API] Case study not found with locale, trying without...');
+      url = `${STRAPI_URL}/api/case-studies?filters[slug][$eq]=${slug}&populate[results]=*`;
+      response = await fetch(url);
+      json = await response.json();
+      caseStudy = json.data?.[0] || null;
+    }
+
+    setCache(cacheKey, caseStudy);
+    return caseStudy;
+  } catch (error) {
+    console.error('Error fetching case study:', error);
+    return null;
+  }
+}
+
+// Get all case study slugs for static paths
+export async function getAllCaseStudySlugs(): Promise<{ slug: string; locale: string }[]> {
+  const cacheKey = 'all-case-study-slugs';
+
+  const cached = getCached<{ slug: string; locale: string }[]>(cacheKey);
+  if (cached) return cached;
+
+  try {
+    const [enStudies, esStudies] = await Promise.all([
+      getCaseStudies('en'),
+      getCaseStudies('es'),
+    ]);
+
+    const slugs: { slug: string; locale: string }[] = [];
+
+    enStudies.forEach((study) => {
+      slugs.push({ slug: study.slug, locale: 'en' });
+    });
+
+    esStudies.forEach((study) => {
+      slugs.push({ slug: study.slug, locale: 'es' });
+    });
+
+    const uniqueSlugs = slugs.filter((item, index, self) =>
+      index === self.findIndex((t) => t.slug === item.slug && t.locale === item.locale)
+    );
+
+    setCache(cacheKey, uniqueSlugs);
+    return uniqueSlugs;
+  } catch (error) {
+    console.error('Error fetching all case study slugs:', error);
+    return [];
+  }
+}
+
 // Fetch case studies page settings by locale
 export async function getCaseStudiesPage(lang: SupportedLocale = 'en'): Promise<CaseStudiesPage | null> {
   const locale = getStrapiLocale(lang);

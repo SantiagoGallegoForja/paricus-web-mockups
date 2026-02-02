@@ -1,0 +1,8 @@
+# Robots.txt for Paricus
+# https://paricus.com
+
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://paricus.com/sitemap-index.xml

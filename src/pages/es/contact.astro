@@ -3,8 +3,10 @@ import Layout from '../../layouts/Layout.astro';
 import AnimatedSection from '../../components/common/AnimatedSection.astro';
 import Icon from '../../components/common/Icon.astro';
 import { t } from '../../i18n/utils';
+import { getFormConfig } from '../../lib/strapi';
 
 const lang = 'es';
+const formConfig = await getFormConfig();
 ---
 
 <Layout title="Contacto - Paricus" description="Ponte en contacto con nuestro equipo." lang={lang} currentPath="/es/contact">
@@ -18,33 +20,91 @@ const lang = 'es';
         <AnimatedSection animation="slide-left">
           <div class="bg-[#FAFAF8] rounded-3xl p-8 lg:p-10 border border-[#D5E8D4]">
             <h2 class="text-2xl font-bold text-[#2C3E50] mb-6">{t('contact.info.getInTouch', lang)}</h2>
-            <form class="space-y-6">
+            <form class="space-y-6" aria-label="Formulario de contacto">
+              <!-- Hidden UTM fields -->
+              <input type="hidden" name="utm_source" id="utm_source" />
+              <input type="hidden" name="utm_medium" id="utm_medium" />
+              <input type="hidden" name="utm_campaign" id="utm_campaign" />
+              <input type="hidden" name="utm_term" id="utm_term" />
+              <input type="hidden" name="utm_content" id="utm_content" />
+
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <div>
                   <label for="firstName" class="block text-sm font-semibold text-[#2C3E50] mb-2">{t('contact.form.name', lang)}</label>
-                  <input type="text" id="firstName" name="firstName" class="w-full px-4 py-3 rounded-xl border border-[#D5E8D4] bg-white focus:border-[#52C17A] focus:ring-2 focus:ring-[#52C17A] focus:ring-opacity-20 outline-none transition-all" placeholder="Juan" required />
+                  <input type="text" id="firstName" name="firstName" class="w-full px-4 py-3 rounded-xl border border-[#D5E8D4] bg-white focus:border-[#52C17A] focus:ring-2 focus:ring-[#52C17A] focus:ring-opacity-20 outline-none transition-all" placeholder="Juan" required aria-required="true" />
                 </div>
                 <div>
                   <label for="lastName" class="block text-sm font-semibold text-[#2C3E50] mb-2">Apellido</label>
-                  <input type="text" id="lastName" name="lastName" class="w-full px-4 py-3 rounded-xl border border-[#D5E8D4] bg-white focus:border-[#52C17A] focus:ring-2 focus:ring-[#52C17A] focus:ring-opacity-20 outline-none transition-all" placeholder="Perez" required />
+                  <input type="text" id="lastName" name="lastName" class="w-full px-4 py-3 rounded-xl border border-[#D5E8D4] bg-white focus:border-[#52C17A] focus:ring-2 focus:ring-[#52C17A] focus:ring-opacity-20 outline-none transition-all" placeholder="Perez" required aria-required="true" />
                 </div>
               </div>
-              <div>
-                <label for="email" class="block text-sm font-semibold text-[#2C3E50] mb-2">{t('contact.form.email', lang)}</label>
-                <input type="email" id="email" name="email" class="w-full px-4 py-3 rounded-xl border border-[#D5E8D4] bg-white focus:border-[#52C17A] focus:ring-2 focus:ring-[#52C17A] focus:ring-opacity-20 outline-none transition-all" placeholder="juan.perez@empresa.com" required />
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div>
+                  <label for="email" class="block text-sm font-semibold text-[#2C3E50] mb-2">{t('contact.form.email', lang)}</label>
+                  <input type="email" id="email" name="email" class="w-full px-4 py-3 rounded-xl border border-[#D5E8D4] bg-white focus:border-[#52C17A] focus:ring-2 focus:ring-[#52C17A] focus:ring-opacity-20 outline-none transition-all" placeholder="juan.perez@empresa.com" required aria-required="true" />
+                </div>
+                <div>
+                  <label for="phone" class="block text-sm font-semibold text-[#2C3E50] mb-2">Teléfono</label>
+                  <input type="tel" id="phone" name="phone" class="w-full px-4 py-3 rounded-xl border border-[#D5E8D4] bg-white focus:border-[#52C17A] focus:ring-2 focus:ring-[#52C17A] focus:ring-opacity-20 outline-none transition-all" placeholder="+57 (300) 123-4567" />
+                </div>
               </div>
               <div>
                 <label for="company" class="block text-sm font-semibold text-[#2C3E50] mb-2">{t('contact.form.company', lang)}</label>
                 <input type="text" id="company" name="company" class="w-full px-4 py-3 rounded-xl border border-[#D5E8D4] bg-white focus:border-[#52C17A] focus:ring-2 focus:ring-[#52C17A] focus:ring-opacity-20 outline-none transition-all" placeholder="Tu Empresa" />
               </div>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div>
+                  <label for="industry" class="block text-sm font-semibold text-[#2C3E50] mb-2">Industria</label>
+                  <select
+                    id="industry"
+                    name="industry"
+                    class="w-full px-4 py-3 rounded-xl border border-[#D5E8D4] bg-white focus:border-[#52C17A] focus:ring-2 focus:ring-[#52C17A] focus:ring-opacity-20 outline-none transition-all"
+                  >
+                    <option value="">Selecciona tu industria</option>
+                    {formConfig.industries.map((industry) => (
+                      <option value={industry.value}>{industry.name_es}</option>
+                    ))}
+                    <option value="other">Otra</option>
+                  </select>
+                </div>
+                <div>
+                  <label for="service" class="block text-sm font-semibold text-[#2C3E50] mb-2">Servicio de Interés</label>
+                  <select
+                    id="service"
+                    name="service"
+                    class="w-full px-4 py-3 rounded-xl border border-[#D5E8D4] bg-white focus:border-[#52C17A] focus:ring-2 focus:ring-[#52C17A] focus:ring-opacity-20 outline-none transition-all"
+                  >
+                    <option value="">Selecciona un servicio</option>
+                    {formConfig.services.map((service) => (
+                      <option value={service.value}>{service.name_es}</option>
+                    ))}
+                    <option value="other">Otro</option>
+                  </select>
+                </div>
+              </div>
               <div>
                 <label for="message" class="block text-sm font-semibold text-[#2C3E50] mb-2">{t('contact.form.message', lang)}</label>
-                <textarea id="message" name="message" rows="4" class="w-full px-4 py-3 rounded-xl border border-[#D5E8D4] bg-white focus:border-[#52C17A] focus:ring-2 focus:ring-[#52C17A] focus:ring-opacity-20 outline-none transition-all resize-none" placeholder="Cuentanos sobre tus necesidades..." required></textarea>
+                <textarea id="message" name="message" rows="4" class="w-full px-4 py-3 rounded-xl border border-[#D5E8D4] bg-white focus:border-[#52C17A] focus:ring-2 focus:ring-[#52C17A] focus:ring-opacity-20 outline-none transition-all resize-none" placeholder="Cuéntanos sobre tus necesidades..." required aria-required="true"></textarea>
               </div>
-              <button type="submit" class="w-full px-8 py-4 rounded-2xl bg-gradient-to-r from-[#52C17A] to-[#3D9E5F] text-white font-semibold hover:shadow-2xl hover:scale-105 transition-all duration-300">
+              <button type="submit" class="w-full px-8 py-4 rounded-2xl bg-gradient-to-r from-[#52C17A] to-[#3D9E5F] text-white font-semibold hover:shadow-2xl hover:scale-105 transition-all duration-300" aria-label="Enviar mensaje">
                 {t('contact.form.send', lang)}
               </button>
             </form>
+
+            <!-- UTM Capture Script -->
+            <script>
+              document.addEventListener('DOMContentLoaded', () => {
+                const params = new URLSearchParams(window.location.search);
+                const utmFields = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'];
+                utmFields.forEach(field => {
+                  const value = params.get(field);
+                  const input = document.getElementById(field) as HTMLInputElement;
+                  if (input && value) {
+                    input.value = value;
+                  }
+                });
+              });
+            </script>
           </div>
         </AnimatedSection>
         <AnimatedSection animation="slide-right" class="space-y-8">
@@ -82,7 +142,7 @@ const lang = 'es';
           </div>
           <div>
             <h2 class="text-2xl font-bold text-[#2C3E50] mb-6">{t('contact.info.followUs', lang)}</h2>
-            <div class="flex gap-4">
+            <div class="flex gap-4" role="list" aria-label="Redes sociales">
               <a href="#" class="group w-14 h-14 rounded-2xl bg-[#E8F5E9] flex items-center justify-center hover:scale-110 hover:rotate-6 hover:bg-gradient-to-br hover:from-[#52C17A] hover:to-[#3D9E5F] transition-all duration-500" aria-label="LinkedIn">
                 <Icon name="linkedin" class="w-6 h-6 text-[#52C17A] group-hover:text-white transition-colors" size={24} />
               </a>
@@ -95,14 +155,14 @@ const lang = 'es';
             </div>
           </div>
           <div class="bg-[#FAFAF8] rounded-3xl p-8 border border-[#D5E8D4]">
-            <h3 class="text-lg font-bold text-[#2C3E50] mb-4">Horario de Atencion</h3>
+            <h3 class="text-lg font-bold text-[#2C3E50] mb-4">Horario de Atención</h3>
             <dl class="space-y-3 text-sm text-[#5D6D7E]">
               <div class="flex justify-between py-2 border-b border-[#D5E8D4]">
                 <dt class="font-medium">Lunes - Viernes</dt>
                 <dd>9:00 AM - 6:00 PM EST</dd>
               </div>
               <div class="flex justify-between py-2 border-b border-[#D5E8D4]">
-                <dt class="font-medium">Sabado</dt>
+                <dt class="font-medium">Sábado</dt>
                 <dd>10:00 AM - 4:00 PM EST</dd>
               </div>
               <div class="flex justify-between py-2">

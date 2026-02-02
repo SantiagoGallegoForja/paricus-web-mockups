@@ -1,0 +1,130 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import AnimatedSection from '../../components/common/AnimatedSection.astro';
+import Icon from '../../components/common/Icon.astro';
+import { getLocalizedPath } from '../../i18n/utils';
+import { getCaseStudyBySlug, getAllCaseStudySlugs } from '../../lib/strapi';
+
+const lang = 'en';
+const { slug } = Astro.params;
+
+// Fetch case study
+const caseStudy = slug ? await getCaseStudyBySlug(slug, lang) : null;
+
+// 404 if not found
+if (!caseStudy) {
+  return Astro.redirect('/404');
+}
+
+const metaTitle = `${caseStudy.title} - Case Study | Paricus`;
+const metaDescription = caseStudy.challenge.slice(0, 160);
+---
+
+<Layout
+  title={metaTitle}
+  description={metaDescription}
+  lang={lang}
+  currentPath={`/case-studies/${slug}`}
+>
+  <article class="py-20 lg:py-32 bg-white pt-40">
+    <div class="max-w-[1200px] mx-auto px-6 lg:px-12">
+      <!-- Back link -->
+      <AnimatedSection>
+        <a
+          href={getLocalizedPath('/case-studies', lang)}
+          class="inline-flex items-center text-[#5D6D7E] hover:text-[#52C17A] transition-colors mb-8 group"
+        >
+          <Icon name="arrow-left" class="w-5 h-5 mr-2 group-hover:-translate-x-1 transition-transform" size={20} />
+          Back to Case Studies
+        </a>
+      </AnimatedSection>
+
+      <!-- Header -->
+      <AnimatedSection class="mb-12">
+        <span class="inline-block px-4 py-2 bg-[#E8F5E9] text-[#52C17A] text-sm font-semibold rounded-full mb-6">
+          {caseStudy.industry}
+        </span>
+        <h1 class="text-4xl lg:text-5xl font-bold text-[#2C3E50] mb-6 leading-tight">
+          {caseStudy.title}
+        </h1>
+      </AnimatedSection>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+        <!-- Main content -->
+        <div class="lg:col-span-2 space-y-10">
+          <AnimatedSection>
+            <div class="bg-[#FAFAF8] rounded-2xl p-8 border border-[#D5E8D4]">
+              <h2 class="text-sm font-bold text-[#2C3E50] mb-4 uppercase tracking-wide flex items-center">
+                <Icon name="alert-circle" class="w-5 h-5 mr-2 text-[#52C17A]" size={20} />
+                The Challenge
+              </h2>
+              <p class="text-lg text-[#5D6D7E] leading-relaxed">
+                {caseStudy.challenge}
+              </p>
+            </div>
+          </AnimatedSection>
+
+          <AnimatedSection>
+            <div class="bg-[#FAFAF8] rounded-2xl p-8 border border-[#D5E8D4]">
+              <h2 class="text-sm font-bold text-[#2C3E50] mb-4 uppercase tracking-wide flex items-center">
+                <Icon name="lightbulb" class="w-5 h-5 mr-2 text-[#52C17A]" size={20} />
+                Our Solution
+              </h2>
+              <p class="text-lg text-[#5D6D7E] leading-relaxed">
+                {caseStudy.solution}
+              </p>
+            </div>
+          </AnimatedSection>
+        </div>
+
+        <!-- Results sidebar -->
+        <aside class="lg:col-span-1">
+          <AnimatedSection>
+            <div class="bg-gradient-to-br from-[#52C17A] to-[#3D9E5F] rounded-2xl p-8 text-white sticky top-32">
+              <h2 class="text-sm font-bold mb-8 uppercase tracking-wide flex items-center">
+                <Icon name="trophy" class="w-5 h-5 mr-2" size={20} />
+                Results Achieved
+              </h2>
+              <div class="space-y-8">
+                {caseStudy.results.map((result) => (
+                  <div class="flex items-start gap-4">
+                    <div class="w-14 h-14 rounded-xl bg-white/20 flex items-center justify-center flex-shrink-0">
+                      <Icon name={result.icon} class="w-7 h-7 text-white" size={28} />
+                    </div>
+                    <div>
+                      <div class="text-4xl font-bold mb-1">
+                        {result.metric}
+                      </div>
+                      <div class="text-sm text-white/90 font-medium">
+                        {result.label}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </AnimatedSection>
+        </aside>
+      </div>
+
+      <!-- CTA -->
+      <AnimatedSection class="mt-16">
+        <div class="bg-[#FAFAF8] rounded-2xl p-10 border border-[#D5E8D4] text-center">
+          <h2 class="text-2xl font-bold text-[#2C3E50] mb-4">
+            Ready to achieve similar results?
+          </h2>
+          <p class="text-[#5D6D7E] mb-8 max-w-2xl mx-auto">
+            Let's discuss how we can help transform your business operations and deliver measurable impact.
+          </p>
+          <a
+            href={getLocalizedPath('/contact', lang)}
+            class="inline-flex items-center justify-center px-8 py-4 rounded-xl bg-[#52C17A] text-white text-base font-semibold hover:bg-[#3D9E5F] transition-colors shadow-lg shadow-[#52C17A]/30"
+          >
+            Get in Touch
+            <Icon name="arrow-right" class="w-5 h-5 ml-2" size={20} />
+          </a>
+        </div>
+      </AnimatedSection>
+    </div>
+  </article>
+</Layout>
