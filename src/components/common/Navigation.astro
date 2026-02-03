@@ -62,8 +62,9 @@ const alternateLabel = lang === 'en' ? 'ES' : 'EN';
         <div class="hidden lg:flex items-center space-x-3">
           <a
             href={alternatePath}
-            class="flex items-center space-x-2 px-4 py-2 text-[#2C3E50] hover:text-[#52C17A] text-sm font-medium transition-all smooth-hover rounded-xl hover:bg-[#E8F5E9]/50"
+            class="lang-switch flex items-center space-x-2 px-4 py-2 text-[#2C3E50] hover:text-[#52C17A] text-sm font-medium transition-all smooth-hover rounded-xl hover:bg-[#E8F5E9]/50"
             aria-label="Change language"
+            data-lang={lang === 'en' ? 'es' : 'en'}
           >
             <Icon name="globe" class="w-4 h-4" size={16} />
             <span>{alternateLabel}</span>
@@ -103,8 +104,9 @@ const alternateLabel = lang === 'en' ? 'ES' : 'EN';
           ))}
           <a
             href={alternatePath}
-            class="flex items-center justify-center space-x-2 px-4 py-3 text-[#2C3E50] hover:text-[#52C17A] hover:bg-[#E8F5E9] text-sm font-medium rounded-xl transition-all"
+            class="lang-switch flex items-center justify-center space-x-2 px-4 py-3 text-[#2C3E50] hover:text-[#52C17A] hover:bg-[#E8F5E9] text-sm font-medium rounded-xl transition-all"
             aria-label="Change language"
+            data-lang={lang === 'en' ? 'es' : 'en'}
           >
             <Icon name="globe" class="w-4 h-4" size={16} />
             <span>{lang === 'en' ? 'Espanol' : 'English'}</span>
@@ -138,6 +140,24 @@ const alternateLabel = lang === 'en' ? 'ES' : 'EN';
     });
   }
 
+  function initLanguageSwitch() {
+    const langSwitches = document.querySelectorAll('.lang-switch');
+    langSwitches.forEach((link) => {
+      link.addEventListener('click', (e) => {
+        const targetLang = (link as HTMLAnchorElement).dataset.lang;
+        if (targetLang) {
+          // Guardar preferencia de idioma en cookie (1 año)
+          document.cookie = `preferred_lang=${targetLang}; path=/; max-age=31536000; SameSite=Lax`;
+        }
+        // Permitir que el enlace navegue normalmente
+      });
+    });
+  }
+
   initMobileMenu();
-  document.addEventListener('astro:page-load', initMobileMenu);
+  initLanguageSwitch();
+  document.addEventListener('astro:page-load', () => {
+    initMobileMenu();
+    initLanguageSwitch();
+  });
 </script>
