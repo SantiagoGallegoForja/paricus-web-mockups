@@ -3,7 +3,14 @@ import Layout from '../../layouts/Layout.astro';
 import AnimatedSection from '../../components/common/AnimatedSection.astro';
 import Icon from '../../components/common/Icon.astro';
 import { t, getLocalizedPath } from '../../i18n/utils';
-import { getServiceBySlug } from '../../lib/strapi';
+import { getServices, getServiceBySlug } from '../../lib/strapi';
+
+export async function getStaticPaths() {
+  const services = await getServices('en');
+  return services.map((service) => ({
+    params: { slug: service.slug },
+  }));
+}
 
 const lang = 'en';
 const { slug } = Astro.params;

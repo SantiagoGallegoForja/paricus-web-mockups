@@ -3,7 +3,14 @@ import Layout from '../../layouts/Layout.astro';
 import AnimatedSection from '../../components/common/AnimatedSection.astro';
 import Icon from '../../components/common/Icon.astro';
 import { t, getLocalizedPath } from '../../i18n/utils';
-import { getJobOpeningBySlug } from '../../lib/strapi';
+import { getJobOpenings, getJobOpeningBySlug } from '../../lib/strapi';
+
+export async function getStaticPaths() {
+  const jobs = await getJobOpenings('en');
+  return jobs.map((job) => ({
+    params: { slug: job.slug },
+  }));
+}
 
 const lang = 'en';
 const { slug } = Astro.params;

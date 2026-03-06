@@ -13,3 +13,18 @@ const lang = 'en';
 >
   <Hero lang={lang} />
 </Layout>
+
+<script>
+  // Client-side language detection redirect (only once)
+  if (!document.cookie.includes('preferred_lang=')) {
+    const navLang = navigator.language?.split('-')[0];
+    if (navLang === 'es') {
+      document.cookie = 'preferred_lang=es; path=/; max-age=31536000; SameSite=Lax';
+      window.location.replace('/es/');
+    } else {
+      document.cookie = 'preferred_lang=en; path=/; max-age=31536000; SameSite=Lax';
+    }
+  } else if (document.cookie.includes('preferred_lang=es') && window.location.pathname === '/') {
+    window.location.replace('/es/');
+  }
+</script>

@@ -8,7 +8,7 @@ import sitemap from '@astrojs/sitemap';
 // https://astro.build/config
 export default defineConfig({
   site: 'https://paricus.com',
-  output: 'server',
+  output: 'static',
   adapter: vercel(),
   vite: {
     plugins: [tailwindcss()]

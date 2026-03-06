@@ -3,7 +3,14 @@ import Layout from '../../../layouts/Layout.astro';
 import AnimatedSection from '../../../components/common/AnimatedSection.astro';
 import Icon from '../../../components/common/Icon.astro';
 import { getLocalizedPath } from '../../../i18n/utils';
-import { getCaseStudyBySlug, getStrapiImageUrl } from '../../../lib/strapi';
+import { getCaseStudies, getCaseStudyBySlug, getStrapiImageUrl } from '../../../lib/strapi';
+
+export async function getStaticPaths() {
+  const studies = await getCaseStudies('es');
+  return studies.map((study) => ({
+    params: { slug: study.slug },
+  }));
+}
 
 const lang = 'es';
 const { slug } = Astro.params;
