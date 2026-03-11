@@ -1,0 +1,134 @@
+---
+// Floating Font Switcher - bottom left corner
+---
+
+<div id="font-switcher" class="fixed bottom-6 left-6 z-[9999] flex flex-col items-start gap-3" style="font-family: 'Inter', sans-serif;">
+  <!-- Panel (above button, hidden by default) -->
+  <div
+    id="font-panel"
+    style="display:none; background:#fff; border-radius:16px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25); border:1px solid #D5E8D4; padding:16px; min-width:220px;"
+  >
+    <p style="font-size:11px; font-weight:700; color:#5D6D7E; text-transform:uppercase; letter-spacing:0.1em; margin:0 0 12px 0;">Font Family</p>
+    <div style="display:flex; flex-direction:column; gap:6px;">
+      <button data-switch-font="inter" class="font-btn" style="display:flex; align-items:center; gap:12px; padding:10px 14px; border-radius:12px; border:2px solid transparent; background:transparent; cursor:pointer; text-align:left; width:100%; transition: all 0.2s;">
+        <span style="width:28px; height:28px; border-radius:8px; background:#f0f0f0; display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:700; flex-shrink:0; font-family:'Inter',sans-serif;">Aa</span>
+        <span>
+          <span style="display:block; font-size:14px; font-weight:600; color:#2C3E50; font-family:'Inter',sans-serif;">Inter</span>
+          <span style="display:block; font-size:10px; color:#5D6D7E;">Clean geometric</span>
+        </span>
+      </button>
+      <button data-switch-font="dm-sans" class="font-btn" style="display:flex; align-items:center; gap:12px; padding:10px 14px; border-radius:12px; border:2px solid transparent; background:transparent; cursor:pointer; text-align:left; width:100%; transition: all 0.2s;">
+        <span style="width:28px; height:28px; border-radius:8px; background:#f0f0f0; display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:700; flex-shrink:0; font-family:'DM Sans',sans-serif;">Aa</span>
+        <span>
+          <span style="display:block; font-size:14px; font-weight:600; color:#2C3E50; font-family:'DM Sans',sans-serif;">DM Sans</span>
+          <span style="display:block; font-size:10px; color:#5D6D7E;">Friendly rounded</span>
+        </span>
+      </button>
+      <button data-switch-font="outfit" class="font-btn" style="display:flex; align-items:center; gap:12px; padding:10px 14px; border-radius:12px; border:2px solid transparent; background:transparent; cursor:pointer; text-align:left; width:100%; transition: all 0.2s;">
+        <span style="width:28px; height:28px; border-radius:8px; background:#f0f0f0; display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:700; flex-shrink:0; font-family:'Outfit',sans-serif;">Aa</span>
+        <span>
+          <span style="display:block; font-size:14px; font-weight:600; color:#2C3E50; font-family:'Outfit',sans-serif;">Outfit</span>
+          <span style="display:block; font-size:10px; color:#5D6D7E;">Modern geometric</span>
+        </span>
+      </button>
+      <button data-switch-font="plus-jakarta" class="font-btn" style="display:flex; align-items:center; gap:12px; padding:10px 14px; border-radius:12px; border:2px solid transparent; background:transparent; cursor:pointer; text-align:left; width:100%; transition: all 0.2s;">
+        <span style="width:28px; height:28px; border-radius:8px; background:#f0f0f0; display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:700; flex-shrink:0; font-family:'Plus Jakarta Sans',sans-serif;">Aa</span>
+        <span>
+          <span style="display:block; font-size:14px; font-weight:600; color:#2C3E50; font-family:'Plus Jakarta Sans',sans-serif;">Plus Jakarta Sans</span>
+          <span style="display:block; font-size:10px; color:#5D6D7E;">Premium editorial</span>
+        </span>
+      </button>
+      <button data-switch-font="space-grotesk" class="font-btn" style="display:flex; align-items:center; gap:12px; padding:10px 14px; border-radius:12px; border:2px solid transparent; background:transparent; cursor:pointer; text-align:left; width:100%; transition: all 0.2s;">
+        <span style="width:28px; height:28px; border-radius:8px; background:#f0f0f0; display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:700; flex-shrink:0; font-family:'Space Grotesk',sans-serif;">Aa</span>
+        <span>
+          <span style="display:block; font-size:14px; font-weight:600; color:#2C3E50; font-family:'Space Grotesk',sans-serif;">Space Grotesk</span>
+          <span style="display:block; font-size:10px; color:#5D6D7E;">Techy / bold</span>
+        </span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Toggle button -->
+  <button
+    id="font-toggle"
+    style="width:56px; height:56px; border-radius:50%; background:#2C3E50; color:#fff; border:none; cursor:pointer; display:flex; align-items:center; justify-content:center; box-shadow: 0 20px 40px rgba(0,0,0,0.3); transition: all 0.3s; font-size:18px; font-weight:700;"
+    aria-label="Toggle font switcher"
+    title="Switch font family"
+  >Aa</button>
+</div>
+
+<script>
+  (function() {
+    const FONT_MAP: Record<string, string> = {
+      'inter': "'Inter', sans-serif",
+      'dm-sans': "'DM Sans', sans-serif",
+      'outfit': "'Outfit', sans-serif",
+      'plus-jakarta': "'Plus Jakarta Sans', sans-serif",
+      'space-grotesk': "'Space Grotesk', sans-serif",
+    };
+
+    let isOpen = false;
+    const toggle = document.getElementById('font-toggle');
+    const panel = document.getElementById('font-panel');
+    const buttons = document.querySelectorAll('[data-switch-font]');
+
+    // Apply saved font immediately
+    const saved = localStorage.getItem('paricus-font') || 'inter';
+    applyFont(saved);
+
+    toggle?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      isOpen = !isOpen;
+      if (panel) panel.style.display = isOpen ? 'block' : 'none';
+      if (toggle) toggle.style.background = isOpen ? '#52C17A' : '#2C3E50';
+    });
+
+    document.addEventListener('click', (e) => {
+      const switcher = document.getElementById('font-switcher');
+      if (isOpen && switcher && !switcher.contains(e.target as Node)) {
+        isOpen = false;
+        if (panel) panel.style.display = 'none';
+        if (toggle) toggle.style.background = '#2C3E50';
+      }
+    });
+
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const key = (btn as HTMLElement).dataset.switchFont;
+        if (key) {
+          applyFont(key);
+          localStorage.setItem('paricus-font', key);
+        }
+      });
+    });
+
+    // Hover effects on toggle
+    toggle?.addEventListener('mouseenter', () => {
+      if (toggle) toggle.style.transform = 'scale(1.1)';
+    });
+    toggle?.addEventListener('mouseleave', () => {
+      if (toggle) toggle.style.transform = 'scale(1)';
+    });
+
+    function applyFont(fontKey: string) {
+      const fontValue = FONT_MAP[fontKey];
+      if (!fontValue) return;
+
+      document.documentElement.setAttribute('data-font', fontKey);
+      document.documentElement.style.setProperty('--font-family-primary', fontValue);
+
+      // Update button active styles
+      buttons.forEach(btn => {
+        const btnKey = (btn as HTMLElement).dataset.switchFont;
+        const el = btn as HTMLElement;
+        if (btnKey === fontKey) {
+          el.style.background = '#E8F5E9';
+          el.style.borderColor = '#52C17A';
+        } else {
+          el.style.background = 'transparent';
+          el.style.borderColor = 'transparent';
+        }
+      });
+    }
+  })();
+</script>
