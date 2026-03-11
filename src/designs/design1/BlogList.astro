@@ -1,0 +1,490 @@
+---
+import { getLocalizedPath } from '../../i18n/utils';
+import Icon from '../../components/common/Icon.astro';
+import { placeholderImages } from '../../data/placeholder-images';
+
+interface Props { lang?: string; }
+const { lang = 'en' } = Astro.props;
+
+const heading = 'Insights & Resources';
+const description = 'Stay informed with the latest trends, best practices, and expert perspectives in business process outsourcing.';
+const articles = [
+  { title: 'How Nearshore BPO is Transforming US Business Operations', description: 'Discover why more US companies are turning to nearshore outsourcing partners in Latin America for superior service delivery.', category: 'Industry Insights', author: 'Paricus Team', date: 'March 5, 2026', slug: 'nearshore-bpo-transforming-operations', readTime: '5 min read' },
+  { title: 'The Future of Customer Service: AI-Powered Human Support', description: 'How artificial intelligence is enhancing human agents rather than replacing them, creating better customer experiences.', category: 'Technology', author: 'Paricus Team', date: 'February 20, 2026', slug: 'future-customer-service-ai', readTime: '7 min read' },
+  { title: '5 Key Metrics Every BPO Client Should Track', description: 'Learn which performance indicators matter most when measuring the success of your outsourcing partnership.', category: 'Best Practices', author: 'Paricus Team', date: 'February 10, 2026', slug: 'key-metrics-bpo-clients', readTime: '4 min read' },
+  { title: 'Building a Bilingual Customer Support Team', description: 'Strategies for creating and managing an effective multilingual support operation that delights customers.', category: 'Operations', author: 'Paricus Team', date: 'January 28, 2026', slug: 'building-bilingual-support-team', readTime: '6 min read' },
+  { title: 'HIPAA Compliance in Outsourced Healthcare Support', description: 'Essential guidelines for maintaining healthcare data security when working with BPO partners.', category: 'Compliance', author: 'Paricus Team', date: 'January 15, 2026', slug: 'hipaa-compliance-outsourced-support', readTime: '8 min read' },
+  { title: 'Scaling Your E-Commerce Support for Peak Seasons', description: 'How to prepare your customer service operations for high-volume periods without sacrificing quality.', category: 'E-Commerce', author: 'Paricus Team', date: 'January 5, 2026', slug: 'scaling-ecommerce-support-peak', readTime: '5 min read' },
+];
+
+const featured = articles[0];
+const rest = articles.slice(1);
+const gradients = [
+  'linear-gradient(135deg, #52C17A 0%, #4DB6AC 100%)',
+  'linear-gradient(135deg, #3D9E5F 0%, #52C17A 100%)',
+  'linear-gradient(135deg, #4DB6AC 0%, #3D9E5F 100%)',
+  'linear-gradient(135deg, #2C3E50 0%, #52C17A 100%)',
+  'linear-gradient(135deg, #52C17A 0%, #2C3E50 100%)',
+  'linear-gradient(135deg, #3D9E5F 0%, #4DB6AC 100%)',
+];
+---
+
+<!-- HERO SECTION -->
+<section class="bl1-hero">
+  <div class="bl1-hero__floating bl1-hero__floating--1"></div>
+  <div class="bl1-hero__floating bl1-hero__floating--2"></div>
+  <div class="bl1-hero__floating bl1-hero__floating--3"></div>
+  <div class="bl1-hero__inner">
+    <span class="bl1-hero__badge">Our Blog</span>
+    <h1 class="bl1-hero__title" data-sa="fade-up">
+      {heading.split('&')[0]}<span class="bl1-hero__accent">&amp;{heading.split('&')[1]}</span>
+    </h1>
+    <p class="bl1-hero__desc">{description}</p>
+    <div class="bl1-hero__stats">
+      <div class="bl1-hero__stat" data-sa="fade-up" data-sa-delay="0">
+        <span class="bl1-hero__stat-num">{articles.length}</span>
+        <span class="bl1-hero__stat-label">Articles</span>
+      </div>
+      <div class="bl1-hero__stat-divider"></div>
+      <div class="bl1-hero__stat" data-sa="fade-up" data-sa-delay="60">
+        <span class="bl1-hero__stat-num">6</span>
+        <span class="bl1-hero__stat-label">Categories</span>
+      </div>
+    </div>
+  </div>
+  <div class="bl1-hero__clip"></div>
+</section>
+
+<!-- FEATURED ARTICLE -->
+<section class="bl1-featured">
+  <div class="bl1-featured__label">Featured Article</div>
+  <a href={getLocalizedPath('/blog/' + featured.slug, lang)} class="bl1-featured__card sa-hover-lift">
+    <div class="bl1-featured__cover" style="background: #1a1a1a;" data-sa="slide-right">
+      <img src={placeholderImages.blog[0].url} alt={placeholderImages.blog[0].alt} loading="lazy" class="absolute inset-0 w-full h-full object-cover" data-sa="fade-in" />
+      <div class="bl1-featured__cover-gradient"></div>
+      <span class="bl1-featured__pill">{featured.category}</span>
+    </div>
+    <div class="bl1-featured__body" data-sa="slide-left">
+      <span class="bl1-featured__tag">Latest</span>
+      <h2 class="bl1-featured__title">{featured.title}</h2>
+      <p class="bl1-featured__excerpt">{featured.description}</p>
+      <div class="bl1-featured__meta">
+        <span class="bl1-featured__author">{featured.author}</span>
+        <span class="bl1-featured__dot"></span>
+        <span>{featured.date}</span>
+        <span class="bl1-featured__dot"></span>
+        <span>{featured.readTime}</span>
+      </div>
+      <span class="bl1-featured__readmore">
+        Read full article <span class="bl1-featured__arrow">&rarr;</span>
+      </span>
+    </div>
+  </a>
+</section>
+
+<!-- ARTICLES GRID -->
+<section class="bl1-grid">
+  <div class="bl1-grid__header">
+    <h2 class="bl1-grid__heading" data-sa="fade-up">More Articles</h2>
+    <div class="bl1-grid__line"></div>
+  </div>
+  <div class="bl1-grid__inner">
+    {rest.map((article, i) => (
+      <a
+        href={getLocalizedPath('/blog/' + article.slug, lang)}
+        class="bl1-card sa-hover-lift"
+        data-sa="fade-up"
+        data-sa-delay={String(i * 80)}
+      >
+        <div class="bl1-card__cover" style="background: #1a1a1a;">
+          <img src={placeholderImages.blog[i % placeholderImages.blog.length].url} alt={placeholderImages.blog[i % placeholderImages.blog.length].alt} loading="lazy" class="absolute inset-0 w-full h-full object-cover" />
+          <div class="bl1-card__cover-gradient"></div>
+          <div class="bl1-card__shimmer"></div>
+          <span class="bl1-card__pill">{article.category}</span>
+        </div>
+        <div class="bl1-card__body">
+          <h3 class="bl1-card__title">{article.title}</h3>
+          <p class="bl1-card__excerpt">{article.description}</p>
+          <div class="bl1-card__meta">
+            <span>{article.author}</span>
+            <span class="bl1-card__dot"></span>
+            <span>{article.date}</span>
+          </div>
+          <div class="bl1-card__footer">
+            <span class="bl1-card__time">{article.readTime}</span>
+            <span class="bl1-card__arrow">&rarr;</span>
+          </div>
+        </div>
+      </a>
+    ))}
+  </div>
+</section>
+
+<style>
+  /* ===== HERO ===== */
+  .bl1-hero {
+    position: relative;
+    background: linear-gradient(135deg, #52C17A 0%, #3D9E5F 40%, #4DB6AC 100%);
+    padding: 10rem 2rem 10rem;
+    text-align: center;
+    overflow: hidden;
+  }
+  .bl1-hero__floating {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.12;
+    background: #fff;
+  }
+  .bl1-hero__floating--1 {
+    width: 300px; height: 300px;
+    top: -60px; left: -80px;
+    animation: bl1Float 8s ease-in-out infinite;
+  }
+  .bl1-hero__floating--2 {
+    width: 200px; height: 200px;
+    bottom: 20px; right: -40px;
+    animation: bl1Float 6s ease-in-out infinite reverse;
+  }
+  .bl1-hero__floating--3 {
+    width: 150px; height: 150px;
+    top: 40%; right: 15%;
+    opacity: 0.08;
+    animation: bl1Float 10s ease-in-out infinite 2s;
+  }
+  .bl1-hero__inner {
+    position: relative; z-index: 2;
+    max-width: 720px; margin: 0 auto;
+  }
+  .bl1-hero__badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.2);
+    backdrop-filter: blur(8px);
+    color: #fff;
+    padding: 0.4rem 1.2rem;
+    border-radius: 9999px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    border: 1px solid rgba(255,255,255,0.25);
+  }
+  .bl1-hero__title {
+    color: #fff;
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: 800;
+    line-height: 1.15;
+    margin-bottom: 1rem;
+  }
+  .bl1-hero__accent { color: #E8F5E9; }
+  .bl1-hero__desc {
+    color: rgba(255,255,255,0.9);
+    font-size: 1.1rem;
+    max-width: 560px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+  .bl1-hero__stats {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+  .bl1-hero__stat { text-align: center; }
+  .bl1-hero__stat-num {
+    display: block;
+    color: #fff;
+    font-size: 1.8rem;
+    font-weight: 800;
+  }
+  .bl1-hero__stat-label {
+    color: rgba(255,255,255,0.75);
+    font-size: 0.82rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .bl1-hero__stat-divider {
+    width: 1px; height: 40px;
+    background: rgba(255,255,255,0.3);
+  }
+  .bl1-hero__clip {
+    position: absolute;
+    bottom: -1px; left: 0; right: 0;
+    height: 80px;
+    background: #FAFAF8;
+    clip-path: polygon(0 60%, 100% 0, 100% 100%, 0 100%);
+  }
+
+  /* ===== FEATURED ===== */
+  .bl1-featured {
+    background: #FAFAF8;
+    padding: 0 2rem 3rem;
+    max-width: 1100px;
+    margin: -2rem auto 0;
+    position: relative; z-index: 3;
+  }
+  .bl1-featured__label {
+    font-size: 0.82rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #52C17A;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+  .bl1-featured__card {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    background: #fff;
+    border-radius: 1.5rem;
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+  }
+  .bl1-featured__card:hover {
+    box-shadow: 0 12px 40px rgba(82,193,122,0.15);
+  }
+  .bl1-featured__cover {
+    min-height: 340px;
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    padding: 1.5rem;
+  }
+  .bl1-featured__cover-gradient {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.1) 50%, transparent 100%);
+    z-index: 1;
+  }
+  .bl1-featured__pill {
+    position: relative; z-index: 2;
+    background: rgba(255,255,255,0.25);
+    backdrop-filter: blur(6px);
+    color: #fff;
+    padding: 0.3rem 0.9rem;
+    border-radius: 9999px;
+    font-size: 0.8rem;
+    font-weight: 600;
+  }
+  .bl1-featured__body {
+    padding: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .bl1-featured__tag {
+    display: inline-block;
+    width: fit-content;
+    background: #E8F5E9;
+    color: #3D9E5F;
+    padding: 0.2rem 0.6rem;
+    border-radius: 0.3rem;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.75rem;
+  }
+  .bl1-featured__title {
+    font-size: 1.65rem;
+    font-weight: 700;
+    color: #2C3E50;
+    line-height: 1.3;
+    margin-bottom: 1rem;
+  }
+  .bl1-featured__excerpt {
+    color: #5D6D7E;
+    font-size: 1rem;
+    line-height: 1.65;
+    margin-bottom: 1.5rem;
+  }
+  .bl1-featured__meta {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.82rem;
+    color: #5D6D7E;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+  }
+  .bl1-featured__author { font-weight: 600; }
+  .bl1-featured__dot {
+    width: 4px; height: 4px;
+    border-radius: 50%;
+    background: #52C17A;
+  }
+  .bl1-featured__readmore {
+    color: #52C17A;
+    font-weight: 600;
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  .bl1-featured__arrow {
+    display: inline-block;
+    transition: transform 0.3s ease;
+  }
+  .bl1-featured__card:hover .bl1-featured__arrow {
+    transform: translateX(6px);
+  }
+
+  /* ===== GRID ===== */
+  .bl1-grid {
+    background: #FAFAF8;
+    padding: 2rem 2rem 5rem;
+  }
+  .bl1-grid__header {
+    max-width: 1100px;
+    margin: 0 auto 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+  .bl1-grid__heading {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #2C3E50;
+    white-space: nowrap;
+  }
+  .bl1-grid__line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, #52C17A, transparent);
+  }
+  .bl1-grid__inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+
+  /* ===== CARD ===== */
+  .bl1-card {
+    background: #fff;
+    border-radius: 1.5rem;
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+  }
+  .bl1-card:hover {
+    box-shadow: 0 16px 40px rgba(82,193,122,0.12);
+  }
+  .bl1-card__cover {
+    height: 180px;
+    position: relative;
+    overflow: hidden;
+  }
+  .bl1-card__cover-gradient {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.05) 60%, transparent 100%);
+    z-index: 1;
+  }
+  .bl1-card__shimmer {
+    position: absolute; inset: 0;
+    background: linear-gradient(
+      110deg,
+      transparent 25%,
+      rgba(255,255,255,0.15) 50%,
+      transparent 75%
+    );
+    background-size: 200% 100%;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+  .bl1-card:hover .bl1-card__shimmer {
+    opacity: 1;
+    animation: bl1Shimmer 1.2s ease forwards;
+  }
+  .bl1-card__pill {
+    position: absolute;
+    top: 1rem; left: 1rem;
+    z-index: 2;
+    background: rgba(255,255,255,0.25);
+    backdrop-filter: blur(6px);
+    color: #fff;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+  .bl1-card__body { padding: 1.5rem; }
+  .bl1-card__title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #2C3E50;
+    line-height: 1.35;
+    margin-bottom: 0.75rem;
+    transition: color 0.3s ease;
+  }
+  .bl1-card:hover .bl1-card__title { color: #3D9E5F; }
+  .bl1-card__excerpt {
+    color: #5D6D7E;
+    font-size: 0.9rem;
+    line-height: 1.55;
+    margin-bottom: 1rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .bl1-card__meta {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.78rem;
+    color: #5D6D7E;
+    margin-bottom: 0.75rem;
+  }
+  .bl1-card__dot {
+    width: 3px; height: 3px;
+    border-radius: 50%;
+    background: #52C17A;
+  }
+  .bl1-card__footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 0.75rem;
+    border-top: 1px solid #f0f0f0;
+  }
+  .bl1-card__time {
+    font-size: 0.78rem;
+    color: #52C17A;
+    font-weight: 500;
+  }
+  .bl1-card__arrow {
+    color: #52C17A;
+    font-size: 1.1rem;
+    transition: transform 0.3s ease;
+  }
+  .bl1-card:hover .bl1-card__arrow {
+    transform: translateX(4px);
+  }
+
+  /* ===== ANIMATIONS ===== */
+  @keyframes bl1Float {
+    0%, 100% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-20px) scale(1.05); }
+  }
+  @keyframes bl1Shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 768px) {
+    .bl1-hero { padding: 4rem 1.5rem 6rem; }
+    .bl1-grid__inner { grid-template-columns: 1fr; }
+    .bl1-featured__card { grid-template-columns: 1fr; }
+    .bl1-featured__cover { min-height: 200px; }
+    .bl1-featured { padding: 0 1.5rem 2rem; }
+    .bl1-hero__stats { gap: 1.5rem; }
+  }
+  @media (min-width: 769px) and (max-width: 1024px) {
+    .bl1-grid__inner { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>

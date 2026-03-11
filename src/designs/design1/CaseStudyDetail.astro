@@ -1,0 +1,410 @@
+---
+import { getLocalizedPath } from '../../i18n/utils';
+import Icon from '../../components/common/Icon.astro';
+import { placeholderImages } from '../../data/placeholder-images';
+
+interface Props { lang?: string; }
+const { lang = 'en' } = Astro.props;
+
+const caseStudy = {
+  title: 'Healthcare Provider Reduces Response Time by 60%',
+  industry: 'Healthcare',
+  client: 'Regional Healthcare Network',
+  challenge: 'A major regional healthcare network was struggling with patient support response times averaging 12 minutes, leading to declining patient satisfaction scores and increased complaint escalations. Their in-house team couldn\'t scale during peak hours and lacked bilingual capabilities for their growing Hispanic patient base.',
+  solution: 'Paricus deployed a dedicated 45-person bilingual support team with HIPAA certification and healthcare-specific training. We implemented an AI-assisted triage system to route calls efficiently and established 24/7 coverage with specialized healthcare protocols.',
+  results: [
+    { icon: 'clock', value: '60%', label: 'Faster Response Time', detail: 'From 12min to under 5min' },
+    { icon: 'star', value: '95%', label: 'Patient Satisfaction', detail: 'Up from 72%' },
+    { icon: 'trending-up', value: '40%', label: 'Cost Reduction', detail: 'vs previous in-house operation' },
+  ],
+  testimonial: {
+    quote: 'Paricus transformed our patient support operations. The bilingual team and healthcare expertise made an immediate impact on our satisfaction scores.',
+    author: 'Dr. Sarah Mitchell',
+    role: 'VP of Patient Experience',
+  },
+};
+---
+
+<!-- HERO SECTION -->
+<section class="csd1-hero pt-32">
+  <div class="csd1-hero__orb csd1-hero__orb--1"></div>
+  <div class="csd1-hero__orb csd1-hero__orb--2"></div>
+  <div class="csd1-hero__container">
+    <a href={getLocalizedPath('/case-studies', lang)} class="csd1-hero__back" data-sa="fade-up">
+      <Icon name="arrow-right" size={16} class="csd1-hero__back-icon" />
+      Back to Case Studies
+    </a>
+    <div class="csd1-hero__meta" data-sa="fade-up" data-sa-delay="80">
+      <span class="csd1-hero__pill">{caseStudy.industry}</span>
+      <span class="csd1-hero__client">
+        <Icon name="briefcase" size={14} />
+        {caseStudy.client}
+      </span>
+    </div>
+    <h1 class="csd1-hero__title" data-sa="fade-up" data-sa-delay="160">{caseStudy.title}</h1>
+    <div class="mt-8" data-sa="fade-in" data-sa-delay="240">
+      <img src={placeholderImages.caseStudy[0].url} alt={placeholderImages.caseStudy[0].alt} loading="lazy" class="w-full h-64 lg:h-96 object-cover rounded-2xl shadow-lg" />
+    </div>
+  </div>
+</section>
+
+<!-- RESULTS SECTION -->
+<section class="csd1-results">
+  <div class="csd1-results__container">
+    {caseStudy.results.map((result, i) => (
+      <div class="csd1-results__card" data-sa="fade-up" data-sa-delay={String(i * 60)}>
+        <div class="csd1-results__icon">
+          <Icon name={result.icon} size={24} />
+        </div>
+        <span class="csd1-results__value">{result.value}</span>
+        <span class="csd1-results__label">{result.label}</span>
+        <span class="csd1-results__detail">{result.detail}</span>
+      </div>
+    ))}
+  </div>
+</section>
+
+<!-- CHALLENGE & SOLUTION SECTION -->
+<section class="csd1-content">
+  <div class="csd1-content__container">
+    <div class="csd1-content__block" data-sa="slide-right">
+      <div class="csd1-content__icon-wrap">
+        <Icon name="target" size={28} />
+      </div>
+      <h2 class="csd1-content__heading" data-sa="fade-up">The Challenge</h2>
+      <p class="csd1-content__text">{caseStudy.challenge}</p>
+    </div>
+    <div class="csd1-content__block" data-sa="slide-left">
+      <div class="csd1-content__icon-wrap">
+        <Icon name="check-circle" size={28} />
+      </div>
+      <h2 class="csd1-content__heading" data-sa="fade-up">Our Solution</h2>
+      <p class="csd1-content__text">{caseStudy.solution}</p>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIAL SECTION -->
+<section class="csd1-testimonial">
+  <div class="csd1-testimonial__container" data-sa="fade-up">
+    <div class="csd1-testimonial__card">
+      <div class="csd1-testimonial__quote-mark">&ldquo;</div>
+      <blockquote class="csd1-testimonial__text">{caseStudy.testimonial.quote}</blockquote>
+      <div class="csd1-testimonial__author">
+        <div class="csd1-testimonial__avatar">
+          <Icon name="users" size={20} />
+        </div>
+        <div>
+          <span class="csd1-testimonial__name">{caseStudy.testimonial.author}</span>
+          <span class="csd1-testimonial__role">{caseStudy.testimonial.role}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA SECTION -->
+<section class="csd1-cta" data-sa="scale-in">
+  <div class="csd1-cta__container">
+    <h2 class="csd1-cta__title">Ready to Achieve Similar Results?</h2>
+    <p class="csd1-cta__text">Let us build a custom solution tailored to your business needs.</p>
+    <a href={getLocalizedPath('/contact', lang)} class="csd1-cta__button">
+      Get Started Today
+      <Icon name="arrow-right" size={18} />
+    </a>
+  </div>
+</section>
+
+<style>
+  /* ── HERO ── */
+  .csd1-hero {
+    position: relative;
+    padding-bottom: 5rem;
+    background: linear-gradient(135deg, #E8F5E9 0%, #FAFAF8 50%, #FFF8E7 100%);
+    overflow: hidden;
+  }
+  .csd1-hero__orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.4;
+    pointer-events: none;
+  }
+  .csd1-hero__orb--1 { width: 400px; height: 400px; background: #E8F5E9; top: -80px; right: -100px; }
+  .csd1-hero__orb--2 { width: 300px; height: 300px; background: #FFF8E7; bottom: -60px; left: -60px; }
+  .csd1-hero__container {
+    position: relative;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    z-index: 1;
+  }
+  .csd1-hero__back {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #5D6D7E;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+    margin-bottom: 2rem;
+    transition: color 0.3s ease;
+  }
+  .csd1-hero__back:hover { color: #52C17A; }
+  .csd1-hero__back-icon { transform: rotate(180deg); }
+  .csd1-hero__meta {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+  }
+  .csd1-hero__pill {
+    display: inline-block;
+    padding: 0.35rem 1.1rem;
+    background: rgba(82,193,122,0.15);
+    color: #3D9E5F;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .csd1-hero__client {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: #5D6D7E;
+    font-size: 0.88rem;
+    font-weight: 500;
+  }
+  .csd1-hero__title {
+    font-size: clamp(2rem, 4.5vw, 3.2rem);
+    font-weight: 800;
+    color: #2C3E50;
+    line-height: 1.15;
+    margin: 0;
+    max-width: 800px;
+  }
+
+  /* ── RESULTS ── */
+  .csd1-results {
+    background: #FAFAF8;
+    padding: 4rem 1.5rem;
+    margin-top: -2rem;
+    position: relative;
+    z-index: 2;
+  }
+  .csd1-results__container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+  .csd1-results__card {
+    background: rgba(255,255,255,0.5);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(232,245,233,0.8);
+    border-radius: 1.5rem;
+    padding: 2rem;
+    text-align: center;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.06);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+  }
+  .csd1-results__card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 48px rgba(82,193,122,0.15);
+  }
+  .csd1-results__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 52px;
+    height: 52px;
+    border-radius: 1rem;
+    background: linear-gradient(135deg, #52C17A, #3D9E5F);
+    color: #fff;
+    margin-bottom: 1rem;
+  }
+  .csd1-results__value {
+    display: block;
+    font-size: 2.8rem;
+    font-weight: 800;
+    color: #2C3E50;
+    line-height: 1.1;
+    margin-bottom: 0.3rem;
+  }
+  .csd1-results__label {
+    display: block;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #3D9E5F;
+    margin-bottom: 0.3rem;
+  }
+  .csd1-results__detail {
+    display: block;
+    font-size: 0.82rem;
+    color: #5D6D7E;
+    font-weight: 500;
+  }
+
+  /* ── CONTENT (Challenge / Solution) ── */
+  .csd1-content {
+    background: #FAFAF8;
+    padding: 2rem 1.5rem 5rem;
+  }
+  .csd1-content__container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+  }
+  .csd1-content__block {
+    background: rgba(255,255,255,0.5);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(232,245,233,0.8);
+    border-radius: 1.5rem;
+    padding: 2.5rem;
+  }
+  .csd1-content__icon-wrap {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 56px;
+    height: 56px;
+    border-radius: 1rem;
+    background: #E8F5E9;
+    color: #52C17A;
+    margin-bottom: 1.2rem;
+  }
+  .csd1-content__heading {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: #2C3E50;
+    margin: 0 0 1rem;
+  }
+  .csd1-content__text {
+    font-size: 1rem;
+    color: #5D6D7E;
+    line-height: 1.8;
+    margin: 0;
+  }
+
+  /* ── TESTIMONIAL ── */
+  .csd1-testimonial {
+    background: linear-gradient(135deg, #E8F5E9 0%, #FAFAF8 50%, #FFF8E7 100%);
+    padding: 5rem 1.5rem;
+  }
+  .csd1-testimonial__container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  .csd1-testimonial__card {
+    background: rgba(255,255,255,0.5);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(232,245,233,0.8);
+    border-radius: 1.5rem;
+    padding: 3rem;
+    position: relative;
+  }
+  .csd1-testimonial__quote-mark {
+    font-size: 5rem;
+    font-weight: 800;
+    color: #52C17A;
+    line-height: 1;
+    opacity: 0.3;
+    position: absolute;
+    top: 1rem;
+    left: 2rem;
+  }
+  .csd1-testimonial__text {
+    font-size: 1.2rem;
+    color: #2C3E50;
+    line-height: 1.8;
+    font-style: italic;
+    margin: 0 0 2rem;
+    position: relative;
+    z-index: 1;
+  }
+  .csd1-testimonial__author {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  .csd1-testimonial__avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #52C17A, #3D9E5F);
+    color: #fff;
+  }
+  .csd1-testimonial__name {
+    display: block;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #2C3E50;
+  }
+  .csd1-testimonial__role {
+    display: block;
+    font-size: 0.85rem;
+    color: #5D6D7E;
+  }
+
+  /* ── CTA ── */
+  .csd1-cta {
+    background: linear-gradient(135deg, #52C17A, #3D9E5F);
+    padding: 5rem 1.5rem;
+    text-align: center;
+  }
+  .csd1-cta__container { max-width: 640px; margin: 0 auto; }
+  .csd1-cta__title {
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    font-weight: 800;
+    color: #fff;
+    margin: 0 0 1rem;
+  }
+  .csd1-cta__text {
+    font-size: 1.1rem;
+    color: rgba(255,255,255,0.9);
+    line-height: 1.7;
+    margin: 0 0 2rem;
+  }
+  .csd1-cta__button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 1rem 2.4rem;
+    background: #fff;
+    color: #3D9E5F;
+    font-weight: 700;
+    font-size: 1rem;
+    border-radius: 999px;
+    text-decoration: none;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .csd1-cta__button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .csd1-results__container { grid-template-columns: 1fr; }
+    .csd1-content__container { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 600px) {
+    .csd1-hero { padding-bottom: 3rem; }
+    .csd1-results__card { padding: 1.5rem; }
+    .csd1-content__block { padding: 1.5rem; }
+    .csd1-testimonial__card { padding: 2rem; }
+  }
+
+</style>

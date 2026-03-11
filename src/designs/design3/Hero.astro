@@ -1,0 +1,715 @@
+---
+import { getLocalizedPath } from '../../i18n/utils';
+import Icon from '../../components/common/Icon.astro';
+import { placeholderImages } from '../../data/placeholder-images';
+
+interface Props { lang?: string; }
+const { lang = 'en' } = Astro.props;
+
+/* ── Section 1: Hero ─────────────────────────────── */
+const badge        = 'Your Trusted BPO Partner';
+const title        = 'Streamline Operations. Scale with Confidence.';
+const description  = 'We help businesses optimize customer service, back-office operations, and technology solutions with dedicated nearshore teams.';
+const primaryCta   = 'Get Started';
+const secondaryCta = 'Our Services';
+const stats = [
+  { value: '500+', label: 'Clients Served' },
+  { value: '98%',  label: 'Satisfaction Rate' },
+  { value: '40%',  label: 'Cost Reduction' },
+  { value: '24/7', label: 'Support' },
+];
+
+/* ── Section 2: Services ─────────────────────────── */
+const servicesLabel   = 'What We Do';
+const servicesHeading = 'End-to-End BPO Solutions';
+const servicesDesc    = 'From customer interactions to back-office workflows, we deliver the expertise and people that move your business forward.';
+const services = [
+  {
+    icon: 'headphones',
+    title: 'Customer Service',
+    description: 'Omnichannel support teams that represent your brand with care — voice, chat, email, and social.',
+  },
+  {
+    icon: 'briefcase',
+    title: 'Back-Office Operations',
+    description: 'Data entry, claims processing, billing, and administrative tasks handled accurately at scale.',
+  },
+  {
+    icon: 'cpu',
+    title: 'Technology Solutions',
+    description: 'IT helpdesk, software QA, and technical support staffed by specialists who know your stack.',
+  },
+  {
+    icon: 'bar-chart-2',
+    title: 'Analytics & Reporting',
+    description: 'Real-time dashboards and actionable insights that keep you informed and in control.',
+  },
+  {
+    icon: 'users',
+    title: 'HR & Recruitment',
+    description: 'End-to-end talent acquisition and HR administration so you can focus on strategy.',
+  },
+  {
+    icon: 'shield',
+    title: 'Compliance & Risk',
+    description: 'Regulatory-compliant processes protecting sensitive data and reducing operational risk.',
+  },
+];
+
+/* ── Section 3: Value Proposition ───────────────── */
+const whyHeading = 'Why Leading Companies Choose Paricus';
+const whyDesc    = 'We combine nearshore talent, proven processes, and technology to deliver measurable results — faster than building in-house.';
+const pillars = [
+  {
+    icon: 'zap',
+    title: 'Rapid Deployment',
+    description: 'Fully onboarded, trained teams operational within 30 days — not 6 months.',
+  },
+  {
+    icon: 'globe',
+    title: 'Nearshore Advantage',
+    description: 'Same time zones, cultural alignment, and native English fluency for seamless collaboration.',
+  },
+  {
+    icon: 'trending-up',
+    title: 'Scalable Capacity',
+    description: 'Ramp up or down without the friction of hiring, benefits, or severance.',
+  },
+  {
+    icon: 'lock',
+    title: 'Enterprise Security',
+    description: 'SOC 2-aligned controls, HIPAA-ready workflows, and rigorous data governance.',
+  },
+];
+
+/* ── Section 4: Industries ───────────────────────── */
+const industriesLabel   = 'Sector Expertise';
+const industriesHeading = 'Industries We Serve';
+const industriesDesc    = 'Specialized knowledge across diverse sectors so your outsourcing partner truly understands your business.';
+const industries = [
+  { icon: 'heart',        title: 'Healthcare',          description: 'HIPAA-compliant support that prioritizes patient trust and data security.' },
+  { icon: 'package',      title: 'E-Commerce',          description: 'Scalable CX and fulfillment operations built for peak season surges.' },
+  { icon: 'cpu',          title: 'Technology',          description: 'Technical support that speaks your product language fluently.' },
+  { icon: 'landmark',     title: 'Finance',             description: 'Secure, audit-ready processes aligned to financial regulations.' },
+  { icon: 'shopping-bag', title: 'Travel & Hospitality', description: 'Multilingual guest support that creates memorable experiences worldwide.' },
+];
+
+/* ── Section 5: CTA ──────────────────────────────── */
+const ctaHeading = 'Ready to Reduce Costs and Scale Faster?';
+const ctaDesc    = 'Schedule a free consultation and see how a dedicated Paricus team can transform your operations in 30 days.';
+const ctaBtn     = 'Talk to an Expert';
+---
+
+<!-- ============================================================
+     DESIGN V3 — HERO PAGE (High-Contrast Premium)
+     No glassmorphism · No blur · No animated orbs
+     Alternating DARK (#111115) / LIGHT (#fff / #FAFAF8) sections
+     ============================================================ -->
+
+<!-- ═══════════════════════════════════════════════
+     SECTION 1 · HERO — DARK
+     ═══════════════════════════════════════════════ -->
+<section
+  class="relative flex items-center overflow-hidden"
+  style="
+    background: #111115;
+    padding-top: 10rem;
+    padding-bottom: 6rem;
+    border-bottom: 2px solid #52C17A;
+  "
+>
+  <!-- Full-bleed background image with dark overlay -->
+  <div
+    class="absolute inset-0 sa-parallax"
+    data-sa="fade-in"
+    style="
+      background-image: url('{placeholderImages.business[1].url}');
+      background-size: cover;
+      background-position: center;
+    "
+    aria-hidden="true"
+  ></div>
+  <div
+    class="absolute inset-0"
+    style="background: rgba(17,17,21,0.85);"
+    aria-hidden="true"
+  ></div>
+
+  <!-- Subtle decorative elements -->
+  <div class="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
+    <!-- Soft green radial glow — top right -->
+    <div class="absolute" style="top: -10%; right: -5%; width: 500px; height: 500px; background: radial-gradient(circle, rgba(82,193,122,0.07) 0%, transparent 70%);"></div>
+    <!-- Soft green radial glow — bottom left -->
+    <div class="absolute" style="bottom: -15%; left: -8%; width: 600px; height: 600px; background: radial-gradient(circle, rgba(82,193,122,0.05) 0%, transparent 70%);"></div>
+    <!-- Dot grid pattern -->
+    <div class="absolute inset-0" style="background-image: radial-gradient(rgba(255,255,255,0.03) 1px, transparent 1px); background-size: 32px 32px;"></div>
+    <!-- Thin diagonal line — top left -->
+    <div class="absolute" style="top: 12%; left: 8%; width: 120px; height: 1px; background: linear-gradient(90deg, transparent, rgba(82,193,122,0.15), transparent); transform: rotate(-35deg);"></div>
+    <!-- Thin diagonal line — right -->
+    <div class="absolute" style="top: 35%; right: 12%; width: 80px; height: 1px; background: linear-gradient(90deg, transparent, rgba(82,193,122,0.12), transparent); transform: rotate(25deg);"></div>
+    <!-- Small green dot accent — left -->
+    <div class="absolute" style="top: 28%; left: 15%; width: 4px; height: 4px; border-radius: 50%; background: rgba(82,193,122,0.2);"></div>
+    <!-- Small green dot accent — right -->
+    <div class="absolute" style="bottom: 30%; right: 18%; width: 3px; height: 3px; border-radius: 50%; background: rgba(82,193,122,0.18);"></div>
+    <!-- Corner bracket — top left -->
+    <div class="hidden lg:block absolute" style="top: 15%; left: 6%; width: 24px; height: 24px; border-left: 1px solid rgba(82,193,122,0.1); border-top: 1px solid rgba(82,193,122,0.1);"></div>
+    <!-- Corner bracket — bottom right -->
+    <div class="hidden lg:block absolute" style="bottom: 18%; right: 6%; width: 24px; height: 24px; border-right: 1px solid rgba(82,193,122,0.1); border-bottom: 1px solid rgba(82,193,122,0.1);"></div>
+  </div>
+
+  <div class="relative z-10 max-w-4xl mx-auto px-6 text-center w-full">
+
+    <!-- Badge -->
+    <div
+      data-sa="fade-up"
+      class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full mb-10"
+      style="
+        background: rgba(82,193,122,0.12);
+        border: 1px solid rgba(82,193,122,0.25);
+      "
+    >
+      <span class="w-1.5 h-1.5 rounded-full" style="background: #52C17A;"></span>
+      <span
+        class="text-sm font-semibold tracking-wider uppercase"
+        style="color: #52C17A;"
+      >{badge}</span>
+    </div>
+
+    <!-- Title -->
+    <h1
+      data-sa="fade-up"
+      class="font-extrabold tracking-tight leading-[1.06] mb-6"
+      style="
+        color: #FAFAFA;
+        font-size: clamp(2.5rem, 6vw, 4.5rem);
+      "
+    >
+      {title}
+    </h1>
+
+    <!-- Subtitle -->
+    <p
+      data-sa="fade-up" data-sa-delay="80"
+      class="max-w-2xl mx-auto leading-relaxed mb-12"
+      style="color: #A1A1AA; font-size: clamp(1rem, 2vw, 1.2rem);"
+    >
+      {description}
+    </p>
+
+    <!-- CTAs -->
+    <div data-sa="scale-in" class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-24">
+      <a
+        href={getLocalizedPath('/contact', lang)}
+        class="inline-flex items-center gap-2.5 px-8 py-3.5 rounded-lg font-bold text-base transition-all duration-200 hover:brightness-110 hover:shadow-[0_4px_24px_rgba(82,193,122,0.35)]"
+        style="background: #52C17A; color: #fff;"
+      >
+        {primaryCta}
+        <Icon name="arrow-right" class="w-4 h-4" />
+      </a>
+      <a
+        href={getLocalizedPath('/services', lang)}
+        class="inline-flex items-center gap-2.5 px-8 py-3.5 rounded-lg font-semibold text-base transition-all duration-200 hover:bg-[rgba(82,193,122,0.08)]"
+        style="border: 1px solid rgba(82,193,122,0.3); color: #52C17A;"
+      >
+        {secondaryCta}
+        <Icon name="chevron-right" class="w-4 h-4" />
+      </a>
+    </div>
+
+    <!-- Stats row -->
+    <div
+      data-sa="fade-up"
+      class="pt-10"
+      style="border-top: 1px solid rgba(255,255,255,0.08);"
+    >
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
+        {stats.map((stat, i) => (
+          <div class="text-center" data-sa="fade-up" data-sa-delay={`${i * 60}`}>
+            <div
+              class="text-3xl lg:text-4xl font-extrabold tracking-tight mb-1"
+              style="color: #52C17A;"
+            >
+              {stat.value}
+            </div>
+            <div class="text-sm font-medium" style="color: #A1A1AA;">
+              {stat.label}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════
+     SECTION 2 · SERVICES CAROUSEL — LIGHT
+     ═══════════════════════════════════════════════ -->
+<section class="d3-svc-section" style="background: #fff;">
+  <!-- Decorative elements -->
+  <div class="d3-svc-deco-1" aria-hidden="true"></div>
+  <div class="d3-svc-deco-2" aria-hidden="true"></div>
+
+  <div class="d3-svc-container">
+
+    <!-- Header -->
+    <div class="d3-svc-header">
+      <p class="d3-svc-label">{servicesLabel}</p>
+      <h2 class="d3-svc-heading" data-sa="fade-up">{servicesHeading}</h2>
+      <p class="d3-svc-desc">{servicesDesc}</p>
+    </div>
+
+    <!-- Carousel (keep existing rAF loop, do NOT animate slides) -->
+    <div class="d3-carousel" id="d3-svc-carousel">
+      <div class="d3-carousel__track" id="d3-svc-track">
+        {/* Render cards twice for seamless infinite loop */}
+        {[...services, ...services].map((service, i) => (
+          <div class="d3-carousel__slide">
+            <div class="d3-svc-card">
+              <div class="d3-svc-card__icon">
+                <Icon name={service.icon} class="w-6 h-6" style="color: #52C17A;" />
+              </div>
+              <h3 class="d3-svc-card__title">{service.title}</h3>
+              <p class="d3-svc-card__desc">{service.description}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- Link -->
+    <div class="d3-svc-link" data-sa="fade-up">
+      <a
+        href={getLocalizedPath('/services', lang)}
+        class="inline-flex items-center gap-2 font-semibold text-sm transition-all duration-200 hover:gap-3"
+        style="color: #52C17A;"
+      >
+        View all services
+        <Icon name="arrow-right" class="w-4 h-4" />
+      </a>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════
+     SECTION 3 · WHY CHOOSE US — DARK
+     ═══════════════════════════════════════════════ -->
+<section class="py-24 lg:py-36" style="background: #111115;">
+  <div class="max-w-6xl mx-auto px-6 lg:px-12">
+
+    <div class="grid lg:grid-cols-2 gap-16 items-center">
+
+      <!-- Left: copy -->
+      <div data-sa="slide-right">
+        <p
+          class="text-xs font-bold tracking-[0.18em] uppercase mb-4"
+          style="font-family: monospace; color: #52C17A;"
+        >Why Paricus</p>
+        <h2
+          data-sa="fade-up"
+          class="text-3xl lg:text-5xl font-extrabold tracking-tight mb-6 leading-[1.1]"
+          style="color: #FAFAFA;"
+        >{whyHeading}</h2>
+        <p class="text-base lg:text-lg leading-relaxed mb-10" style="color: #A1A1AA;">
+          {whyDesc}
+        </p>
+        <a
+          href={getLocalizedPath('/contact', lang)}
+          data-sa="scale-in"
+          class="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-lg font-bold text-sm transition-all duration-200 hover:brightness-110"
+          style="background: #52C17A; color: #fff;"
+        >
+          Start a Conversation
+          <Icon name="arrow-right" class="w-4 h-4" />
+        </a>
+      </div>
+
+      <!-- Right: pillars grid -->
+      <div class="grid sm:grid-cols-2 gap-6" data-sa="slide-left">
+        {pillars.map((pillar, i) => (
+          <div
+            data-sa="fade-up" data-sa-delay={`${i * 100}`}
+            class="sa-hover-lift p-7 rounded-xl"
+            style="
+              background: rgba(255,255,255,0.03);
+              border: 1px solid rgba(255,255,255,0.07);
+              border-radius: 12px;
+            "
+          >
+            <div
+              class="w-10 h-10 rounded-lg flex items-center justify-center mb-4"
+              style="background: rgba(82,193,122,0.1); border: 1px solid rgba(82,193,122,0.2);"
+            >
+              <Icon name={pillar.icon} class="w-5 h-5" style="color: #52C17A;" />
+            </div>
+            <h4 class="font-bold text-base mb-2" style="color: #FAFAFA;">
+              {pillar.title}
+            </h4>
+            <p class="text-sm leading-relaxed" style="color: #A1A1AA;">
+              {pillar.description}
+            </p>
+          </div>
+        ))}
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════
+     SECTION 4 · INDUSTRIES — LIGHT
+     ═══════════════════════════════════════════════ -->
+<section class="py-24 lg:py-36" style="background: #FAFAF8;">
+  <div class="max-w-6xl mx-auto px-6 lg:px-12">
+
+    <!-- Header -->
+    <div class="max-w-2xl mx-auto text-center mb-16">
+      <p
+        class="text-xs font-bold tracking-[0.18em] uppercase mb-4"
+        style="font-family: monospace; color: #52C17A;"
+      >{industriesLabel}</p>
+      <h2
+        data-sa="fade-up"
+        class="text-3xl lg:text-5xl font-extrabold tracking-tight mb-5"
+        style="color: #111115;"
+      >{industriesHeading}</h2>
+      <p class="text-base lg:text-lg leading-relaxed" style="color: #5D6D7E;">
+        {industriesDesc}
+      </p>
+    </div>
+
+    <!-- Industries list — clean divider rows -->
+    <div
+      class="max-w-4xl mx-auto"
+      style="border-top: 1px solid #E5E7EB;"
+    >
+      {industries.map((industry, i) => (
+        <div
+          data-sa="fade-up" data-sa-delay={`${i * 80}`}
+          class="sa-hover-lift group flex items-start gap-6 py-8"
+          style={`border-bottom: 1px solid #E5E7EB;${i > 0 ? '' : ''}`}
+        >
+          <!-- Icon -->
+          <div
+            class="flex-shrink-0 w-12 h-12 rounded-lg flex items-center justify-center mt-0.5"
+            style="background: rgba(82,193,122,0.08); border: 1px solid rgba(82,193,122,0.18);"
+          >
+            <Icon name={industry.icon} class="w-6 h-6" style="color: #52C17A;" />
+          </div>
+
+          <!-- Text -->
+          <div class="flex-1 min-w-0">
+            <h3
+              class="font-bold text-lg mb-1"
+              style="color: #111115;"
+            >{industry.title}</h3>
+            <p class="text-sm leading-relaxed" style="color: #5D6D7E;">
+              {industry.description}
+            </p>
+          </div>
+
+          <!-- Arrow indicator -->
+          <div
+            class="flex-shrink-0 self-center opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+            style="color: #52C17A;"
+          >
+            <Icon name="chevron-right" class="w-5 h-5" />
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- Link -->
+    <div class="text-center mt-12" data-sa="fade-up">
+      <a
+        href={getLocalizedPath('/industries', lang)}
+        class="inline-flex items-center gap-2 font-semibold text-sm transition-all duration-200 hover:gap-3"
+        style="color: #52C17A;"
+      >
+        Explore all industries
+        <Icon name="arrow-right" class="w-4 h-4" />
+      </a>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════
+     SECTION 5 · CTA — DARK
+     ═══════════════════════════════════════════════ -->
+<section
+  class="relative py-28 lg:py-40 flex items-center"
+  style="background: #111115;"
+>
+  <!-- Full-bleed bg with overlay -->
+  <div
+    class="absolute inset-0 sa-parallax"
+    data-sa="fade-in"
+    style="
+      background-image: url('{placeholderImages.office[0].url}');
+      background-size: cover;
+      background-position: center;
+    "
+    aria-hidden="true"
+  ></div>
+  <div
+    class="absolute inset-0"
+    style="background: rgba(17,17,21,0.88);"
+    aria-hidden="true"
+  ></div>
+
+  <div class="relative z-10 max-w-3xl mx-auto px-6 text-center w-full">
+
+    <!-- Badge -->
+    <div
+      data-sa="fade-up"
+      class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full mb-8"
+      style="
+        background: rgba(82,193,122,0.12);
+        border: 1px solid rgba(82,193,122,0.25);
+      "
+    >
+      <span class="w-1.5 h-1.5 rounded-full" style="background: #52C17A;"></span>
+      <span
+        class="text-xs font-bold tracking-wider uppercase"
+        style="color: #52C17A;"
+      >Get Started Today</span>
+    </div>
+
+    <!-- Heading -->
+    <h2
+      data-sa="fade-up"
+      class="font-extrabold tracking-tight leading-[1.1] mb-6"
+      style="color: #FAFAFA; font-size: clamp(2rem, 5vw, 3.5rem);"
+    >{ctaHeading}</h2>
+
+    <!-- Description -->
+    <p
+      data-sa="fade-up" data-sa-delay="80"
+      class="max-w-xl mx-auto text-base lg:text-lg leading-relaxed mb-10"
+      style="color: #A1A1AA;"
+    >{ctaDesc}</p>
+
+    <!-- CTA Button -->
+    <div data-sa="scale-in" class="flex flex-col sm:flex-row items-center justify-center gap-4">
+      <a
+        href={getLocalizedPath('/contact', lang)}
+        class="inline-flex items-center gap-2.5 px-9 py-4 rounded-lg font-bold text-base transition-all duration-200 hover:brightness-110 hover:shadow-[0_4px_28px_rgba(82,193,122,0.4)]"
+        style="background: #52C17A; color: #fff;"
+      >
+        {ctaBtn}
+        <Icon name="arrow-right" class="w-5 h-5" />
+      </a>
+      <a
+        href={getLocalizedPath('/services', lang)}
+        class="inline-flex items-center gap-2.5 px-9 py-4 rounded-lg font-semibold text-base transition-all duration-200 hover:bg-[rgba(82,193,122,0.08)]"
+        style="border: 1px solid rgba(82,193,122,0.3); color: #52C17A;"
+      >
+        Browse Services
+        <Icon name="chevron-right" class="w-4 h-4" />
+      </a>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ─── Styles ──────────────────────────────── -->
+<style>
+  /* ==================== SERVICES CAROUSEL ==================== */
+  .d3-svc-section {
+    position: relative;
+    padding: 6rem 0;
+    overflow: hidden;
+  }
+  .d3-svc-deco-1 {
+    position: absolute;
+    top: -60px;
+    right: -80px;
+    width: 320px;
+    height: 320px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(82,193,122,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .d3-svc-deco-2 {
+    position: absolute;
+    bottom: -40px;
+    left: -60px;
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(77,182,172,0.04) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .d3-svc-container {
+    position: relative;
+    z-index: 1;
+    max-width: 6xl;
+    margin: 0 auto;
+  }
+  .d3-svc-header {
+    max-width: 40rem;
+    padding: 0 1.5rem;
+    margin-bottom: 3rem;
+  }
+  @media (min-width: 1024px) {
+    .d3-svc-header {
+      padding: 0 3rem;
+    }
+  }
+  .d3-svc-label {
+    font-family: monospace;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #52C17A;
+    margin: 0 0 1rem;
+  }
+  .d3-svc-heading {
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: #111115;
+    margin: 0 0 1.25rem;
+    line-height: 1.1;
+  }
+  .d3-svc-desc {
+    font-size: 1rem;
+    line-height: 1.65;
+    color: #5D6D7E;
+    margin: 0;
+  }
+
+  /* Carousel */
+  .d3-carousel {
+    width: 100%;
+    overflow: hidden;
+    padding: 0.5rem 0;
+  }
+  .d3-carousel__track {
+    display: flex;
+    gap: 1.25rem;
+    will-change: transform;
+  }
+  .d3-carousel__slide {
+    flex: 0 0 calc(33.333% - 0.85rem);
+    min-width: 0;
+  }
+  @media (max-width: 1023px) {
+    .d3-carousel__slide {
+      flex: 0 0 calc(50% - 0.625rem);
+    }
+  }
+  @media (max-width: 640px) {
+    .d3-carousel__slide {
+      flex: 0 0 calc(85%);
+    }
+  }
+
+  /* Service cards */
+  .d3-svc-card {
+    background: #FAFAF8;
+    border: 1px solid #E5E7EB;
+    border-radius: 12px;
+    padding: 2rem 1.75rem;
+    height: 100%;
+    transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+  }
+  .d3-svc-card:hover {
+    border-color: #52C17A;
+    box-shadow: 0 8px 24px rgba(82, 193, 122, 0.08);
+    transform: translateY(-2px);
+  }
+  .d3-svc-card__icon {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(82,193,122,0.08);
+    border: 1px solid rgba(82,193,122,0.18);
+    margin-bottom: 1.25rem;
+  }
+  .d3-svc-card__title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #111115;
+    margin: 0 0 0.5rem;
+  }
+  .d3-svc-card__desc {
+    font-size: 0.875rem;
+    line-height: 1.6;
+    color: #5D6D7E;
+    margin: 0;
+  }
+
+  .d3-svc-link {
+    padding: 2.5rem 1.5rem 0;
+  }
+  @media (min-width: 1024px) {
+    .d3-svc-link { padding-left: 3rem; }
+  }
+</style>
+
+<script>
+  function initD3Carousel() {
+    const track = document.getElementById('d3-svc-track');
+    if (!track) return;
+
+    const slides = track.querySelectorAll('.d3-carousel__slide');
+    const totalOriginal = slides.length / 2; // We duplicated the services
+    let position = 0;
+    let speed = 0.5; // px per frame
+    let paused = false;
+    let animId: number;
+
+    function getSlideWidth() {
+      const slide = slides[0];
+      if (!slide) return 300;
+      const style = getComputedStyle(track);
+      const gap = parseFloat(style.gap) || 20;
+      return slide.getBoundingClientRect().width + gap;
+    }
+
+    function animate() {
+      if (!paused) {
+        position += speed;
+        const resetPoint = getSlideWidth() * totalOriginal;
+        if (position >= resetPoint) {
+          position -= resetPoint;
+        }
+        track.style.transform = `translateX(-${position}px)`;
+      }
+      animId = requestAnimationFrame(animate);
+    }
+
+    // Pause on hover
+    const carousel = document.getElementById('d3-svc-carousel');
+    carousel?.addEventListener('mouseenter', () => { paused = true; });
+    carousel?.addEventListener('mouseleave', () => { paused = false; });
+
+    // Touch support — pause while touching
+    carousel?.addEventListener('touchstart', () => { paused = true; }, { passive: true });
+    carousel?.addEventListener('touchend', () => { paused = false; });
+
+    animId = requestAnimationFrame(animate);
+
+    // Cleanup on page navigation
+    document.addEventListener('astro:before-swap', () => {
+      cancelAnimationFrame(animId);
+    }, { once: true });
+  }
+
+  initD3Carousel();
+  document.addEventListener('astro:page-load', () => {
+    initD3Carousel();
+  });
+</script>

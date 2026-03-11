@@ -1,0 +1,250 @@
+---
+import { getLocalizedPath } from '../../i18n/utils';
+import Icon from '../../components/common/Icon.astro';
+import { placeholderImages } from '../../data/placeholder-images';
+
+interface Props { lang?: string; }
+const { lang = 'en' } = Astro.props;
+
+const stats = [
+  { value: '10+', label: 'Years in Business' },
+  { value: '500+', label: 'Clients Worldwide' },
+  { value: '2,000+', label: 'Team Members' },
+  { value: '5', label: 'Countries' },
+];
+
+const leaders = [
+  { name: 'Jorge E. Perea', position: 'Managing Partner', initials: 'JP', photo: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&h=400&fit=crop&crop=face' },
+  { name: 'Jay Jones', position: 'Managing Partner', initials: 'JJ', photo: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face' },
+  { name: 'Maria Santos', position: 'VP of Operations', initials: 'MS', photo: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=400&fit=crop&crop=face' },
+];
+
+const values = [
+  { title: 'Excellence', description: 'We hold ourselves to the highest standards in every engagement, measuring success by the outcomes we deliver.' },
+  { title: 'Innovation', description: 'We invest in modern processes and technology to continuously improve how we serve our clients.' },
+  { title: 'Integrity', description: 'Transparency and honesty guide every relationship — with clients, partners, and our own team.' },
+  { title: 'Partnership', description: 'We operate as an extension of your team, aligned with your goals and committed to your growth.' },
+];
+---
+
+<!-- ============================================
+     ABOUT — High-Contrast Premium Design
+     ============================================ -->
+
+<!-- 1. HERO SECTION — DARK -->
+<section
+  class="relative pb-28 lg:pb-36"
+  style="padding-top: 10rem; background: #111115;"
+>
+  <!-- Background image with dark overlay -->
+  <div
+    class="absolute inset-0 sa-parallax"
+    data-sa="fade-in"
+    style="background-image: url('{placeholderImages.team[0].url}'); background-size: cover; background-position: center; background-repeat: no-repeat;"
+  ></div>
+  <div class="absolute inset-0" style="background: rgba(17,17,21,0.82);"></div>
+
+  <div class="relative max-w-3xl mx-auto px-6">
+    <div>
+      <h1 data-sa="fade-up" class="text-5xl lg:text-7xl font-bold tracking-tight leading-[1.08] mb-5" style="color: #fff;">
+        Built for the Long Term
+      </h1>
+      <!-- Green accent line -->
+      <div class="mb-8" style="width: 56px; height: 3px; background: #52C17A; border-radius: 2px;"></div>
+
+      <p class="text-lg lg:text-xl leading-relaxed mb-6" style="color: #A1A1AA;">
+        Paricus was founded on a simple belief: outsourcing should feel like a partnership, not a transaction. Based in Colombia, we provide nearshore BPO solutions to businesses across the Americas — combining cultural alignment, bilingual talent, and operational excellence.
+      </p>
+      <p class="text-lg leading-relaxed" style="color: #A1A1AA;">
+        Our mission is to help companies scale confidently by handling the operations that matter most — customer service, back-office processes, and technology support — so they can focus on growth.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- 2. TEAM IMAGE SECTION — LIGHT -->
+<section class="py-20 lg:py-28" style="background: #fff;">
+  <div class="max-w-5xl mx-auto px-6">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+      <!-- Text -->
+      <div data-sa="slide-right">
+        <div class="flex items-center gap-2.5 mb-5">
+          <div class="w-1.5 h-1.5 rounded-full" style="background: #52C17A;"></div>
+          <span style="color: #52C17A; font-size: 0.9375rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; font-family: monospace;">// WHO WE ARE</span>
+        </div>
+        <h2 data-sa="fade-up" class="text-3xl lg:text-4xl font-bold tracking-tight mb-5" style="color: #111115; line-height: 1.15;">
+          People-first. <br/>Results-driven.
+        </h2>
+        <p class="text-base leading-relaxed mb-5" style="color: #5D6D7E;">
+          We're not a call center — we're an extension of your team. Every person at Paricus is trained to think like an owner, act with urgency, and deliver with care.
+        </p>
+        <p class="text-base leading-relaxed mb-8" style="color: #5D6D7E;">
+          From our headquarters in Bogota, we serve clients across the Americas with the cultural alignment and time-zone overlap that offshore providers simply can't match.
+        </p>
+        <div class="flex items-center gap-6">
+          <div>
+            <div class="text-2xl font-bold" style="color: #111115;">98%</div>
+            <div class="text-xs font-medium uppercase tracking-wider" style="color: #5D6D7E;">Client retention</div>
+          </div>
+          <div style="width: 1px; height: 2.5rem; background: #E5E7EB;"></div>
+          <div>
+            <div class="text-2xl font-bold" style="color: #111115;">4.9/5</div>
+            <div class="text-xs font-medium uppercase tracking-wider" style="color: #5D6D7E;">CSAT average</div>
+          </div>
+        </div>
+      </div>
+      <!-- Image -->
+      <div data-sa="slide-left" style="border-radius: 12px; overflow: hidden; border: 1px solid #E5E7EB;">
+        <img
+          src={placeholderImages.team[1].url}
+          alt={placeholderImages.team[1].alt}
+          loading="lazy"
+          class="w-full h-80 lg:h-[440px] object-cover block"
+        />
+        <div
+          class="flex items-center gap-2.5 px-5 py-3"
+          style="background: #52C17A;"
+        >
+          <div class="w-1.5 h-1.5 rounded-full" style="background: #fff; opacity: 0.8;"></div>
+          <span class="text-sm font-semibold tracking-wide" style="color: #fff;">Our Team — Bogotá, Colombia</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 3. STATS SECTION — LIGHT OFF-WHITE -->
+<section class="py-24 lg:py-32" style="background: #FAFAF8; border-top: 1px solid #E5E7EB; border-bottom: 1px solid #E5E7EB;">
+  <div class="max-w-4xl mx-auto px-6">
+    <div class="grid grid-cols-2 lg:grid-cols-4 divide-x" style="border: 1px solid #E5E7EB; border-radius: 12px; overflow: hidden;">
+      {stats.map((stat: { value: string; label: string }, i: number) => (
+        <div
+          data-sa="fade-up"
+          data-sa-delay={`${i * 60}`}
+          class="flex flex-col items-center justify-center py-10 px-6 text-center"
+          style={i > 0 ? 'border-left: 1px solid #E5E7EB;' : ''}
+        >
+          <div class="text-4xl lg:text-5xl font-bold tracking-tight mb-2" style="color: #111115;">
+            {stat.value}
+          </div>
+          <div class="text-sm font-medium uppercase tracking-wider" style="color: #5D6D7E;">
+            {stat.label}
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- 4. LEADERSHIP SECTION — DARK -->
+<section class="py-24 lg:py-32" style="background: #111115;">
+  <div class="max-w-4xl mx-auto px-6">
+
+    <div class="mb-14">
+      <div class="mb-4" style="width: 40px; height: 3px; background: #52C17A; border-radius: 2px;"></div>
+      <h2 data-sa="fade-up" class="text-3xl lg:text-4xl font-bold tracking-tight mb-3" style="color: #fff;">
+        Leadership
+      </h2>
+      <p class="text-base" style="color: #A1A1AA;">
+        The people behind Paricus.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
+      {leaders.map((leader: { name: string; position: string; initials: string; photo: string }, i: number) => (
+        <div
+          data-sa="fade-up"
+          data-sa-delay={`${i * 80}`}
+          class="rounded-xl overflow-hidden transition-all duration-200 hover:translate-y-[-2px]"
+          style="background: #1a1a1f; border: 1px solid rgba(255,255,255,0.08); border-top: 2px solid #52C17A;"
+        >
+          <!-- Photo -->
+          <img
+            src={leader.photo}
+            alt={leader.name}
+            loading="lazy"
+            class="w-full h-48 object-cover object-top"
+          />
+          <div class="p-6">
+            <h3 class="text-base font-semibold mb-1" style="color: #fff;">
+              {leader.name}
+            </h3>
+            <p class="text-sm" style="color: #A1A1AA;">
+              {leader.position}
+            </p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- 5. VALUES SECTION — LIGHT -->
+<section class="py-24 lg:py-32" style="background: #fff; border-top: 1px solid #E5E7EB;">
+  <div class="max-w-3xl mx-auto px-6">
+
+    <div class="mb-14">
+      <div class="mb-4" style="width: 40px; height: 3px; background: #52C17A; border-radius: 2px;"></div>
+      <h2 data-sa="fade-up" class="text-3xl lg:text-4xl font-bold tracking-tight mb-3" style="color: #111115;">
+        Our Values
+      </h2>
+      <p class="text-base" style="color: #5D6D7E;">
+        The principles that guide everything we do.
+      </p>
+    </div>
+
+    <div>
+      {values.map((value: { title: string; description: string }, i: number) => (
+        <div
+          data-sa="fade-up"
+          data-sa-delay={`${i * 100}`}
+          class="flex gap-5 py-6"
+          style={i < values.length - 1 ? 'border-bottom: 1px solid #E5E7EB;' : ''}
+        >
+          <div class="shrink-0 w-2 h-2 rounded-full mt-2" style="background: #52C17A;"></div>
+          <div>
+            <h3 class="text-base font-semibold mb-1" style="color: #111115;">
+              {value.title}
+            </h3>
+            <p class="text-sm leading-relaxed" style="color: #5D6D7E;">
+              {value.description}
+            </p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- 6. CTA SECTION — DARK -->
+<section class="relative py-24 lg:py-32" style="background: #111115;">
+  <!-- Background image with dark overlay -->
+  <div
+    class="absolute inset-0 sa-parallax"
+    data-sa="fade-in"
+    style="background-image: url('{placeholderImages.team[0].url}'); background-size: cover; background-position: center; background-repeat: no-repeat;"
+  ></div>
+  <div class="absolute inset-0" style="background: rgba(17,17,21,0.88);"></div>
+
+  <div class="relative max-w-2xl mx-auto px-6 text-center" data-sa="scale-in">
+    <div>
+      <div class="flex justify-center mb-6">
+        <div style="width: 40px; height: 3px; background: #52C17A; border-radius: 2px;"></div>
+      </div>
+      <h2 class="text-3xl lg:text-4xl font-bold tracking-tight mb-4" style="color: #fff;">
+        Ready to partner with us?
+      </h2>
+      <p class="text-base mb-10" style="color: #A1A1AA;">
+        Let us show you how nearshore outsourcing with Paricus can transform your operations.
+      </p>
+      <a
+        href={getLocalizedPath('/contact', lang)}
+        class="inline-flex items-center gap-2.5 px-8 py-4 rounded-lg font-semibold text-base transition-all duration-200 hover:opacity-90 hover:translate-y-[-1px]"
+        style="background: #52C17A; color: #fff;"
+      >
+        Get Started
+        <Icon name="arrow-right" class="w-4 h-4" />
+      </a>
+    </div>
+  </div>
+</section>

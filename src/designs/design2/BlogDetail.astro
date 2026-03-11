@@ -1,0 +1,393 @@
+---
+import { getLocalizedPath } from '../../i18n/utils';
+import Icon from '../../components/common/Icon.astro';
+import { placeholderImages } from '../../data/placeholder-images';
+
+interface Props { lang?: string; }
+const { lang = 'en' } = Astro.props;
+
+const article = {
+  title: 'How Nearshore BPO is Transforming US Business Operations',
+  author: 'Paricus Team',
+  category: 'Industry Insights',
+  date: 'March 5, 2026',
+  readTime: '8 min read',
+};
+
+const relatedArticles = [
+  { title: 'The Future of Customer Experience', slug: 'future-customer-experience', category: 'Technology', readTime: '6 min read' },
+  { title: 'Building Effective Bilingual Teams', slug: 'building-bilingual-teams', category: 'Operations', readTime: '5 min read' },
+  { title: 'Cost Optimization Through Strategic Outsourcing', slug: 'cost-optimization-outsourcing', category: 'Strategy', readTime: '7 min read' },
+];
+---
+
+<!-- HERO -->
+<section class="bd2-hero pt-32">
+  <div class="bd2-hero__grid-bg"></div>
+  <div class="bd2-hero__inner">
+    <a href={getLocalizedPath('/blog', lang)} class="bd2-back">
+      <Icon name="arrow-right" size={14} />
+      <span>// BACK TO BLOG</span>
+    </a>
+    <div class="bd2-hero__accent-line"></div>
+    <span class="bd2-hero__label">// {article.category.toUpperCase()}</span>
+    <h1 class="bd2-hero__title" data-sa="fade-up">{article.title}</h1>
+    <div class="bd2-hero__meta-row">
+      <div class="bd2-hero__meta-item">
+        <span class="bd2-hero__meta-label">// AUTHOR</span>
+        <span class="bd2-hero__meta-value">{article.author}</span>
+      </div>
+      <div class="bd2-hero__meta-border"></div>
+      <div class="bd2-hero__meta-item">
+        <span class="bd2-hero__meta-label">// DATE</span>
+        <span class="bd2-hero__meta-value">{article.date}</span>
+      </div>
+      <div class="bd2-hero__meta-border"></div>
+      <div class="bd2-hero__meta-item">
+        <span class="bd2-hero__meta-label">// READ TIME</span>
+        <span class="bd2-hero__meta-value">{article.readTime}</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COVER IMAGE -->
+<section class="bg-white pt-8 pb-0">
+  <div class="max-w-[900px] mx-auto px-8">
+    <img src={placeholderImages.blog[1].url} alt={placeholderImages.blog[1].alt} loading="lazy" class="w-full h-64 lg:h-80 object-cover border-2 border-[#1a2e1a]" data-sa="fade-in" />
+  </div>
+</section>
+
+<!-- TWO COLUMN LAYOUT -->
+<section class="bd2-content">
+  <div class="bd2-content__inner">
+    <!-- MAIN ARTICLE -->
+    <article class="bd2-article">
+      <div class="bd2-article__block" data-sa="slide-right">
+        <p>
+          The landscape of business process outsourcing is undergoing a dramatic shift as US companies increasingly look to nearshore partners in Latin America. Unlike traditional offshore models that relied on distant time zones and cultural gaps, nearshore BPO offers a compelling combination of cost savings and operational synergy. Companies are discovering that proximity matters — not just geographically, but culturally and linguistically — and the results are transforming how American businesses approach their support operations.
+        </p>
+        <p>
+          One of the most significant advantages of nearshore outsourcing is the natural alignment of working hours. When your BPO team operates in the same or similar time zones, real-time collaboration becomes effortless. Managers can hold live meetings, resolve issues immediately, and maintain the kind of responsive communication that customers expect. This timezone advantage, combined with deep cultural understanding of US consumer expectations, creates a service experience that feels seamless and native.
+        </p>
+        <p>
+          Cost savings remain a primary driver, but smart companies are looking beyond the bottom line. Nearshore partners in countries like Mexico, Colombia, and Costa Rica offer highly educated, bilingual workforces at a fraction of US labor costs. The savings typically range from 30% to 50%, but the real value lies in the quality of interactions. Bilingual agents who understand American idioms, cultural references, and customer service norms deliver experiences that offshore alternatives simply cannot match.
+        </p>
+      </div>
+
+      <blockquote class="bd2-quote" data-sa="slide-right">
+        <div class="bd2-quote__border"></div>
+        <div class="bd2-quote__content">
+          <span class="bd2-quote__label">// QUOTE</span>
+          <p>Companies that embrace nearshore partnerships see an average of 40% cost reduction while maintaining or improving service quality.</p>
+        </div>
+      </blockquote>
+
+      <div class="bd2-article__block" data-sa="slide-right">
+        <p>
+          Implementing a nearshore BPO strategy requires careful planning and the right partner. Successful transitions start with a thorough assessment of which processes are best suited for outsourcing, followed by a phased migration that allows for quality assurance at every step. Leading providers invest heavily in training, technology infrastructure, and quality management systems that meet or exceed US standards, ensuring compliance with industry regulations from HIPAA to PCI-DSS.
+        </p>
+        <p>
+          Looking ahead, the nearshore BPO industry is poised for continued growth as artificial intelligence and automation reshape the service landscape. The most forward-thinking providers are already integrating AI-powered tools with human expertise, creating hybrid support models that combine the efficiency of technology with the empathy and problem-solving skills of trained agents. For US businesses seeking to stay competitive while delivering exceptional customer experiences, nearshore BPO is no longer just an option — it is becoming a strategic imperative.
+        </p>
+      </div>
+    </article>
+
+    <!-- SIDEBAR -->
+    <aside class="bd2-sidebar">
+      <div class="bd2-sidebar__section" data-sa="slide-left">
+        <span class="bd2-sidebar__label">// RELATED ARTICLES</span>
+        <div class="bd2-sidebar__accent"></div>
+        <div class="bd2-sidebar__cards">
+          {relatedArticles.map((rel, i) => (
+            <a
+              href={getLocalizedPath('/blog/' + rel.slug, lang)}
+              class="bd2-sidebar__card"
+              data-sa="fade-up"
+              data-sa-delay={`${i * 80}`}
+            >
+              <div class="bd2-sidebar__card-top">
+                <span class="bd2-sidebar__card-num">{String(i + 1).padStart(2, '0')}</span>
+                <span class="bd2-sidebar__card-cat">{rel.category}</span>
+              </div>
+              <h3 class="bd2-sidebar__card-title">{rel.title}</h3>
+              <div class="bd2-sidebar__card-footer">
+                <span class="bd2-sidebar__card-time">{rel.readTime}</span>
+                <span class="bd2-sidebar__card-arrow"><Icon name="chevron-right" size={14} /></span>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+
+      <div class="bd2-sidebar__section" data-sa="slide-left" data-sa-delay="200">
+        <span class="bd2-sidebar__label">// TAGS</span>
+        <div class="bd2-sidebar__accent"></div>
+        <div class="bd2-sidebar__tags">
+          <span class="bd2-sidebar__tag">Nearshore</span>
+          <span class="bd2-sidebar__tag">BPO</span>
+          <span class="bd2-sidebar__tag">Outsourcing</span>
+          <span class="bd2-sidebar__tag">Cost Savings</span>
+          <span class="bd2-sidebar__tag">Latin America</span>
+        </div>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<style>
+  /* ===== HERO ===== */
+  .bd2-hero {
+    position: relative;
+    background: #FAFAF8;
+    padding-bottom: 4rem;
+    overflow: hidden;
+  }
+  .bd2-hero__grid-bg {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(26,46,26,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(26,46,26,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+  .bd2-hero__inner {
+    position: relative; z-index: 2;
+    max-width: 900px; margin: 0 auto;
+    padding: 0 2rem;
+  }
+  .bd2-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.75rem;
+    color: #52C17A;
+    text-decoration: none;
+    letter-spacing: 0.15em;
+    margin-bottom: 2rem;
+    transition: color 0.3s ease;
+  }
+  .bd2-back svg { transform: rotate(180deg); }
+  .bd2-back:hover { color: #D5E8D4; }
+  .bd2-hero__accent-line {
+    width: 60px; height: 2px;
+    background: #52C17A;
+    margin-bottom: 1.5rem;
+  }
+  .bd2-hero__label {
+    display: block;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: #52C17A;
+    margin-bottom: 1rem;
+  }
+  .bd2-hero__title {
+    color: #1a2e1a;
+    font-size: clamp(2.2rem, 5vw, 3.5rem);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    margin-bottom: 2.5rem;
+  }
+  .bd2-hero__meta-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+  .bd2-hero__meta-item { display: flex; flex-direction: column; gap: 0.3rem; }
+  .bd2-hero__meta-label {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: #5D6D7E;
+  }
+  .bd2-hero__meta-value {
+    color: #1a2e1a;
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+  .bd2-hero__meta-border {
+    width: 1px;
+    height: 36px;
+    background: #D5E8D4;
+  }
+
+  /* ===== TWO COLUMN LAYOUT ===== */
+  .bd2-content {
+    background: #fff;
+    padding: 4rem 2rem 6rem;
+  }
+  .bd2-content__inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 4rem;
+  }
+
+  /* ===== ARTICLE ===== */
+  .bd2-article__block p {
+    color: #2C3E50;
+    font-size: 1.08rem;
+    line-height: 1.9;
+    margin-bottom: 2rem;
+  }
+
+  /* ===== BLOCKQUOTE ===== */
+  .bd2-quote {
+    display: flex;
+    gap: 0;
+    margin: 2.5rem 0;
+    padding: 0;
+  }
+  .bd2-quote__border {
+    width: 3px;
+    background: #52C17A;
+    flex-shrink: 0;
+  }
+  .bd2-quote__content {
+    padding: 1.5rem 2rem;
+    border-top: 1px solid #e8e8e8;
+    border-bottom: 1px solid #e8e8e8;
+    border-right: 1px solid #e8e8e8;
+  }
+  .bd2-quote__label {
+    display: block;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: #52C17A;
+    margin-bottom: 0.75rem;
+  }
+  .bd2-quote p {
+    color: #2C3E50;
+    font-size: 1.15rem;
+    font-weight: 700;
+    line-height: 1.6;
+    letter-spacing: -0.02em;
+    margin: 0;
+  }
+
+  /* ===== SIDEBAR ===== */
+  .bd2-sidebar__section {
+    margin-bottom: 2.5rem;
+  }
+  .bd2-sidebar__label {
+    display: block;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: #5D6D7E;
+    margin-bottom: 0.75rem;
+  }
+  .bd2-sidebar__accent {
+    width: 48px; height: 2px;
+    background: #52C17A;
+    margin-bottom: 1.25rem;
+  }
+  .bd2-sidebar__cards {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .bd2-sidebar__card {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    padding: 1.25rem;
+    border: 1px solid #e8e8e8;
+    border-bottom: none;
+    transition: background 0.3s ease, color 0.3s ease;
+  }
+  .bd2-sidebar__card:last-child { border-bottom: 1px solid #e8e8e8; }
+  .bd2-sidebar__card:hover {
+    background: #1a2e1a;
+  }
+  .bd2-sidebar__card:hover .bd2-sidebar__card-title { color: #D5E8D4; }
+  .bd2-sidebar__card:hover .bd2-sidebar__card-num,
+  .bd2-sidebar__card:hover .bd2-sidebar__card-cat,
+  .bd2-sidebar__card:hover .bd2-sidebar__card-time { color: #52C17A; }
+  .bd2-sidebar__card:hover .bd2-sidebar__card-arrow { color: #52C17A; }
+  .bd2-sidebar__card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+  }
+  .bd2-sidebar__card-num {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.72rem;
+    color: #D5E8D4;
+    font-weight: 700;
+    transition: color 0.3s ease;
+  }
+  .bd2-sidebar__card-cat {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: #52C17A;
+    transition: color 0.3s ease;
+  }
+  .bd2-sidebar__card-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #2C3E50;
+    line-height: 1.35;
+    margin-bottom: 0.6rem;
+    transition: color 0.3s ease;
+  }
+  .bd2-sidebar__card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .bd2-sidebar__card-time {
+    font-size: 0.75rem;
+    color: #5D6D7E;
+    transition: color 0.3s ease;
+  }
+  .bd2-sidebar__card-arrow {
+    color: #5D6D7E;
+    display: flex;
+    transition: color 0.3s ease, transform 0.3s ease;
+  }
+  .bd2-sidebar__card:hover .bd2-sidebar__card-arrow { transform: translateX(4px); }
+
+  /* ===== TAGS ===== */
+  .bd2-sidebar__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .bd2-sidebar__tag {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #2C3E50;
+    border: 1px solid #e8e8e8;
+    padding: 0.3rem 0.7rem;
+    transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+    cursor: default;
+  }
+  .bd2-sidebar__tag:hover {
+    background: #1a2e1a;
+    color: #52C17A;
+    border-color: #52C17A;
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 768px) {
+    .bd2-hero { padding-bottom: 3rem; }
+    .bd2-content__inner { grid-template-columns: 1fr; }
+    .bd2-hero__meta-border { display: none; }
+    .bd2-hero__meta-row { gap: 1rem; }
+  }
+</style>

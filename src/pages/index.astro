@@ -1,7 +1,8 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Hero from '../components/home/Hero.astro';
-
+import Design1Hero from '../designs/design1/Hero.astro';
+import Design2Hero from '../designs/design2/Hero.astro';
+import Design3Hero from '../designs/design3/Hero.astro';
 const lang = 'en';
 ---
 
@@ -11,20 +12,18 @@ const lang = 'en';
   lang={lang}
   currentPath="/"
 >
-  <Hero lang={lang} />
-</Layout>
+  <!-- Design V1: Modern Improved -->
+  <div data-design="1">
+    <Design1Hero lang={lang} />
+  </div>
 
-<script>
-  // Client-side language detection redirect (only once)
-  if (!document.cookie.includes('preferred_lang=')) {
-    const navLang = navigator.language?.split('-')[0];
-    if (navLang === 'es') {
-      document.cookie = 'preferred_lang=es; path=/; max-age=31536000; SameSite=Lax';
-      window.location.replace('/es/');
-    } else {
-      document.cookie = 'preferred_lang=en; path=/; max-age=31536000; SameSite=Lax';
-    }
-  } else if (document.cookie.includes('preferred_lang=es') && window.location.pathname === '/') {
-    window.location.replace('/es/');
-  }
-</script>
+  <!-- Design V2: Editorial Enterprise -->
+  <div data-design="2" style="display:none;">
+    <Design2Hero lang={lang} />
+  </div>
+
+  <!-- Design V3: Bold SaaS -->
+  <div data-design="3" style="display:none;">
+    <Design3Hero lang={lang} />
+  </div>
+</Layout>

@@ -1,0 +1,364 @@
+---
+import { getLocalizedPath } from '../../i18n/utils';
+import Icon from '../../components/common/Icon.astro';
+
+interface Props {
+  lang?: string;
+}
+
+const { lang = 'en' } = Astro.props;
+
+const badge = 'Your Trusted BPO Partner';
+const title = 'Transform Your Operations with';
+const titleHighlight = 'Friendly';
+const titleEnd = 'Outsourcing';
+const description = 'Paricus helps global companies streamline operations, improve efficiency, and scale with confidence through nearshore BPO solutions from Colombia.';
+const primaryButtonText = 'Explore Services';
+const secondaryButtonText = 'Get in Touch';
+const stats = [
+  { value: '100+', label: 'Team Members' },
+  { value: '15+', label: 'Years Experience' },
+  { value: '98%', label: 'Satisfaction Rate' },
+];
+const services = [
+  { icon: 'headphones', title: 'Customer Service', shortDescription: 'Multilingual customer support that builds lasting relationships and drives satisfaction across every channel.', slug: 'customer-service' },
+  { icon: 'file-text', title: 'Back Office Operations', shortDescription: 'Streamline your administrative processes with accurate, efficient back-office support.', slug: 'back-office' },
+  { icon: 'calculator', title: 'Sales & Lead Generation', shortDescription: 'Accelerate your revenue pipeline with skilled sales teams and proven strategies.', slug: 'sales-lead-generation' },
+  { icon: 'wrench', title: 'Technical Support', shortDescription: 'Expert technical assistance that resolves issues quickly and keeps customers productive.', slug: 'technical-support' },
+];
+const industries = [
+  { icon: 'heart', title: 'Healthcare', description: 'HIPAA-compliant support services' },
+  { icon: 'package', title: 'E-Commerce', description: 'Seamless customer experiences' },
+  { icon: 'cpu', title: 'Technology', description: 'Technical support excellence' },
+  { icon: 'landmark', title: 'Finance', description: 'Secure financial services support' },
+  { icon: 'shopping-bag', title: 'Travel & Hospitality', description: 'Memorable guest experiences' },
+];
+---
+
+<!-- ============================================================
+     DESIGN V2 — EDITORIAL / ENTERPRISE
+     Sharp corners, monospace labels, bold typography, green brand
+     ============================================================ -->
+
+<!-- ==================== SECTION 1: HERO ==================== -->
+<section class="relative min-h-screen flex items-center overflow-hidden bg-[#FAFAF8]">
+  <!-- Subtle grid pattern background -->
+  <div class="absolute inset-0 opacity-[0.03]" style="background-image: linear-gradient(#1a2e1a 1px, transparent 1px), linear-gradient(90deg, #1a2e1a 1px, transparent 1px); background-size: 60px 60px;"></div>
+
+  <div class="relative z-10 w-full max-w-[1440px] mx-auto px-6 lg:px-16 py-40 lg:py-0">
+    <div class="grid grid-cols-12 gap-8 items-center min-h-screen">
+
+      <!-- Left: Text Content (7 cols) -->
+      <div class="col-span-12 lg:col-span-7 py-24" data-sa="slide-right">
+        <!-- Monospace label -->
+        <p class="font-mono text-[10px] uppercase tracking-[0.2em] text-[#5D6D7E] mb-8">
+          // {badge}
+        </p>
+
+        <!-- Massive title -->
+        <h1 data-sa="fade-up" class="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black leading-[0.95] tracking-[-0.03em] text-[#1a2e1a] mb-6">
+          {title}{' '}
+          <span class="text-[#52C17A]">{titleHighlight}</span>{' '}
+          {titleEnd}
+        </h1>
+
+        <!-- Thin accent line -->
+        <div class="w-16 h-[2px] bg-[#52C17A] mb-8" data-sa="fade-up" data-sa-delay="100"></div>
+
+        <!-- Description -->
+        <p class="text-lg lg:text-xl text-[#5D6D7E] max-w-2xl font-light leading-relaxed mb-12" data-sa="fade-up" data-sa-delay="200">
+          {description}
+        </p>
+
+        <!-- Buttons -->
+        <div class="flex flex-wrap gap-4 mb-16" data-sa="fade-up" data-sa-delay="300">
+          <a
+            href={getLocalizedPath('/services', lang)}
+            class="inline-flex items-center gap-3 px-8 py-4 bg-[#52C17A] text-white font-mono text-xs uppercase tracking-[0.15em] hover:bg-[#1a2e1a] transition-all duration-300"
+            data-sa="scale-in"
+            data-sa-delay="400"
+          >
+            {primaryButtonText}
+            <Icon name="arrow-right" size={14} />
+          </a>
+          <a
+            href={getLocalizedPath('/contact', lang)}
+            class="inline-flex items-center gap-3 px-8 py-4 border border-[#1a2e1a] text-[#1a2e1a] font-mono text-xs uppercase tracking-[0.15em] hover:bg-[#1a2e1a] hover:text-white transition-all duration-300"
+            data-sa="scale-in"
+            data-sa-delay="480"
+          >
+            {secondaryButtonText}
+          </a>
+        </div>
+
+        <!-- Stats row with border dividers -->
+        <div class="flex items-center divide-x divide-[#D5E8D4]">
+          {stats.map((stat: { value: string; label: string }, i: number) => (
+            <div class="px-6 first:pl-0" data-sa="fade-up" data-sa-delay={`${i * 60}`}>
+              <span class="block text-3xl lg:text-4xl font-black text-[#1a2e1a] tracking-tight">{stat.value}</span>
+              <span class="block font-mono text-[10px] uppercase tracking-[0.15em] text-[#5D6D7E] mt-1">{stat.label}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Right: Editorial Photo (5 cols) -->
+      <div class="hidden lg:flex col-span-5 justify-center items-center relative py-24" data-sa="slide-left">
+        <div class="relative w-full max-w-[460px]">
+          <!-- Accent border offset behind image -->
+          <div class="absolute -top-4 -right-4 w-full h-full border-2 border-[#52C17A]"></div>
+          <!-- Photo -->
+          <img
+            src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=600&h=700&fit=crop"
+            alt="Business team collaboration"
+            loading="lazy"
+            class="relative z-10 w-full h-[500px] object-cover transition-all duration-700 sa-parallax"
+            data-sa="fade-in"
+          />
+          <!-- Overlay stat card -->
+          <div class="absolute -bottom-6 -left-6 z-20 bg-white border-2 border-[#1a2e1a] p-5">
+            <p class="font-mono text-[9px] uppercase tracking-[0.2em] text-[#5D6D7E] mb-1">// Performance</p>
+            <p class="text-3xl font-black text-[#1a2e1a] tracking-tight">99.9%</p>
+            <p class="text-xs text-[#5D6D7E]">Uptime Guarantee</p>
+          </div>
+          <!-- Accent line bottom-right -->
+          <div class="absolute bottom-0 right-0 w-24 h-[2px] bg-[#52C17A] z-20"></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Bottom border -->
+  <div class="absolute bottom-0 left-0 right-0 h-px bg-[#D5E8D4]"></div>
+</section>
+
+
+<!-- ==================== SECTION 2: SERVICES (BENTO GRID) ==================== -->
+<section class="relative bg-white py-32 lg:py-48">
+  <div class="max-w-[1440px] mx-auto px-6 lg:px-16">
+
+    <!-- Section header -->
+    <div class="mb-20">
+      <p class="font-mono text-[10px] uppercase tracking-[0.2em] text-[#5D6D7E] mb-4">// WHAT WE DO</p>
+      <div class="w-12 h-[2px] bg-[#52C17A] mb-6"></div>
+      <h2 data-sa="fade-up" class="text-4xl lg:text-6xl font-bold text-[#1a2e1a] tracking-[-0.03em] leading-tight max-w-3xl">
+        Our Services
+      </h2>
+    </div>
+
+    <!-- Bento grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 border-t border-l border-[#D5E8D4]">
+      {services.map((service: any, i: number) => (
+        <a
+          href={getLocalizedPath(`/services/${service.slug}`, lang)}
+          class="group relative border-b border-r border-[#D5E8D4] p-8 lg:p-12 transition-all duration-500 hover:bg-[#FAFAF8]"
+          data-sa="fade-up"
+          data-sa-delay={`${i * 80}`}
+        >
+          <!-- Hover accent border -->
+          <div class="absolute left-0 top-0 bottom-0 w-0 bg-[#52C17A] transition-all duration-500 group-hover:w-1"></div>
+
+          <div class="relative z-10">
+            <!-- Service number -->
+            <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-[#D5E8D4] mb-6 block">
+              {String(i + 1).padStart(2, '0')}
+            </span>
+
+            <!-- Icon -->
+            <div class="mb-6 text-[#5D6D7E] group-hover:text-[#52C17A] transition-colors duration-500">
+              <Icon name={service.icon} size={28} />
+            </div>
+
+            <!-- Title -->
+            <h3 class="text-xl lg:text-2xl font-bold text-[#1a2e1a] tracking-tight mb-3 group-hover:text-[#52C17A] transition-colors duration-500">
+              {service.title}
+            </h3>
+
+            <!-- Description -->
+            <p class="text-sm text-[#5D6D7E] leading-relaxed max-w-md">
+              {service.shortDescription}
+            </p>
+
+            <!-- Arrow -->
+            <div class="mt-6 flex items-center gap-2 text-[#D5E8D4] group-hover:text-[#52C17A] transition-all duration-500">
+              <span class="font-mono text-[10px] uppercase tracking-[0.2em]">Learn more</span>
+              <Icon name="arrow-right" size={12} class="transform group-hover:translate-x-2 transition-transform duration-500" />
+            </div>
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+
+<!-- ==================== SECTION 3: VALUE PROPOSITION ==================== -->
+<section class="relative bg-[#FAFAF8] py-32 lg:py-48 border-t border-[#D5E8D4]">
+  <div class="max-w-[1440px] mx-auto px-6 lg:px-16">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-start">
+
+      <!-- Left: Large statement -->
+      <div class="lg:sticky lg:top-32" data-sa="slide-right">
+        <p class="font-mono text-[10px] uppercase tracking-[0.2em] text-[#5D6D7E] mb-4">// WHY PARICUS</p>
+        <div class="w-12 h-[2px] bg-[#52C17A] mb-8"></div>
+        <h2 data-sa="fade-up" class="text-4xl lg:text-5xl xl:text-6xl font-black text-[#1a2e1a] tracking-[-0.03em] leading-[1.05]">
+          Why Leading Brands Choose Paricus
+        </h2>
+        <p class="mt-8 text-lg text-[#5D6D7E] font-light leading-relaxed max-w-lg">
+          We combine deep industry expertise with cutting-edge technology for measurable results.
+        </p>
+      </div>
+
+      <!-- Right: 2x2 value cards -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-0 border-t border-l border-[#D5E8D4]" data-sa="slide-left">
+
+        <!-- Card 1: Unmatched Quality -->
+        <div class="group border-b border-r border-[#D5E8D4] p-8 bg-white transition-all duration-500 hover:bg-[#1a2e1a] cursor-default" data-sa="fade-up" data-sa-delay="0">
+          <span class="font-mono text-[9px] uppercase tracking-[0.2em] text-[#D5E8D4] group-hover:text-[#52C17A] transition-colors duration-500 block mb-4">01</span>
+          <div class="mb-4 text-[#52C17A]">
+            <Icon name="trending-up" size={24} />
+          </div>
+          <h3 class="text-lg font-bold text-[#1a2e1a] group-hover:text-white tracking-tight mb-2 transition-colors duration-500">
+            Unmatched Quality
+          </h3>
+          <p class="text-sm text-[#5D6D7E] group-hover:text-white/70 leading-relaxed transition-colors duration-500">
+            Rigorous quality assurance and continuous improvement processes that exceed expectations every time.
+          </p>
+        </div>
+
+        <!-- Card 2: Global Reach -->
+        <div class="group border-b border-r border-[#D5E8D4] p-8 bg-white transition-all duration-500 hover:bg-[#1a2e1a] cursor-default" data-sa="fade-up" data-sa-delay="80">
+          <span class="font-mono text-[9px] uppercase tracking-[0.2em] text-[#D5E8D4] group-hover:text-[#52C17A] transition-colors duration-500 block mb-4">02</span>
+          <div class="mb-4 text-[#52C17A]">
+            <Icon name="award" size={24} />
+          </div>
+          <h3 class="text-lg font-bold text-[#1a2e1a] group-hover:text-white tracking-tight mb-2 transition-colors duration-500">
+            Global Reach
+          </h3>
+          <p class="text-sm text-[#5D6D7E] group-hover:text-white/70 leading-relaxed transition-colors duration-500">
+            Multilingual teams serving clients across continents with cultural fluency and local market insight.
+          </p>
+        </div>
+
+        <!-- Card 3: Scalable Solutions -->
+        <div class="group border-b border-r border-[#D5E8D4] p-8 bg-white transition-all duration-500 hover:bg-[#1a2e1a] cursor-default" data-sa="fade-up" data-sa-delay="160">
+          <span class="font-mono text-[9px] uppercase tracking-[0.2em] text-[#D5E8D4] group-hover:text-[#52C17A] transition-colors duration-500 block mb-4">03</span>
+          <div class="mb-4 text-[#52C17A]">
+            <Icon name="zap" size={24} />
+          </div>
+          <h3 class="text-lg font-bold text-[#1a2e1a] group-hover:text-white tracking-tight mb-2 transition-colors duration-500">
+            Scalable Solutions
+          </h3>
+          <p class="text-sm text-[#5D6D7E] group-hover:text-white/70 leading-relaxed transition-colors duration-500">
+            Flexible team structures that grow with your business, scaling up or down to match demand seamlessly.
+          </p>
+        </div>
+
+        <!-- Card 4: Tech-Forward -->
+        <div class="group border-b border-r border-[#D5E8D4] p-8 bg-white transition-all duration-500 hover:bg-[#1a2e1a] cursor-default" data-sa="fade-up" data-sa-delay="240">
+          <span class="font-mono text-[9px] uppercase tracking-[0.2em] text-[#D5E8D4] group-hover:text-[#52C17A] transition-colors duration-500 block mb-4">04</span>
+          <div class="mb-4 text-[#52C17A]">
+            <Icon name="target" size={24} />
+          </div>
+          <h3 class="text-lg font-bold text-[#1a2e1a] group-hover:text-white tracking-tight mb-2 transition-colors duration-500">
+            Tech-Forward
+          </h3>
+          <p class="text-sm text-[#5D6D7E] group-hover:text-white/70 leading-relaxed transition-colors duration-500">
+            Cutting-edge platforms and integrated AI tools that drive efficiency and deliver data-driven insights.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ==================== SECTION 4: INDUSTRIES ==================== -->
+<section class="relative bg-white py-32 lg:py-40 border-t border-[#D5E8D4]">
+  <div class="max-w-[1440px] mx-auto px-6 lg:px-16">
+
+    <!-- Section header -->
+    <div class="mb-16">
+      <p class="font-mono text-[10px] uppercase tracking-[0.2em] text-[#5D6D7E] mb-4">// INDUSTRIES</p>
+      <div class="w-12 h-[2px] bg-[#52C17A] mb-6"></div>
+      <h2 data-sa="fade-up" class="text-4xl lg:text-5xl font-bold text-[#1a2e1a] tracking-[-0.03em]">
+        Industries We Serve
+      </h2>
+    </div>
+
+    <!-- Industries row -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 border-t border-[#D5E8D4]">
+      {industries.map((industry: any, i: number) => (
+        <div class="group relative border-b lg:border-b-0 lg:border-r border-[#D5E8D4] last:border-r-0 p-8 lg:py-10 lg:px-6 cursor-default transition-all duration-300" data-sa="fade-up" data-sa-delay={`${i * 100}`}>
+          <!-- Icon -->
+          <div class="mb-5 text-[#5D6D7E] group-hover:text-[#52C17A] transition-colors duration-300">
+            <Icon name={industry.icon} size={24} />
+          </div>
+
+          <!-- Title -->
+          <h3 class="text-base font-bold text-[#1a2e1a] group-hover:text-[#52C17A] tracking-tight mb-2 transition-colors duration-300">
+            {industry.title}
+          </h3>
+
+          <!-- Description -->
+          <p class="text-xs text-[#5D6D7E] leading-relaxed">
+            {industry.description}
+          </p>
+
+          <!-- Expanding line on hover -->
+          <div class="absolute bottom-0 left-0 h-[2px] bg-[#52C17A] w-0 group-hover:w-full transition-all duration-500 ease-out"></div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+
+<!-- ==================== SECTION 5: CTA ==================== -->
+<section class="relative bg-[#1a2e1a] py-32 lg:py-48 overflow-hidden" data-sa="scale-in">
+  <!-- Subtle radial gradient accent -->
+  <div class="absolute top-0 right-0 w-[600px] h-[600px] bg-[#52C17A] opacity-[0.06] rounded-full blur-[150px] translate-x-1/3 -translate-y-1/3"></div>
+  <div class="absolute bottom-0 left-0 w-[400px] h-[400px] bg-[#52C17A] opacity-[0.04] rounded-full blur-[120px] -translate-x-1/3 translate-y-1/3"></div>
+
+  <div class="relative z-10 max-w-[1440px] mx-auto px-6 lg:px-16 text-center">
+    <!-- Monospace sub-label -->
+    <p class="font-mono text-[10px] uppercase tracking-[0.2em] text-[#52C17A] mb-6">
+      // READY TO START
+    </p>
+
+    <!-- Large editorial text -->
+    <h2 data-sa="fade-up" class="text-4xl sm:text-5xl lg:text-7xl xl:text-8xl font-black text-white tracking-[-0.04em] leading-[0.95] max-w-5xl mx-auto mb-8">
+      Transform Your Operations Today
+    </h2>
+
+    <p class="text-lg text-white/75 font-light max-w-2xl mx-auto mb-12">
+      Partner with Paricus and unlock the full potential of your business.
+    </p>
+
+    <!-- CTA Button -->
+    <div>
+      <a
+        href={getLocalizedPath('/contact', lang)}
+        class="inline-flex items-center gap-3 px-10 py-5 bg-[#52C17A] text-white font-mono text-xs uppercase tracking-[0.15em] hover:bg-white hover:text-[#1a2e1a] transition-all duration-300"
+        data-sa="scale-in"
+        data-sa-delay="100"
+      >
+        Get Started
+        <Icon name="arrow-right" size={14} />
+      </a>
+    </div>
+
+    <!-- Bottom accent line -->
+    <div class="mt-20 w-16 h-[2px] bg-[#52C17A] mx-auto"></div>
+  </div>
+</section>
+
+
+<style>
+  @keyframes lineExpand {
+    from { width: 0; }
+    to { width: 100%; }
+  }
+</style>

@@ -1,0 +1,335 @@
+---
+import { getLocalizedPath } from '../../i18n/utils';
+import Icon from '../../components/common/Icon.astro';
+
+interface Props { lang?: string; }
+const { lang = 'en' } = Astro.props;
+
+const heading = 'Join Our Growing Team';
+const description = 'Build your career with a company that values innovation, diversity, and professional growth.';
+const benefits = [
+  { icon: 'rocket', title: 'Career Growth', description: 'Clear advancement paths with mentorship and continuous learning opportunities.' },
+  { icon: 'heart', title: 'Inclusive Culture', description: 'A diverse and welcoming workplace where every voice matters and ideas thrive.' },
+  { icon: 'gift', title: 'Great Benefits', description: 'Competitive compensation, health coverage, and flexible work arrangements.' },
+  { icon: 'book-open', title: 'Continuous Training', description: 'Access to industry certifications, workshops, and professional development programs.' },
+];
+const jobOpenings = [
+  { title: 'Senior Customer Service Representative', department: 'Operations', location: 'Bogota, Colombia', type: 'Full-time', featured: true, slug: 'senior-customer-service', summary: 'Lead our customer service team and deliver exceptional multilingual support experiences.' },
+  { title: 'Back Office Analyst', department: 'Operations', location: 'Bogota, Colombia', type: 'Full-time', featured: false, slug: 'back-office-analyst', summary: 'Process and manage critical business documents with precision and efficiency.' },
+  { title: 'Sales Development Representative', department: 'Sales', location: 'Bogota, Colombia', type: 'Full-time', featured: false, slug: 'sales-development-rep', summary: 'Drive revenue growth through strategic outbound campaigns and lead qualification.' },
+  { title: 'Technical Support Engineer', department: 'Technology', location: 'Bogota, Colombia', type: 'Full-time', featured: true, slug: 'technical-support-engineer', summary: 'Provide expert-level technical assistance for complex software and hardware issues.' },
+  { title: 'Quality Assurance Specialist', department: 'Operations', location: 'Bogota, Colombia', type: 'Full-time', featured: false, slug: 'qa-specialist', summary: 'Monitor and improve service quality across all customer interaction channels.' },
+];
+---
+
+<!-- V1 — Modern Corporate: Rounded corners, glass-morphism, gradients, floating elements -->
+<section class="d1-careers-page">
+
+  <!-- HERO -->
+  <div class="d1-careers-hero relative overflow-hidden">
+    <div class="d1-careers-hero-bg"></div>
+    <div class="max-w-7xl mx-auto px-6 py-28 lg:py-40 relative z-10">
+      <div class="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
+
+        <!-- Left: Text -->
+        <div class="flex-1 text-center lg:text-left" data-sa="slide-right">
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-[#2C3E50] leading-tight mb-6" data-sa="fade-up">
+            Join Our <span class="d1c-gradient-text">Growing</span> Team
+          </h1>
+          <p class="max-w-lg text-lg md:text-xl text-[#5D6D7E] leading-relaxed mb-8">
+            {description}
+          </p>
+          <div class="flex flex-wrap gap-4 justify-center lg:justify-start">
+            <a href="#positions" class="d1c-btn-primary inline-flex items-center gap-2 px-7 py-3.5 rounded-full font-semibold text-white">
+              View All Positions
+              <Icon name="arrow-down" class="w-4 h-4" />
+            </a>
+            <a href={getLocalizedPath('/about', lang)} class="d1c-btn-outline inline-flex items-center gap-2 px-7 py-3.5 rounded-full font-semibold">
+              Learn More
+            </a>
+          </div>
+        </div>
+
+        <!-- Right: Image with layered benefit cards -->
+        <div class="flex-1 max-w-lg w-full relative" data-sa="slide-left" style="min-height: 420px;">
+          <!-- Base image -->
+          <img
+            src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=600&h=450&fit=crop"
+            alt="Team working together"
+            loading="lazy"
+            class="w-full h-80 lg:h-96 object-cover rounded-3xl shadow-xl"
+            data-sa="fade-in"
+          />
+          <!-- Layered floating cards -->
+          <div class="d1c-layered-card d1c-layered-card--1">
+            <div class="d1c-benefit-icon-wrap">
+              <Icon name={benefits[0].icon} class="w-5 h-5 text-[#52C17A]" />
+            </div>
+            <span class="font-bold text-[#2C3E50] text-sm">{benefits[0].title}</span>
+          </div>
+          <div class="d1c-layered-card d1c-layered-card--2">
+            <div class="d1c-benefit-icon-wrap">
+              <Icon name={benefits[1].icon} class="w-5 h-5 text-[#52C17A]" />
+            </div>
+            <span class="font-bold text-[#2C3E50] text-sm">{benefits[1].title}</span>
+          </div>
+          <div class="d1c-layered-card d1c-layered-card--3">
+            <div class="d1c-benefit-icon-wrap">
+              <Icon name={benefits[2].icon} class="w-5 h-5 text-[#52C17A]" />
+            </div>
+            <span class="font-bold text-[#2C3E50] text-sm">{benefits[2].title}</span>
+          </div>
+          <div class="d1c-layered-card d1c-layered-card--4">
+            <div class="d1c-benefit-icon-wrap">
+              <Icon name={benefits[3].icon} class="w-5 h-5 text-[#52C17A]" />
+            </div>
+            <span class="font-bold text-[#2C3E50] text-sm">{benefits[3].title}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="d1c-hero-clip"></div>
+  </div>
+
+  <!-- JOB OPENINGS -->
+  <div id="positions" class="max-w-7xl mx-auto px-6 py-20 lg:py-28 -mt-12 relative z-20">
+    <div class="flex items-center gap-4 mb-14">
+      <h2 class="text-3xl lg:text-4xl font-extrabold text-[#2C3E50]" data-sa="fade-up">Open Positions</h2>
+      <div class="flex-1 h-px bg-gradient-to-r from-[#52C17A] to-transparent"></div>
+    </div>
+
+    <!-- Creative layout: featured cards large, regular compact -->
+    <div class="d1c-jobs-mosaic">
+      {jobOpenings.filter(j => j.featured).map((job, i) => (
+        <a href={getLocalizedPath('/careers/' + job.slug, lang)}
+           class="d1c-job-card d1c-job-card--featured group block rounded-3xl p-8 lg:p-10 sa-hover-lift"
+           data-sa="fade-up"
+           data-sa-delay={`${i * 80}`}>
+          <div class="flex items-start justify-between mb-5">
+            <span class="d1c-dept-pill inline-block px-4 py-1.5 rounded-full text-xs font-semibold tracking-wide uppercase">
+              {job.department}
+            </span>
+            <span class="d1c-featured-badge inline-flex items-center gap-1.5 text-xs font-semibold text-[#52C17A]">
+              <span class="w-2 h-2 rounded-full bg-[#52C17A] animate-pulse"></span>
+              Featured
+            </span>
+          </div>
+          <h3 class="text-xl lg:text-2xl font-bold text-[#2C3E50] mb-3 group-hover:text-[#52C17A] transition-colors">{job.title}</h3>
+          <p class="text-[#5D6D7E] mb-6 leading-relaxed">{job.summary}</p>
+          <div class="flex flex-wrap items-center gap-3 mb-6">
+            <span class="inline-flex items-center gap-1.5 text-sm text-[#5D6D7E]">
+              <Icon name="map-pin" class="w-4 h-4 text-[#4DB6AC]" /> {job.location}
+            </span>
+            <span class="inline-flex items-center gap-1.5 text-sm text-[#5D6D7E]">
+              <Icon name="clock" class="w-4 h-4 text-[#4DB6AC]" /> {job.type}
+            </span>
+          </div>
+          <span class="d1c-arrow-btn inline-flex items-center gap-2 font-semibold text-[#52C17A] group-hover:gap-3 transition-all">
+            View Details <Icon name="arrow-right" class="w-4 h-4" />
+          </span>
+        </a>
+      ))}
+
+      <div class="d1c-compact-grid">
+        {jobOpenings.filter(j => !j.featured).map((job, i) => (
+          <a href={getLocalizedPath('/careers/' + job.slug, lang)}
+             class="d1c-job-card d1c-job-card--compact group block rounded-3xl p-6 sa-hover-lift"
+             data-sa="fade-up"
+             data-sa-delay={`${i * 80}`}>
+            <span class="d1c-dept-pill inline-block px-3 py-1 rounded-full text-xs font-semibold tracking-wide uppercase mb-4">
+              {job.department}
+            </span>
+            <h3 class="text-lg font-bold text-[#2C3E50] mb-2 group-hover:text-[#52C17A] transition-colors">{job.title}</h3>
+            <p class="text-sm text-[#5D6D7E] mb-4 leading-relaxed line-clamp-2">{job.summary}</p>
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-3 text-xs text-[#5D6D7E]">
+                <span class="inline-flex items-center gap-1"><Icon name="map-pin" class="w-3.5 h-3.5 text-[#4DB6AC]" /> {job.location}</span>
+                <span class="inline-flex items-center gap-1"><Icon name="clock" class="w-3.5 h-3.5 text-[#4DB6AC]" /> {job.type}</span>
+              </div>
+              <Icon name="arrow-right" class="w-4 h-4 text-[#52C17A] group-hover:translate-x-1 transition-transform" />
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="max-w-7xl mx-auto px-6 pb-20 lg:pb-28">
+    <div class="d1c-cta-card rounded-3xl p-10 lg:p-14 text-center" data-sa="scale-in">
+      <h3 class="text-2xl lg:text-3xl font-extrabold text-[#2C3E50] mb-4">Don't see your role?</h3>
+      <p class="text-[#5D6D7E] max-w-lg mx-auto mb-8">We're always looking for exceptional talent. Send us your resume and let's start a conversation.</p>
+      <a href={getLocalizedPath('/contact', lang)} class="d1c-btn-primary inline-flex items-center gap-2 px-8 py-4 rounded-full font-semibold text-white">
+        Get In Touch <Icon name="arrow-right" class="w-4 h-4" />
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Animations */
+  @keyframes d1c-iconFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+  }
+  @keyframes d1c-shimmer {
+    0% { background-position: -200% center; }
+    100% { background-position: 200% center; }
+  }
+
+  /* Hero */
+  .d1-careers-hero {
+    background: linear-gradient(135deg, #FAFAF8 0%, #E8F5E9 40%, #D5E8D4 100%);
+  }
+  .d1-careers-hero-bg {
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 70% 30%, rgba(82,193,122,.12) 0%, transparent 70%),
+                radial-gradient(ellipse 50% 50% at 20% 80%, rgba(77,182,172,.1) 0%, transparent 60%);
+  }
+  .d1c-hero-clip {
+    position: absolute; bottom: -1px; left: 0; right: 0; height: 80px;
+    background: #FAFAF8;
+    clip-path: polygon(0 60%, 100% 0, 100% 100%, 0 100%);
+  }
+
+  /* Gradient text */
+  .d1c-gradient-text {
+    background: linear-gradient(135deg, #52C17A, #4DB6AC);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Buttons */
+  .d1c-btn-primary {
+    background: linear-gradient(135deg, #52C17A, #3D9E5F);
+    box-shadow: 0 4px 20px rgba(82,193,122,.3);
+    transition: transform .2s, box-shadow .2s;
+  }
+  .d1c-btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(82,193,122,.4);
+  }
+  .d1c-btn-outline {
+    border: 2px solid #52C17A; color: #52C17A;
+    transition: background .2s, color .2s;
+  }
+  .d1c-btn-outline:hover { background: #52C17A; color: #fff; }
+
+  /* Benefit icon wrap */
+  .d1c-benefit-icon-wrap {
+    width: 40px; height: 40px; border-radius: 12px;
+    background: linear-gradient(135deg, #E8F5E9, #D5E8D4);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+
+  /* Layered floating cards */
+  .d1c-layered-card {
+    position: absolute;
+    display: flex; align-items: center; gap: 10px;
+    background: rgba(255,255,255,.92);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(82,193,122,.15);
+    border-radius: 16px;
+    padding: 10px 16px;
+    box-shadow: 0 8px 32px rgba(44,62,80,.1);
+    transition: transform .4s ease, box-shadow .4s ease;
+    z-index: 2;
+  }
+  .d1c-layered-card:hover {
+    transform: translateY(-4px) !important;
+    box-shadow: 0 16px 40px rgba(82,193,122,.2);
+  }
+  .d1c-layered-card--1 {
+    top: -12px; left: -20px;
+    animation: d1c-iconFloat 4s ease-in-out infinite;
+  }
+  .d1c-layered-card--2 {
+    top: 30%; right: -24px;
+    animation: d1c-iconFloat 4s ease-in-out infinite 1s;
+  }
+  .d1c-layered-card--3 {
+    bottom: 60px; left: -16px;
+    animation: d1c-iconFloat 4s ease-in-out infinite 2s;
+  }
+  .d1c-layered-card--4 {
+    bottom: -8px; right: 20%;
+    animation: d1c-iconFloat 4s ease-in-out infinite 3s;
+  }
+  @media (max-width: 1024px) {
+    .d1c-layered-card--1 { top: -8px; left: 0; }
+    .d1c-layered-card--2 { right: 0; }
+    .d1c-layered-card--3 { left: 0; }
+    .d1c-layered-card--4 { right: 10%; }
+  }
+
+  /* Jobs mosaic */
+  .d1c-jobs-mosaic {
+    display: flex; flex-direction: column; gap: 24px;
+  }
+  .d1c-jobs-mosaic > .d1c-job-card--featured {
+    width: 100%;
+  }
+  @media (min-width: 768px) {
+    .d1c-jobs-mosaic {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+    .d1c-jobs-mosaic > .d1c-job-card--featured {
+      grid-column: span 1;
+    }
+  }
+  .d1c-compact-grid {
+    display: grid; grid-template-columns: 1fr; gap: 16px;
+  }
+  @media (min-width: 768px) {
+    .d1c-compact-grid {
+      grid-column: 1 / -1;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+  }
+
+  /* Job cards */
+  .d1c-job-card {
+    background: rgba(255,255,255,.8);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(82,193,122,.1);
+    position: relative; overflow: hidden;
+  }
+  .d1c-job-card::before {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(135deg, transparent 40%, rgba(82,193,122,.04) 100%);
+    opacity: 0; transition: opacity .3s;
+  }
+  .d1c-job-card:hover::before { opacity: 1; }
+  .d1c-job-card--featured {
+    background: rgba(255,255,255,.92);
+    border: 1px solid rgba(82,193,122,.2);
+  }
+
+  /* Department pill */
+  .d1c-dept-pill {
+    background: #E8F5E9; color: #3D9E5F;
+  }
+
+  /* CTA card */
+  .d1c-cta-card {
+    background: linear-gradient(135deg, rgba(232,245,233,.6), rgba(213,232,212,.4));
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(82,193,122,.15);
+  }
+
+  /* Shimmer on featured hover */
+  .d1c-job-card--featured::after {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, transparent, #52C17A, #4DB6AC, transparent);
+    background-size: 200% 100%;
+    opacity: 0; transition: opacity .3s;
+  }
+  .d1c-job-card--featured:hover::after {
+    opacity: 1;
+    animation: d1c-shimmer 2s linear infinite;
+  }
+</style>

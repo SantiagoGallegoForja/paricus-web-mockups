@@ -1,0 +1,227 @@
+---
+import { getLocalizedPath } from '../../i18n/utils';
+import Icon from '../../components/common/Icon.astro';
+import { placeholderImages } from '../../data/placeholder-images';
+
+interface Props { lang?: string; }
+const { lang = 'en' } = Astro.props;
+
+const caseStudy = {
+  title: 'Healthcare Provider Reduces Response Time by 60%',
+  industry: 'Healthcare',
+  client: 'Regional Healthcare Network',
+  challenge: 'A major regional healthcare network was struggling with patient support response times averaging 12 minutes, leading to declining patient satisfaction scores and increased complaint escalations. Their in-house team couldn\'t scale during peak hours and lacked bilingual capabilities for their growing Hispanic patient base.',
+  solution: 'Paricus deployed a dedicated 45-person bilingual support team with HIPAA certification and healthcare-specific training. We implemented an AI-assisted triage system to route calls efficiently and established 24/7 coverage with specialized healthcare protocols.',
+  results: [
+    { icon: 'clock', value: '60%', label: 'Faster Response Time', detail: 'From 12min to under 5min' },
+    { icon: 'star', value: '95%', label: 'Patient Satisfaction', detail: 'Up from 72%' },
+    { icon: 'trending-up', value: '40%', label: 'Cost Reduction', detail: 'vs previous in-house operation' },
+  ],
+  testimonial: {
+    quote: 'Paricus transformed our patient support operations. The bilingual team and healthcare expertise made an immediate impact on our satisfaction scores.',
+    author: 'Dr. Sarah Mitchell',
+    role: 'VP of Patient Experience',
+  },
+};
+---
+
+<!-- V3 — High-Contrast Premium: CaseStudyDetail -->
+
+<!-- HERO (DARK #111115) -->
+<div class="cs3-hero" style="background: #111115; border-bottom: 1px solid #E5E7EB;">
+  <div class="max-w-[1000px] mx-auto px-6" style="padding-top: 10rem; padding-bottom: 5rem;">
+    <a href={getLocalizedPath('/case-studies', lang)}
+       class="cs3-back-link inline-flex items-center gap-2 text-sm font-medium mb-10" data-sa="fade-up">
+      <span class="rotate-180"><Icon name="arrow-right" class="w-4 h-4" /></span>
+      Back to Case Studies
+    </a>
+
+    <div>
+      <div class="flex items-center gap-3 mb-6" data-sa="fade-up" data-sa-delay="80">
+        <span class="cs3-industry-badge text-xs font-semibold uppercase tracking-wider px-3 py-1 rounded-full">
+          {caseStudy.industry}
+        </span>
+      </div>
+      <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-white leading-[1.15] mb-6 max-w-[800px]" data-sa="fade-up" data-sa-delay="160">
+        {caseStudy.title}
+      </h1>
+      <div class="flex items-center gap-2 text-sm" style="color: #A1A1AA;" data-sa="fade-up" data-sa-delay="240">
+        <Icon name="briefcase" class="w-4 h-4" />
+        <span>{caseStudy.client}</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- HEADER IMAGE (LIGHT #FAFAF8) -->
+<div style="background: #FAFAF8;">
+  <div class="max-w-[1000px] mx-auto px-6 py-12">
+    <img src={placeholderImages.caseStudy[0].url} alt={placeholderImages.caseStudy[0].alt} loading="lazy"
+         class="w-full h-auto object-cover rounded-xl"
+         style="border: 1px solid #E5E7EB;" data-sa="fade-in" />
+  </div>
+</div>
+
+<!-- RESULTS (LIGHT #FAFAF8) -->
+<div style="background: #FAFAF8;">
+  <div class="max-w-[1000px] mx-auto px-6 pb-20 lg:pb-24">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {caseStudy.results.map((result, i) => (
+        <div class="cs3-result-card sa-hover-lift rounded-xl p-8 text-center"
+             data-sa="fade-up" data-sa-delay={String(i * 80)}>
+          <div class="cs3-icon-container w-10 h-10 rounded-lg flex items-center justify-center mx-auto mb-5">
+            <Icon name={result.icon} class="w-5 h-5" style="color: #52C17A;" />
+          </div>
+          <div class="text-4xl font-bold mb-1" style="color: #52C17A;">{result.value}</div>
+          <div class="text-sm font-semibold mb-1" style="color: #111115;">{result.label}</div>
+          <div class="text-xs" style="color: #5D6D7E;">{result.detail}</div>
+        </div>
+      ))}
+    </div>
+  </div>
+</div>
+
+<!-- CHALLENGE & SOLUTION (LIGHT #fff) -->
+<div style="background: #fff;">
+  <div class="max-w-[1000px] mx-auto px-6 py-20 lg:py-24">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div class="cs3-panel sa-hover-lift rounded-xl p-8 lg:p-10" data-sa="slide-right">
+        <div class="cs3-icon-container w-10 h-10 rounded-lg flex items-center justify-center mb-6">
+          <Icon name="target" class="w-5 h-5" style="color: #52C17A;" />
+        </div>
+        <h2 class="text-xl font-bold tracking-tight mb-4" style="color: #111115;">The Challenge</h2>
+        <p class="text-sm leading-relaxed" style="color: #5D6D7E;">{caseStudy.challenge}</p>
+      </div>
+      <div class="cs3-panel sa-hover-lift rounded-xl p-8 lg:p-10" data-sa="slide-left">
+        <div class="cs3-icon-container w-10 h-10 rounded-lg flex items-center justify-center mb-6">
+          <Icon name="check-circle" class="w-5 h-5" style="color: #52C17A;" />
+        </div>
+        <h2 class="text-xl font-bold tracking-tight mb-4" style="color: #111115;">Our Solution</h2>
+        <p class="text-sm leading-relaxed" style="color: #5D6D7E;">{caseStudy.solution}</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TESTIMONIAL (DARK #111115) -->
+<div style="background: #111115;">
+  <div class="max-w-[800px] mx-auto px-6 py-20 lg:py-24">
+    <div class="cs3-testimonial rounded-xl p-8 lg:p-10" data-sa="fade-up">
+      <div class="cs3-testimonial-accent"></div>
+      <blockquote class="text-lg font-medium leading-relaxed italic mb-6 relative" style="color: #fff;">
+        &ldquo;{caseStudy.testimonial.quote}&rdquo;
+      </blockquote>
+      <div class="flex items-center gap-3 relative">
+        <div class="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0"
+             style="background: rgba(82,193,122,0.12); border: 1px solid rgba(82,193,122,0.2);">
+          <Icon name="users" class="w-4 h-4" style="color: #52C17A;" />
+        </div>
+        <div>
+          <div class="text-sm font-semibold" style="color: #fff;">{caseStudy.testimonial.author}</div>
+          <div class="text-xs" style="color: #A1A1AA;">{caseStudy.testimonial.role}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CTA (DARK #111115) -->
+<div style="background: #111115;">
+  <div class="max-w-[1000px] mx-auto px-6 pb-24 lg:pb-32">
+    <div class="cs3-cta rounded-xl p-12 lg:p-16 text-center" data-sa="scale-in">
+      <h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-4" style="color: #fff;">
+        Ready to Transform Your Operations?
+      </h2>
+      <p class="max-w-xl mx-auto mb-10" style="color: #A1A1AA;">
+        Join industry leaders achieving exceptional results with Paricus.
+      </p>
+      <a href={getLocalizedPath('/contact', lang)}
+         class="cs3-btn-primary inline-flex items-center gap-2 px-8 py-3.5 rounded-lg font-semibold text-base transition-all duration-200">
+        Get Started <Icon name="arrow-right" class="w-4 h-4" />
+      </a>
+    </div>
+  </div>
+</div>
+
+<style>
+  /* === V3 High-Contrast Premium — CaseStudyDetail === */
+
+  /* Hero */
+  .cs3-back-link {
+    color: #52C17A;
+    transition: color 0.2s ease;
+  }
+  .cs3-back-link:hover {
+    color: #6dd494;
+  }
+
+  .cs3-industry-badge {
+    background: rgba(82, 193, 122, 0.12);
+    color: #52C17A;
+  }
+
+  /* Result cards */
+  .cs3-result-card {
+    background: #fff;
+    border: 1px solid #E5E7EB;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+  .cs3-result-card:hover {
+    border-color: rgba(82, 193, 122, 0.4);
+    box-shadow: 0 4px 16px rgba(82, 193, 122, 0.08);
+  }
+
+  /* Icon containers — green tint */
+  .cs3-icon-container {
+    background: rgba(82, 193, 122, 0.08);
+  }
+
+  /* Content panels */
+  .cs3-panel {
+    background: #FAFAF8;
+    border: 1px solid #E5E7EB;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+  .cs3-panel:hover {
+    border-color: rgba(82, 193, 122, 0.4);
+    box-shadow: 0 4px 16px rgba(82, 193, 122, 0.06);
+  }
+
+  /* Testimonial */
+  .cs3-testimonial {
+    position: relative;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    overflow: hidden;
+  }
+  .cs3-testimonial-accent {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: #52C17A;
+  }
+
+  /* CTA block */
+  .cs3-cta {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  /* Primary button */
+  .cs3-btn-primary {
+    background: #52C17A;
+    color: #fff;
+  }
+  .cs3-btn-primary:hover {
+    background: #45ad6c;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .cs3-testimonial {
+      padding: 1.5rem;
+    }
+  }
+</style>

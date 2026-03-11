@@ -1,0 +1,13 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import D1 from '../../designs/design1/BlogDetail.astro';
+import D2 from '../../designs/design2/BlogDetail.astro';
+import D3 from '../../designs/design3/BlogDetail.astro';
+const lang = 'en';
+---
+
+<Layout title="How Nearshore BPO is Transforming US Business Operations - Paricus" description="Discover how nearshore BPO partnerships are revolutionizing business operations." lang={lang} currentPath="/blog/sample-article">
+  <div data-design="1"><D1 lang={lang} /></div>
+  <div data-design="2" style="display:none;"><D2 lang={lang} /></div>
+  <div data-design="3" style="display:none;"><D3 lang={lang} /></div>
+</Layout>

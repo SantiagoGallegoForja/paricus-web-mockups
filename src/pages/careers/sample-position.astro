@@ -1,0 +1,13 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import D1 from '../../designs/design1/JobDetail.astro';
+import D2 from '../../designs/design2/JobDetail.astro';
+import D3 from '../../designs/design3/JobDetail.astro';
+const lang = 'en';
+---
+
+<Layout title="Senior Customer Service Representative - Paricus" description="Join our team as a Senior Customer Service Representative in Bogotá." lang={lang} currentPath="/careers/sample-position">
+  <div data-design="1"><D1 lang={lang} /></div>
+  <div data-design="2" style="display:none;"><D2 lang={lang} /></div>
+  <div data-design="3" style="display:none;"><D3 lang={lang} /></div>
+</Layout>

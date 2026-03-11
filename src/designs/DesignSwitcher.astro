@@ -1,0 +1,128 @@
+---
+// Floating Design Switcher - bottom right corner
+---
+
+<div id="design-switcher" class="fixed bottom-6 right-6 z-[9999] flex flex-col items-end gap-3" style="font-family: 'Inter', sans-serif;">
+  <!-- Panel (above button, hidden by default) -->
+  <div
+    id="switcher-panel"
+    style="display:none; background:#fff; border-radius:16px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25); border:1px solid #D5E8D4; padding:16px; min-width:220px;"
+  >
+    <p style="font-size:11px; font-weight:700; color:#5D6D7E; text-transform:uppercase; letter-spacing:0.1em; margin:0 0 12px 0;">Design Version</p>
+    <div style="display:flex; flex-direction:column; gap:6px;">
+      <button data-switch-design="1" class="design-btn" style="display:flex; align-items:center; gap:12px; padding:10px 14px; border-radius:12px; border:2px solid transparent; background:transparent; cursor:pointer; text-align:left; width:100%; transition: all 0.2s;">
+        <span style="width:12px; height:12px; border-radius:50%; background:linear-gradient(135deg, #52C17A, #4DB6AC); flex-shrink:0;"></span>
+        <span>
+          <span style="display:block; font-size:14px; font-weight:600; color:#2C3E50;">V1 - Modern</span>
+          <span style="display:block; font-size:10px; color:#5D6D7E;">Improved current design</span>
+        </span>
+      </button>
+      <button data-switch-design="2" class="design-btn" style="display:flex; align-items:center; gap:12px; padding:10px 14px; border-radius:12px; border:2px solid transparent; background:transparent; cursor:pointer; text-align:left; width:100%; transition: all 0.2s;">
+        <span style="width:12px; height:12px; border-radius:50%; background:linear-gradient(135deg, #2C3E50, #1a2e1a); flex-shrink:0;"></span>
+        <span>
+          <span style="display:block; font-size:14px; font-weight:600; color:#2C3E50;">V2 - Editorial</span>
+          <span style="display:block; font-size:10px; color:#5D6D7E;">Sharp, typographic style</span>
+        </span>
+      </button>
+      <button data-switch-design="3" class="design-btn" style="display:flex; align-items:center; gap:12px; padding:10px 14px; border-radius:12px; border:2px solid transparent; background:transparent; cursor:pointer; text-align:left; width:100%; transition: all 0.2s;">
+        <span style="width:12px; height:12px; border-radius:50%; background:linear-gradient(135deg, #0a1f0a, #34d399); flex-shrink:0;"></span>
+        <span>
+          <span style="display:block; font-size:14px; font-weight:600; color:#2C3E50;">V3 - Bold SaaS</span>
+          <span style="display:block; font-size:10px; color:#5D6D7E;">Dark, experimental look</span>
+        </span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Toggle button -->
+  <button
+    id="switcher-toggle"
+    style="width:56px; height:56px; border-radius:50%; background:#2C3E50; color:#fff; border:none; cursor:pointer; display:flex; align-items:center; justify-content:center; box-shadow: 0 20px 40px rgba(0,0,0,0.3); transition: all 0.3s;"
+    aria-label="Toggle design switcher"
+    title="Switch design version"
+  >
+    <svg style="width:24px; height:24px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"></path>
+    </svg>
+  </button>
+</div>
+
+<script>
+  (function() {
+    let isOpen = false;
+    const toggle = document.getElementById('switcher-toggle');
+    const panel = document.getElementById('switcher-panel');
+    const buttons = document.querySelectorAll('[data-switch-design]');
+
+    // Apply saved design immediately
+    const saved = localStorage.getItem('paricus-design') || '1';
+    applyDesign(saved);
+
+    toggle?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      isOpen = !isOpen;
+      if (panel) panel.style.display = isOpen ? 'block' : 'none';
+      if (toggle) toggle.style.background = isOpen ? '#52C17A' : '#2C3E50';
+    });
+
+    document.addEventListener('click', (e) => {
+      const switcher = document.getElementById('design-switcher');
+      if (isOpen && switcher && !switcher.contains(e.target as Node)) {
+        isOpen = false;
+        if (panel) panel.style.display = 'none';
+        if (toggle) toggle.style.background = '#2C3E50';
+      }
+    });
+
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const id = (btn as HTMLElement).dataset.switchDesign;
+        if (id) {
+          applyDesign(id);
+          localStorage.setItem('paricus-design', id);
+        }
+      });
+    });
+
+    // Hover effects on toggle
+    toggle?.addEventListener('mouseenter', () => {
+      if (toggle) toggle.style.transform = 'scale(1.1)';
+    });
+    toggle?.addEventListener('mouseleave', () => {
+      if (toggle) toggle.style.transform = 'scale(1)';
+    });
+
+    function applyDesign(designId: string) {
+      // Set on html element for global CSS theming (affects ALL pages)
+      document.documentElement.setAttribute('data-design', designId);
+
+      // Toggle visibility of design-specific containers (for homepage)
+      document.querySelectorAll('[data-design]').forEach(el => {
+        // Skip the html element itself
+        if (el === document.documentElement) return;
+        el.style.display = el.getAttribute('data-design') === designId ? 'block' : 'none';
+      });
+
+      // Update button active styles (inline, no Tailwind dependency)
+      buttons.forEach(btn => {
+        const btnId = (btn as HTMLElement).dataset.switchDesign;
+        const el = btn as HTMLElement;
+        if (btnId === designId) {
+          el.style.background = '#E8F5E9';
+          el.style.borderColor = '#52C17A';
+        } else {
+          el.style.background = 'transparent';
+          el.style.borderColor = 'transparent';
+        }
+      });
+
+      // Scroll to top
+      window.scrollTo({ top: 0, behavior: 'instant' });
+
+      // Re-trigger unified scroll animations
+      setTimeout(() => {
+        window.dispatchEvent(new Event('sa:reinit'));
+      }, 100);
+    }
+  })();
+</script>

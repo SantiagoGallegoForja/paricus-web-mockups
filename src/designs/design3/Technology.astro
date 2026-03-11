@@ -1,0 +1,448 @@
+---
+import { getLocalizedPath } from '../../i18n/utils';
+import Icon from '../../components/common/Icon.astro';
+import { placeholderImages } from '../../data/placeholder-images';
+
+interface Props { lang?: string; }
+const { lang = 'en' } = Astro.props;
+
+const heading = 'Technology & Compliance';
+const description = 'Enterprise-grade technology and security standards that power exceptional business operations.';
+const certifications = [
+  { name: 'ISO 27001', description: 'Information Security Management' },
+  { name: 'ISO 9001', description: 'Quality Management Systems' },
+  { name: 'HIPAA', description: 'Healthcare Data Protection' },
+  { name: 'SOC 2 Type II', description: 'Service Organization Controls' },
+];
+const technologies = [
+  { icon: 'shield', name: 'Enterprise Security', description: 'Multi-layer security protocols protecting your data at every touchpoint.' },
+  { icon: 'zap', name: 'AI-Powered Tools', description: 'Smart automation enhancing agent productivity and customer satisfaction.' },
+  { icon: 'database', name: 'Real-time Analytics', description: 'Live dashboards and performance insights for data-driven decisions.' },
+  { icon: 'cloud', name: 'Cloud Infrastructure', description: 'Scalable, redundant cloud architecture ensuring 99.9% uptime.' },
+];
+const securityTitle = 'Your Data, Our Priority';
+const securityDescription = 'We maintain the highest standards of data security and compliance, ensuring your sensitive information is protected with enterprise-grade protocols and regular third-party audits.';
+
+const heroImage = placeholderImages.technology[0];
+---
+
+<!-- ============================================================
+     DESIGN V3 — TECHNOLOGY (High-Contrast Premium)
+     Clean dark/light sections, no glassmorphism, no animated mesh
+     ============================================================ -->
+
+<!-- ==================== HERO ==================== -->
+<section class="tech-hero">
+  <div
+    class="tech-hero__bg sa-parallax"
+    data-sa="fade-in"
+    style={`background-image: url('${heroImage.url}');`}
+    aria-hidden="true"
+  ></div>
+  <div class="tech-hero__overlay" aria-hidden="true"></div>
+
+  <div class="tech-hero__content">
+    <p class="tech-hero__label" data-sa="fade-up">Technology &amp; Compliance</p>
+    <h1 class="tech-hero__title" data-sa="fade-up" data-sa-delay="80">{heading}</h1>
+    <p class="tech-hero__desc" data-sa="fade-up" data-sa-delay="160">{description}</p>
+  </div>
+</section>
+
+<!-- ==================== CERTIFICATIONS ==================== -->
+<section class="tech-certs">
+  <!-- Background decorations -->
+  <div class="tech-certs__deco-1" aria-hidden="true"></div>
+  <div class="tech-certs__deco-2" aria-hidden="true"></div>
+  <div class="tech-certs__dots" aria-hidden="true"></div>
+
+  <div class="tech-certs__inner">
+    <p class="tech-certs__label" data-sa="fade-up">Trusted &amp; Certified</p>
+    <div class="tech-certs__row">
+      {certifications.map((cert, i) => (
+        <div class="tech-cert-item sa-hover-lift" data-sa="fade-up" data-sa-delay={`${i * 80}`}>
+          <div class="tech-cert-item__badge">
+            <Icon name="shield" size={18} />
+          </div>
+          <span class="tech-cert-item__name">{cert.name}</span>
+          <span class="tech-cert-item__divider"></span>
+          <span class="tech-cert-item__desc">{cert.description}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- ==================== TECH STACK ==================== -->
+<section class="tech-stack">
+  <!-- Background decorations -->
+  <div class="tech-stack__deco-ring" aria-hidden="true"></div>
+  <div class="tech-stack__deco-gradient" aria-hidden="true"></div>
+
+  <div class="tech-stack__inner">
+    <p class="tech-stack__label" data-sa="fade-up">What Powers Us</p>
+    <h2 class="tech-stack__heading" data-sa="fade-up" data-sa-delay="80">Our Technology Stack</h2>
+    <div class="tech-stack__grid">
+      {technologies.map((tech, i) => (
+        <div class="tech-stack__card sa-hover-lift" data-sa="fade-up" data-sa-delay={`${i * 80}`}>
+          <div class="tech-stack__icon">
+            <Icon name={tech.icon} size={28} />
+          </div>
+          <h3 class="tech-stack__name">{tech.name}</h3>
+          <p class="tech-stack__desc">{tech.description}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- ==================== SECURITY CTA ==================== -->
+<section class="tech-cta-wrap" data-sa="scale-in">
+  <div class="tech-cta">
+    <div class="tech-cta__shield">
+      <Icon name="shield" size={36} />
+    </div>
+    <h2 class="tech-cta__title" data-sa="fade-up">{securityTitle}</h2>
+    <p class="tech-cta__desc" data-sa="fade-up" data-sa-delay="80">{securityDescription}</p>
+    <a href={getLocalizedPath('/contact', lang)} class="tech-cta__btn" data-sa="fade-up" data-sa-delay="160">
+      Get Protected
+    </a>
+  </div>
+</section>
+
+<style>
+  /* ==================== HERO ==================== */
+  .tech-hero {
+    position: relative;
+    min-height: 70vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: #111115;
+    padding-top: 10rem;
+    padding-bottom: 5rem;
+  }
+  .tech-hero__bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  .tech-hero__overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(17, 17, 21, 0.85);
+  }
+  .tech-hero__content {
+    position: relative;
+    z-index: 1;
+    max-width: 44rem;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    text-align: center;
+  }
+  .tech-hero__label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: #52C17A;
+    margin: 0 0 1.25rem;
+  }
+  .tech-hero__title {
+    font-size: clamp(2.4rem, 5.5vw, 3.6rem);
+    font-weight: 800;
+    line-height: 1.1;
+    color: #fff;
+    letter-spacing: -0.02em;
+    margin: 0 0 1.25rem;
+  }
+  .tech-hero__desc {
+    font-size: 1.1rem;
+    color: #A1A1AA;
+    line-height: 1.75;
+    margin: 0;
+  }
+
+  /* ==================== CERTIFICATIONS ==================== */
+  .tech-certs {
+    position: relative;
+    background: #fff;
+    padding: 4.5rem 1.5rem;
+    overflow: hidden;
+  }
+  /* Soft green radial glow — top right */
+  .tech-certs__deco-1 {
+    position: absolute;
+    top: -80px;
+    right: -60px;
+    width: 350px;
+    height: 350px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(82,193,122,0.07) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  /* Soft blue radial glow — bottom left */
+  .tech-certs__deco-2 {
+    position: absolute;
+    bottom: -100px;
+    left: -80px;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(77,182,172,0.05) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  /* Dot grid pattern */
+  .tech-certs__dots {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 200px;
+    height: 60px;
+    background-image: radial-gradient(circle, rgba(82,193,122,0.15) 1px, transparent 1px);
+    background-size: 16px 16px;
+    pointer-events: none;
+  }
+  .tech-certs__inner {
+    position: relative;
+    z-index: 1;
+    max-width: 72rem;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .tech-certs__label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: #52C17A;
+    margin: 0 0 2rem;
+  }
+  .tech-certs__row {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    gap: 0;
+    flex-wrap: nowrap;
+  }
+  .tech-cert-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1.25rem 2rem;
+    border-right: 1px solid #E5E7EB;
+    transition: background 0.25s ease;
+  }
+  .tech-cert-item:last-child {
+    border-right: none;
+  }
+  .tech-cert-item:hover {
+    background: rgba(82, 193, 122, 0.04);
+  }
+  .tech-cert-item__badge {
+    width: 2.25rem;
+    height: 2.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(82, 193, 122, 0.1);
+    border-radius: 8px;
+    color: #52C17A;
+    flex-shrink: 0;
+  }
+  .tech-cert-item__name {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #111115;
+    white-space: nowrap;
+  }
+  .tech-cert-item__divider {
+    width: 1px;
+    height: 20px;
+    background: #D1D5DB;
+    flex-shrink: 0;
+  }
+  .tech-cert-item__desc {
+    font-size: 0.8rem;
+    color: #6B7280;
+    white-space: nowrap;
+  }
+
+  @media (max-width: 768px) {
+    .tech-certs__row {
+      flex-direction: column;
+      align-items: center;
+    }
+    .tech-cert-item {
+      border-right: none;
+      border-bottom: 1px solid #E5E7EB;
+      width: 100%;
+      justify-content: center;
+    }
+    .tech-cert-item:last-child { border-bottom: none; }
+  }
+
+  /* ==================== TECH STACK ==================== */
+  .tech-stack {
+    position: relative;
+    background: #FAFAF8;
+    padding: 5rem 1.5rem;
+    overflow: hidden;
+  }
+  /* Decorative ring — right side */
+  .tech-stack__deco-ring {
+    position: absolute;
+    top: 50%;
+    right: -120px;
+    transform: translateY(-50%);
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    border: 1px solid rgba(82,193,122,0.1);
+    pointer-events: none;
+  }
+  .tech-stack__deco-ring::after {
+    content: '';
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    right: 30px;
+    bottom: 30px;
+    border-radius: 50%;
+    border: 1px solid rgba(82,193,122,0.06);
+  }
+  /* Soft gradient blob — bottom left */
+  .tech-stack__deco-gradient {
+    position: absolute;
+    bottom: -60px;
+    left: -40px;
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(82,193,122,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .tech-stack__inner {
+    position: relative;
+    z-index: 1;
+    max-width: 56rem;
+    margin: 0 auto;
+  }
+  .tech-stack__label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: #52C17A;
+    text-align: center;
+    margin: 0 0 0.75rem;
+  }
+  .tech-stack__heading {
+    font-size: clamp(1.6rem, 3.5vw, 2.2rem);
+    font-weight: 700;
+    color: #111115;
+    text-align: center;
+    margin: 0 0 3rem;
+  }
+  .tech-stack__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+  @media (max-width: 768px) {
+    .tech-stack__grid { grid-template-columns: 1fr; }
+  }
+  .tech-stack__card {
+    background: #fff;
+    border: 1px solid #E5E7EB;
+    border-radius: 12px;
+    padding: 2.25rem 1.75rem;
+    transition: border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  .tech-stack__card:hover {
+    border-color: #52C17A;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(82, 193, 122, 0.08);
+  }
+  .tech-stack__icon {
+    width: 3.25rem;
+    height: 3.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(82, 193, 122, 0.08);
+    border-radius: 10px;
+    color: #52C17A;
+    margin-bottom: 1.25rem;
+  }
+  .tech-stack__name {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #111115;
+    margin: 0 0 0.5rem;
+  }
+  .tech-stack__desc {
+    font-size: 0.9rem;
+    color: #5D6D7E;
+    line-height: 1.65;
+    margin: 0;
+  }
+
+  /* ==================== SECURITY CTA ==================== */
+  .tech-cta-wrap {
+    background: #111115;
+    padding: 6rem 1.5rem;
+  }
+  .tech-cta {
+    max-width: 42rem;
+    margin: 0 auto;
+    text-align: center;
+    padding: 3.5rem 2.5rem;
+    background: #1a1a1f;
+    border: 1px solid #2a2a30;
+    border-radius: 16px;
+  }
+  .tech-cta__shield {
+    width: 5rem;
+    height: 5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(82, 193, 122, 0.08);
+    border-radius: 50%;
+    color: #52C17A;
+    margin: 0 auto 1.5rem;
+  }
+  .tech-cta__title {
+    font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+    font-weight: 800;
+    color: #fff;
+    margin: 0 0 1rem;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+  }
+  .tech-cta__desc {
+    font-size: 1rem;
+    color: #A1A1AA;
+    line-height: 1.7;
+    margin: 0 0 2rem;
+  }
+  .tech-cta__btn {
+    display: inline-block;
+    padding: 0.875rem 2.25rem;
+    background: #52C17A;
+    color: #fff;
+    font-weight: 700;
+    font-size: 1rem;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: background 0.2s ease, transform 0.2s ease;
+  }
+  .tech-cta__btn:hover {
+    background: #3daa63;
+    transform: translateY(-1px);
+  }
+</style>

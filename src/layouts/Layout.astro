@@ -1,7 +1,10 @@
 ---
 import '../styles/global.css';
+import '../styles/animations.css';
+import '../styles/design-themes.css';
 import Navigation from '../components/common/Navigation.astro';
 import Footer from '../components/common/Footer.astro';
+import DesignSwitcher from '../designs/DesignSwitcher.astro';
 
 interface Props {
   title?: string;
@@ -47,7 +50,7 @@ const alternateUrl = alternatePath
 ---
 
 <!doctype html>
-<html lang={lang}>
+<html lang={lang} data-design="1">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -140,6 +143,8 @@ const alternateUrl = alternatePath
     <Footer lang={lang} />
 
     <slot name="schema" />
+    <DesignSwitcher />
+    <script src="../scripts/scrollAnimations.ts"></script>
   </body>
 </html>
 

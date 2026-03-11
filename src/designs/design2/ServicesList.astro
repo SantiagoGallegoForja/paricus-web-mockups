@@ -1,0 +1,160 @@
+---
+import { getLocalizedPath } from '../../i18n/utils';
+import Icon from '../../components/common/Icon.astro';
+
+interface Props { lang?: string; }
+const { lang = 'en' } = Astro.props;
+
+const heading = 'Services That Elevate Your Business';
+const description = 'Comprehensive BPO solutions designed to optimize your operations and accelerate growth.';
+const services = [
+  { icon: 'headphones', title: 'Customer Service', shortDescription: 'Multilingual customer support that builds lasting relationships and drives satisfaction across every channel.', slug: 'customer-service', features: ['24/7 Multilingual Support', 'Omnichannel Management', 'Quality Assurance', 'Customer Retention Programs', 'Real-time Analytics'] },
+  { icon: 'file-text', title: 'Back Office Operations', shortDescription: 'Streamline your administrative processes with accurate, efficient back-office support that keeps your business running smoothly.', slug: 'back-office', features: ['Data Entry & Processing', 'Document Management', 'Invoice Processing', 'Record Keeping', 'Compliance Monitoring'] },
+  { icon: 'calculator', title: 'Sales & Lead Generation', shortDescription: 'Accelerate your revenue pipeline with skilled sales teams and proven lead generation strategies.', slug: 'sales-lead-generation', features: ['Outbound Campaigns', 'Lead Qualification', 'Appointment Setting', 'CRM Management', 'Performance Tracking'] },
+  { icon: 'wrench', title: 'Technical Support', shortDescription: 'Expert technical assistance that resolves issues quickly and keeps your customers productive.', slug: 'technical-support', features: ['Tier 1-3 Support', 'Remote Troubleshooting', 'Knowledge Base Management', 'Escalation Handling', 'SLA Compliance'] },
+];
+---
+
+<!-- V2 — Editorial Enterprise: Sharp corners, monospace labels, border grids, editorial typography -->
+<section class="d2-services-page bg-white">
+
+  <!-- HERO -->
+  <div class="d2-hero relative overflow-hidden bg-white">
+    <div class="d2-grid-pattern"></div>
+    <div class="max-w-7xl mx-auto px-6 py-28 lg:py-40 relative z-10">
+      <span class="d2-mono-label" data-sa="fade-up">// OUR SERVICES</span>
+      <h1 class="d2-editorial-title" data-sa="fade-up" data-sa-delay="100">
+        SERVICES<br/>THAT ELEVATE<br/>YOUR BUSINESS
+      </h1>
+      <div class="d2-accent-line" data-sa="fade-up" data-sa-delay="200"></div>
+      <p class="max-w-xl text-lg text-[#5D6D7E] font-light leading-relaxed mt-8" data-sa="fade-up" data-sa-delay="300">
+        {description}
+      </p>
+    </div>
+  </div>
+
+  <!-- SERVICES — Alternating left-right -->
+  <div class="max-w-7xl mx-auto px-6 py-20 lg:py-32 space-y-32">
+    {services.map((service, index) => (
+      <div class={`d2-service-row flex flex-col ${index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'} ${index === 0 ? 'gap-12 lg:gap-24' : 'gap-12 lg:gap-20'} items-start`}>
+
+        <!-- Content side -->
+        <div class="flex-1 lg:max-w-[50%]" data-sa={index % 2 === 0 ? 'slide-right' : 'slide-left'}>
+          <div class="flex items-center gap-5 mb-6">
+            <span class="d2-number font-mono text-6xl lg:text-7xl font-black text-[#D5E8D4] select-none">
+              {String(index + 1).padStart(2, '0')}
+            </span>
+            <div class="d2-icon-box">
+              <Icon name={service.icon} class="w-6 h-6 text-[#52C17A]" />
+            </div>
+          </div>
+          <h2 class="text-2xl lg:text-3xl font-black tracking-tight text-[#1a2e1a] mb-4" data-sa="fade-up">
+            {service.title}
+          </h2>
+          <p class="text-[#5D6D7E] leading-relaxed text-base lg:text-lg mb-6">
+            {service.shortDescription}
+          </p>
+          <a href={getLocalizedPath('/services/' + service.slug, lang)}
+             class="d2-link inline-flex items-center gap-3 text-[#1a2e1a] font-bold uppercase tracking-widest text-sm border-b-2 border-[#52C17A] pb-1 hover:text-[#52C17A] transition-colors">
+            Explore Service <span>&rarr;</span>
+          </a>
+        </div>
+
+        <!-- Features side -->
+        <div class="flex-1 lg:max-w-[50%]" data-sa={index % 2 === 0 ? 'slide-left' : 'slide-right'}>
+          <div class="d2-feature-box">
+            <span class="d2-feature-label font-mono text-xs uppercase tracking-widest text-[#5D6D7E] mb-4 block">
+              Key Capabilities
+            </span>
+            <ul class="space-y-4">
+              {service.features.map((feature, fi) => (
+                <li class="d2-feature-item flex items-start gap-3 text-[#2C3E50]" data-sa="fade-up" data-sa-delay={`${fi * 100}`}>
+                  <span class="d2-check flex-shrink-0 mt-1">
+                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                      <path d="M4 9l3 3 7-7" stroke="#52C17A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </span>
+                  <span class="text-base font-medium">{feature}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    ))}
+  </div>
+
+  <!-- Separator -->
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="border-t border-[#D5E8D4]"></div>
+  </div>
+
+  <!-- CTA -->
+  <div class="d2-cta" data-sa="scale-in">
+    <div class="max-w-7xl mx-auto px-6 py-24 lg:py-32 text-center">
+      <span class="d2-mono-label text-[#52C17A] mb-4 block">// NEXT STEP</span>
+      <h2 class="text-3xl lg:text-5xl font-black uppercase tracking-tighter text-white mb-6" data-sa="fade-up">
+        Ready to Transform<br/>Your Operations?
+      </h2>
+      <p class="text-white/60 text-lg max-w-lg mx-auto mb-10">
+        Partner with us to unlock operational excellence and drive measurable results.
+      </p>
+      <a href={getLocalizedPath('/contact', lang)}
+         class="d2-cta-btn inline-block px-12 py-4 bg-[#52C17A] text-[#1a2e1a] font-bold uppercase tracking-widest text-sm hover:bg-[#3D9E5F] transition-colors">
+        Start a Conversation
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Hero */
+  .d2-grid-pattern {
+    position: absolute; inset: 0; opacity: .04;
+    background-image:
+      linear-gradient(#1a2e1a 1px, transparent 1px),
+      linear-gradient(90deg, #1a2e1a 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+  .d2-mono-label {
+    font-family: ui-monospace, SFMono-Regular, 'Cascadia Code', monospace;
+    font-size: .8rem; letter-spacing: .15em; text-transform: uppercase;
+    color: #52C17A; display: block; margin-bottom: 1.5rem;
+  }
+  .d2-editorial-title {
+    font-size: clamp(3rem, 8vw, 8rem);
+    font-weight: 900; text-transform: uppercase;
+    letter-spacing: -.04em; line-height: .92;
+    color: #1a2e1a;
+  }
+  .d2-accent-line {
+    width: 80px; height: 3px; background: #52C17A; margin-top: 2rem;
+  }
+
+  /* Service rows */
+  .d2-service-row + .d2-service-row {
+    padding-top: 3rem;
+    border-top: 1px solid #D5E8D4;
+  }
+
+  /* Icon box */
+  .d2-icon-box {
+    width: 48px; height: 48px; display: flex; align-items: center; justify-content: center;
+    border: 2px solid #D5E8D4; background: white;
+  }
+
+  /* Feature box */
+  .d2-feature-box {
+    background: #FAFAF8; border: 1px solid #D5E8D4; padding: 2.5rem;
+  }
+  .d2-feature-item {
+    transition: color .25s ease;
+  }
+  .d2-feature-item:hover { color: #52C17A; }
+  .d2-feature-item:hover .d2-check svg path { stroke: #3D9E5F; }
+
+  /* CTA */
+  .d2-cta { background: #1a2e1a; }
+  .d2-cta-btn { transition: background-color .3s ease; }
+</style>

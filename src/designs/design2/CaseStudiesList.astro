@@ -1,0 +1,513 @@
+---
+import { getLocalizedPath } from '../../i18n/utils';
+import Icon from '../../components/common/Icon.astro';
+
+interface Props { lang?: string; }
+const { lang = 'en' } = Astro.props;
+
+const heading = 'Client Success Stories';
+const description = 'Real results from real partnerships. See how we have helped businesses transform their operations.';
+const caseStudies = [
+  {
+    title: 'Healthcare Provider Reduces Response Time by 60%',
+    industry: 'Healthcare',
+    challenge: 'A major healthcare provider struggled with long patient wait times and inconsistent support quality across multiple channels.',
+    solution: 'We deployed a dedicated bilingual team with HIPAA training, implemented omnichannel routing, and established real-time quality monitoring.',
+    results: [
+      { icon: 'clock', value: '60%', label: 'Faster Response Time' },
+      { icon: 'star', value: '95%', label: 'Patient Satisfaction' },
+      { icon: 'trending-down', value: '40%', label: 'Cost Reduction' },
+    ],
+    slug: 'healthcare-response-time',
+  },
+  {
+    title: 'E-Commerce Brand Scales Support for 300% Growth',
+    industry: 'E-Commerce',
+    challenge: 'A fast-growing e-commerce company needed to triple their customer support capacity without sacrificing quality during peak seasons.',
+    solution: 'We built a scalable team structure with flexible staffing, AI-powered ticket routing, and comprehensive product training programs.',
+    results: [
+      { icon: 'users', value: '3x', label: 'Team Scale-up' },
+      { icon: 'message-circle', value: '< 2min', label: 'Avg Response Time' },
+      { icon: 'award', value: '4.8/5', label: 'CSAT Score' },
+    ],
+    slug: 'ecommerce-growth-scaling',
+  },
+  {
+    title: 'FinTech Startup Achieves 99.5% SLA Compliance',
+    industry: 'Finance',
+    challenge: 'A fintech startup needed enterprise-level technical support with strict SLA requirements and regulatory compliance.',
+    solution: 'We implemented tiered support with dedicated senior agents, automated SLA tracking, and compliance-first processes.',
+    results: [
+      { icon: 'check-circle', value: '99.5%', label: 'SLA Compliance' },
+      { icon: 'shield', value: '100%', label: 'Audit Pass Rate' },
+      { icon: 'zap', value: '45%', label: 'Efficiency Gain' },
+    ],
+    slug: 'fintech-sla-compliance',
+  },
+];
+---
+
+<!-- HERO SECTION -->
+<section class="cs2-hero">
+  <div class="cs2-hero__grid-bg"></div>
+  <!-- Decorative elements -->
+  <div class="cs2-hero__deco-line"></div>
+  <div class="cs2-hero__deco-circle"></div>
+  <div class="cs2-hero__container">
+    <span class="cs2-hero__label" data-sa="fade-up">// CASE STUDIES</span>
+    <h1 class="cs2-hero__title" data-sa="fade-up" data-sa-delay="80">{heading}</h1>
+    <div class="cs2-hero__accent"></div>
+    <p class="cs2-hero__description" data-sa="fade-up" data-sa-delay="160">{description}</p>
+  </div>
+</section>
+
+<!-- CASE STUDIES SECTION -->
+<section class="cs2-studies">
+  <!-- Background decorations -->
+  <div class="cs2-studies__deco-dot-grid"></div>
+  <div class="cs2-studies__deco-gradient"></div>
+
+  <div class="cs2-studies__container">
+    {caseStudies.map((study, index) => (
+      <article class="cs2-entry sa-hover-lift" data-sa="fade-up" data-sa-delay={String(index * 80)}>
+        <!-- Card wrapper with subtle background -->
+        <div class="cs2-entry__card">
+          <!-- Subtle left accent -->
+          <div class="cs2-entry__accent-bar"></div>
+
+          <div class="cs2-entry__inner">
+            <div class="cs2-entry__header">
+              <span class="cs2-entry__number">{String(index + 1).padStart(2, '0')}</span>
+              <div class="cs2-entry__meta">
+                <span class="cs2-entry__industry">{study.industry}</span>
+              </div>
+            </div>
+
+            <h2 class="cs2-entry__title">
+              <a href={getLocalizedPath(`/case-studies/${study.slug}`, lang)} class="cs2-entry__title-link">
+                {study.title}
+              </a>
+            </h2>
+
+            <div class="cs2-entry__columns">
+              <div class="cs2-entry__col" data-sa="slide-right">
+                <h3 class="cs2-entry__col-header">Challenge</h3>
+                <p class="cs2-entry__col-text">{study.challenge}</p>
+              </div>
+              <div class="cs2-entry__col" data-sa="slide-left">
+                <h3 class="cs2-entry__col-header">Solution</h3>
+                <p class="cs2-entry__col-text">{study.solution}</p>
+              </div>
+            </div>
+
+            <div class="cs2-entry__results">
+              {study.results.map((result, ri) => (
+                <div class="cs2-entry__stat" data-sa="fade-up" data-sa-delay={String(ri * 60)}>
+                  <div class="cs2-entry__stat-icon">
+                    <Icon name={result.icon} size={18} />
+                  </div>
+                  <span class="cs2-entry__stat-value">{result.value}</span>
+                  <span class="cs2-entry__stat-label">{result.label}</span>
+                </div>
+              ))}
+            </div>
+
+            <!-- Read more link -->
+            <div class="cs2-entry__read-more">
+              <a href={getLocalizedPath(`/case-studies/${study.slug}`, lang)} class="cs2-entry__read-link">
+                Read Full Story
+                <Icon name="arrow-right" size={14} />
+              </a>
+            </div>
+          </div>
+        </div>
+      </article>
+    ))}
+  </div>
+</section>
+
+<!-- CTA SECTION -->
+<section class="cs2-cta" data-sa="scale-in">
+  <div class="cs2-cta__grid-bg"></div>
+  <div class="cs2-cta__container">
+    <span class="cs2-cta__label">// NEXT STEP</span>
+    <div class="cs2-cta__accent"></div>
+    <h2 class="cs2-cta__title" data-sa="fade-up">Let's build your<br />success story.</h2>
+    <p class="cs2-cta__desc">Partner with us to create measurable impact for your business.</p>
+    <a href={getLocalizedPath('/contact', lang)} class="cs2-cta__button">
+      Start a Conversation
+      <Icon name="arrow-right" size={16} />
+    </a>
+  </div>
+</section>
+
+<style>
+  /* ── HERO ── */
+  .cs2-hero {
+    position: relative;
+    padding: 10rem 2rem 6rem;
+    background: #FAFAF8;
+    overflow: hidden;
+  }
+  .cs2-hero__grid-bg {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(26,46,26,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(26,46,26,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+  }
+  /* Decorative vertical line */
+  .cs2-hero__deco-line {
+    position: absolute;
+    right: 15%;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, transparent, #D5E8D4 40%, #52C17A 60%, transparent);
+    opacity: 0.3;
+    pointer-events: none;
+  }
+  /* Decorative circle */
+  .cs2-hero__deco-circle {
+    position: absolute;
+    right: 10%;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 300px;
+    height: 300px;
+    border: 1px solid rgba(82, 193, 122, 0.08);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  .cs2-hero__deco-circle::after {
+    content: '';
+    position: absolute;
+    inset: 40px;
+    border: 1px solid rgba(82, 193, 122, 0.06);
+    border-radius: 50%;
+  }
+  .cs2-hero__container {
+    position: relative;
+    max-width: 1100px;
+    margin: 0 auto;
+    z-index: 1;
+  }
+  .cs2-hero__label {
+    display: block;
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #52C17A;
+    letter-spacing: 0.15em;
+    margin-bottom: 1.5rem;
+  }
+  .cs2-hero__title {
+    font-size: clamp(2.6rem, 6vw, 4.5rem);
+    font-weight: 900;
+    color: #1a2e1a;
+    line-height: 1.05;
+    margin: 0 0 1.5rem;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+    max-width: 700px;
+  }
+  .cs2-hero__accent {
+    width: 60px;
+    height: 3px;
+    background: #52C17A;
+    margin-bottom: 1.5rem;
+  }
+  .cs2-hero__description {
+    font-size: 1.1rem;
+    color: #5D6D7E;
+    line-height: 1.7;
+    max-width: 560px;
+    margin: 0;
+  }
+
+  /* ── CASE STUDIES ── */
+  .cs2-studies {
+    position: relative;
+    background: #fff;
+    padding: 6rem 2rem 8rem;
+    overflow: hidden;
+  }
+  /* Dot grid background decoration */
+  .cs2-studies__deco-dot-grid {
+    position: absolute;
+    top: 60px;
+    right: -20px;
+    width: 200px;
+    height: 200px;
+    background-image: radial-gradient(circle, #D5E8D4 1px, transparent 1px);
+    background-size: 20px 20px;
+    opacity: 0.5;
+    pointer-events: none;
+  }
+  /* Soft gradient blob */
+  .cs2-studies__deco-gradient {
+    position: absolute;
+    bottom: 100px;
+    left: -100px;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(82,193,122,0.04) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .cs2-studies__container {
+    position: relative;
+    max-width: 1100px;
+    margin: 0 auto;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 3.5rem;
+  }
+
+  /* Entry */
+  .cs2-entry { }
+  .cs2-entry__card {
+    position: relative;
+    background: #FAFAF8;
+    border: 1px solid #eef0f2;
+    transition: border-color 0.4s ease, box-shadow 0.4s ease;
+    overflow: hidden;
+  }
+  .cs2-entry__card:hover {
+    border-color: #D5E8D4;
+    box-shadow: 0 8px 40px rgba(26, 46, 26, 0.06);
+  }
+  /* Left accent bar */
+  .cs2-entry__accent-bar {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: #D5E8D4;
+    transition: background 0.4s ease;
+  }
+  .cs2-entry__card:hover .cs2-entry__accent-bar {
+    background: #52C17A;
+  }
+
+  .cs2-entry__inner {
+    padding: 3rem 3.5rem;
+  }
+
+  .cs2-entry__header {
+    display: flex;
+    align-items: baseline;
+    gap: 2rem;
+    margin-bottom: 1.2rem;
+  }
+  .cs2-entry__number {
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    font-size: 3.5rem;
+    font-weight: 800;
+    color: #E8F5E9;
+    line-height: 1;
+    letter-spacing: -0.04em;
+  }
+  .cs2-entry__industry {
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: #5D6D7E;
+    background: #fff;
+    padding: 0.35rem 1rem;
+    border: 1px solid #e2e6ea;
+  }
+  .cs2-entry__title {
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    line-height: 1.25;
+    margin: 0 0 2rem;
+  }
+  .cs2-entry__title-link {
+    color: #1a2e1a;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  .cs2-entry__title-link:hover { color: #52C17A; }
+
+  /* Two-column challenge/solution */
+  .cs2-entry__columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    margin-bottom: 2rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid #eef0f2;
+  }
+  .cs2-entry__col-header {
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    font-size: 0.68rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: #52C17A;
+    margin: 0 0 0.7rem;
+  }
+  .cs2-entry__col-text {
+    font-size: 0.92rem;
+    color: #5D6D7E;
+    line-height: 1.8;
+    margin: 0;
+  }
+
+  /* Results row */
+  .cs2-entry__results {
+    display: flex;
+    gap: 2.5rem;
+    margin-bottom: 1.5rem;
+  }
+  .cs2-entry__stat {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.8rem 1.2rem;
+    background: #fff;
+    border: 1px solid #eef0f2;
+    transition: border-color 0.3s ease;
+  }
+  .cs2-entry__card:hover .cs2-entry__stat {
+    border-color: #D5E8D4;
+  }
+  .cs2-entry__stat-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    color: #52C17A;
+  }
+  .cs2-entry__stat-value {
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: #1a2e1a;
+    letter-spacing: -0.02em;
+  }
+  .cs2-entry__stat-label {
+    font-size: 0.68rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #5D6D7E;
+    max-width: 100px;
+    line-height: 1.3;
+  }
+
+  /* Read more link */
+  .cs2-entry__read-more {
+    padding-top: 0.5rem;
+  }
+  .cs2-entry__read-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: #5D6D7E;
+    text-decoration: none;
+    transition: color 0.3s ease, gap 0.3s ease;
+  }
+  .cs2-entry__read-link:hover {
+    color: #52C17A;
+    gap: 0.8rem;
+  }
+
+  /* ── CTA ── */
+  .cs2-cta {
+    position: relative;
+    background: #1a2e1a;
+    padding: 7rem 2rem;
+    text-align: center;
+    overflow: hidden;
+  }
+  .cs2-cta__grid-bg {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+  }
+  .cs2-cta__container {
+    position: relative;
+    max-width: 600px;
+    margin: 0 auto;
+    z-index: 1;
+  }
+  .cs2-cta__label {
+    display: block;
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: #52C17A;
+    letter-spacing: 0.15em;
+    margin-bottom: 1rem;
+  }
+  .cs2-cta__accent {
+    width: 40px;
+    height: 2px;
+    background: #52C17A;
+    margin: 0 auto 2rem;
+  }
+  .cs2-cta__title {
+    font-size: clamp(2rem, 4.5vw, 3rem);
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.15;
+    margin: 0 0 1rem;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+  }
+  .cs2-cta__desc {
+    font-size: 1rem;
+    color: rgba(213, 232, 212, 0.7);
+    line-height: 1.6;
+    margin: 0 0 2.5rem;
+  }
+  .cs2-cta__button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 1rem 2.5rem;
+    background: transparent;
+    color: #fff;
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    font-weight: 600;
+    font-size: 0.78rem;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    transition: all 0.3s ease;
+  }
+  .cs2-cta__button:hover {
+    background: #52C17A;
+    border-color: #52C17A;
+    color: #1a2e1a;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    .cs2-entry__inner { padding: 2rem 1.5rem; }
+    .cs2-entry__columns { grid-template-columns: 1fr; gap: 1.5rem; }
+    .cs2-entry__results { flex-wrap: wrap; gap: 1rem; }
+    .cs2-entry__header { flex-direction: column; gap: 0.8rem; }
+    .cs2-entry__number { font-size: 2.5rem; }
+    .cs2-studies__deco-dot-grid { display: none; }
+  }
+</style>

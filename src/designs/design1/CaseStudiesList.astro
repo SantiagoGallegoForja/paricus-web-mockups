@@ -1,0 +1,324 @@
+---
+import { getLocalizedPath } from '../../i18n/utils';
+import Icon from '../../components/common/Icon.astro';
+
+interface Props { lang?: string; }
+const { lang = 'en' } = Astro.props;
+
+const heading = 'Client Success Stories';
+const description = 'Real results from real partnerships. See how we have helped businesses transform their operations.';
+const caseStudies = [
+  {
+    title: 'Healthcare Provider Reduces Response Time by 60%',
+    industry: 'Healthcare',
+    challenge: 'A major healthcare provider struggled with long patient wait times and inconsistent support quality across multiple channels.',
+    solution: 'We deployed a dedicated bilingual team with HIPAA training, implemented omnichannel routing, and established real-time quality monitoring.',
+    results: [
+      { icon: 'clock', value: '60%', label: 'Faster Response Time' },
+      { icon: 'star', value: '95%', label: 'Patient Satisfaction' },
+      { icon: 'trending-down', value: '40%', label: 'Cost Reduction' },
+    ],
+    slug: 'healthcare-response-time',
+  },
+  {
+    title: 'E-Commerce Brand Scales Support for 300% Growth',
+    industry: 'E-Commerce',
+    challenge: 'A fast-growing e-commerce company needed to triple their customer support capacity without sacrificing quality during peak seasons.',
+    solution: 'We built a scalable team structure with flexible staffing, AI-powered ticket routing, and comprehensive product training programs.',
+    results: [
+      { icon: 'users', value: '3x', label: 'Team Scale-up' },
+      { icon: 'message-circle', value: '< 2min', label: 'Avg Response Time' },
+      { icon: 'award', value: '4.8/5', label: 'CSAT Score' },
+    ],
+    slug: 'ecommerce-growth-scaling',
+  },
+  {
+    title: 'FinTech Startup Achieves 99.5% SLA Compliance',
+    industry: 'Finance',
+    challenge: 'A fintech startup needed enterprise-level technical support with strict SLA requirements and regulatory compliance.',
+    solution: 'We implemented tiered support with dedicated senior agents, automated SLA tracking, and compliance-first processes.',
+    results: [
+      { icon: 'check-circle', value: '99.5%', label: 'SLA Compliance' },
+      { icon: 'shield', value: '100%', label: 'Audit Pass Rate' },
+      { icon: 'zap', value: '45%', label: 'Efficiency Gain' },
+    ],
+    slug: 'fintech-sla-compliance',
+  },
+];
+---
+
+<!-- HERO SECTION -->
+<section class="cs1-hero">
+  <div class="cs1-hero__orb cs1-hero__orb--1"></div>
+  <div class="cs1-hero__orb cs1-hero__orb--2"></div>
+  <div class="cs1-hero__orb cs1-hero__orb--3"></div>
+  <div class="cs1-hero__container">
+    <span class="cs1-hero__badge" data-sa="fade-up">Case Studies</span>
+    <h1 class="cs1-hero__title" data-sa="fade-up" data-sa-delay="80">{heading}</h1>
+    <p class="cs1-hero__description" data-sa="fade-up" data-sa-delay="160">{description}</p>
+  </div>
+  <div class="cs1-hero__clip"></div>
+</section>
+
+<!-- CASE STUDIES SECTION -->
+<section class="cs1-studies">
+  <div class="cs1-studies__container">
+    {caseStudies.map((study, index) => (
+      <article class="cs1-card" data-sa="fade-up" data-sa-delay={String(index * 80)}>
+        <div class="cs1-card__content">
+          <span class="cs1-card__industry">{study.industry}</span>
+          <h2 class="cs1-card__title">{study.title}</h2>
+          <div class="cs1-card__details">
+            <div class="cs1-card__block">
+              <h3 class="cs1-card__block-label">The Challenge</h3>
+              <p class="cs1-card__text">{study.challenge}</p>
+            </div>
+            <div class="cs1-card__block">
+              <h3 class="cs1-card__block-label">Our Solution</h3>
+              <p class="cs1-card__text">{study.solution}</p>
+            </div>
+          </div>
+          <a href={getLocalizedPath(`/case-studies/${study.slug}`, lang)} class="cs1-card__link">
+            View full case study
+            <Icon name="arrow-right" size={18} />
+          </a>
+        </div>
+        <div class="cs1-card__results">
+          <div class="cs1-card__results-inner">
+            <h3 class="cs1-card__results-heading">Key Results</h3>
+            {study.results.map((result) => (
+              <div class="cs1-card__metric">
+                <div class="cs1-card__metric-icon">
+                  <Icon name={result.icon} size={22} />
+                </div>
+                <span class="cs1-card__metric-value">{result.value}</span>
+                <span class="cs1-card__metric-label">{result.label}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </article>
+    ))}
+  </div>
+</section>
+
+<!-- CTA SECTION -->
+<section class="cs1-cta" data-sa="scale-in">
+  <div class="cs1-cta__container">
+    <h2 class="cs1-cta__title">Ready to Write Your Success Story?</h2>
+    <p class="cs1-cta__text">Partner with us and join the ranks of businesses achieving exceptional results.</p>
+    <a href={getLocalizedPath('/contact', lang)} class="cs1-cta__button">
+      Get Started Today
+      <Icon name="arrow-right" size={18} />
+    </a>
+  </div>
+</section>
+
+<style>
+  /* ── HERO ── */
+  .cs1-hero {
+    position: relative;
+    padding: 8rem 1.5rem 10rem;
+    background: linear-gradient(135deg, #52C17A 0%, #3D9E5F 40%, #4DB6AC 100%);
+    overflow: hidden;
+    text-align: center;
+    clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+  }
+  .cs1-hero__orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.3;
+    pointer-events: none;
+  }
+  .cs1-hero__orb--1 { width: 400px; height: 400px; background: #E8F5E9; top: -100px; left: -80px; }
+  .cs1-hero__orb--2 { width: 300px; height: 300px; background: #4DB6AC; bottom: 0; right: -60px; }
+  .cs1-hero__orb--3 { width: 200px; height: 200px; background: #fff; top: 40%; left: 60%; }
+  .cs1-hero__container { position: relative; max-width: 800px; margin: 0 auto; z-index: 1; }
+  .cs1-hero__badge {
+    display: inline-block;
+    padding: 0.4rem 1.2rem;
+    background: rgba(255,255,255,0.2);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 999px;
+    color: #fff;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+  .cs1-hero__title {
+    font-size: clamp(2.4rem, 5vw, 3.8rem);
+    font-weight: 800;
+    color: #fff;
+    line-height: 1.1;
+    margin: 0 0 1.2rem;
+  }
+  .cs1-hero__description {
+    font-size: 1.15rem;
+    color: rgba(255,255,255,0.9);
+    line-height: 1.7;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  .cs1-hero__clip {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 80px;
+    background: #FAFAF8;
+    clip-path: polygon(0 100%, 100% 0, 100% 100%);
+  }
+
+  /* ── CASE STUDIES ── */
+  .cs1-studies { background: #FAFAF8; padding: 4rem 1.5rem 6rem; }
+  .cs1-studies__container { max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 3.5rem; }
+  .cs1-card {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 2.5rem;
+    background: #fff;
+    border-radius: 1.5rem;
+    padding: 2.5rem;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+    border: 1px solid #E8F5E9;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+  }
+  .cs1-card:hover { transform: translateY(-6px); box-shadow: 0 12px 40px rgba(82,193,122,0.15); }
+  .cs1-card__industry {
+    display: inline-block;
+    padding: 0.3rem 1rem;
+    background: #E8F5E9;
+    color: #3D9E5F;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+  .cs1-card__title {
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: #2C3E50;
+    line-height: 1.25;
+    margin: 0 0 1.5rem;
+  }
+  .cs1-card__details { display: flex; flex-direction: column; gap: 1.2rem; margin-bottom: 1.5rem; }
+  .cs1-card__block-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #52C17A;
+    margin: 0 0 0.4rem;
+  }
+  .cs1-card__text { font-size: 0.95rem; color: #5D6D7E; line-height: 1.7; margin: 0; }
+  .cs1-card__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #52C17A;
+    font-weight: 700;
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition: gap 0.3s ease;
+  }
+  .cs1-card__link:hover { gap: 0.9rem; }
+
+  /* Results card */
+  .cs1-card__results {
+    display: flex;
+    align-items: stretch;
+  }
+  .cs1-card__results-inner {
+    flex: 1;
+    background: linear-gradient(160deg, #52C17A, #3D9E5F);
+    border-radius: 1.5rem;
+    padding: 2rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1.5rem;
+    transition: box-shadow 0.4s ease;
+  }
+  .cs1-card:hover .cs1-card__results-inner {
+    box-shadow: 0 0 30px rgba(82,193,122,0.4);
+  }
+  .cs1-card__results-heading {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: rgba(255,255,255,0.7);
+    margin: 0;
+    text-align: center;
+  }
+  .cs1-card__metric { text-align: center; }
+  .cs1-card__metric-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.2);
+    color: #fff;
+    margin-bottom: 0.4rem;
+  }
+  .cs1-card__metric-value {
+    display: block;
+    font-size: 2rem;
+    font-weight: 800;
+    color: #fff;
+    line-height: 1.1;
+  }
+  .cs1-card__metric-label {
+    display: block;
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.85);
+    font-weight: 500;
+    margin-top: 0.15rem;
+  }
+
+  /* ── CTA ── */
+  .cs1-cta {
+    background: linear-gradient(135deg, #3D9E5F, #52C17A, #4DB6AC);
+    padding: 5rem 1.5rem;
+    text-align: center;
+  }
+  .cs1-cta__container { max-width: 640px; margin: 0 auto; }
+  .cs1-cta__title { font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 800; color: #fff; margin: 0 0 1rem; }
+  .cs1-cta__text { font-size: 1.1rem; color: rgba(255,255,255,0.9); line-height: 1.7; margin: 0 0 2rem; }
+  .cs1-cta__button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 1rem 2.4rem;
+    background: #fff;
+    color: #3D9E5F;
+    font-weight: 700;
+    font-size: 1rem;
+    border-radius: 999px;
+    text-decoration: none;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .cs1-cta__button:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.15); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .cs1-card { grid-template-columns: 1fr; }
+    .cs1-card__results-inner { flex-direction: row; flex-wrap: wrap; justify-content: space-around; }
+    .cs1-card__results-heading { width: 100%; }
+    .cs1-card__metric { flex: 1; min-width: 100px; }
+  }
+  @media (max-width: 600px) {
+    .cs1-hero { padding: 5rem 1.5rem 7rem; }
+    .cs1-card { padding: 1.5rem; }
+    .cs1-card__title { font-size: 1.3rem; }
+  }
+
+</style>

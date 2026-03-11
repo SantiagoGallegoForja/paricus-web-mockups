@@ -1,0 +1,223 @@
+---
+import { getLocalizedPath } from '../../i18n/utils';
+import Icon from '../../components/common/Icon.astro';
+import { placeholderImages } from '../../data/placeholder-images';
+
+interface Props { lang?: string; }
+const { lang = 'en' } = Astro.props;
+
+const articles = [
+  {
+    title: 'How Nearshore BPO is Transforming US Business Operations',
+    excerpt: 'Discover why more US companies are turning to nearshore outsourcing partners in Latin America for superior service delivery and cost efficiency.',
+    category: 'Industry Insights',
+    date: 'March 5, 2026',
+    readTime: '5 min read',
+    slug: 'nearshore-bpo-transforming-operations',
+  },
+  {
+    title: 'The Future of Customer Service: AI-Powered Human Support',
+    excerpt: 'How artificial intelligence is enhancing human agents rather than replacing them, creating better customer experiences at scale.',
+    category: 'Technology',
+    date: 'February 20, 2026',
+    readTime: '7 min read',
+    slug: 'future-customer-service-ai',
+  },
+  {
+    title: '5 Key Metrics Every BPO Client Should Track',
+    excerpt: 'Learn which performance indicators matter most when measuring the success of your outsourcing partnership.',
+    category: 'Best Practices',
+    date: 'February 10, 2026',
+    readTime: '4 min read',
+    slug: 'key-metrics-bpo-clients',
+  },
+  {
+    title: 'Building a Bilingual Customer Support Team',
+    excerpt: 'Strategies for creating and managing an effective multilingual support operation that delights customers across regions.',
+    category: 'Operations',
+    date: 'January 28, 2026',
+    readTime: '6 min read',
+    slug: 'building-bilingual-support-team',
+  },
+];
+
+const featuredArticle = articles[0];
+const remainingArticles = articles.slice(1);
+---
+
+<!-- V3 — HIGH-CONTRAST PREMIUM -->
+
+<!-- Hero / Header -->
+<section data-section="3-blog-hero" style="background: #111115; padding-top: 10rem; padding-bottom: 5rem;">
+  <div style="max-width: 72rem; margin: 0 auto; padding: 0 1.5rem;">
+    <div style="max-width: 42rem;">
+      <div style="display: flex; align-items: center; gap: 0.625rem; margin-bottom: 1.25rem;">
+        <span style="color: #52C17A; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; font-family: monospace;">// BLOG</span>
+      </div>
+      <h1 data-sa="fade-up" style="font-size: clamp(2.25rem, 5vw, 3.5rem); font-weight: 800; letter-spacing: -0.02em; color: #ffffff; line-height: 1.1; margin: 0 0 1.25rem;">
+        Insights &amp; Resources
+      </h1>
+      <p data-sa="fade-up" data-sa-delay="100" style="color: #A1A1AA; font-size: 1.0625rem; line-height: 1.7; max-width: 36rem; margin: 0;">
+        Stay informed with the latest trends, best practices, and expert perspectives in business process outsourcing.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- Article List -->
+<section data-section="3-blog-list" style="background: #ffffff; padding: 4rem 0 5rem;">
+  <div style="max-width: 72rem; margin: 0 auto; padding: 0 1.5rem;">
+
+    <!-- Featured Article -->
+    <div data-sa="fade-up" style="margin-bottom: 3rem;">
+      <a
+        href={getLocalizedPath('/blog/' + featuredArticle.slug, lang)}
+        class="d3-featured-card"
+        style="display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; align-items: center; text-decoration: none; border-bottom: 1px solid #E5E7EB; padding-bottom: 3rem;"
+      >
+        <!-- Featured image -->
+        <div style="overflow: hidden; border: 1px solid #E5E7EB; border-radius: 0.75rem;">
+          <img
+            src={placeholderImages.blog[0].url}
+            alt={placeholderImages.blog[0].alt}
+            loading="lazy"
+            data-sa="fade-in"
+            style="width: 100%; height: 15rem; object-fit: cover; display: block; transition: transform 0.4s ease;"
+            class="d3-featured-img"
+          />
+        </div>
+        <!-- Featured content -->
+        <div>
+          <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
+            <span style="display: inline-block; background: #52C17A; color: #ffffff; font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.25rem 0.625rem; border-radius: 0.25rem;">
+              {featuredArticle.category}
+            </span>
+            <span style="color: #5D6D7E; font-size: 0.8125rem;">Featured</span>
+          </div>
+          <h2
+            class="d3-featured-title"
+            data-sa="fade-up"
+            style="font-size: clamp(1.375rem, 2.5vw, 1.875rem); font-weight: 700; letter-spacing: -0.015em; color: #111115; line-height: 1.25; margin: 0 0 0.875rem; transition: color 0.2s ease;"
+          >
+            {featuredArticle.title}
+          </h2>
+          <p style="color: #5D6D7E; font-size: 0.9375rem; line-height: 1.65; margin: 0 0 1.5rem;">
+            {featuredArticle.excerpt}
+          </p>
+          <div style="display: flex; align-items: center; gap: 1rem;">
+            <span style="color: #5D6D7E; font-size: 0.8125rem;">{featuredArticle.date}</span>
+            <span style="color: #5D6D7E; font-size: 0.8125rem;">&middot;</span>
+            <span style="color: #5D6D7E; font-size: 0.8125rem;">{featuredArticle.readTime}</span>
+          </div>
+        </div>
+      </a>
+    </div>
+
+    <!-- Remaining Articles -->
+    <div>
+      {remainingArticles.map((article, i) => (
+        <a
+          href={getLocalizedPath('/blog/' + article.slug, lang)}
+          class="d3-article-row sa-hover-lift"
+          data-sa="fade-up"
+          data-sa-delay={`${i * 80}`}
+          style="display: flex; align-items: flex-start; gap: 1.75rem; padding: 1.75rem 0; border-bottom: 1px solid #E5E7EB; text-decoration: none;"
+          data-index={i}
+        >
+          <!-- Thumbnail -->
+          <div style="flex-shrink: 0; border: 1px solid #E5E7EB; border-radius: 0.5rem; overflow: hidden; width: 7rem; height: 4.75rem;">
+            <img
+              src={placeholderImages.blog[(i + 1) % placeholderImages.blog.length].url}
+              alt={placeholderImages.blog[(i + 1) % placeholderImages.blog.length].alt}
+              loading="lazy"
+              data-sa="fade-in"
+              style="width: 100%; height: 100%; object-fit: cover; display: block;"
+            />
+          </div>
+          <!-- Content -->
+          <div style="flex: 1; min-width: 0;">
+            <div style="display: flex; align-items: center; gap: 0.625rem; margin-bottom: 0.5rem;">
+              <span style="color: #52C17A; font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;">
+                {article.category}
+              </span>
+              <span style="color: #5D6D7E;">&middot;</span>
+              <span style="color: #5D6D7E; font-size: 0.8125rem;">{article.date}</span>
+            </div>
+            <h3
+              class="d3-article-title"
+              style="font-size: 1.0625rem; font-weight: 600; letter-spacing: -0.01em; color: #111115; line-height: 1.35; margin: 0 0 0.4rem; transition: color 0.2s ease;"
+            >
+              {article.title}
+            </h3>
+            <p style="color: #5D6D7E; font-size: 0.875rem; line-height: 1.6; margin: 0; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+              {article.excerpt}
+            </p>
+          </div>
+          <!-- Read time + arrow -->
+          <div style="flex-shrink: 0; display: flex; align-items: center; gap: 0.75rem; padding-top: 0.25rem;">
+            <span style="color: #5D6D7E; font-size: 0.8125rem; white-space: nowrap;">{article.readTime}</span>
+            <span class="d3-arrow" style="color: #5D6D7E; transition: color 0.2s ease, transform 0.2s ease; display: flex; align-items: center;">
+              <Icon name="arrow-right" class="w-4 h-4" />
+            </span>
+          </div>
+        </a>
+      ))}
+    </div>
+
+    <!-- CTA -->
+    <div data-sa="scale-in" style="margin-top: 3.5rem; padding-top: 2.5rem; border-top: 1px solid #E5E7EB; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1.5rem;">
+      <div>
+        <h3 style="font-size: 1.1875rem; font-weight: 700; color: #111115; margin: 0 0 0.25rem; letter-spacing: -0.01em;">
+          Stay in the loop
+        </h3>
+        <p style="color: #5D6D7E; font-size: 0.9rem; margin: 0;">
+          Get the latest BPO trends and strategies delivered to your inbox.
+        </p>
+      </div>
+      <a
+        href={getLocalizedPath('/contact', lang)}
+        class="d3-cta-btn"
+        style="display: inline-flex; align-items: center; gap: 0.5rem; background: #52C17A; color: #ffffff; font-size: 0.9rem; font-weight: 600; padding: 0.75rem 1.5rem; border-radius: 0.5rem; text-decoration: none; transition: background 0.2s ease, transform 0.2s ease;"
+      >
+        Subscribe
+        <Icon name="arrow-right" class="w-3.5 h-3.5" />
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  /* Featured card hover */
+  .d3-featured-card:hover .d3-featured-title {
+    color: #52C17A;
+  }
+  .d3-featured-card:hover .d3-featured-img {
+    transform: scale(1.03);
+  }
+
+  /* Article row hover */
+  .d3-article-row:hover .d3-article-title {
+    color: #52C17A;
+  }
+  .d3-article-row:hover .d3-arrow {
+    color: #52C17A;
+    transform: translateX(3px);
+  }
+
+  /* CTA button hover */
+  .d3-cta-btn:hover {
+    background: #3fac66 !important;
+    transform: translateY(-1px);
+  }
+
+  /* Responsive: stack featured on mobile */
+  @media (max-width: 767px) {
+    .d3-featured-card {
+      grid-template-columns: 1fr !important;
+    }
+    .d3-article-row {
+      flex-wrap: wrap;
+    }
+  }
+</style>

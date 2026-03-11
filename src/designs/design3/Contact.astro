@@ -1,0 +1,335 @@
+---
+import { getLocalizedPath } from '../../i18n/utils';
+import Icon from '../../components/common/Icon.astro';
+import { placeholderImages } from '../../data/placeholder-images';
+
+interface Props { lang?: string; }
+const { lang = 'en' } = Astro.props;
+
+const services = [
+  'Customer Service',
+  'Back Office Operations',
+  'Sales & Lead Generation',
+  'Technical Support',
+  'Other',
+];
+
+const businessHours = [
+  { day: 'Monday - Friday', hours: '9:00 AM - 6:00 PM EST' },
+  { day: 'Saturday', hours: '10:00 AM - 4:00 PM EST' },
+  { day: 'Sunday', hours: 'Closed' },
+];
+---
+
+<!-- ═══════════════════════════════════════════════
+     HERO HEADER — Dark #111115
+     ═══════════════════════════════════════════════ -->
+<section data-design="3" style="background:#111115; padding-top:10rem; padding-bottom:5rem; padding-left:1.5rem; padding-right:1.5rem;">
+  <div style="max-width:72rem; margin:0 auto;">
+
+      <!-- Accent label -->
+      <div style="display:inline-flex; align-items:center; gap:0.5rem; background:rgba(82,193,122,0.12); border:1px solid rgba(82,193,122,0.25); border-radius:9999px; padding:0.25rem 0.875rem; margin-bottom:1.25rem;" data-sa="fade-up">
+        <span style="width:6px; height:6px; border-radius:50%; background:#52C17A; display:inline-block;"></span>
+        <span style="font-size:0.75rem; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:#52C17A;">Get In Touch</span>
+      </div>
+
+      <h1 style="font-size:clamp(2.25rem,5vw,3.25rem); font-weight:700; letter-spacing:-0.03em; color:#FAFAFA; line-height:1.1; margin-bottom:1.25rem;" data-sa="fade-up" data-sa-delay="100">
+        Let's Start a Conversation
+      </h1>
+      <p style="font-size:1.125rem; color:#A1A1AA; max-width:36rem; line-height:1.7;" data-sa="fade-up" data-sa-delay="200">
+        Ready to optimize your operations? Tell us about your project and our team will get back to you within one business day.
+      </p>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     FORM + SIDEBAR — Light #fff
+     ═══════════════════════════════════════════════ -->
+<section style="background:#fff; padding:5rem 1.5rem 6rem; border-top:1px solid #E5E7EB;">
+  <div style="max-width:72rem; margin:0 auto;">
+
+    <div class="contact-grid">
+
+      <!-- ── Form — left (3 cols) ── -->
+      <div class="form-col" data-sa="slide-right">
+        <form id="contact-form-v3" style="display:flex; flex-direction:column; gap:1.5rem;">
+          <!-- Hidden UTM fields -->
+          <input type="hidden" name="utm_source" />
+          <input type="hidden" name="utm_medium" />
+          <input type="hidden" name="utm_campaign" />
+          <input type="hidden" name="utm_term" />
+          <input type="hidden" name="utm_content" />
+
+          <!-- Name / Email row -->
+          <div class="two-col-row">
+            <div>
+              <label for="v3-name" class="field-label">Name</label>
+              <input
+                type="text"
+                id="v3-name"
+                name="name"
+                required
+                placeholder="Your full name"
+                class="field-input"
+              />
+            </div>
+            <div>
+              <label for="v3-email" class="field-label">Email</label>
+              <input
+                type="email"
+                id="v3-email"
+                name="email"
+                required
+                placeholder="you@company.com"
+                class="field-input"
+              />
+            </div>
+          </div>
+
+          <!-- Company / Phone row -->
+          <div class="two-col-row">
+            <div>
+              <label for="v3-company" class="field-label">Company</label>
+              <input
+                type="text"
+                id="v3-company"
+                name="company"
+                placeholder="Your company"
+                class="field-input"
+              />
+            </div>
+            <div>
+              <label for="v3-phone" class="field-label">Phone</label>
+              <input
+                type="tel"
+                id="v3-phone"
+                name="phone"
+                placeholder="+1 (555) 000-0000"
+                class="field-input"
+              />
+            </div>
+          </div>
+
+          <!-- Service Interest -->
+          <div>
+            <label for="v3-service" class="field-label">Service Interest</label>
+            <select id="v3-service" name="service" class="field-input">
+              <option value="">Select a service</option>
+              {services.map(s => (
+                <option value={s}>{s}</option>
+              ))}
+            </select>
+          </div>
+
+          <!-- Message -->
+          <div>
+            <label for="v3-message" class="field-label">Message</label>
+            <textarea
+              id="v3-message"
+              name="message"
+              rows="5"
+              required
+              placeholder="Tell us about your project and goals..."
+              class="field-input"
+              style="resize:none;"
+            ></textarea>
+          </div>
+
+          <!-- Submit -->
+          <div style="display:flex; flex-direction:column; gap:0.75rem; align-items:flex-start;">
+            <button
+              type="submit"
+              style="padding:0.875rem 2rem; background:#52C17A; color:#fff; font-size:0.9375rem; font-weight:600; border:none; border-radius:0.5rem; cursor:pointer; transition:background 0.2s ease; letter-spacing:0.01em;"
+              onmouseover="this.style.background='#3fa865'"
+              onmouseout="this.style.background='#52C17A'"
+            >
+              Send Message
+            </button>
+            <p style="font-size:0.75rem; color:#9CA3AF;">
+              By submitting, you agree to our
+              <a href={getLocalizedPath('/privacy', lang)} style="color:#5D6D7E; text-decoration:underline;">Privacy Policy</a>.
+            </p>
+          </div>
+
+        </form>
+      </div>
+
+      <!-- ── Sidebar — right (2 cols) ── -->
+      <div class="sidebar-col" data-sa="slide-left">
+
+        <!-- Contact Image -->
+        <div style="border-radius:0.75rem; overflow:hidden; border:1px solid #E5E7EB; margin-bottom:1.5rem;">
+          <img
+            src={placeholderImages.contact[0].url}
+            alt={placeholderImages.contact[0].alt}
+            loading="lazy"
+            data-sa="fade-in"
+            style="width:100%; height:auto; display:block; object-fit:cover;"
+          />
+        </div>
+
+        <!-- Offices card -->
+        <div class="sidebar-card" style="margin-bottom:1rem;">
+          <h3 class="card-heading">Offices</h3>
+          <div style="display:flex; flex-direction:column; gap:1.25rem;">
+            <div style="display:flex; align-items:flex-start; gap:0.75rem;">
+              <Icon name="map-pin" class="sidebar-icon" />
+              <div>
+                <p style="font-size:0.875rem; font-weight:600; color:#111115; margin:0 0 0.125rem;">Bogota, Colombia</p>
+                <p style="font-size:0.8125rem; color:#5D6D7E; margin:0;">Headquarters</p>
+              </div>
+            </div>
+            <div style="display:flex; align-items:flex-start; gap:0.75rem;">
+              <Icon name="map-pin" class="sidebar-icon" />
+              <div>
+                <p style="font-size:0.875rem; font-weight:600; color:#111115; margin:0 0 0.125rem;">United States</p>
+                <p style="font-size:0.8125rem; color:#5D6D7E; margin:0;">Client Operations</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Contact details card -->
+        <div class="sidebar-card" style="margin-bottom:1rem;">
+          <h3 class="card-heading">Contact</h3>
+          <div style="display:flex; flex-direction:column; gap:1rem;">
+            <a href="tel:+15551234567" class="contact-link">
+              <Icon name="phone" class="sidebar-icon" />
+              +1 (555) 123-4567
+            </a>
+            <a href="mailto:contact@paricus.com" class="contact-link">
+              <Icon name="mail" class="sidebar-icon" />
+              contact@paricus.com
+            </a>
+          </div>
+        </div>
+
+        <!-- Business Hours card -->
+        <div class="sidebar-card">
+          <h3 class="card-heading">Business Hours</h3>
+          <ul style="list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:0.75rem;">
+            {businessHours.map(item => (
+              <li style="display:flex; justify-content:space-between; align-items:center;">
+                <span style="font-size:0.8125rem; color:#5D6D7E;">{item.day}</span>
+                <span style="font-size:0.8125rem; font-weight:600; color:#111115;">{item.hours}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* ── Layout ── */
+  .contact-grid {
+    display: grid;
+    gap: 3rem;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 1024px) {
+    .contact-grid {
+      grid-template-columns: 3fr 2fr;
+    }
+  }
+
+  /* ── Two-column row inside form ── */
+  .two-col-row {
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 640px) {
+    .two-col-row {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  /* ── Field label ── */
+  .field-label {
+    display: block;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: #111115;
+    margin-bottom: 0.375rem;
+    letter-spacing: 0.01em;
+  }
+
+  /* ── Field input / select / textarea ── */
+  .field-input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0.75rem 1rem;
+    background: #FAFAF8;
+    border: 1px solid #E5E7EB;
+    border-radius: 0.5rem;
+    font-size: 0.9375rem;
+    color: #111115;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    font-family: inherit;
+  }
+  .field-input::placeholder {
+    color: #9CA3AF;
+  }
+  .field-input:focus {
+    border-color: #52C17A;
+    box-shadow: 0 0 0 3px rgba(82, 193, 122, 0.12);
+  }
+
+  /* ── Sidebar card ── */
+  .sidebar-card {
+    background: #FAFAF8;
+    border: 1px solid #E5E7EB;
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+  }
+
+  /* ── Card heading ── */
+  .card-heading {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #111115;
+    margin: 0 0 1.25rem;
+  }
+
+  /* ── Sidebar icon ── */
+  :global(.sidebar-icon) {
+    width: 1rem;
+    height: 1rem;
+    color: #52C17A;
+    flex-shrink: 0;
+    margin-top: 0.125rem;
+  }
+
+  /* ── Contact link ── */
+  .contact-link {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.875rem;
+    color: #5D6D7E;
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+  .contact-link:hover {
+    color: #111115;
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // UTM capture
+    const params = new URLSearchParams(window.location.search);
+    ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'].forEach(key => {
+      const val = params.get(key);
+      const el = document.querySelector<HTMLInputElement>(`#contact-form-v3 input[name="${key}"]`);
+      if (val && el) el.value = val;
+    });
+  });
+</script>

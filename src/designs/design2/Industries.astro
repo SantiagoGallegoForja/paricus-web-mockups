@@ -1,0 +1,224 @@
+---
+import { getLocalizedPath } from '../../i18n/utils';
+import Icon from '../../components/common/Icon.astro';
+
+interface Props { lang?: string; }
+const { lang = 'en' } = Astro.props;
+
+const heading = 'Industries We Serve';
+const description = 'Specialized expertise across diverse sectors, delivering tailored outsourcing solutions that understand your unique challenges.';
+const industries = [
+  { icon: 'heart', title: 'Healthcare', description: 'Supporting patient care with compassionate, HIPAA-compliant support services that maintain the highest standards of data security.' },
+  { icon: 'package', title: 'E-Commerce', description: 'Scaling your online business with seamless customer experiences across every channel and touchpoint.' },
+  { icon: 'cpu', title: 'Technology', description: 'Technical support that speaks your customers\' language, from troubleshooting to advanced product guidance.' },
+  { icon: 'landmark', title: 'Finance', description: 'Secure, compliant support for financial services with rigorous attention to regulatory requirements.' },
+  { icon: 'shopping-bag', title: 'Travel & Hospitality', description: 'Creating memorable experiences from first contact, with multilingual support that delights guests worldwide.' },
+];
+---
+
+<!-- ============================================================
+     DESIGN V2 — INDUSTRIES (Editorial Enterprise)
+     Sharp corners, monospace labels, bento-grid, bold typography
+     ============================================================ -->
+
+<!-- ==================== SECTION 1: HERO ==================== -->
+<section class="relative flex items-center overflow-hidden" style="background: #FAFAF8;">
+  <!-- Subtle grid pattern background -->
+  <div class="absolute inset-0 opacity-[0.03] sa-parallax" data-sa="fade-in" style="background-image: linear-gradient(#1a2e1a 1px, transparent 1px), linear-gradient(90deg, #1a2e1a 1px, transparent 1px); background-size: 60px 60px;"></div>
+
+  <!-- Vertical accent line -->
+  <div class="absolute left-16 top-0 bottom-0 w-[1px] opacity-10" style="background: #1a2e1a;"></div>
+
+  <div class="relative z-10 w-full max-w-[1440px] mx-auto px-6 lg:px-16 pt-28 pb-16">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+    <div data-sa="slide-right">
+      <!-- Monospace label -->
+      <span class="font-mono text-[10px] uppercase tracking-[0.2em] block mb-6" style="color: #52C17A;">
+        // INDUSTRIES
+      </span>
+
+      <!-- Thin accent line -->
+      <div class="w-12 h-[2px] mb-8" style="background: #52C17A;"></div>
+
+      <!-- Editorial title -->
+      <h1 data-sa="fade-up" class="text-6xl lg:text-8xl font-black uppercase tracking-tighter leading-[0.9] mb-8" style="color: #1a2e1a;">
+        Industries<br />
+        <span style="color: #52C17A;">We Serve</span>
+      </h1>
+
+      <!-- Description -->
+      <p class="text-lg lg:text-xl max-w-xl leading-relaxed" style="color: #5D6D7E;">
+        {description}
+      </p>
+    </div>
+
+    <!-- Right: Image with editorial styling -->
+    <div class="hidden lg:block relative" data-sa="slide-left">
+      <div class="relative max-w-[460px] ml-auto">
+        <div class="absolute -top-3 -right-3 w-full h-full border-2 border-[#52C17A]"></div>
+        <img
+          src="https://images.unsplash.com/photo-1553877522-43269d4ea984?w=550&h=380&fit=crop"
+          alt="Global industries we serve"
+          loading="eager"
+          data-sa="fade-in"
+          class="relative z-10 w-full h-[340px] object-cover"
+        />
+        <div class="absolute -bottom-4 -left-4 z-20 bg-white border-2 border-[#1a2e1a] px-5 py-3">
+          <p class="font-mono text-[9px] uppercase tracking-[0.2em] text-[#5D6D7E] mb-0.5">// Industries</p>
+          <p class="text-xl font-black text-[#1a2e1a] tracking-tight leading-none">5+</p>
+          <p class="text-[11px] text-[#5D6D7E]">Sectors Served</p>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== SECTION 2: BENTO GRID ==================== -->
+<section class="relative py-12 lg:py-16" style="background: #FAFAF8;">
+  <div class="max-w-[1440px] mx-auto px-6 lg:px-16">
+    <!-- Bento grid container with border separators -->
+    <div class="grid grid-cols-12 rounded-none" style="gap: 16px; background: transparent;">
+
+      <!-- Row 1: 2 large cells -->
+      {industries.slice(0, 2).map((industry, i) => (
+        <div
+          class="col-span-12 lg:col-span-6 group d2-cell sa-hover-lift relative overflow-hidden p-10 lg:p-14 transition-all duration-500 cursor-pointer shadow-sm"
+          data-sa="fade-up"
+          data-sa-delay={`${i * 80}`}
+          style="background: white;"
+        >
+          <!-- Monospace number -->
+          <span class="font-mono text-[10px] uppercase tracking-[0.2em] block mb-6 transition-colors duration-500 group-hover:text-[#52C17A]" style="color: #5D6D7E;">
+            {String(i + 1).padStart(2, '0')}
+          </span>
+
+          <!-- Icon in bordered box -->
+          <div class="w-14 h-14 rounded-none border-2 flex items-center justify-center mb-6 transition-all duration-500 group-hover:border-[#52C17A]" style="border-color: #D5E8D4;">
+            <Icon name={industry.icon} class="w-7 h-7 transition-colors duration-500 d2-icon" />
+          </div>
+
+          <!-- Title -->
+          <h3 class="text-2xl lg:text-3xl font-bold tracking-tight mb-4 transition-colors duration-500 d2-title" style="color: #1a2e1a;">
+            {industry.title}
+          </h3>
+
+          <!-- Description -->
+          <p class="text-base leading-relaxed transition-colors duration-500 d2-desc" style="color: #5D6D7E;">
+            {industry.description}
+          </p>
+
+          <!-- Bottom accent line -->
+          <div class="w-0 h-[2px] mt-8 transition-all duration-500 group-hover:w-16" style="background: #52C17A;"></div>
+        </div>
+      ))}
+
+      <!-- Row 2: 3 equal cells -->
+      {industries.slice(2).map((industry, i) => (
+        <div
+          class="col-span-12 md:col-span-4 group d2-cell sa-hover-lift relative overflow-hidden p-8 lg:p-10 transition-all duration-500 cursor-pointer shadow-sm"
+          data-sa="fade-up"
+          data-sa-delay={`${(i + 2) * 80}`}
+          style="background: white;"
+        >
+          <!-- Monospace number -->
+          <span class="font-mono text-[10px] uppercase tracking-[0.2em] block mb-5 transition-colors duration-500 group-hover:text-[#52C17A]" style="color: #5D6D7E;">
+            {String(i + 3).padStart(2, '0')}
+          </span>
+
+          <!-- Icon in bordered box -->
+          <div class="w-12 h-12 rounded-none border-2 flex items-center justify-center mb-5 transition-all duration-500 group-hover:border-[#52C17A]" style="border-color: #D5E8D4;">
+            <Icon name={industry.icon} class="w-6 h-6 transition-colors duration-500 d2-icon" />
+          </div>
+
+          <!-- Title -->
+          <h3 class="text-xl lg:text-2xl font-bold tracking-tight mb-3 transition-colors duration-500 d2-title" style="color: #1a2e1a;">
+            {industry.title}
+          </h3>
+
+          <!-- Description -->
+          <p class="text-sm leading-relaxed transition-colors duration-500 d2-desc" style="color: #5D6D7E;">
+            {industry.description}
+          </p>
+
+          <!-- Bottom accent line -->
+          <div class="w-0 h-[2px] mt-6 transition-all duration-500 group-hover:w-12" style="background: #52C17A;"></div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- ==================== SECTION 3: CTA ==================== -->
+<section class="relative py-24 lg:py-32 overflow-hidden" data-sa="scale-in" style="background: #1a2e1a;">
+  <!-- Subtle grid overlay -->
+  <div class="absolute inset-0 opacity-[0.05]" style="background-image: linear-gradient(rgba(255,255,255,1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,1) 1px, transparent 1px); background-size: 60px 60px;"></div>
+
+  <div class="relative z-10 max-w-[1440px] mx-auto px-6 lg:px-16">
+    <div class="grid grid-cols-12 gap-8 items-center">
+      <div class="col-span-12 lg:col-span-8">
+        <!-- Monospace label -->
+        <span class="font-mono text-[10px] uppercase tracking-[0.2em] block mb-4" style="color: #52C17A;">
+          // NEXT STEP
+        </span>
+
+        <!-- Thin accent line -->
+        <div class="w-12 h-[2px] mb-8" style="background: #52C17A;"></div>
+
+        <!-- Editorial heading -->
+        <h2 data-sa="fade-up" class="text-4xl lg:text-6xl font-black uppercase tracking-tighter text-white leading-[0.95] mb-6">
+          Let's Build<br />
+          <span style="color: #52C17A;">Something Together</span>
+        </h2>
+
+        <p class="text-base lg:text-lg max-w-lg" style="color: #D5E8D4;">
+          Discover how our industry-specific expertise can transform your operations and drive measurable results.
+        </p>
+      </div>
+
+      <div class="col-span-12 lg:col-span-4 lg:text-right">
+        <a
+          href={getLocalizedPath('/contact', lang)}
+          class="inline-flex items-center gap-3 px-10 py-4 rounded-none text-base font-bold uppercase tracking-wider transition-all duration-300 hover:gap-5"
+          style="background: #52C17A; color: #1a2e1a;"
+        >
+          Get in Touch
+          <Icon name="arrow-right" class="w-5 h-5" />
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Cell hover: light green sweep from left to right */
+  .d2-cell::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: #E8F5E9;
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 0;
+  }
+  .d2-cell:hover::before {
+    transform: scaleX(1);
+  }
+  .d2-cell:hover {
+    background: white !important;
+  }
+  .d2-cell > * {
+    position: relative;
+    z-index: 1;
+  }
+  .d2-cell:hover .d2-title {
+    color: #1a2e1a;
+  }
+  .d2-cell:hover .d2-desc {
+    color: #3d5a3d;
+  }
+  .d2-cell:hover .d2-icon {
+    color: #52C17A;
+  }
+</style>

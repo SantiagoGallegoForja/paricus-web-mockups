@@ -1,0 +1,13 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import D1 from '../../designs/design1/CaseStudyDetail.astro';
+import D2 from '../../designs/design2/CaseStudyDetail.astro';
+import D3 from '../../designs/design3/CaseStudyDetail.astro';
+const lang = 'en';
+---
+
+<Layout title="Healthcare Provider Reduces Response Time by 60% - Paricus" description="See how we helped a healthcare provider dramatically improve patient support." lang={lang} currentPath="/case-studies/sample-study">
+  <div data-design="1"><D1 lang={lang} /></div>
+  <div data-design="2" style="display:none;"><D2 lang={lang} /></div>
+  <div data-design="3" style="display:none;"><D3 lang={lang} /></div>
+</Layout>

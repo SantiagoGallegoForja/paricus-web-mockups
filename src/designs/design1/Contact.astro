@@ -1,0 +1,329 @@
+---
+import { getLocalizedPath } from '../../i18n/utils';
+import Icon from '../../components/common/Icon.astro';
+import { placeholderImages } from '../../data/placeholder-images';
+
+interface Props { lang?: string; }
+const { lang = 'en' } = Astro.props;
+
+const heading = 'Let\'s Start a Conversation';
+const description = 'Ready to transform your operations? Our team is here to help you find the perfect outsourcing solution.';
+const phone = '+1 (555) 123-4567';
+const email = 'contact@paricus.com';
+const location = 'Bogotá, Colombia';
+const businessHours = [
+  { day: 'Monday - Friday', hours: '9:00 AM - 6:00 PM EST' },
+  { day: 'Saturday', hours: '10:00 AM - 4:00 PM EST' },
+  { day: 'Sunday', hours: 'Closed' },
+];
+const formIndustries = ['Healthcare', 'E-Commerce', 'Technology', 'Finance', 'Travel & Hospitality', 'Other'];
+const formServices = ['Customer Service', 'Back Office Operations', 'Sales & Lead Generation', 'Technical Support', 'Other'];
+---
+
+<!-- V1 — Modern Corporate Contact -->
+
+<!-- HERO Section with gradient background, floating orbs, and diagonal clip-path -->
+<section
+  class="relative overflow-hidden bg-gradient-to-br from-[#52C17A] via-[#3D9E5F] to-[#4DB6AC] py-28 md:py-40"
+  style="clip-path: polygon(0 0, 100% 0, 100% 88%, 0 100%);"
+>
+  <!-- Floating orbs background decoration -->
+  <div class="absolute inset-0 overflow-hidden pointer-events-none">
+    <div class="absolute w-72 h-72 bg-white/10 rounded-full -top-20 -left-20 animate-pulse"></div>
+    <div class="absolute w-96 h-96 bg-white/5 rounded-full top-1/3 right-[-8rem] animate-[floatOrb_6s_ease-in-out_infinite]"></div>
+    <div class="absolute w-48 h-48 bg-[#E8F5E9]/10 rounded-full bottom-10 left-1/3 animate-[floatOrb_4s_ease-in-out_infinite_reverse]"></div>
+    <div class="absolute w-64 h-64 bg-white/[0.06] rounded-full top-20 left-[60%] animate-[floatOrb_8s_ease-in-out_infinite]"></div>
+    <div class="absolute w-32 h-32 bg-[#4DB6AC]/20 rounded-full bottom-24 right-[20%] animate-pulse"></div>
+  </div>
+
+  <!-- Hero content -->
+  <div class="relative z-10 max-w-5xl mx-auto px-6 text-center">
+    <span class="inline-block px-4 py-1.5 bg-white/15 backdrop-blur-sm rounded-full text-sm text-white/90 mb-6" data-sa="fade-up">
+      We'd love to hear from you
+    </span>
+    <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight" data-sa="fade-up" data-sa-delay="100">
+      {heading}
+    </h1>
+    <p class="text-lg md:text-xl text-white/85 max-w-2xl mx-auto leading-relaxed" data-sa="fade-up" data-sa-delay="200">
+      {description}
+    </p>
+  </div>
+</section>
+
+<!-- MAIN Section with split layout: Form (left) + Info Cards (right) -->
+<section class="relative bg-[#FAFAF8] py-20 md:py-28 -mt-16">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="grid lg:grid-cols-5 gap-12 items-start">
+
+      <!-- Left Column: Contact Form in glass-morphism card -->
+      <div class="lg:col-span-3" data-sa="slide-right">
+        <div class="bg-white/70 backdrop-blur-xl border border-white/40 shadow-2xl rounded-3xl p-8 md:p-10">
+          <h2 class="text-2xl font-bold text-[#2C3E50] mb-2" data-sa="fade-up">
+            Send Us a Message
+          </h2>
+          <p class="text-[#5D6D7E] mb-8">
+            Fill out the form and we'll get back to you within 24 hours.
+          </p>
+
+          <form id="contact-form-v1" class="space-y-5">
+            <!-- Hidden UTM tracking fields -->
+            <input type="hidden" name="utm_source" />
+            <input type="hidden" name="utm_medium" />
+            <input type="hidden" name="utm_campaign" />
+            <input type="hidden" name="utm_term" />
+            <input type="hidden" name="utm_content" />
+
+            <!-- First & Last Name row -->
+            <div class="grid sm:grid-cols-2 gap-5">
+              <div>
+                <label for="v1-first" class="block text-sm font-medium text-[#2C3E50] mb-1.5">
+                  First Name
+                </label>
+                <input
+                  type="text"
+                  id="v1-first"
+                  name="firstName"
+                  required
+                  class="w-full px-4 py-3 rounded-xl bg-[#E8F5E9]/40 border border-[#D5E8D4] text-[#2C3E50] placeholder:text-[#5D6D7E]/50 focus:outline-none focus:ring-2 focus:ring-[#52C17A] transition"
+                  placeholder="John"
+                />
+              </div>
+              <div>
+                <label for="v1-last" class="block text-sm font-medium text-[#2C3E50] mb-1.5">
+                  Last Name
+                </label>
+                <input
+                  type="text"
+                  id="v1-last"
+                  name="lastName"
+                  required
+                  class="w-full px-4 py-3 rounded-xl bg-[#E8F5E9]/40 border border-[#D5E8D4] text-[#2C3E50] placeholder:text-[#5D6D7E]/50 focus:outline-none focus:ring-2 focus:ring-[#52C17A] transition"
+                  placeholder="Doe"
+                />
+              </div>
+            </div>
+
+            <!-- Email & Phone row -->
+            <div class="grid sm:grid-cols-2 gap-5">
+              <div>
+                <label for="v1-email" class="block text-sm font-medium text-[#2C3E50] mb-1.5">
+                  Email
+                </label>
+                <input
+                  type="email"
+                  id="v1-email"
+                  name="email"
+                  required
+                  class="w-full px-4 py-3 rounded-xl bg-[#E8F5E9]/40 border border-[#D5E8D4] text-[#2C3E50] placeholder:text-[#5D6D7E]/50 focus:outline-none focus:ring-2 focus:ring-[#52C17A] transition"
+                  placeholder="john@company.com"
+                />
+              </div>
+              <div>
+                <label for="v1-phone" class="block text-sm font-medium text-[#2C3E50] mb-1.5">
+                  Phone
+                </label>
+                <input
+                  type="tel"
+                  id="v1-phone"
+                  name="phone"
+                  class="w-full px-4 py-3 rounded-xl bg-[#E8F5E9]/40 border border-[#D5E8D4] text-[#2C3E50] placeholder:text-[#5D6D7E]/50 focus:outline-none focus:ring-2 focus:ring-[#52C17A] transition"
+                  placeholder="+1 (555) 000-0000"
+                />
+              </div>
+            </div>
+
+            <!-- Company -->
+            <div>
+              <label for="v1-company" class="block text-sm font-medium text-[#2C3E50] mb-1.5">
+                Company
+              </label>
+              <input
+                type="text"
+                id="v1-company"
+                name="company"
+                class="w-full px-4 py-3 rounded-xl bg-[#E8F5E9]/40 border border-[#D5E8D4] text-[#2C3E50] placeholder:text-[#5D6D7E]/50 focus:outline-none focus:ring-2 focus:ring-[#52C17A] transition"
+                placeholder="Your Company"
+              />
+            </div>
+
+            <!-- Industry & Service selects -->
+            <div class="grid sm:grid-cols-2 gap-5">
+              <div>
+                <label for="v1-industry" class="block text-sm font-medium text-[#2C3E50] mb-1.5">
+                  Industry
+                </label>
+                <select
+                  id="v1-industry"
+                  name="industry"
+                  class="w-full px-4 py-3 rounded-xl bg-[#E8F5E9]/40 border border-[#D5E8D4] text-[#2C3E50] focus:outline-none focus:ring-2 focus:ring-[#52C17A] transition"
+                >
+                  <option value="">Select industry</option>
+                  {formIndustries.map(i => <option value={i}>{i}</option>)}
+                </select>
+              </div>
+              <div>
+                <label for="v1-service" class="block text-sm font-medium text-[#2C3E50] mb-1.5">
+                  Service Needed
+                </label>
+                <select
+                  id="v1-service"
+                  name="service"
+                  class="w-full px-4 py-3 rounded-xl bg-[#E8F5E9]/40 border border-[#D5E8D4] text-[#2C3E50] focus:outline-none focus:ring-2 focus:ring-[#52C17A] transition"
+                >
+                  <option value="">Select service</option>
+                  {formServices.map(s => <option value={s}>{s}</option>)}
+                </select>
+              </div>
+            </div>
+
+            <!-- Message textarea -->
+            <div>
+              <label for="v1-message" class="block text-sm font-medium text-[#2C3E50] mb-1.5">
+                Message
+              </label>
+              <textarea
+                id="v1-message"
+                name="message"
+                rows="4"
+                required
+                class="w-full px-4 py-3 rounded-xl bg-[#E8F5E9]/40 border border-[#D5E8D4] text-[#2C3E50] placeholder:text-[#5D6D7E]/50 focus:outline-none focus:ring-2 focus:ring-[#52C17A] transition resize-none"
+                placeholder="Tell us about your project..."
+              ></textarea>
+            </div>
+
+            <!-- Submit button with gradient -->
+            <button
+              type="submit"
+              class="w-full py-4 rounded-xl bg-gradient-to-r from-[#52C17A] to-[#4DB6AC] text-white font-semibold text-lg shadow-lg shadow-[#52C17A]/30 hover:shadow-xl hover:shadow-[#52C17A]/40 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300"
+            >
+              Send Message
+            </button>
+
+            <!-- Privacy notice -->
+            <p class="text-xs text-[#5D6D7E]/70 text-center mt-3">
+              By submitting this form, you agree to our
+              <a href={getLocalizedPath('/privacy', lang)} class="underline hover:text-[#52C17A] transition">Privacy Policy</a>.
+            </p>
+          </form>
+        </div>
+      </div>
+
+      <!-- Right Column: Info Cards stacked vertically -->
+      <div class="lg:col-span-2 space-y-6" data-sa="slide-left">
+
+        <!-- Contact Image -->
+        <div class="rounded-2xl overflow-hidden shadow-lg" data-sa="fade-in">
+          <img src={placeholderImages.contact[0].url} alt={placeholderImages.contact[0].alt} loading="lazy" class="w-full h-auto object-cover rounded-2xl shadow-lg" data-sa="fade-in" />
+        </div>
+
+        <!-- Phone Card -->
+        <div class="group bg-white rounded-2xl p-6 shadow-md border border-[#D5E8D4]/60 sa-hover-lift" data-sa="fade-up" data-sa-delay="0">
+          <div class="flex items-center gap-4">
+            <div class="w-12 h-12 rounded-full bg-gradient-to-br from-[#52C17A] to-[#3D9E5F] flex items-center justify-center text-white shrink-0 group-hover:scale-110 transition-transform duration-300">
+              <Icon name="phone" class="w-5 h-5" />
+            </div>
+            <div>
+              <p class="text-sm text-[#5D6D7E]">Phone</p>
+              <a
+                href={`tel:${phone.replace(/\s|\(|\)|-/g, '')}`}
+                class="text-[#2C3E50] font-semibold hover:text-[#52C17A] transition"
+              >
+                {phone}
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Email Card -->
+        <div class="group bg-white rounded-2xl p-6 shadow-md border border-[#D5E8D4]/60 sa-hover-lift" data-sa="fade-up" data-sa-delay="80">
+          <div class="flex items-center gap-4">
+            <div class="w-12 h-12 rounded-full bg-gradient-to-br from-[#52C17A] to-[#4DB6AC] flex items-center justify-center text-white shrink-0 group-hover:scale-110 transition-transform duration-300">
+              <Icon name="mail" class="w-5 h-5" />
+            </div>
+            <div>
+              <p class="text-sm text-[#5D6D7E]">Email</p>
+              <a
+                href={`mailto:${email}`}
+                class="text-[#2C3E50] font-semibold hover:text-[#52C17A] transition"
+              >
+                {email}
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Location Card -->
+        <div class="group bg-white rounded-2xl p-6 shadow-md border border-[#D5E8D4]/60 sa-hover-lift" data-sa="fade-up" data-sa-delay="160">
+          <div class="flex items-center gap-4">
+            <div class="w-12 h-12 rounded-full bg-gradient-to-br from-[#3D9E5F] to-[#4DB6AC] flex items-center justify-center text-white shrink-0 group-hover:scale-110 transition-transform duration-300">
+              <Icon name="map-pin" class="w-5 h-5" />
+            </div>
+            <div>
+              <p class="text-sm text-[#5D6D7E]">Location</p>
+              <p class="text-[#2C3E50] font-semibold">{location}</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Business Hours Card -->
+        <div class="bg-white rounded-2xl p-6 shadow-md border border-[#D5E8D4]/60 sa-hover-lift" data-sa="fade-up" data-sa-delay="240">
+          <h3 class="text-lg font-bold text-[#2C3E50] mb-4 flex items-center gap-2">
+            <Icon name="clock" class="w-5 h-5 text-[#52C17A]" />
+            Business Hours
+          </h3>
+          <ul class="space-y-3">
+            {businessHours.map(item => (
+              <li class="flex justify-between text-sm border-b border-[#D5E8D4]/40 pb-3 last:border-0 last:pb-0">
+                <span class="text-[#5D6D7E]">{item.day}</span>
+                <span class="font-medium text-[#2C3E50]">{item.hours}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <!-- Social Links -->
+        <div class="bg-white rounded-2xl p-6 shadow-md border border-[#D5E8D4]/60 sa-hover-lift" data-sa="fade-up" data-sa-delay="320">
+          <h3 class="text-sm font-semibold text-[#2C3E50] mb-4">Follow Us</h3>
+          <div class="flex gap-3">
+            {['linkedin', 'twitter', 'facebook', 'instagram'].map(social => (
+              <a
+                href="#"
+                aria-label={social}
+                class="w-11 h-11 rounded-full bg-[#E8F5E9] flex items-center justify-center text-[#52C17A] hover:bg-[#52C17A] hover:text-white hover:scale-110 transition-all duration-300"
+              >
+                <Icon name={social} class="w-5 h-5" />
+              </a>
+            ))}
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  @keyframes floatOrb {
+    0%, 100% {
+      transform: translate(0, 0) scale(1);
+    }
+    50% {
+      transform: translate(20px, -15px) scale(1.05);
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // UTM parameter capture from URL
+    const params = new URLSearchParams(window.location.search);
+    const utmFields = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'];
+    utmFields.forEach(key => {
+      const val = params.get(key);
+      const el = document.querySelector<HTMLInputElement>(
+        `#contact-form-v1 input[name="${key}"]`
+      );
+      if (val && el) el.value = val;
+    });
+  });
+</script>

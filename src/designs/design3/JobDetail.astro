@@ -1,0 +1,199 @@
+---
+import { getLocalizedPath } from '../../i18n/utils';
+import Icon from '../../components/common/Icon.astro';
+
+interface Props { lang?: string; }
+const { lang = 'en' } = Astro.props;
+
+const title = 'Senior Customer Service Representative';
+const department = 'Operations';
+const location = 'Bogota, Colombia';
+const type = 'Full-time';
+const summary = "We're looking for an experienced customer service professional to join our growing team. You'll lead by example, handling complex customer interactions while mentoring junior team members.";
+const responsibilities = [
+  'Handle escalated customer inquiries across multiple channels',
+  'Mentor and train new team members',
+  'Maintain 95%+ customer satisfaction ratings',
+  'Collaborate with QA team on service improvement',
+  'Provide bilingual support in English and Spanish',
+];
+const requirements = [
+  '3+ years in customer service or BPO environment',
+  'Fluent in English and Spanish (written and verbal)',
+  'Experience with CRM platforms (Salesforce, Zendesk)',
+  'Strong problem-solving and de-escalation skills',
+  'Availability for rotating shifts including weekends',
+];
+const benefits = [
+  { icon: 'trending-up', text: 'Competitive salary + performance bonuses' },
+  { icon: 'heart', text: 'Health insurance and wellness programs' },
+  { icon: 'award', text: 'Career development and training opportunities' },
+  { icon: 'monitor', text: 'Modern office in Bogota with hybrid options' },
+];
+---
+
+<!-- V3 Premium HIGH-CONTRAST — JobDetail -->
+
+<!-- HERO (DARK #111115) -->
+<div class="jd3-hero" style="padding-top: 10rem;">
+  <div class="max-w-[1000px] mx-auto px-6 pb-20 lg:pb-28">
+    <a href={getLocalizedPath('/careers', lang)}
+       class="inline-flex items-center gap-2 text-[#52C17A] text-sm font-medium mb-10 hover:text-[#7DD9A0] transition-colors duration-200"
+       data-sa="fade-up">
+      <span class="rotate-180"><Icon name="arrow-right" class="w-4 h-4" /></span>
+      Back to Careers
+    </a>
+
+    <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-white leading-[1.15] mb-8" data-sa="fade-up" data-sa-delay="100">
+      {title}
+    </h1>
+
+    <div class="flex flex-wrap items-center gap-3" data-sa="fade-up" data-sa-delay="200">
+      <span class="jd3-tag inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-sm">
+        <Icon name="briefcase" class="w-3.5 h-3.5 text-[#52C17A]" />
+        <span class="text-[#52C17A]">{department}</span>
+      </span>
+      <span class="jd3-tag inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-sm">
+        <Icon name="map-pin" class="w-3.5 h-3.5 text-[#52C17A]" />
+        <span class="text-[#52C17A]">{location}</span>
+      </span>
+      <span class="jd3-tag inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-sm">
+        <Icon name="clock" class="w-3.5 h-3.5 text-[#52C17A]" />
+        <span class="text-[#52C17A]">{type}</span>
+      </span>
+    </div>
+  </div>
+</div>
+
+<!-- SUMMARY (LIGHT #fff) -->
+<div style="background: #fff;">
+  <div class="max-w-[1000px] mx-auto px-6 py-16 lg:py-20">
+    <div class="jd3-panel rounded-xl p-8 lg:p-10" data-sa="fade-up">
+      <h2 class="text-lg font-bold tracking-tight text-[#111115] mb-3">About This Role</h2>
+      <p class="text-[#5D6D7E] leading-relaxed">{summary}</p>
+    </div>
+  </div>
+</div>
+
+<!-- RESPONSIBILITIES & REQUIREMENTS (LIGHT #FAFAF8) -->
+<div style="background: #FAFAF8;">
+  <div class="max-w-[1000px] mx-auto px-6 py-16 lg:py-20">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+      <!-- Responsibilities -->
+      <div class="jd3-panel rounded-xl p-8 lg:p-10" data-sa="slide-right">
+        <h2 class="text-xl font-bold tracking-tight text-[#111115] mb-8">Responsibilities</h2>
+        <ul class="space-y-5">
+          {responsibilities.map((item) => (
+            <li class="flex items-start gap-3">
+              <span class="w-1.5 h-1.5 rounded-full bg-[#52C17A] flex-shrink-0 mt-2"></span>
+              <span class="text-sm text-[#5D6D7E] leading-relaxed">{item}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Requirements -->
+      <div class="jd3-panel rounded-xl p-8 lg:p-10" data-sa="slide-left">
+        <h2 class="text-xl font-bold tracking-tight text-[#111115] mb-8">Requirements</h2>
+        <ul class="space-y-5">
+          {requirements.map((item) => (
+            <li class="flex items-start gap-3">
+              <span class="w-1.5 h-1.5 rounded-full bg-[#52C17A] flex-shrink-0 mt-2"></span>
+              <span class="text-sm text-[#5D6D7E] leading-relaxed">{item}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- BENEFITS (LIGHT #fff) -->
+<div style="background: #fff;">
+  <div class="max-w-[1000px] mx-auto px-6 py-16 lg:py-20">
+    <h2 class="text-2xl font-bold tracking-tight text-[#111115] mb-8" data-sa="fade-up">What We Offer</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      {benefits.map((b, i) => (
+        <div class="jd3-benefit-card rounded-xl p-6 sa-hover-lift"
+             data-sa="fade-up" data-sa-delay={`${i * 80}`}>
+          <div class="w-10 h-10 rounded-lg jd3-icon-wrap flex items-center justify-center mb-4">
+            <Icon name={b.icon} class="w-5 h-5 text-[#52C17A]" />
+          </div>
+          <p class="text-sm text-[#5D6D7E] leading-relaxed">{b.text}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</div>
+
+<!-- APPLY CTA (DARK #111115) -->
+<div style="background: #111115;">
+  <div class="max-w-[1000px] mx-auto px-6 py-24 lg:py-32">
+    <div class="text-center" data-sa="scale-in">
+      <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-white mb-4">
+        Ready to Join Us?
+      </h2>
+      <p class="text-[#A1A1AA] max-w-xl mx-auto mb-10">
+        Take the next step in your career. Apply today and become part of a team that values growth, innovation, and excellence.
+      </p>
+      <a href={getLocalizedPath('/contact', lang)}
+         class="jd3-btn-primary inline-flex items-center gap-2 px-8 py-3.5 rounded-lg font-semibold text-base transition-all duration-200">
+        Apply Now <Icon name="arrow-right" class="w-4 h-4" />
+      </a>
+    </div>
+  </div>
+</div>
+
+<style>
+  /* === V3 Premium HIGH-CONTRAST — JobDetail === */
+
+  /* HERO */
+  .jd3-hero {
+    background: #111115;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+
+  /* Tags */
+  .jd3-tag {
+    background: rgba(82,193,122,0.08);
+    color: #52C17A;
+    border: 1px solid rgba(82,193,122,0.2);
+  }
+
+  /* Panels (used in Summary, Responsibilities, Requirements) */
+  .jd3-panel {
+    background: #fff;
+    border: 1px solid #E5E7EB;
+    transition: border-color 0.2s ease;
+  }
+  .jd3-panel:hover {
+    border-color: #D1D5DB;
+  }
+
+  /* Benefit cards */
+  .jd3-benefit-card {
+    background: #FAFAF8;
+    border: 1px solid #E5E7EB;
+    border-radius: 12px;
+    transition: border-color 0.2s ease;
+  }
+  .jd3-benefit-card:hover {
+    border-color: #D1D5DB;
+  }
+
+  /* Benefit icon container */
+  .jd3-icon-wrap {
+    background: rgba(82,193,122,0.08);
+  }
+
+  /* Primary button */
+  .jd3-btn-primary {
+    background: #52C17A;
+    color: #fff;
+  }
+  .jd3-btn-primary:hover {
+    background: #3fad66;
+  }
+
+</style>

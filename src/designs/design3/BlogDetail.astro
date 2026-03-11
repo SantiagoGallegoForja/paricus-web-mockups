@@ -1,0 +1,278 @@
+---
+import { getLocalizedPath } from '../../i18n/utils';
+import Icon from '../../components/common/Icon.astro';
+import { placeholderImages } from '../../data/placeholder-images';
+
+interface Props { lang?: string; }
+const { lang = 'en' } = Astro.props;
+
+const article = {
+  title: 'How Nearshore BPO is Transforming US Business Operations',
+  author: 'Paricus Team',
+  category: 'Industry Insights',
+  date: 'March 5, 2026',
+  readTime: '8 min read',
+};
+
+const relatedArticles = [
+  { title: 'The Future of Customer Experience', slug: 'future-customer-experience', category: 'Technology', readTime: '6 min read' },
+  { title: 'Building Effective Bilingual Teams', slug: 'building-bilingual-teams', category: 'Operations', readTime: '5 min read' },
+  { title: 'Cost Optimization Through Strategic Outsourcing', slug: 'cost-optimization-outsourcing', category: 'Strategy', readTime: '7 min read' },
+];
+---
+
+<!-- V3 Premium High-Contrast — BlogDetail -->
+<section class="bd3-root">
+
+  <!-- HERO: dark bg -->
+  <div class="bd3-hero">
+    <div class="max-w-[800px] mx-auto px-6 py-20 lg:py-28" style="padding-top: 10rem;">
+      <a href={getLocalizedPath('/blog', lang)}
+         class="bd3-back-link inline-flex items-center gap-2 text-sm font-medium mb-10">
+        <span class="rotate-180"><Icon name="arrow-right" class="w-4 h-4" /></span>
+        Back to Blog
+      </a>
+
+      <div>
+        <div class="flex items-center gap-3 mb-6">
+          <span class="bd3-category-badge text-xs font-medium uppercase tracking-wider px-3 py-1 rounded-md">
+            {article.category}
+          </span>
+        </div>
+        <h1 data-sa="fade-up" class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-[1.15] mb-6" style="color: #FAFAFA;">
+          {article.title}
+        </h1>
+        <div data-sa="fade-up" data-sa-delay="100" class="flex items-center gap-4 text-sm" style="color: #A1A1AA;">
+          <span class="flex items-center gap-1.5">
+            <Icon name="calendar" class="w-3.5 h-3.5" />
+            {article.date}
+          </span>
+          <span>&middot;</span>
+          <span class="flex items-center gap-1.5">
+            <Icon name="clock" class="w-3.5 h-3.5" />
+            {article.readTime}
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- COVER IMAGE: light bg -->
+  <div class="bd3-cover-section">
+    <div class="max-w-[800px] mx-auto px-6 py-10">
+      <img
+        src={placeholderImages.blog[0].url}
+        alt={placeholderImages.blog[0].alt}
+        loading="lazy"
+        data-sa="fade-in"
+        class="bd3-cover-img w-full h-auto object-cover rounded-xl"
+      />
+    </div>
+  </div>
+
+  <!-- AUTHOR: light bg -->
+  <div class="bd3-light-section">
+    <div class="max-w-[800px] mx-auto px-6 pb-10">
+      <div class="bd3-author-card flex items-center gap-3 p-4 rounded-lg" data-sa="fade-up">
+        <div class="bd3-author-avatar w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0">
+          <Icon name="users" class="w-4 h-4" style="color: #52C17A;" />
+        </div>
+        <div>
+          <div class="text-sm font-semibold" style="color: #111115;">{article.author}</div>
+          <div class="text-xs" style="color: #6B7280;">Content & Insights</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ARTICLE BODY: light bg -->
+  <div class="bd3-light-section">
+    <div class="max-w-[800px] mx-auto px-6 pb-16">
+      <article class="bd3-article">
+        <div data-sa="fade-up">
+          <p>
+            The landscape of business process outsourcing is undergoing a dramatic shift as US companies increasingly look to nearshore partners in Latin America. Unlike traditional offshore models that relied on distant time zones and cultural gaps, nearshore BPO offers a compelling combination of cost savings and operational synergy. Companies are discovering that proximity matters — not just geographically, but culturally and linguistically — and the results are transforming how American businesses approach their support operations.
+          </p>
+          <p>
+            One of the most significant advantages of nearshore outsourcing is the natural alignment of working hours. When your BPO team operates in the same or similar time zones, real-time collaboration becomes effortless. Managers can hold live meetings, resolve issues immediately, and maintain the kind of responsive communication that customers expect. This timezone advantage, combined with deep cultural understanding of US consumer expectations, creates a service experience that feels seamless and native.
+          </p>
+          <p>
+            Cost savings remain a primary driver, but smart companies are looking beyond the bottom line. Nearshore partners in countries like Mexico, Colombia, and Costa Rica offer highly educated, bilingual workforces at a fraction of US labor costs. The savings typically range from 30% to 50%, but the real value lies in the quality of interactions. Bilingual agents who understand American idioms, cultural references, and customer service norms deliver experiences that offshore alternatives simply cannot match.
+          </p>
+        </div>
+
+        <blockquote class="bd3-blockquote" data-sa="fade-up">
+          <div class="bd3-blockquote-accent"></div>
+          <p>Companies that embrace nearshore partnerships see an average of 40% cost reduction while maintaining or improving service quality.</p>
+        </blockquote>
+
+        <div data-sa="fade-up">
+          <p>
+            Implementing a nearshore BPO strategy requires careful planning and the right partner. Successful transitions start with a thorough assessment of which processes are best suited for outsourcing, followed by a phased migration that allows for quality assurance at every step. Leading providers invest heavily in training, technology infrastructure, and quality management systems that meet or exceed US standards, ensuring compliance with industry regulations from HIPAA to PCI-DSS.
+          </p>
+          <p>
+            Looking ahead, the nearshore BPO industry is poised for continued growth as artificial intelligence and automation reshape the service landscape. The most forward-thinking providers are already integrating AI-powered tools with human expertise, creating hybrid support models that combine the efficiency of technology with the empathy and problem-solving skills of trained agents. For US businesses seeking to stay competitive while delivering exceptional customer experiences, nearshore BPO is no longer just an option — it is becoming a strategic imperative.
+          </p>
+        </div>
+      </article>
+    </div>
+  </div>
+
+  <!-- RELATED ARTICLES: light bg #FAFAF8 -->
+  <div class="bd3-related-section">
+    <div class="max-w-[800px] mx-auto px-6 pb-24 lg:pb-32">
+      <div class="bd3-related-divider mb-12"></div>
+      <h2 data-sa="fade-up" class="text-xl font-bold tracking-tight mb-8" style="color: #111115;">Related Articles</h2>
+      <div class="grid md:grid-cols-3 gap-4">
+        {relatedArticles.map((rel, i) => (
+          <a href={getLocalizedPath('/blog/' + rel.slug, lang)}
+             class="bd3-related-card sa-hover-lift rounded-lg p-5"
+             data-sa="fade-up"
+             data-sa-delay={`${i * 80}`}>
+            <span class="text-xs font-medium uppercase tracking-wider mb-3 block" style="color: #6B7280;">{rel.category}</span>
+            <h3 class="text-sm font-semibold leading-snug mb-4" style="color: #111115;">{rel.title}</h3>
+            <div class="flex items-center justify-between">
+              <span class="text-xs" style="color: #6B7280;">{rel.readTime}</span>
+              <Icon name="arrow-right" class="w-3.5 h-3.5" style="color: #52C17A;" />
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<style>
+  /* === V3 Premium High-Contrast — BlogDetail === */
+
+  .bd3-root {
+    min-height: 100vh;
+  }
+
+  /* Hero: dark */
+  .bd3-hero {
+    background: #111115;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  /* Back link: green */
+  .bd3-back-link {
+    color: #52C17A;
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+  }
+  .bd3-back-link:hover {
+    opacity: 0.8;
+  }
+
+  /* Category badge */
+  .bd3-category-badge {
+    background: rgba(82, 193, 122, 0.12);
+    color: #52C17A;
+  }
+
+  /* Cover image section: white */
+  .bd3-cover-section {
+    background: #fff;
+  }
+
+  /* Cover image: clean border, no opacity filter */
+  .bd3-cover-img {
+    border: 1px solid #E5E7EB;
+  }
+
+  /* Light section: white */
+  .bd3-light-section {
+    background: #fff;
+  }
+
+  /* Author card */
+  .bd3-author-card {
+    background: #FAFAF8;
+    border: 1px solid #E5E7EB;
+  }
+
+  .bd3-author-avatar {
+    background: rgba(82, 193, 122, 0.1);
+    border: 1px solid rgba(82, 193, 122, 0.2);
+  }
+
+  /* Article typography */
+  .bd3-article p {
+    color: #374151;
+    font-size: 1.05rem;
+    line-height: 1.85;
+    margin-bottom: 1.75rem;
+  }
+
+  .bd3-article a {
+    color: #52C17A;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  .bd3-article a:hover {
+    opacity: 0.85;
+  }
+
+  /* Blockquote */
+  .bd3-blockquote {
+    position: relative;
+    margin: 2.5rem 0;
+    padding: 1.5rem 1.5rem 1.5rem 2rem;
+    background: #FAFAF8;
+    border-radius: 0 8px 8px 0;
+  }
+  .bd3-blockquote-accent {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: #52C17A;
+    border-radius: 2px 0 0 2px;
+  }
+  .bd3-blockquote p {
+    color: #111115;
+    font-size: 1.1rem;
+    font-weight: 500;
+    line-height: 1.75;
+    font-style: italic;
+    margin: 0;
+  }
+
+  /* Related articles section */
+  .bd3-related-section {
+    background: #FAFAF8;
+  }
+
+  /* Related divider */
+  .bd3-related-divider {
+    height: 1px;
+    background: #E5E7EB;
+  }
+
+  /* Related cards: white with border */
+  .bd3-related-card {
+    background: #fff;
+    border: 1px solid #E5E7EB;
+    text-decoration: none;
+    display: block;
+    transition: border-color 0.2s ease;
+  }
+  .bd3-related-card:hover {
+    border-color: #52C17A;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .bd3-blockquote {
+      padding-left: 1.25rem;
+    }
+  }
+  @media (max-width: 640px) {
+    .bd3-article p {
+      font-size: 1rem;
+    }
+  }
+</style>

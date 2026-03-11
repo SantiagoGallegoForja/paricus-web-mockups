@@ -1,0 +1,356 @@
+---
+import { getLocalizedPath } from '../../i18n/utils';
+import Icon from '../../components/common/Icon.astro';
+import { placeholderImages } from '../../data/placeholder-images';
+
+interface Props { lang?: string; }
+const { lang = 'en' } = Astro.props;
+
+const heading = 'Let\'s Start a Conversation';
+const description = 'Ready to transform your operations? Our team is here to help you find the perfect outsourcing solution.';
+const phone = '+1 (555) 123-4567';
+const email = 'contact@paricus.com';
+const location = 'Bogotá, Colombia';
+const businessHours = [
+  { day: 'Monday - Friday', hours: '9:00 AM - 6:00 PM EST' },
+  { day: 'Saturday', hours: '10:00 AM - 4:00 PM EST' },
+  { day: 'Sunday', hours: 'Closed' },
+];
+const formIndustries = ['Healthcare', 'E-Commerce', 'Technology', 'Finance', 'Travel & Hospitality', 'Other'];
+const formServices = ['Customer Service', 'Back Office Operations', 'Sales & Lead Generation', 'Technical Support', 'Other'];
+---
+
+<!-- V2 — Editorial Enterprise Contact -->
+<section class="relative bg-[#FAFAF8] overflow-hidden">
+
+  <!-- HERO: Grid background, editorial typography -->
+  <div class="relative border-b-2 border-[#1a2e1a] py-24 md:py-36">
+    <!-- Subtle grid pattern overlay -->
+    <div
+      class="absolute inset-0 opacity-[0.03]"
+      style="background-image: linear-gradient(#1a2e1a 1px, transparent 1px), linear-gradient(90deg, #1a2e1a 1px, transparent 1px); background-size: 60px 60px;"
+    ></div>
+
+    <div class="relative max-w-6xl mx-auto px-6">
+      <p
+        class="font-mono text-sm tracking-[0.3em] text-[#52C17A] mb-6"
+        data-sa="fade-up"
+      >
+        // CONTACT
+      </p>
+      <h1
+        class="text-5xl md:text-7xl lg:text-8xl font-black text-[#1a2e1a] tracking-tight leading-[0.92] mb-8"
+        data-sa="fade-up"
+      >
+        {heading}
+      </h1>
+      <div
+        class="w-24 h-1 bg-[#52C17A] mb-8"
+        data-sa="fade-up" data-sa-delay="100"
+      ></div>
+      <p
+        class="text-lg md:text-xl text-[#5D6D7E] max-w-xl font-light leading-relaxed"
+        data-sa="fade-up" data-sa-delay="200"
+      >
+        {description}
+      </p>
+    </div>
+  </div>
+
+  <!-- Contact Info Row: Phone | Email | Location with border separators -->
+  <div class="border-b-2 border-[#1a2e1a]">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-[#1a2e1a]/20">
+        <!-- Phone -->
+        <div class="py-8 md:pr-8 flex items-center gap-4" data-sa="fade-up" data-sa-delay="0">
+          <Icon name="phone" class="w-5 h-5 text-[#52C17A] shrink-0" />
+          <div>
+            <p class="font-mono text-xs uppercase tracking-wider text-[#5D6D7E] mb-1">
+              Phone
+            </p>
+            <a
+              href={`tel:${phone.replace(/\s|\(|\)|-/g, '')}`}
+              class="text-[#1a2e1a] font-semibold hover:text-[#52C17A] transition"
+            >
+              {phone}
+            </a>
+          </div>
+        </div>
+        <!-- Email -->
+        <div class="py-8 md:px-8 flex items-center gap-4" data-sa="fade-up" data-sa-delay="60">
+          <Icon name="mail" class="w-5 h-5 text-[#52C17A] shrink-0" />
+          <div>
+            <p class="font-mono text-xs uppercase tracking-wider text-[#5D6D7E] mb-1">
+              Email
+            </p>
+            <a
+              href={`mailto:${email}`}
+              class="text-[#1a2e1a] font-semibold hover:text-[#52C17A] transition"
+            >
+              {email}
+            </a>
+          </div>
+        </div>
+        <!-- Location -->
+        <div class="py-8 md:pl-8 flex items-center gap-4" data-sa="fade-up" data-sa-delay="120">
+          <Icon name="map-pin" class="w-5 h-5 text-[#52C17A] shrink-0" />
+          <div>
+            <p class="font-mono text-xs uppercase tracking-wider text-[#5D6D7E] mb-1">
+              Location
+            </p>
+            <p class="text-[#1a2e1a] font-semibold">{location}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Full-Width Form Section -->
+  <div class="py-24 md:py-32">
+    <div class="max-w-6xl mx-auto px-6">
+      <!-- Section header -->
+      <div class="mb-12" data-sa="fade-up">
+        <p class="font-mono text-sm tracking-[0.3em] text-[#52C17A] mb-3">
+          // INQUIRY FORM
+        </p>
+        <h2 class="text-3xl md:text-4xl font-bold text-[#1a2e1a] tracking-tight" data-sa="fade-up">
+          Get in Touch
+        </h2>
+      </div>
+
+      <form id="contact-form-v2" class="space-y-10" data-sa="fade-up" data-sa-delay="100">
+        <!-- Hidden UTM tracking fields -->
+        <input type="hidden" name="utm_source" />
+        <input type="hidden" name="utm_medium" />
+        <input type="hidden" name="utm_campaign" />
+        <input type="hidden" name="utm_term" />
+        <input type="hidden" name="utm_content" />
+
+        <!-- First & Last Name -->
+        <div class="grid md:grid-cols-2 gap-10">
+          <div>
+            <label
+              for="v2-first"
+              class="block font-mono text-xs uppercase tracking-wider text-[#5D6D7E] mb-3"
+            >
+              First Name *
+            </label>
+            <input
+              type="text"
+              id="v2-first"
+              name="firstName"
+              required
+              class="w-full px-4 py-4 bg-transparent border-2 border-[#1a2e1a]/15 rounded-none text-[#1a2e1a] placeholder:text-[#5D6D7E]/40 focus:outline-none focus:border-l-[#52C17A] focus:border-l-4 transition-all"
+              placeholder="John"
+            />
+          </div>
+          <div>
+            <label
+              for="v2-last"
+              class="block font-mono text-xs uppercase tracking-wider text-[#5D6D7E] mb-3"
+            >
+              Last Name *
+            </label>
+            <input
+              type="text"
+              id="v2-last"
+              name="lastName"
+              required
+              class="w-full px-4 py-4 bg-transparent border-2 border-[#1a2e1a]/15 rounded-none text-[#1a2e1a] placeholder:text-[#5D6D7E]/40 focus:outline-none focus:border-l-[#52C17A] focus:border-l-4 transition-all"
+              placeholder="Doe"
+            />
+          </div>
+        </div>
+
+        <!-- Email & Phone -->
+        <div class="grid md:grid-cols-2 gap-10">
+          <div>
+            <label
+              for="v2-email"
+              class="block font-mono text-xs uppercase tracking-wider text-[#5D6D7E] mb-3"
+            >
+              Email Address *
+            </label>
+            <input
+              type="email"
+              id="v2-email"
+              name="email"
+              required
+              class="w-full px-4 py-4 bg-transparent border-2 border-[#1a2e1a]/15 rounded-none text-[#1a2e1a] placeholder:text-[#5D6D7E]/40 focus:outline-none focus:border-l-[#52C17A] focus:border-l-4 transition-all"
+              placeholder="john@company.com"
+            />
+          </div>
+          <div>
+            <label
+              for="v2-phone"
+              class="block font-mono text-xs uppercase tracking-wider text-[#5D6D7E] mb-3"
+            >
+              Phone Number
+            </label>
+            <input
+              type="tel"
+              id="v2-phone"
+              name="phone"
+              class="w-full px-4 py-4 bg-transparent border-2 border-[#1a2e1a]/15 rounded-none text-[#1a2e1a] placeholder:text-[#5D6D7E]/40 focus:outline-none focus:border-l-[#52C17A] focus:border-l-4 transition-all"
+              placeholder="+1 (555) 000-0000"
+            />
+          </div>
+        </div>
+
+        <!-- Company -->
+        <div>
+          <label
+            for="v2-company"
+            class="block font-mono text-xs uppercase tracking-wider text-[#5D6D7E] mb-3"
+          >
+            Company Name
+          </label>
+          <input
+            type="text"
+            id="v2-company"
+            name="company"
+            class="w-full px-4 py-4 bg-transparent border-2 border-[#1a2e1a]/15 rounded-none text-[#1a2e1a] placeholder:text-[#5D6D7E]/40 focus:outline-none focus:border-l-[#52C17A] focus:border-l-4 transition-all"
+            placeholder="Your Company"
+          />
+        </div>
+
+        <!-- Industry & Service -->
+        <div class="grid md:grid-cols-2 gap-10">
+          <div>
+            <label
+              for="v2-industry"
+              class="block font-mono text-xs uppercase tracking-wider text-[#5D6D7E] mb-3"
+            >
+              Industry
+            </label>
+            <select
+              id="v2-industry"
+              name="industry"
+              class="w-full px-4 py-4 bg-transparent border-2 border-[#1a2e1a]/15 rounded-none text-[#1a2e1a] focus:outline-none focus:border-l-[#52C17A] focus:border-l-4 transition-all"
+            >
+              <option value="">Select your industry</option>
+              {formIndustries.map(i => <option value={i}>{i}</option>)}
+            </select>
+          </div>
+          <div>
+            <label
+              for="v2-service"
+              class="block font-mono text-xs uppercase tracking-wider text-[#5D6D7E] mb-3"
+            >
+              Service Required
+            </label>
+            <select
+              id="v2-service"
+              name="service"
+              class="w-full px-4 py-4 bg-transparent border-2 border-[#1a2e1a]/15 rounded-none text-[#1a2e1a] focus:outline-none focus:border-l-[#52C17A] focus:border-l-4 transition-all"
+            >
+              <option value="">Select a service</option>
+              {formServices.map(s => <option value={s}>{s}</option>)}
+            </select>
+          </div>
+        </div>
+
+        <!-- Message -->
+        <div>
+          <label
+            for="v2-message"
+            class="block font-mono text-xs uppercase tracking-wider text-[#5D6D7E] mb-3"
+          >
+            Your Message *
+          </label>
+          <textarea
+            id="v2-message"
+            name="message"
+            rows="5"
+            required
+            class="w-full px-4 py-4 bg-transparent border-2 border-[#1a2e1a]/15 rounded-none text-[#1a2e1a] placeholder:text-[#5D6D7E]/40 focus:outline-none focus:border-l-[#52C17A] focus:border-l-4 transition-all resize-none"
+            placeholder="Describe your project requirements..."
+          ></textarea>
+        </div>
+
+        <!-- Submit + privacy -->
+        <div class="flex flex-col sm:flex-row items-start sm:items-center gap-6 pt-4">
+          <button
+            type="submit"
+            class="px-12 py-4 bg-[#1a2e1a] text-white font-mono text-sm uppercase tracking-[0.2em] hover:bg-[#52C17A] transition-colors duration-300"
+          >
+            Submit Inquiry
+          </button>
+          <p class="text-xs text-[#5D6D7E]/60 max-w-xs">
+            Your information is protected. Read our
+            <a
+              href={getLocalizedPath('/privacy', lang)}
+              class="underline hover:text-[#52C17A] transition"
+            >Privacy Policy</a>.
+          </p>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Contact Image -->
+  <div class="border-t-2 border-[#1a2e1a] py-0">
+    <div class="max-w-6xl mx-auto px-6 py-8">
+      <img src={placeholderImages.contact[0].url} alt={placeholderImages.contact[0].alt} loading="lazy" class="w-full h-64 lg:h-80 object-cover border-2 border-[#1a2e1a]" data-sa="fade-in" />
+    </div>
+  </div>
+
+  <!-- Business Hours: Minimal bordered table -->
+  <div class="border-t-2 border-[#1a2e1a] py-20">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="grid md:grid-cols-2 gap-12 items-start">
+        <!-- Hours table -->
+        <div data-sa="slide-right">
+          <p class="font-mono text-sm tracking-[0.3em] text-[#52C17A] mb-4">
+            // HOURS OF OPERATION
+          </p>
+          <table class="w-full">
+            <tbody>
+              {businessHours.map((item, idx) => (
+                <tr class:list={[
+                  "border-b border-[#1a2e1a]/10",
+                  { "border-t border-[#1a2e1a]/10": idx === 0 }
+                ]}>
+                  <td class="py-4 text-[#1a2e1a] font-medium">{item.day}</td>
+                  <td class="py-4 text-right font-mono text-sm text-[#5D6D7E]">
+                    {item.hours}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Quick response note -->
+        <div data-sa="slide-left">
+          <p class="font-mono text-sm tracking-[0.3em] text-[#52C17A] mb-4">
+            // RESPONSE TIME
+          </p>
+          <p class="text-[#1a2e1a] text-lg font-medium mb-3">
+            Expect a reply within 24 hours
+          </p>
+          <p class="text-[#5D6D7E] text-sm leading-relaxed">
+            Our team reviews every inquiry carefully. For urgent matters,
+            please call us directly during business hours.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // UTM parameter capture from URL
+    const params = new URLSearchParams(window.location.search);
+    const utmFields = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'];
+    utmFields.forEach(key => {
+      const val = params.get(key);
+      const el = document.querySelector<HTMLInputElement>(
+        `#contact-form-v2 input[name="${key}"]`
+      );
+      if (val && el) el.value = val;
+    });
+  });
+</script>

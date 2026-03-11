@@ -1,0 +1,205 @@
+---
+import { getLocalizedPath } from '../../i18n/utils';
+import Icon from '../../components/common/Icon.astro';
+import { placeholderImages } from '../../data/placeholder-images';
+
+interface Props { lang?: string; }
+const { lang = 'en' } = Astro.props;
+
+const heading = 'Built on';
+const headingHighlight = 'Trust';
+const headingEnd = 'Driven by Results';
+const description1 = 'Paricus combines the warmth of a true partnership with the confidence of deep expertise. Based in Colombia, we serve US companies with bilingual teams that understand both cultures and deliver exceptional results.';
+const description2 = 'Since 2009, we have been helping businesses of all sizes transform their operations through nearshore outsourcing that feels like an extension of their own team.';
+const buttonText = 'Partner with Us';
+const stats = [
+  { icon: 'users', value: '100+', label: 'Team Members' },
+  { icon: 'globe', value: '2', label: 'Countries Served' },
+  { icon: 'award', value: '15+', label: 'Years Experience' },
+  { icon: 'trending-up', value: '98%', label: 'Client Satisfaction' },
+];
+const leaders = [
+  { name: 'Jorge E. Perea', position: 'Managing Partner', initials: 'JP' },
+  { name: 'Jay Jones', position: 'Managing Partner', initials: 'JJ' },
+];
+---
+
+<!-- V2 — Editorial Enterprise -->
+
+<!-- HERO SECTION -->
+<section class="ed-hero relative overflow-hidden bg-white py-24 lg:py-32">
+  <!-- Grid pattern overlay -->
+  <div class="grid-pattern absolute inset-0"></div>
+
+  <div class="relative z-10 max-w-7xl mx-auto px-6">
+    <div>
+      <span class="font-mono text-sm text-[#5D6D7E] tracking-wider block mb-6">// ABOUT US</span>
+
+      <h1 data-sa="fade-up" class="ed-title text-5xl md:text-7xl lg:text-8xl font-black uppercase leading-[0.9] text-[#1a2e1a] mb-8">
+        {heading}<br/>
+        <span class="ed-highlight">{headingHighlight}</span><br/>
+        <span class="text-[#5D6D7E]">{headingEnd}</span>
+      </h1>
+
+      <div class="ed-accent-line w-32 h-1 bg-[#52C17A] mb-8"></div>
+
+      <div class="max-w-2xl">
+        <p data-sa="fade-up" data-sa-delay="100" class="text-lg text-[#2C3E50] mb-4 leading-relaxed">{description1}</p>
+        <p data-sa="fade-up" data-sa-delay="200" class="text-lg text-[#5D6D7E] mb-10 leading-relaxed">{description2}</p>
+      </div>
+
+      <a
+        href={getLocalizedPath('/contact', lang)}
+        class="ed-cta inline-block px-10 py-4 bg-[#1a2e1a] text-white font-bold uppercase tracking-widest text-sm border-2 border-[#1a2e1a] transition-all duration-300 hover:bg-[#52C17A] hover:border-[#52C17A]"
+      >
+        {buttonText} &rarr;
+      </a>
+    </div>
+
+    <!-- Stats Row -->
+    <div class="ed-stats flex flex-wrap items-stretch mt-20 border-t-2 border-b-2 border-[#1a2e1a]">
+      {stats.map((stat, i) => (
+        <div data-sa="fade-up" data-sa-delay={`${i * 60}`} class={`ed-stat-item flex-1 min-w-[180px] py-8 px-6 text-center ${i < stats.length - 1 ? 'ed-stat-border' : ''}`}>
+          <div class="text-5xl lg:text-6xl font-black text-[#1a2e1a] mb-2">{stat.value}</div>
+          <div class="font-mono text-xs tracking-wider uppercase text-[#5D6D7E]">{stat.label}</div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- TEAM IMAGE -->
+<section class="bg-white py-4">
+  <div class="max-w-7xl mx-auto px-6">
+    <img data-sa="fade-in" src={placeholderImages.team[0].url} alt={placeholderImages.team[0].alt} loading="lazy" class="w-full h-64 lg:h-80 object-cover border-2 border-[#1a2e1a]" />
+  </div>
+</section>
+
+<!-- LEADERSHIP SECTION -->
+<section class="ed-leadership relative py-24 lg:py-32 bg-[#f7f7f5]">
+  <div class="max-w-7xl mx-auto px-6">
+    <div>
+      <span class="font-mono text-sm text-[#5D6D7E] tracking-wider block mb-4">// LEADERSHIP</span>
+      <h2 data-sa="fade-up" class="text-4xl md:text-5xl font-black uppercase text-[#1a2e1a] mb-16">The Partners</h2>
+    </div>
+
+    <div class="flex flex-col md:flex-row gap-8">
+      {leaders.map((leader, i) => (
+        <div data-sa="fade-up" data-sa-delay={`${i * 80}`} class={`ed-leader-card group flex-1 p-10 border-2 border-[#1a2e1a] transition-all duration-500 hover:bg-[#1a2e1a] ${i === 0 ? 'md:border-r-0' : ''}`}>
+          <!-- Avatar Box -->
+          <div class="ed-avatar-box w-20 h-20 border-2 border-[#1a2e1a] group-hover:border-white flex items-center justify-center mb-8 transition-colors duration-500">
+            <span class="text-2xl font-black text-[#1a2e1a] group-hover:text-white transition-colors duration-500 font-mono">{leader.initials}</span>
+          </div>
+          <h3 class="text-xl font-black uppercase text-[#1a2e1a] group-hover:text-white transition-colors duration-500 mb-2">{leader.name}</h3>
+          <p class="font-mono text-sm text-[#5D6D7E] group-hover:text-[#52C17A] transition-colors duration-500">{leader.position}</p>
+          <div class="ed-separator w-12 h-0.5 bg-[#52C17A] mt-6 group-hover:w-full transition-all duration-700"></div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- VALUES SECTION — Bento Grid -->
+<section class="ed-values relative py-24 lg:py-32 bg-white">
+  <div class="grid-pattern absolute inset-0 opacity-30"></div>
+
+  <div class="relative z-10 max-w-7xl mx-auto px-6">
+    <div class="mb-16">
+      <span class="font-mono text-sm text-[#5D6D7E] tracking-wider block mb-4">// VALUES</span>
+      <h2 data-sa="fade-up" class="text-4xl md:text-5xl font-bold text-[#1a2e1a]">What We Stand For</h2>
+    </div>
+
+    <div class="ed-bento grid grid-cols-1 md:grid-cols-12 gap-0 border-2 border-[#1a2e1a]">
+      {[
+        { title: 'Bilingual Excellence', desc: 'Fluent English and Spanish teams that bridge communication gaps effortlessly across every project.', num: '01', span: 'md:col-span-5' },
+        { title: 'Cultural Alignment', desc: 'Deep understanding of both US and Latin American business cultures ensures seamless collaboration.', num: '02', span: 'md:col-span-7' },
+        { title: 'Proven Track Record', desc: 'Over 15 years of consistently delivering results that exceed expectations for businesses worldwide.', num: '03', span: 'md:col-span-7' },
+        { title: 'Innovation Focus', desc: 'Cutting-edge processes and technologies that drive continuous improvement and competitive advantage.', num: '04', span: 'md:col-span-5' },
+      ].map((value, i) => (
+        <div data-sa="fade-up" data-sa-delay={`${i * 80}`} class={`ed-bento-cell group col-span-1 ${value.span} ${i % 2 === 0 ? 'p-10' : 'p-12'} transition-all duration-500 hover:bg-[#1a2e1a] ${i < 2 ? 'ed-bento-border-b' : ''} ${i % 2 === 0 ? 'ed-bento-border-r' : ''}`}>
+          <span class="font-mono text-xs tracking-wider text-[#5D6D7E] group-hover:text-[#52C17A] transition-colors duration-500 block mb-4">{value.num}</span>
+          <h3 class="text-2xl font-bold uppercase text-[#1a2e1a] group-hover:text-white transition-colors duration-500 mb-3">{value.title}</h3>
+          <p class="text-[#5D6D7E] group-hover:text-white/70 transition-colors duration-500 leading-loose">{value.desc}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- CTA SECTION -->
+<section data-sa="scale-in" class="ed-cta-section relative py-24 lg:py-32 bg-[#1a2e1a] overflow-hidden">
+  <div class="grid-pattern-dark absolute inset-0"></div>
+
+  <div class="relative z-10 max-w-4xl mx-auto px-6 text-center">
+    <span class="font-mono text-sm text-[#52C17A] tracking-wider block mb-6">// NEXT STEP</span>
+    <h2 data-sa="fade-up" class="text-4xl md:text-6xl lg:text-7xl font-black uppercase text-white leading-tight mb-8">
+      Ready to<br/>Partner?
+    </h2>
+    <p class="text-lg text-white/75 max-w-xl mx-auto mb-12">Transform your operations with a nearshore partner that delivers exceptional results.</p>
+    <a
+      href={getLocalizedPath('/contact', lang)}
+      class="inline-block px-12 py-5 bg-[#52C17A] text-[#1a2e1a] font-black uppercase tracking-widest text-sm border-2 border-[#52C17A] transition-all duration-300 hover:bg-transparent hover:text-[#52C17A]"
+    >
+      Get Started &rarr;
+    </a>
+  </div>
+</section>
+
+<style>
+  /* ===== GRID PATTERN ===== */
+  .grid-pattern {
+    background-image:
+      linear-gradient(rgba(26, 46, 26, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(26, 46, 26, 0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+  .grid-pattern-dark {
+    background-image:
+      linear-gradient(rgba(82, 193, 122, 0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(82, 193, 122, 0.06) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+
+  /* ===== HERO ===== */
+  .ed-highlight {
+    color: #52C17A;
+    -webkit-text-stroke: 2px #52C17A;
+  }
+
+  .ed-stat-border {
+    border-right: 2px solid #1a2e1a;
+  }
+  @media (max-width: 640px) {
+    .ed-stat-border {
+      border-right: none;
+      border-bottom: 2px solid #1a2e1a;
+    }
+    .ed-stats {
+      flex-direction: column;
+    }
+  }
+
+  /* ===== LEADERSHIP ===== */
+  .ed-avatar-box {
+    clip-path: none; /* sharp corners intentional */
+  }
+
+  /* ===== BENTO GRID ===== */
+  .ed-bento-border-b {
+    border-bottom: 2px solid #1a2e1a;
+  }
+  .ed-bento-border-r {
+    border-right: 2px solid #1a2e1a;
+  }
+  @media (max-width: 768px) {
+    .ed-bento-border-r {
+      border-right: none;
+    }
+    .ed-bento-cell {
+      border-bottom: 2px solid #1a2e1a;
+    }
+    .ed-bento-cell:last-child {
+      border-bottom: none;
+    }
+  }
+</style>

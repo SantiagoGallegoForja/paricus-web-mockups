@@ -1,0 +1,356 @@
+---
+import { getLocalizedPath } from '../../i18n/utils';
+import Icon from '../../components/common/Icon.astro';
+import { placeholderImages } from '../../data/placeholder-images';
+
+interface Props { lang?: string; }
+const { lang = 'en' } = Astro.props;
+
+const heroBg = placeholderImages.caseStudy[1];
+
+const heading = 'Client Success Stories';
+const description = 'Real results from real partnerships. See how we have helped businesses transform their operations.';
+const caseStudies = [
+  {
+    title: 'Healthcare Provider Reduces Response Time by 60%',
+    industry: 'Healthcare',
+    challenge: 'A major healthcare provider struggled with long patient wait times and inconsistent support quality across multiple channels.',
+    solution: 'We deployed a dedicated bilingual team with HIPAA training, implemented omnichannel routing, and established real-time quality monitoring.',
+    results: [
+      { icon: 'clock', value: '60%', label: 'Faster Response Time' },
+      { icon: 'star', value: '95%', label: 'Patient Satisfaction' },
+      { icon: 'trending-down', value: '40%', label: 'Cost Reduction' },
+    ],
+    slug: 'healthcare-response-time',
+  },
+  {
+    title: 'E-Commerce Brand Scales Support for 300% Growth',
+    industry: 'E-Commerce',
+    challenge: 'A fast-growing e-commerce company needed to triple their customer support capacity without sacrificing quality during peak seasons.',
+    solution: 'We built a scalable team structure with flexible staffing, AI-powered ticket routing, and comprehensive product training programs.',
+    results: [
+      { icon: 'users', value: '3x', label: 'Team Scale-up' },
+      { icon: 'message-circle', value: '< 2min', label: 'Avg Response Time' },
+      { icon: 'award', value: '4.8/5', label: 'CSAT Score' },
+    ],
+    slug: 'ecommerce-growth-scaling',
+  },
+  {
+    title: 'FinTech Startup Achieves 99.5% SLA Compliance',
+    industry: 'Finance',
+    challenge: 'A fintech startup needed enterprise-level technical support with strict SLA requirements and regulatory compliance.',
+    solution: 'We implemented tiered support with dedicated senior agents, automated SLA tracking, and compliance-first processes.',
+    results: [
+      { icon: 'check-circle', value: '99.5%', label: 'SLA Compliance' },
+      { icon: 'shield', value: '100%', label: 'Audit Pass Rate' },
+      { icon: 'zap', value: '45%', label: 'Efficiency Gain' },
+    ],
+    slug: 'fintech-sla-compliance',
+  },
+];
+---
+
+<!-- HERO SECTION -->
+<section class="cs3-hero" style={`background-image: url('${heroBg.url}')`}>
+  <div class="cs3-hero__overlay"></div>
+  <div class="cs3-hero__container">
+    <span class="cs3-hero__label" data-sa="fade-up">// CASE STUDIES</span>
+    <h1 class="cs3-hero__title" data-sa="fade-up" data-sa-delay="80">{heading}</h1>
+    <p class="cs3-hero__description" data-sa="fade-up" data-sa-delay="160">{description}</p>
+  </div>
+</section>
+
+<!-- CASE STUDIES SECTION -->
+<section class="cs3-studies">
+  <div class="cs3-studies__container">
+    {caseStudies.map((study, index) => (
+      <article
+        class="cs3-card sa-hover-lift"
+        data-sa="fade-up"
+        data-sa-delay={String(index * 80)}
+      >
+        <div class="cs3-card__top">
+          <span class="cs3-card__pill">{study.industry}</span>
+          <a href={getLocalizedPath(`/case-studies/${study.slug}`, lang)} class="cs3-card__arrow-link" aria-label="View case study">
+            <Icon name="arrow-up-right" size={20} />
+          </a>
+        </div>
+        <h2 class="cs3-card__title">{study.title}</h2>
+        <div class="cs3-card__body">
+          <div class="cs3-card__section">
+            <h3 class="cs3-card__section-label">Challenge</h3>
+            <p class="cs3-card__section-text">{study.challenge}</p>
+          </div>
+          <div class="cs3-card__section">
+            <h3 class="cs3-card__section-label">Solution</h3>
+            <p class="cs3-card__section-text">{study.solution}</p>
+          </div>
+        </div>
+        <div class="cs3-card__metrics">
+          {study.results.map((result) => (
+            <div class="cs3-card__metric">
+              <div class="cs3-card__metric-icon">
+                <Icon name={result.icon} size={20} />
+              </div>
+              <span class="cs3-card__metric-value">{result.value}</span>
+              <div class="cs3-card__metric-bar"></div>
+              <span class="cs3-card__metric-label">{result.label}</span>
+            </div>
+          ))}
+        </div>
+      </article>
+    ))}
+  </div>
+</section>
+
+<!-- CTA SECTION -->
+<section class="cs3-cta" data-sa="scale-in">
+  <div class="cs3-cta__card">
+    <h2 class="cs3-cta__title">Ready to Transform Your Business?</h2>
+    <p class="cs3-cta__text">Join industry leaders who trust us to deliver exceptional results.</p>
+    <a href={getLocalizedPath('/contact', lang)} class="cs3-cta__button">
+      <span>Get Started</span>
+      <Icon name="arrow-right" size={18} />
+    </a>
+  </div>
+</section>
+
+<style>
+  /* ── HERO ── */
+  .cs3-hero {
+    position: relative;
+    padding-top: 10rem;
+    padding-bottom: 6rem;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    background-color: #111115;
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
+    text-align: center;
+  }
+  .cs3-hero__overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(17, 17, 21, 0.85);
+    pointer-events: none;
+  }
+  .cs3-hero__container {
+    position: relative;
+    z-index: 1;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  .cs3-hero__label {
+    display: inline-block;
+    margin-bottom: 1.5rem;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #52C17A;
+  }
+  .cs3-hero__title {
+    font-size: clamp(2.6rem, 5.5vw, 4rem);
+    font-weight: 900;
+    line-height: 1.1;
+    color: #ffffff;
+    margin: 0 0 1.2rem;
+  }
+  .cs3-hero__description {
+    font-size: 1.1rem;
+    color: #A1A1AA;
+    line-height: 1.7;
+    max-width: 580px;
+    margin: 0 auto;
+  }
+
+  /* ── CASE STUDIES ── */
+  .cs3-studies {
+    background: #ffffff;
+    padding: 5rem 1.5rem 6rem;
+  }
+  .cs3-studies__container {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  /* Card */
+  .cs3-card {
+    background: #ffffff;
+    border: 1px solid #E5E7EB;
+    border-radius: 12px;
+    padding: 2.5rem;
+    transition: border-color 0.3s ease;
+  }
+  .cs3-card:hover {
+    border-color: #52C17A;
+  }
+
+  .cs3-card__top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.2rem;
+  }
+  .cs3-card__pill {
+    display: inline-block;
+    padding: 0.3rem 0.9rem;
+    background: rgba(82, 193, 122, 0.08);
+    border: 1px solid rgba(82, 193, 122, 0.2);
+    border-radius: 999px;
+    color: #52C17A;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .cs3-card__arrow-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 1px solid #E5E7EB;
+    color: #52C17A;
+    text-decoration: none;
+    transition: background 0.3s ease, border-color 0.3s ease;
+  }
+  .cs3-card__arrow-link:hover {
+    background: rgba(82, 193, 122, 0.08);
+    border-color: #52C17A;
+  }
+  .cs3-card__title {
+    font-size: clamp(1.3rem, 2.5vw, 1.7rem);
+    font-weight: 800;
+    color: #111115;
+    line-height: 1.3;
+    margin: 0 0 1.8rem;
+  }
+
+  /* Body — side by side */
+  .cs3-card__body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-bottom: 2rem;
+  }
+  .cs3-card__section-label {
+    font-size: 0.68rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: #52C17A;
+    margin: 0 0 0.5rem;
+  }
+  .cs3-card__section-text {
+    font-size: 0.9rem;
+    color: #5D6D7E;
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  /* Metrics */
+  .cs3-card__metrics {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #E5E7EB;
+  }
+  .cs3-card__metric {
+    text-align: center;
+  }
+  .cs3-card__metric-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 0.6rem;
+    background: rgba(82, 193, 122, 0.08);
+    color: #52C17A;
+    margin-bottom: 0.6rem;
+  }
+  .cs3-card__metric-value {
+    display: block;
+    font-size: 2rem;
+    font-weight: 900;
+    color: #52C17A;
+    line-height: 1.1;
+  }
+  .cs3-card__metric-bar {
+    width: 40px;
+    height: 2px;
+    margin: 0.5rem auto;
+    background: #52C17A;
+    border-radius: 2px;
+  }
+  .cs3-card__metric-label {
+    display: block;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: #5D6D7E;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  /* ── CTA ── */
+  .cs3-cta {
+    background: #111115;
+    padding: 6rem 1.5rem 8rem;
+    display: flex;
+    justify-content: center;
+  }
+  .cs3-cta__card {
+    max-width: 640px;
+    width: 100%;
+    text-align: center;
+    padding: 3.5rem 2.5rem;
+    border: 1px solid rgba(82, 193, 122, 0.15);
+    border-radius: 16px;
+  }
+  .cs3-cta__title {
+    font-size: clamp(1.6rem, 3.5vw, 2.2rem);
+    font-weight: 900;
+    color: #ffffff;
+    line-height: 1.2;
+    margin: 0 0 1rem;
+  }
+  .cs3-cta__text {
+    font-size: 1rem;
+    color: #A1A1AA;
+    line-height: 1.7;
+    margin: 0 0 2rem;
+  }
+  .cs3-cta__button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.9rem 2rem;
+    background: #52C17A;
+    color: #ffffff;
+    font-weight: 800;
+    font-size: 0.95rem;
+    border-radius: 999px;
+    text-decoration: none;
+    transition: transform 0.3s ease, background 0.3s ease;
+  }
+  .cs3-cta__button:hover {
+    transform: translateY(-2px);
+    background: #3dab65;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    .cs3-card__body { grid-template-columns: 1fr; gap: 1.2rem; }
+    .cs3-card__metrics { grid-template-columns: 1fr; gap: 1.2rem; }
+    .cs3-card { padding: 1.5rem; }
+    .cs3-cta__card { padding: 2.5rem 1.5rem; }
+  }
+
+</style>

@@ -1,0 +1,406 @@
+---
+import { getLocalizedPath } from '../../i18n/utils';
+import Icon from '../../components/common/Icon.astro';
+import { placeholderImages } from '../../data/placeholder-images';
+
+interface Props { lang?: string; }
+const { lang = 'en' } = Astro.props;
+
+const article = {
+  title: 'How Nearshore BPO is Transforming US Business Operations',
+  author: 'Paricus Team',
+  category: 'Industry Insights',
+  date: 'March 5, 2026',
+  readTime: '8 min read',
+};
+
+const relatedArticles = [
+  { title: 'The Future of Customer Experience', slug: 'future-customer-experience', category: 'Technology', readTime: '6 min read' },
+  { title: 'Building Effective Bilingual Teams', slug: 'building-bilingual-teams', category: 'Operations', readTime: '5 min read' },
+  { title: 'Cost Optimization Through Strategic Outsourcing', slug: 'cost-optimization-outsourcing', category: 'Strategy', readTime: '7 min read' },
+];
+---
+
+<!-- HERO -->
+<section class="bd1-hero pt-32">
+  <div class="bd1-hero__floating bd1-hero__floating--1"></div>
+  <div class="bd1-hero__floating bd1-hero__floating--2"></div>
+  <div class="bd1-hero__inner">
+    <a href={getLocalizedPath('/blog', lang)} class="bd1-back">
+      <Icon name="arrow-right" size={16} />
+      <span>Back to Blog</span>
+    </a>
+    <span class="bd1-hero__pill">{article.category}</span>
+    <h1 class="bd1-hero__title" data-sa="fade-up">{article.title}</h1>
+    <div class="bd1-hero__meta">
+      <span class="bd1-hero__date"><Icon name="calendar" size={14} /> {article.date}</span>
+      <span class="bd1-hero__dot"></span>
+      <span class="bd1-hero__time"><Icon name="clock" size={14} /> {article.readTime}</span>
+    </div>
+  </div>
+  <div class="bd1-hero__clip"></div>
+</section>
+
+<!-- COVER IMAGE -->
+<section class="bd1-cover-wrap" style="background: #FAFAF8; padding: 0 2rem; margin-top: -3rem; position: relative; z-index: 3;">
+  <div style="max-width: 800px; margin: 0 auto;">
+    <img src={placeholderImages.blog[0].url} alt={placeholderImages.blog[0].alt} loading="lazy" class="w-full h-64 lg:h-96 object-cover rounded-2xl shadow-lg" data-sa="fade-in" />
+  </div>
+</section>
+
+<!-- AUTHOR CARD -->
+<section class="bd1-author-wrap">
+  <div class="bd1-author" data-sa="fade-up" data-sa-delay="0">
+    <div class="bd1-author__avatar">
+      <Icon name="users" size={24} />
+    </div>
+    <div class="bd1-author__info">
+      <span class="bd1-author__name">{article.author}</span>
+      <span class="bd1-author__role">Content & Insights</span>
+    </div>
+  </div>
+</section>
+
+<!-- ARTICLE BODY -->
+<section class="bd1-body">
+  <article class="bd1-article">
+    <div class="bd1-article__content" data-sa="fade-up" data-sa-delay="0">
+      <p>
+        The landscape of business process outsourcing is undergoing a dramatic shift as US companies increasingly look to nearshore partners in Latin America. Unlike traditional offshore models that relied on distant time zones and cultural gaps, nearshore BPO offers a compelling combination of cost savings and operational synergy. Companies are discovering that proximity matters — not just geographically, but culturally and linguistically — and the results are transforming how American businesses approach their support operations.
+      </p>
+      <p>
+        One of the most significant advantages of nearshore outsourcing is the natural alignment of working hours. When your BPO team operates in the same or similar time zones, real-time collaboration becomes effortless. Managers can hold live meetings, resolve issues immediately, and maintain the kind of responsive communication that customers expect. This timezone advantage, combined with deep cultural understanding of US consumer expectations, creates a service experience that feels seamless and native.
+      </p>
+      <p>
+        Cost savings remain a primary driver, but smart companies are looking beyond the bottom line. Nearshore partners in countries like Mexico, Colombia, and Costa Rica offer highly educated, bilingual workforces at a fraction of US labor costs. The savings typically range from 30% to 50%, but the real value lies in the quality of interactions. Bilingual agents who understand American idioms, cultural references, and customer service norms deliver experiences that offshore alternatives simply cannot match.
+      </p>
+    </div>
+
+    <blockquote class="bd1-quote" data-sa="fade-up" data-sa-delay="100">
+      <Icon name="message-circle" size={28} />
+      <p>Companies that embrace nearshore partnerships see an average of 40% cost reduction while maintaining or improving service quality.</p>
+    </blockquote>
+
+    <div class="bd1-article__content" data-sa="fade-up" data-sa-delay="200">
+      <p>
+        Implementing a nearshore BPO strategy requires careful planning and the right partner. Successful transitions start with a thorough assessment of which processes are best suited for outsourcing, followed by a phased migration that allows for quality assurance at every step. Leading providers invest heavily in training, technology infrastructure, and quality management systems that meet or exceed US standards, ensuring compliance with industry regulations from HIPAA to PCI-DSS.
+      </p>
+      <p>
+        Looking ahead, the nearshore BPO industry is poised for continued growth as artificial intelligence and automation reshape the service landscape. The most forward-thinking providers are already integrating AI-powered tools with human expertise, creating hybrid support models that combine the efficiency of technology with the empathy and problem-solving skills of trained agents. For US businesses seeking to stay competitive while delivering exceptional customer experiences, nearshore BPO is no longer just an option — it is becoming a strategic imperative.
+      </p>
+    </div>
+  </article>
+</section>
+
+<!-- RELATED ARTICLES -->
+<section class="bd1-related">
+  <div class="bd1-related__inner">
+    <h2 class="bd1-related__heading" data-sa="fade-up">Related Articles</h2>
+    <div class="bd1-related__line"></div>
+    <div class="bd1-related__grid">
+      {relatedArticles.map((rel, i) => (
+        <a
+          href={getLocalizedPath('/blog/' + rel.slug, lang)}
+          class="bd1-related__card sa-hover-lift"
+          data-sa="fade-up"
+          data-sa-delay={String(i * 80)}
+        >
+          <div class="bd1-related__cover">
+            <img src={placeholderImages.blog[i % placeholderImages.blog.length].url} alt={placeholderImages.blog[i % placeholderImages.blog.length].alt} loading="lazy" class="absolute inset-0 w-full h-full object-cover opacity-60 mix-blend-overlay" />
+            <div class="bd1-related__shimmer"></div>
+            <span class="bd1-related__pill">{rel.category}</span>
+          </div>
+          <div class="bd1-related__body">
+            <h3 class="bd1-related__title">{rel.title}</h3>
+            <div class="bd1-related__footer">
+              <span class="bd1-related__time">{rel.readTime}</span>
+              <span class="bd1-related__arrow"><Icon name="arrow-right" size={16} /></span>
+            </div>
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  /* ===== HERO ===== */
+  .bd1-hero {
+    position: relative;
+    background: linear-gradient(135deg, #E8F5E9 0%, #FAFAF8 50%, #FFF8E7 100%);
+    padding-bottom: 8rem;
+    text-align: center;
+    overflow: hidden;
+  }
+  .bd1-hero__floating {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.15;
+    background: linear-gradient(135deg, #52C17A, #3D9E5F);
+  }
+  .bd1-hero__floating--1 {
+    width: 280px; height: 280px;
+    top: -60px; right: -80px;
+    animation: bd1Float 8s ease-in-out infinite;
+  }
+  .bd1-hero__floating--2 {
+    width: 180px; height: 180px;
+    bottom: 40px; left: -40px;
+    animation: bd1Float 6s ease-in-out infinite reverse;
+  }
+  .bd1-hero__inner {
+    position: relative; z-index: 2;
+    max-width: 800px; margin: 0 auto;
+    padding: 0 2rem;
+  }
+  .bd1-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: #3D9E5F;
+    font-size: 0.88rem;
+    font-weight: 600;
+    text-decoration: none;
+    margin-bottom: 2rem;
+    transition: color 0.3s ease;
+  }
+  .bd1-back svg { transform: rotate(180deg); }
+  .bd1-back:hover { color: #52C17A; }
+  .bd1-hero__pill {
+    display: inline-block;
+    background: linear-gradient(135deg, #52C17A, #3D9E5F);
+    color: #fff;
+    padding: 0.4rem 1.2rem;
+    border-radius: 9999px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+  }
+  .bd1-hero__title {
+    color: #2C3E50;
+    font-size: clamp(2rem, 4.5vw, 3rem);
+    font-weight: 800;
+    line-height: 1.15;
+    margin-bottom: 1.5rem;
+  }
+  .bd1-hero__meta {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.75rem;
+    color: #5D6D7E;
+    font-size: 0.88rem;
+    flex-wrap: wrap;
+  }
+  .bd1-hero__date,
+  .bd1-hero__time {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+  .bd1-hero__dot {
+    width: 4px; height: 4px;
+    border-radius: 50%;
+    background: #52C17A;
+  }
+  .bd1-hero__clip {
+    position: absolute;
+    bottom: -1px; left: 0; right: 0;
+    height: 80px;
+    background: #FAFAF8;
+    clip-path: polygon(0 60%, 100% 0, 100% 100%, 0 100%);
+  }
+
+  /* ===== AUTHOR ===== */
+  .bd1-author-wrap {
+    background: #FAFAF8;
+    padding: 0 2rem;
+    margin-top: -2rem;
+    position: relative; z-index: 3;
+  }
+  .bd1-author {
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: rgba(255,255,255,0.5);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(82,193,122,0.12);
+    border-radius: 1.5rem;
+    padding: 1.25rem 1.75rem;
+  }
+  .bd1-author__avatar {
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #52C17A, #3D9E5F);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    flex-shrink: 0;
+  }
+  .bd1-author__info { display: flex; flex-direction: column; }
+  .bd1-author__name {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #2C3E50;
+  }
+  .bd1-author__role {
+    font-size: 0.82rem;
+    color: #5D6D7E;
+  }
+
+  /* ===== ARTICLE BODY ===== */
+  .bd1-body {
+    background: #FAFAF8;
+    padding: 3rem 2rem;
+  }
+  .bd1-article {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  .bd1-article__content p {
+    color: #2C3E50;
+    font-size: 1.08rem;
+    line-height: 1.85;
+    margin-bottom: 1.75rem;
+  }
+  .bd1-quote {
+    max-width: 700px;
+    margin: 2.5rem auto;
+    background: linear-gradient(135deg, rgba(82,193,122,0.08), rgba(61,158,95,0.04));
+    border-left: 4px solid #52C17A;
+    border-radius: 0 1.5rem 1.5rem 0;
+    padding: 2rem 2.5rem;
+    position: relative;
+  }
+  .bd1-quote :global(svg) {
+    color: #52C17A;
+    opacity: 0.5;
+    margin-bottom: 0.75rem;
+  }
+  .bd1-quote p {
+    color: #2C3E50;
+    font-size: 1.15rem;
+    font-weight: 600;
+    line-height: 1.7;
+    font-style: italic;
+    margin: 0;
+  }
+
+  /* ===== RELATED ===== */
+  .bd1-related {
+    background: #FAFAF8;
+    padding: 2rem 2rem 6rem;
+  }
+  .bd1-related__inner {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  .bd1-related__heading {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #2C3E50;
+    margin-bottom: 0.5rem;
+  }
+  .bd1-related__line {
+    height: 2px;
+    background: linear-gradient(90deg, #52C17A, transparent);
+    margin-bottom: 2rem;
+  }
+  .bd1-related__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+  .bd1-related__card {
+    background: rgba(255,255,255,0.5);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(82,193,122,0.1);
+    border-radius: 1.5rem;
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+  }
+  .bd1-related__card:hover {
+    box-shadow: 0 12px 40px rgba(82,193,122,0.15);
+  }
+  .bd1-related__cover {
+    height: 140px;
+    background: linear-gradient(135deg, #52C17A 0%, #4DB6AC 100%);
+    position: relative;
+    overflow: hidden;
+  }
+  .bd1-related__shimmer {
+    position: absolute; inset: 0;
+    background: linear-gradient(110deg, transparent 25%, rgba(255,255,255,0.15) 50%, transparent 75%);
+    background-size: 200% 100%;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+  .bd1-related__card:hover .bd1-related__shimmer {
+    opacity: 1;
+    animation: bd1Shimmer 1.2s ease forwards;
+  }
+  .bd1-related__pill {
+    position: absolute;
+    top: 0.75rem; left: 0.75rem;
+    background: rgba(255,255,255,0.25);
+    backdrop-filter: blur(6px);
+    color: #fff;
+    padding: 0.2rem 0.6rem;
+    border-radius: 9999px;
+    font-size: 0.72rem;
+    font-weight: 600;
+  }
+  .bd1-related__body { padding: 1.25rem; }
+  .bd1-related__title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #2C3E50;
+    line-height: 1.35;
+    margin-bottom: 0.75rem;
+    transition: color 0.3s ease;
+  }
+  .bd1-related__card:hover .bd1-related__title { color: #3D9E5F; }
+  .bd1-related__footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 0.75rem;
+    border-top: 1px solid #f0f0f0;
+  }
+  .bd1-related__time {
+    font-size: 0.78rem;
+    color: #52C17A;
+    font-weight: 500;
+  }
+  .bd1-related__arrow {
+    color: #52C17A;
+    transition: transform 0.3s ease;
+    display: flex;
+  }
+  .bd1-related__card:hover .bd1-related__arrow { transform: translateX(4px); }
+
+  /* ===== ANIMATIONS ===== */
+  @keyframes bd1Float {
+    0%, 100% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-20px) scale(1.05); }
+  }
+  @keyframes bd1Shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 768px) {
+    .bd1-hero { padding-bottom: 6rem; }
+    .bd1-related__grid { grid-template-columns: 1fr; }
+    .bd1-quote { padding: 1.5rem; }
+  }
+  @media (min-width: 769px) and (max-width: 1024px) {
+    .bd1-related__grid { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>

@@ -1,0 +1,395 @@
+---
+import { getLocalizedPath } from '../../i18n/utils';
+import Icon from '../../components/common/Icon.astro';
+import { placeholderImages } from '../../data/placeholder-images';
+
+interface Props { lang?: string; }
+const { lang = 'en' } = Astro.props;
+
+const heroImage = placeholderImages.team[0];
+
+const heading = 'Join Our Growing Team';
+const description = 'Build your career with a company that values innovation, diversity, and professional growth.';
+const benefits = [
+  { icon: 'rocket', title: 'Career Growth', description: 'Clear advancement paths with mentorship and continuous learning opportunities.' },
+  { icon: 'heart', title: 'Inclusive Culture', description: 'A diverse and welcoming workplace where every voice matters and ideas thrive.' },
+  { icon: 'gift', title: 'Great Benefits', description: 'Competitive compensation, health coverage, and flexible work arrangements.' },
+  { icon: 'book-open', title: 'Continuous Training', description: 'Access to industry certifications, workshops, and professional development programs.' },
+];
+const jobOpenings = [
+  { title: 'Senior Customer Service Representative', department: 'Operations', location: 'Bogota, Colombia', type: 'Full-time', featured: true, slug: 'senior-customer-service', summary: 'Lead our customer service team and deliver exceptional multilingual support experiences.' },
+  { title: 'Back Office Analyst', department: 'Operations', location: 'Bogota, Colombia', type: 'Full-time', featured: false, slug: 'back-office-analyst', summary: 'Process and manage critical business documents with precision and efficiency.' },
+  { title: 'Sales Development Representative', department: 'Sales', location: 'Bogota, Colombia', type: 'Full-time', featured: false, slug: 'sales-development-rep', summary: 'Drive revenue growth through strategic outbound campaigns and lead qualification.' },
+  { title: 'Technical Support Engineer', department: 'Technology', location: 'Bogota, Colombia', type: 'Full-time', featured: true, slug: 'technical-support-engineer', summary: 'Provide expert-level technical assistance for complex software and hardware issues.' },
+  { title: 'Quality Assurance Specialist', department: 'Operations', location: 'Bogota, Colombia', type: 'Full-time', featured: false, slug: 'qa-specialist', summary: 'Monitor and improve service quality across all customer interaction channels.' },
+];
+---
+
+<!-- V3 Premium High-Contrast: Clean dark/light alternating sections, no glassmorphism or animated effects -->
+<section class="d3c-page">
+
+  <!-- 1. HERO — dark bg with photo overlay -->
+  <div class="d3c-hero" style={`background-image: url('${heroImage.url}')`}>
+    <div class="d3c-hero-overlay"></div>
+    <div class="d3c-hero-inner">
+
+      <div class="d3c-label" data-sa="fade-up">We're Hiring</div>
+
+      <h1 class="d3c-hero-heading" data-sa="fade-up" data-sa-delay="100">
+        Join Our <span class="d3c-accent">Growing</span> Team
+      </h1>
+      <p class="d3c-hero-desc" data-sa="fade-up" data-sa-delay="200">
+        {description}
+      </p>
+
+    </div>
+  </div>
+
+  <!-- 2. BENEFITS — light bg, 4-column cards -->
+  <div class="d3c-benefits-section">
+    <div class="d3c-container">
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-6">
+        {benefits.map((b, i) => (
+          <div class="d3c-benefit-card sa-hover-lift" data-sa="fade-up" data-sa-delay={`${i * 80}`}>
+            <div class="d3c-benefit-icon">
+              <Icon name={b.icon} class="w-5 h-5" />
+            </div>
+            <h3 class="d3c-benefit-title">{b.title}</h3>
+            <p class="d3c-benefit-desc">{b.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. JOB OPENINGS — off-white bg, 2-column job cards -->
+  <div class="d3c-jobs-section">
+    <div class="d3c-container">
+
+      <div class="d3c-section-header">
+        <div class="d3c-label" data-sa="fade-up">Open Positions</div>
+        <h2 class="d3c-section-heading" data-sa="fade-up">Current Opportunities</h2>
+        <p class="d3c-section-desc">Explore our current openings and find the perfect role for your career.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {jobOpenings.map((job, i) => (
+          <a href={getLocalizedPath('/careers/' + job.slug, lang)}
+             class="d3c-job-card group sa-hover-lift"
+             data-sa="fade-up" data-sa-delay={`${i * 80}`}>
+
+            <div class="d3c-job-top">
+              <!-- Department pill -->
+              <span class="d3c-dept-pill">{job.department}</span>
+
+              <!-- Featured badge -->
+              {job.featured && (
+                <span class="d3c-featured-badge">Featured</span>
+              )}
+            </div>
+
+            <!-- Title -->
+            <h3 class="d3c-job-title group-hover:text-[#52C17A]">
+              {job.title}
+            </h3>
+
+            <!-- Summary -->
+            <p class="d3c-job-summary">{job.summary}</p>
+
+            <!-- Location & Type -->
+            <div class="d3c-job-meta">
+              <span class="d3c-job-meta-item">
+                <Icon name="map-pin" class="w-4 h-4 text-[#52C17A]" />
+                {job.location}
+              </span>
+              <span class="d3c-job-meta-item">
+                <Icon name="clock" class="w-4 h-4 text-[#52C17A]" />
+                {job.type}
+              </span>
+            </div>
+
+            <!-- Arrow link -->
+            <span class="d3c-job-link">
+              View Details <Icon name="arrow-right" class="w-4 h-4 transition-transform group-hover:translate-x-1" />
+            </span>
+
+          </a>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. CTA — dark section, simple green button -->
+  <div class="d3c-cta-section">
+    <div class="d3c-cta-inner" data-sa="scale-in">
+      <h3 class="d3c-cta-heading">Don't see your role?</h3>
+      <p class="d3c-cta-desc">
+        We're always looking for exceptional talent. Send us your resume and let's explore new possibilities together.
+      </p>
+      <a href={getLocalizedPath('/contact', lang)} class="d3c-btn-primary">
+        Get In Touch <Icon name="arrow-right" class="w-4 h-4" />
+      </a>
+    </div>
+  </div>
+
+</section>
+
+<style>
+  /* ── Page wrapper ── */
+  .d3c-page { background: #fff; }
+
+  /* ── Shared accent ── */
+  .d3c-accent { color: #52C17A; }
+
+  /* ── Shared label ── */
+  .d3c-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 16px;
+    border-radius: 9999px;
+    background: rgba(82, 193, 122, 0.1);
+    border: 1px solid rgba(82, 193, 122, 0.25);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: #52C17A;
+    letter-spacing: 0.04em;
+    margin-bottom: 1.25rem;
+  }
+
+  /* ── Shared container ── */
+  .d3c-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+
+  /* ══════════════════════════════
+     1. HERO
+  ══════════════════════════════ */
+  .d3c-hero {
+    position: relative;
+    background-color: #111115;
+    background-size: cover;
+    background-position: center;
+    padding-top: 10rem;
+    padding-bottom: 6rem;
+  }
+  .d3c-hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(17, 17, 21, 0.78);
+  }
+  .d3c-hero-inner {
+    position: relative;
+    z-index: 10;
+    max-width: 56rem;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    text-align: center;
+  }
+  .d3c-hero-heading {
+    font-size: clamp(2.25rem, 5vw, 4rem);
+    font-weight: 800;
+    color: #fff;
+    line-height: 1.1;
+    margin-bottom: 1.25rem;
+  }
+  .d3c-hero-desc {
+    max-width: 38rem;
+    margin: 0 auto;
+    font-size: 1.125rem;
+    color: #A1A1AA;
+    line-height: 1.75;
+  }
+
+  /* ══════════════════════════════
+     2. BENEFITS
+  ══════════════════════════════ */
+  .d3c-benefits-section {
+    background: #fff;
+    padding: 5rem 0;
+  }
+  .d3c-benefit-card {
+    background: #FAFAF8;
+    border: 1px solid #E5E7EB;
+    border-radius: 12px;
+    padding: 1.5rem;
+    transition: border-color .25s;
+  }
+  .d3c-benefit-card:hover {
+    border-color: #52C17A;
+  }
+  .d3c-benefit-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(82, 193, 122, 0.08);
+    color: #52C17A;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+    flex-shrink: 0;
+  }
+  .d3c-benefit-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #111115;
+    margin-bottom: 0.5rem;
+  }
+  .d3c-benefit-desc {
+    font-size: 0.875rem;
+    color: #5D6D7E;
+    line-height: 1.6;
+  }
+
+  /* ══════════════════════════════
+     3. JOB OPENINGS
+  ══════════════════════════════ */
+  .d3c-jobs-section {
+    background: #FAFAF8;
+    padding: 5rem 0 6rem;
+  }
+  .d3c-section-header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+  .d3c-section-heading {
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
+    font-weight: 800;
+    color: #111115;
+    margin-bottom: 0.75rem;
+  }
+  .d3c-section-desc {
+    color: #5D6D7E;
+    max-width: 32rem;
+    margin: 0 auto;
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+
+  /* Job card */
+  .d3c-job-card {
+    background: #fff;
+    border: 1px solid #E5E7EB;
+    border-radius: 12px;
+    padding: 1.75rem 2rem;
+    display: block;
+    transition: border-color .25s, box-shadow .25s;
+  }
+  .d3c-job-card:hover {
+    border-color: #52C17A;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.07);
+  }
+  .d3c-job-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+    flex-wrap: wrap;
+  }
+  .d3c-dept-pill {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 9999px;
+    background: rgba(82, 193, 122, 0.08);
+    border: 1px solid rgba(82, 193, 122, 0.2);
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #52C17A;
+  }
+  .d3c-featured-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 12px;
+    border-radius: 9999px;
+    background: rgba(82, 193, 122, 0.08);
+    border: 1px solid rgba(82, 193, 122, 0.2);
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #52C17A;
+  }
+  .d3c-job-title {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: #111115;
+    margin-bottom: 0.75rem;
+    transition: color .2s;
+    padding-right: 0;
+  }
+  .d3c-job-summary {
+    font-size: 0.9rem;
+    color: #5D6D7E;
+    line-height: 1.65;
+    margin-bottom: 1.25rem;
+  }
+  .d3c-job-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+  }
+  .d3c-job-meta-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.875rem;
+    color: #5D6D7E;
+  }
+  .d3c-job-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #52C17A;
+  }
+
+  /* ══════════════════════════════
+     4. CTA
+  ══════════════════════════════ */
+  .d3c-cta-section {
+    background: #111115;
+    padding: 5rem 1.5rem;
+  }
+  .d3c-cta-inner {
+    max-width: 42rem;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .d3c-cta-heading {
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 1rem;
+  }
+  .d3c-cta-desc {
+    color: #A1A1AA;
+    font-size: 1rem;
+    line-height: 1.75;
+    margin-bottom: 2rem;
+    max-width: 34rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .d3c-btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0.875rem 2rem;
+    border-radius: 9999px;
+    background: #52C17A;
+    color: #fff;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: background .2s, transform .2s;
+    text-decoration: none;
+  }
+  .d3c-btn-primary:hover {
+    background: #3D9E5F;
+    transform: translateY(-2px);
+  }
+</style>

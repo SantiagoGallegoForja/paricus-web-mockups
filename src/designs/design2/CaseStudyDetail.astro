@@ -1,0 +1,428 @@
+---
+import { getLocalizedPath } from '../../i18n/utils';
+import Icon from '../../components/common/Icon.astro';
+import { placeholderImages } from '../../data/placeholder-images';
+
+interface Props { lang?: string; }
+const { lang = 'en' } = Astro.props;
+
+const caseStudy = {
+  title: 'Healthcare Provider Reduces Response Time by 60%',
+  industry: 'Healthcare',
+  client: 'Regional Healthcare Network',
+  challenge: 'A major regional healthcare network was struggling with patient support response times averaging 12 minutes, leading to declining patient satisfaction scores and increased complaint escalations. Their in-house team couldn\'t scale during peak hours and lacked bilingual capabilities for their growing Hispanic patient base.',
+  solution: 'Paricus deployed a dedicated 45-person bilingual support team with HIPAA certification and healthcare-specific training. We implemented an AI-assisted triage system to route calls efficiently and established 24/7 coverage with specialized healthcare protocols.',
+  results: [
+    { icon: 'clock', value: '60%', label: 'Faster Response Time', detail: 'From 12min to under 5min' },
+    { icon: 'star', value: '95%', label: 'Patient Satisfaction', detail: 'Up from 72%' },
+    { icon: 'trending-up', value: '40%', label: 'Cost Reduction', detail: 'vs previous in-house operation' },
+  ],
+  testimonial: {
+    quote: 'Paricus transformed our patient support operations. The bilingual team and healthcare expertise made an immediate impact on our satisfaction scores.',
+    author: 'Dr. Sarah Mitchell',
+    role: 'VP of Patient Experience',
+  },
+};
+---
+
+<!-- HERO SECTION -->
+<section class="csd2-hero pt-32">
+  <div class="csd2-hero__grid-bg"></div>
+  <div class="csd2-hero__container">
+    <a href={getLocalizedPath('/case-studies', lang)} class="csd2-hero__back" data-sa="fade-up">
+      <Icon name="arrow-right" size={14} class="csd2-hero__back-icon" />
+      // BACK TO CASE STUDIES
+    </a>
+    <div class="csd2-hero__accent" data-sa="fade-up" data-sa-delay="80"></div>
+    <h1 class="csd2-hero__title" data-sa="fade-up" data-sa-delay="120">{caseStudy.title}</h1>
+    <div class="csd2-hero__tags" data-sa="fade-up" data-sa-delay="200">
+      <span class="csd2-hero__tag">{caseStudy.industry}</span>
+      <span class="csd2-hero__tag">{caseStudy.client}</span>
+    </div>
+  </div>
+</section>
+
+<!-- HEADER IMAGE -->
+<section class="bg-white py-6">
+  <div class="max-w-[1100px] mx-auto px-8">
+    <img src={placeholderImages.caseStudy[0].url} alt={placeholderImages.caseStudy[0].alt} loading="lazy" class="w-full h-64 lg:h-80 object-cover border-2 border-[#1a2e1a]" data-sa="fade-in" />
+  </div>
+</section>
+
+<!-- RESULTS SECTION -->
+<section class="csd2-results">
+  <div class="csd2-results__container">
+    <span class="csd2-results__label" data-sa="fade-up">// KEY METRICS</span>
+    <div class="csd2-results__grid">
+      {caseStudy.results.map((result, i) => (
+        <div class="csd2-results__stat" data-sa="fade-up" data-sa-delay={String(i * 60)}>
+          <div class="csd2-results__stat-inner">
+            <div class="csd2-results__stat-icon">
+              <Icon name={result.icon} size={20} />
+            </div>
+            <span class="csd2-results__stat-value">{result.value}</span>
+            <span class="csd2-results__stat-label">{result.label}</span>
+            <span class="csd2-results__stat-detail">{result.detail}</span>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- CHALLENGE & SOLUTION SECTION -->
+<section class="csd2-content">
+  <div class="csd2-content__container">
+    <div class="csd2-content__block" data-sa="slide-right">
+      <div class="csd2-content__separator"></div>
+      <span class="csd2-content__mono-label">// CHALLENGE</span>
+      <div class="csd2-content__accent"></div>
+      <h2 class="csd2-content__heading">The Challenge</h2>
+      <p class="csd2-content__text">{caseStudy.challenge}</p>
+    </div>
+    <div class="csd2-content__block" data-sa="slide-left">
+      <div class="csd2-content__separator"></div>
+      <span class="csd2-content__mono-label">// SOLUTION</span>
+      <div class="csd2-content__accent"></div>
+      <h2 class="csd2-content__heading">Our Solution</h2>
+      <p class="csd2-content__text">{caseStudy.solution}</p>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIAL SECTION -->
+<section class="csd2-testimonial">
+  <div class="csd2-testimonial__container" data-sa="fade-up">
+    <div class="csd2-testimonial__block">
+      <div class="csd2-testimonial__separator"></div>
+      <span class="csd2-testimonial__mono-label">// TESTIMONIAL</span>
+      <div class="csd2-testimonial__accent"></div>
+      <blockquote class="csd2-testimonial__text">&ldquo;{caseStudy.testimonial.quote}&rdquo;</blockquote>
+      <div class="csd2-testimonial__author">
+        <span class="csd2-testimonial__dash">&mdash;</span>
+        <span class="csd2-testimonial__name">{caseStudy.testimonial.author},</span>
+        <span class="csd2-testimonial__role">{caseStudy.testimonial.role}</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA SECTION -->
+<section class="csd2-cta" data-sa="scale-in">
+  <div class="csd2-cta__container">
+    <span class="csd2-cta__label">// NEXT STEP</span>
+    <h2 class="csd2-cta__title" data-sa="fade-up">Let's build your<br />success story.</h2>
+    <a href={getLocalizedPath('/contact', lang)} class="csd2-cta__button">
+      Start a Conversation
+      <Icon name="arrow-right" size={18} />
+    </a>
+  </div>
+</section>
+
+<style>
+  /* ── HERO ── */
+  .csd2-hero {
+    position: relative;
+    padding-bottom: 5rem;
+    background: #1a2e1a;
+    overflow: hidden;
+  }
+  .csd2-hero__grid-bg {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(82,193,122,0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(82,193,122,0.06) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+  }
+  .csd2-hero__container {
+    position: relative;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    z-index: 1;
+  }
+  .csd2-hero__back {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: #52C17A;
+    letter-spacing: 0.15em;
+    text-decoration: none;
+    margin-bottom: 2.5rem;
+    transition: color 0.3s ease;
+  }
+  .csd2-hero__back:hover { color: #D5E8D4; }
+  .csd2-hero__back-icon { transform: rotate(180deg); }
+  .csd2-hero__accent {
+    width: 80px;
+    height: 4px;
+    background: #52C17A;
+    margin-bottom: 1.5rem;
+  }
+  .csd2-hero__title {
+    font-size: clamp(2.2rem, 5.5vw, 4rem);
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.0;
+    margin: 0 0 2rem;
+    text-transform: uppercase;
+    letter-spacing: -0.04em;
+    max-width: 800px;
+  }
+  .csd2-hero__tags {
+    display: flex;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+  }
+  .csd2-hero__tag {
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: #D5E8D4;
+    background: rgba(213,232,212,0.1);
+    padding: 0.35rem 1rem;
+    border: 1px solid rgba(213,232,212,0.2);
+  }
+
+  /* ── RESULTS ── */
+  .csd2-results {
+    background: #fff;
+    padding: 5rem 2rem 6rem;
+    border-bottom: 1px solid #e2e6ea;
+  }
+  .csd2-results__container {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .csd2-results__label {
+    display: block;
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    font-size: 0.65rem;
+    font-weight: 600;
+    color: #52C17A;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+  }
+  .csd2-results__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+  }
+  .csd2-results__stat {
+    border: 1px solid #e2e6ea;
+    margin-right: -1px;
+    transition: background 0.4s ease, color 0.4s ease;
+  }
+  .csd2-results__stat:hover {
+    background: #1a2e1a;
+  }
+  .csd2-results__stat:hover .csd2-results__stat-value { color: #52C17A; }
+  .csd2-results__stat:hover .csd2-results__stat-label,
+  .csd2-results__stat:hover .csd2-results__stat-detail { color: #D5E8D4; }
+  .csd2-results__stat:hover .csd2-results__stat-icon { color: #52C17A; }
+  .csd2-results__stat-inner {
+    padding: 3rem 2.5rem;
+    text-align: center;
+  }
+  .csd2-results__stat-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    color: #52C17A;
+    margin-bottom: 1rem;
+    transition: color 0.4s ease;
+  }
+  .csd2-results__stat-value {
+    display: block;
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    font-size: 3.5rem;
+    font-weight: 800;
+    color: #2C3E50;
+    letter-spacing: -0.04em;
+    line-height: 1;
+    margin-bottom: 0.6rem;
+    transition: color 0.4s ease;
+  }
+  .csd2-results__stat-label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #2C3E50;
+    margin-bottom: 0.3rem;
+    transition: color 0.4s ease;
+  }
+  .csd2-results__stat-detail {
+    display: block;
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    font-size: 0.68rem;
+    color: #5D6D7E;
+    letter-spacing: 0.04em;
+    transition: color 0.4s ease;
+  }
+
+  /* ── CONTENT ── */
+  .csd2-content {
+    background: #fff;
+    padding: 5rem 2rem 6rem;
+  }
+  .csd2-content__container {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+  }
+  .csd2-content__block {}
+  .csd2-content__separator {
+    height: 1px;
+    background: linear-gradient(90deg, #2C3E50, #D5E8D4 50%, transparent);
+    margin-bottom: 2rem;
+  }
+  .csd2-content__mono-label {
+    display: block;
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    font-size: 0.65rem;
+    font-weight: 600;
+    color: #52C17A;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+  .csd2-content__accent {
+    width: 48px;
+    height: 2px;
+    background: #52C17A;
+    margin-bottom: 1.2rem;
+  }
+  .csd2-content__heading {
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: #2C3E50;
+    margin: 0 0 1.2rem;
+  }
+  .csd2-content__text {
+    font-size: 0.95rem;
+    color: #5D6D7E;
+    line-height: 1.8;
+    margin: 0;
+  }
+
+  /* ── TESTIMONIAL ── */
+  .csd2-testimonial {
+    background: #fff;
+    padding: 0 2rem 5rem;
+  }
+  .csd2-testimonial__container {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .csd2-testimonial__block {}
+  .csd2-testimonial__separator {
+    height: 1px;
+    background: linear-gradient(90deg, #2C3E50, #D5E8D4 50%, transparent);
+    margin-bottom: 2rem;
+  }
+  .csd2-testimonial__mono-label {
+    display: block;
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    font-size: 0.65rem;
+    font-weight: 600;
+    color: #52C17A;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+  .csd2-testimonial__accent {
+    width: 48px;
+    height: 2px;
+    background: #52C17A;
+    margin-bottom: 1.5rem;
+  }
+  .csd2-testimonial__text {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #2C3E50;
+    line-height: 1.7;
+    margin: 0 0 1.5rem;
+    max-width: 700px;
+    font-style: italic;
+  }
+  .csd2-testimonial__author {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+  .csd2-testimonial__dash { color: #52C17A; font-weight: 700; }
+  .csd2-testimonial__name {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #2C3E50;
+  }
+  .csd2-testimonial__role {
+    font-size: 0.85rem;
+    color: #5D6D7E;
+    font-style: italic;
+  }
+
+  /* ── CTA ── */
+  .csd2-cta {
+    background: #1a2e1a;
+    padding: 6rem 2rem;
+    text-align: center;
+  }
+  .csd2-cta__container { max-width: 600px; margin: 0 auto; }
+  .csd2-cta__label {
+    display: block;
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #52C17A;
+    letter-spacing: 0.15em;
+    margin-bottom: 1.5rem;
+  }
+  .csd2-cta__title {
+    font-size: clamp(2rem, 4.5vw, 3rem);
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.15;
+    margin: 0 0 2rem;
+    text-transform: uppercase;
+  }
+  .csd2-cta__button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 1rem 2.2rem;
+    background: #52C17A;
+    color: #fff;
+    font-weight: 700;
+    font-size: 0.95rem;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    border: none;
+    transition: background 0.3s ease, transform 0.3s ease;
+  }
+  .csd2-cta__button:hover { background: #3D9E5F; transform: translateY(-2px); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    .csd2-results__grid { grid-template-columns: 1fr; }
+    .csd2-results__stat { margin-right: 0; margin-bottom: -1px; }
+    .csd2-content__container { grid-template-columns: 1fr; gap: 2rem; }
+  }
+</style>

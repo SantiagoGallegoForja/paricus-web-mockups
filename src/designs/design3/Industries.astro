@@ -1,0 +1,267 @@
+---
+import { getLocalizedPath } from '../../i18n/utils';
+import Icon from '../../components/common/Icon.astro';
+import { placeholderImages } from '../../data/placeholder-images';
+
+interface Props { lang?: string; }
+const { lang = 'en' } = Astro.props;
+
+const heading = 'Industries We Serve';
+const description = 'Specialized expertise across diverse sectors, delivering tailored outsourcing solutions that understand your unique challenges.';
+const industries = [
+  { icon: 'heart', title: 'Healthcare', description: 'Supporting patient care with compassionate, HIPAA-compliant support services that maintain the highest standards of data security.' },
+  { icon: 'package', title: 'E-Commerce', description: 'Scaling your online business with seamless customer experiences across every channel and touchpoint.' },
+  { icon: 'cpu', title: 'Technology', description: 'Technical support that speaks your customers\' language, from troubleshooting to advanced product guidance.' },
+  { icon: 'landmark', title: 'Finance', description: 'Secure, compliant support for financial services with rigorous attention to regulatory requirements.' },
+  { icon: 'shopping-bag', title: 'Travel & Hospitality', description: 'Creating memorable experiences from first contact, with multilingual support that delights guests worldwide.' },
+];
+
+const heroImage = placeholderImages.industries[0];
+---
+
+<!-- ============================================================
+     DESIGN V3 — INDUSTRIES (High-Contrast Premium)
+     Clean dark/light split, no glassmorphism, no animated orbs
+     ============================================================ -->
+
+<!-- ==================== SECTION 1: DARK HERO ==================== -->
+<section class="ind-hero">
+  <div
+    class="ind-hero__bg sa-parallax"
+    data-sa="fade-in"
+    style={`background-image: url('${heroImage.url}');`}
+    aria-hidden="true"
+  ></div>
+  <div class="ind-hero__overlay" aria-hidden="true"></div>
+
+  <div class="ind-hero__content">
+    <p class="ind-hero__label" data-sa="fade-up">Sector Expertise</p>
+
+    <h1 class="ind-hero__title" data-sa="fade-up" data-sa-delay="80">
+      {heading}
+    </h1>
+
+    <p class="ind-hero__desc" data-sa="fade-up" data-sa-delay="160">
+      {description}
+    </p>
+  </div>
+</section>
+
+<!-- ==================== SECTION 2: INDUSTRY CARDS ==================== -->
+<section class="ind-cards">
+  <div class="ind-cards__inner">
+    <div class="ind-cards__grid">
+      {industries.map((industry, i) => (
+        <div
+          class="ind-card sa-hover-lift"
+          data-sa="fade-up"
+          data-sa-delay={`${i * 80}`}
+        >
+          <div class="ind-card__icon">
+            <Icon name={industry.icon} class="w-6 h-6" />
+          </div>
+          <h3 class="ind-card__title">{industry.title}</h3>
+          <p class="ind-card__desc">{industry.description}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- ==================== SECTION 3: CTA ==================== -->
+<section class="ind-cta" data-sa="scale-in">
+  <div class="ind-cta__inner">
+    <div class="ind-cta__content">
+      <p class="ind-cta__label">Start Today</p>
+
+      <h2 class="ind-cta__title" data-sa="fade-up">Ready to Transform Your Industry?</h2>
+
+      <p class="ind-cta__desc" data-sa="fade-up" data-sa-delay="80">
+        Partner with us to unlock industry-specific outsourcing solutions that drive real, measurable results.
+      </p>
+
+      <a href={getLocalizedPath('/contact', lang)} class="ind-cta__btn" data-sa="fade-up" data-sa-delay="160">
+        Get in Touch
+        <Icon name="arrow-right" class="w-5 h-5" />
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* ==================== HERO ==================== */
+  .ind-hero {
+    position: relative;
+    min-height: 70vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: #111115;
+    padding-top: 10rem;
+    padding-bottom: 5rem;
+  }
+  .ind-hero__bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  .ind-hero__overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(17, 17, 21, 0.85);
+  }
+  .ind-hero__content {
+    position: relative;
+    z-index: 1;
+    max-width: 48rem;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    text-align: center;
+  }
+  .ind-hero__label {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: #52C17A;
+    margin: 0 0 1.25rem;
+  }
+  .ind-hero__title {
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-weight: 800;
+    line-height: 1.08;
+    color: #fff;
+    margin: 0 0 1.5rem;
+    letter-spacing: -0.02em;
+  }
+  .ind-hero__desc {
+    font-size: 1.1rem;
+    color: #A1A1AA;
+    line-height: 1.75;
+    margin: 0;
+    max-width: 38rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* ==================== CARDS ==================== */
+  .ind-cards {
+    background: #fff;
+    padding: 5rem 1.5rem;
+  }
+  .ind-cards__inner {
+    max-width: 72rem;
+    margin: 0 auto;
+  }
+  .ind-cards__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+  @media (min-width: 1024px) {
+    .ind-cards__grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  @media (max-width: 639px) {
+    .ind-cards__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .ind-card {
+    background: #fff;
+    border: 1px solid #E5E7EB;
+    border-radius: 12px;
+    padding: 2rem;
+    transition: border-color 0.25s ease, transform 0.25s ease;
+  }
+  .ind-card:hover {
+    border-color: #52C17A;
+    transform: translateY(-2px);
+  }
+  .ind-card__icon {
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(82, 193, 122, 0.08);
+    color: #52C17A;
+    margin-bottom: 1.25rem;
+  }
+  .ind-card__title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #111115;
+    margin: 0 0 0.6rem;
+  }
+  .ind-card__desc {
+    font-size: 0.9rem;
+    color: #5D6D7E;
+    line-height: 1.65;
+    margin: 0;
+  }
+
+  /* ==================== CTA ==================== */
+  .ind-cta {
+    background: #111115;
+    padding: 6rem 1.5rem;
+  }
+  .ind-cta__inner {
+    max-width: 42rem;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .ind-cta__content {
+    /* intentionally flat — no card border, no blur */
+  }
+  .ind-cta__label {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: #52C17A;
+    margin: 0 0 1.25rem;
+  }
+  .ind-cta__title {
+    font-size: clamp(1.75rem, 4vw, 2.75rem);
+    font-weight: 800;
+    color: #fff;
+    margin: 0 0 1.25rem;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+  }
+  .ind-cta__desc {
+    font-size: 1rem;
+    color: #A1A1AA;
+    line-height: 1.7;
+    margin: 0 0 2.5rem;
+    max-width: 34rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .ind-cta__btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.875rem 2.25rem;
+    background: #52C17A;
+    color: #fff;
+    font-weight: 700;
+    font-size: 1rem;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: background 0.2s ease, transform 0.2s ease;
+  }
+  .ind-cta__btn:hover {
+    background: #3daa63;
+    transform: translateY(-1px);
+  }
+</style>

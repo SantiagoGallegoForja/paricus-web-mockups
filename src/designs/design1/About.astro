@@ -1,0 +1,369 @@
+---
+import { getLocalizedPath } from '../../i18n/utils';
+import Icon from '../../components/common/Icon.astro';
+import { placeholderImages } from '../../data/placeholder-images';
+
+interface Props { lang?: string; }
+const { lang = 'en' } = Astro.props;
+
+const heading = 'Built on';
+const headingHighlight = 'Trust';
+const headingEnd = 'Driven by Results';
+const description1 = 'Paricus combines the warmth of a true partnership with the confidence of deep expertise. Based in Colombia, we serve US companies with bilingual teams that understand both cultures and deliver exceptional results.';
+const description2 = 'Since 2009, we have been helping businesses of all sizes transform their operations through nearshore outsourcing that feels like an extension of their own team.';
+const buttonText = 'Partner with Us';
+const stats = [
+  { icon: 'users', value: '100+', label: 'Team Members' },
+  { icon: 'globe', value: '2', label: 'Countries Served' },
+  { icon: 'award', value: '15+', label: 'Years Experience' },
+  { icon: 'trending-up', value: '98%', label: 'Client Satisfaction' },
+];
+const leaders = [
+  { name: 'Jorge E. Perea', position: 'Managing Partner', photo: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&h=400&fit=crop&crop=face', initials: 'JP' },
+  { name: 'Jay Jones', position: 'Managing Partner', photo: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face', initials: 'JJ' },
+  { name: 'Maria Santos', position: 'VP of Operations', photo: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=400&fit=crop&crop=face', initials: 'MS' },
+  { name: 'Carlos Mendez', position: 'Head of Technology', photo: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face', initials: 'CM' },
+  { name: 'Laura Chen', position: 'Director of Client Success', photo: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&h=400&fit=crop&crop=face', initials: 'LC' },
+];
+---
+
+<!-- V1 — Modern Corporate -->
+
+<!-- HERO SECTION -->
+<section class="about-hero relative overflow-hidden">
+  <div class="hero-bg absolute inset-0" data-sa="fade-in"></div>
+
+  <!-- Floating decorative orbs -->
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+
+  <div class="relative z-10 max-w-7xl mx-auto px-6 py-24 lg:py-32">
+    <div class="grid lg:grid-cols-2 gap-16 items-center">
+      <!-- Left: Content -->
+      <div class="hero-content" data-sa="slide-right">
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-[#2C3E50] mb-8" data-sa="fade-up">
+          {heading} <span class="heading-highlight">{headingHighlight}</span>,<br/>
+          {headingEnd}
+        </h1>
+        <p class="text-lg text-[#5D6D7E] mb-4 leading-relaxed">{description1}</p>
+        <p class="text-lg text-[#5D6D7E] mb-8 leading-relaxed">{description2}</p>
+        <a
+          href={getLocalizedPath('/contact', lang)}
+          class="hero-cta inline-flex items-center gap-2 px-8 py-4 rounded-full text-white font-semibold text-lg transition-all duration-300"
+        >
+          {buttonText}
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+        </a>
+      </div>
+
+      <!-- Right: Stats Grid -->
+      <div class="grid grid-cols-2 gap-5" data-sa="slide-left">
+        {stats.map((stat, i) => (
+          <div class={`stat-card stat-card-${i} group relative p-6 rounded-2xl text-center transition-all duration-500`} data-sa="fade-up" data-sa-delay={`${i * 60}`}>
+            <div class="stat-icon mx-auto mb-4 w-14 h-14 rounded-xl flex items-center justify-center transition-all duration-500">
+              <Icon name={stat.icon} class="w-7 h-7 text-[#52C17A] group-hover:text-white transition-colors duration-500" />
+            </div>
+            <div class="text-3xl font-black text-[#2C3E50] group-hover:text-white transition-colors duration-500 mb-1">{stat.value}</div>
+            <div class="text-sm font-medium text-[#5D6D7E] group-hover:text-white/80 transition-colors duration-500">{stat.label}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <!-- Diagonal clip-path bottom -->
+  <div class="hero-clip"></div>
+</section>
+
+<!-- CULTURE SECTION — Image with overlapping content -->
+<section class="relative py-20 lg:py-28" style="background: #FAFAF8;">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+
+      <!-- Left: Image with decorative elements -->
+      <div class="relative" data-sa="slide-right">
+        <img
+          src={placeholderImages.team[0].url}
+          alt={placeholderImages.team[0].alt}
+          loading="lazy"
+          class="w-full h-72 lg:h-[420px] object-cover rounded-3xl shadow-xl"
+          data-sa="fade-in"
+        />
+        <!-- Decorative accent behind image -->
+        <div class="absolute -bottom-4 -right-4 w-full h-full rounded-3xl border-2 border-[#52C17A]/20 -z-10"></div>
+        <!-- Floating stat card -->
+        <div class="absolute -bottom-6 -right-6 lg:-right-8 px-6 py-4 rounded-2xl bg-white/90 backdrop-blur-lg border border-white/70 shadow-xl">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl flex items-center justify-center" style="background: linear-gradient(135deg, #52C17A, #4DB6AC);">
+              <Icon name="users" class="w-5 h-5 text-white" />
+            </div>
+            <div>
+              <div class="text-xl font-extrabold text-[#2C3E50]">100+</div>
+              <div class="text-xs text-[#5D6D7E]">Team Members</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Text content -->
+      <div data-sa="slide-left">
+        <div class="flex items-center gap-3 mb-5">
+          <div class="w-10 h-1 rounded-full bg-gradient-to-r from-[#52C17A] to-[#4DB6AC]"></div>
+          <span class="text-sm font-semibold tracking-widest uppercase text-[#52C17A]">Our Culture</span>
+        </div>
+        <h2 class="text-3xl md:text-4xl font-bold text-[#2C3E50] leading-tight mb-6" data-sa="fade-up">
+          Where Talent Meets <span class="heading-highlight">Purpose</span>
+        </h2>
+        <p class="text-lg text-[#5D6D7E] leading-relaxed mb-6">
+          We believe great results start with great people. Our team thrives in an environment built on trust, collaboration, and continuous growth.
+        </p>
+        <div class="space-y-4">
+          {[
+            { icon: 'globe', text: 'Bilingual teams across 2 countries' },
+            { icon: 'award', text: '15+ years of industry expertise' },
+            { icon: 'heart', text: 'Culture-first approach to every partnership' },
+          ].map((item, i) => (
+            <div class="flex items-center gap-3" data-sa="fade-up" data-sa-delay={`${i * 100}`}>
+              <div class="w-9 h-9 rounded-xl flex items-center justify-center bg-[#E8F5E9] flex-shrink-0">
+                <Icon name={item.icon} class="w-4.5 h-4.5 text-[#52C17A]" />
+              </div>
+              <span class="text-[#2C3E50] font-medium">{item.text}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- LEADERSHIP SECTION -->
+<section class="about-leadership relative py-24 lg:py-32" style="background: #FAFAF8;">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="mb-16 text-center">
+      <div class="flex items-center justify-center gap-4 mb-4">
+        <div class="w-12 h-1 rounded-full bg-gradient-to-r from-[#52C17A] to-[#4DB6AC]"></div>
+        <span class="text-sm font-semibold tracking-widest uppercase text-[#52C17A]">Our Team</span>
+        <div class="w-12 h-1 rounded-full bg-gradient-to-r from-[#4DB6AC] to-[#52C17A]"></div>
+      </div>
+      <h2 class="text-3xl md:text-4xl font-bold text-[#2C3E50]" data-sa="fade-up">Meet the People Behind Paricus</h2>
+    </div>
+
+    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-8">
+      {leaders.map((leader, i) => (
+        <div class="team-member group text-center" data-sa="fade-up" data-sa-delay={`${i * 80}`}>
+          <div class="team-photo-wrap relative mx-auto mb-5 w-36 h-36 rounded-full overflow-hidden">
+            <img
+              src={leader.photo}
+              alt={leader.name}
+              loading="lazy"
+              class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+            />
+            <div class="team-overlay absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-center justify-center">
+              <span class="text-white font-bold text-lg tracking-wider">{leader.initials}</span>
+            </div>
+            <div class="team-ring absolute inset-0 rounded-full border-3 border-transparent group-hover:border-[#52C17A] transition-all duration-500 group-hover:scale-105"></div>
+          </div>
+          <h3 class="text-base font-bold text-[#2C3E50] mb-1 group-hover:text-[#3D9E5F] transition-colors duration-300">{leader.name}</h3>
+          <p class="text-sm text-[#5D6D7E]">{leader.position}</p>
+          <div class="w-0 h-0.5 bg-gradient-to-r from-[#52C17A] to-[#4DB6AC] mx-auto mt-3 rounded-full group-hover:w-12 transition-all duration-500"></div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- VALUES SECTION -->
+<section class="about-values relative overflow-hidden py-24 lg:py-32">
+  <div class="values-diagonal-bg"></div>
+  <div class="relative z-10 max-w-7xl mx-auto px-6">
+    <div class="grid lg:grid-cols-2 gap-16 items-center">
+      <!-- Left: Big text -->
+      <div data-sa="slide-right">
+        <h2 class="text-4xl md:text-5xl lg:text-6xl font-black text-[#2C3E50] leading-tight" data-sa="fade-up">
+          Why<br/>
+          Companies<br/>
+          <span class="heading-highlight">Choose Us</span>
+        </h2>
+        <div class="w-20 h-1.5 rounded-full bg-gradient-to-r from-[#52C17A] to-[#4DB6AC] mt-6"></div>
+      </div>
+
+      <!-- Right: Stacked value cards -->
+      <div class="space-y-5" data-sa="slide-left">
+        {[
+          { title: 'Bilingual Excellence', desc: 'Fluent English and Spanish teams that bridge communication gaps effortlessly.', num: '01' },
+          { title: 'Cultural Alignment', desc: 'Deep understanding of both US and Latin American business cultures.', num: '02' },
+          { title: 'Proven Track Record', desc: 'Over 15 years of consistently delivering results that exceed expectations.', num: '03' },
+          { title: 'Innovation Focus', desc: 'Cutting-edge processes and technologies that drive continuous improvement.', num: '04' },
+        ].map((value, i) => (
+          <div class="value-card group relative flex items-start gap-5 p-6 rounded-2xl bg-white/80 backdrop-blur-sm border border-[#D5E8D4] transition-all duration-500 hover:shadow-lg hover:border-[#52C17A] hover:-translate-x-1 sa-hover-lift" data-sa="fade-up" data-sa-delay={`${i * 100}`}>
+            <span class="text-3xl font-black text-[#D5E8D4] group-hover:text-[#52C17A] transition-colors duration-500 shrink-0">{value.num}</span>
+            <div>
+              <h3 class="text-lg font-bold text-[#2C3E50] mb-1">{value.title}</h3>
+              <p class="text-sm text-[#5D6D7E] leading-relaxed">{value.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA SECTION -->
+<section class="about-cta relative overflow-hidden py-20 lg:py-28" data-sa="scale-in">
+  <div class="cta-bg absolute inset-0"></div>
+  <!-- Floating elements -->
+  <div class="cta-float cta-float-1"></div>
+  <div class="cta-float cta-float-2"></div>
+  <div class="cta-float cta-float-3"></div>
+
+  <div class="relative z-10 max-w-3xl mx-auto px-6 text-center">
+    <h2 class="text-3xl md:text-5xl font-bold text-white mb-6" data-sa="fade-up">Ready to Partner?</h2>
+    <p class="text-lg text-white/80 mb-10 max-w-xl mx-auto">Let us show you how nearshore outsourcing with Paricus can transform your business operations.</p>
+    <a
+      href={getLocalizedPath('/contact', lang)}
+      class="inline-flex items-center gap-2 px-10 py-4 rounded-full bg-white text-[#52C17A] font-bold text-lg hover:bg-[#E8F5E9] transition-all duration-300 shadow-xl hover:shadow-2xl hover:-translate-y-1"
+    >
+      Get Started Today
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+    </a>
+  </div>
+</section>
+
+<style>
+  /* ===== HERO ===== */
+  .hero-bg {
+    background: linear-gradient(135deg, #FAFAF8 0%, #E8F5E9 50%, #D5E8D4 100%);
+  }
+
+  .heading-highlight {
+    background: linear-gradient(135deg, #52C17A, #3D9E5F);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-cta {
+    background: linear-gradient(135deg, #52C17A, #3D9E5F);
+    box-shadow: 0 8px 30px rgba(82, 193, 122, 0.35);
+  }
+  .hero-cta:hover {
+    box-shadow: 0 12px 40px rgba(82, 193, 122, 0.5);
+    transform: translateY(-2px);
+  }
+
+  .stat-card {
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(82, 193, 122, 0.15);
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
+  }
+  .stat-card:hover {
+    background: linear-gradient(135deg, #52C17A, #3D9E5F);
+    border-color: transparent;
+    box-shadow: 0 12px 40px rgba(82, 193, 122, 0.35);
+    transform: translateY(-6px);
+  }
+
+  .stat-icon {
+    background: #E8F5E9;
+  }
+  .stat-card:hover .stat-icon {
+    background: rgba(255, 255, 255, 0.2);
+  }
+
+  .hero-clip {
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    right: 0;
+    height: 80px;
+    background: #FAFAF8;
+    clip-path: polygon(0 100%, 100% 100%, 100% 0);
+  }
+
+  /* Orbs */
+  .orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.25;
+    animation: floatOrb 8s ease-in-out infinite;
+  }
+  .orb-1 {
+    width: 300px; height: 300px;
+    background: #52C17A;
+    top: -80px; right: 10%;
+    animation-delay: 0s;
+  }
+  .orb-2 {
+    width: 200px; height: 200px;
+    background: #4DB6AC;
+    bottom: 15%; left: 5%;
+    animation-delay: 2s;
+  }
+  .orb-3 {
+    width: 150px; height: 150px;
+    background: #3D9E5F;
+    top: 40%; right: 35%;
+    animation-delay: 4s;
+  }
+
+  /* ===== CULTURE ===== */
+  .-z-10 { z-index: -1; }
+  .culture-float {
+    animation: floatOrb 5s ease-in-out infinite;
+  }
+
+  /* ===== TEAM ===== */
+  .team-photo-wrap {
+    box-shadow: 0 8px 30px rgba(44, 62, 80, 0.1);
+    transition: box-shadow 0.5s ease;
+  }
+  .team-member:hover .team-photo-wrap {
+    box-shadow: 0 12px 40px rgba(82, 193, 122, 0.25);
+  }
+  .team-overlay {
+    background: linear-gradient(135deg, rgba(82, 193, 122, 0.85), rgba(61, 158, 95, 0.85));
+  }
+  .team-ring {
+    border-width: 3px;
+  }
+  .team-member {
+    transition: transform 0.5s ease;
+  }
+  .team-member:hover {
+    transform: translateY(-8px);
+  }
+
+  /* ===== VALUES ===== */
+  .values-diagonal-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(170deg, #E8F5E9 0%, #E8F5E9 45%, #FAFAF8 45%, #FAFAF8 100%);
+  }
+
+  /* ===== CTA ===== */
+  .cta-bg {
+    background: linear-gradient(135deg, #52C17A, #3D9E5F, #4DB6AC);
+  }
+
+  .cta-float {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.08);
+    animation: floatOrb 10s ease-in-out infinite;
+  }
+  .cta-float-1 { width: 200px; height: 200px; top: -40px; left: 10%; animation-delay: 0s; }
+  .cta-float-2 { width: 120px; height: 120px; bottom: 10%; right: 15%; animation-delay: 3s; }
+  .cta-float-3 { width: 80px; height: 80px; top: 30%; right: 30%; animation-delay: 6s; }
+
+  /* ===== ANIMATIONS ===== */
+  @keyframes floatOrb {
+    0%, 100% { transform: translateY(0) translateX(0); }
+    33% { transform: translateY(-20px) translateX(10px); }
+    66% { transform: translateY(10px) translateX(-10px); }
+  }
+</style>

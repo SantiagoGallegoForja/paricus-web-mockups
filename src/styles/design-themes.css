@@ -1,0 +1,368 @@
+/* ============================================================================
+   DESIGN THEMES — Comprehensive CSS Theme System
+   Controls visual appearance based on html[data-design="1|2|3"]
+   ============================================================================ */
+
+
+/* ============================================================================
+   DESIGN 1 — Modern Improved
+   Enhanced version of the current design with subtle polish,
+   floating gradient orbs, better shadows, and animated buttons.
+   ============================================================================ */
+
+/* --- 1.1 Body / Page Background --- */
+
+html[data-design="1"] body::before {
+  content: '';
+  position: fixed;
+  top: -200px;
+  right: -200px;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(82,193,122,0.08) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+html[data-design="1"] body::after {
+  content: '';
+  position: fixed;
+  bottom: -200px;
+  left: -200px;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(77,182,172,0.06) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* --- 1.2 Section Backgrounds --- */
+
+html[data-design="1"] section {
+  position: relative;
+}
+
+html[data-design="1"] section:nth-child(even) {
+  background-color: #f5faf6;
+}
+
+/* --- 1.3 Cards & Articles --- */
+
+html[data-design="1"] article,
+html[data-design="1"] .group {
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+html[data-design="1"] article:hover {
+  box-shadow: 0 20px 40px rgba(82, 193, 122, 0.12);
+}
+
+/* --- 1.4 Buttons — Animated Gradient --- */
+
+html[data-design="1"] a[class*="bg-[#52C17A]"],
+html[data-design="1"] a[class*="bg-gradient-to-r"],
+html[data-design="1"] button[class*="bg-gradient-to-r"] {
+  background: linear-gradient(135deg, #52C17A 0%, #3D9E5F 50%, #4DB6AC 100%) !important;
+  background-size: 200% 200% !important;
+  animation: d1-gradient-shift 4s ease infinite;
+}
+
+@keyframes d1-gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* --- 1.5 Icon Containers --- */
+
+html[data-design="1"] [class*="bg-[#E8F5E9]"][class*="rounded"] {
+  transition: all 0.4s ease;
+}
+
+html[data-design="1"] article:hover [class*="bg-[#E8F5E9]"][class*="rounded"] {
+  background-color: #d0f0d6 !important;
+  transform: scale(1.05);
+}
+
+/* --- 1.6 Green Accent Areas --- */
+
+html[data-design="1"] [class*="bg-gradient-to-br"][class*="from-[#52C17A]"] {
+  background: linear-gradient(135deg, #52C17A 0%, #3D9E5F 40%, #4DB6AC 100%) !important;
+  background-size: 200% 200% !important;
+  animation: d1-gradient-shift 6s ease infinite;
+}
+
+
+/* ============================================================================
+   DESIGN 2 — Editorial / Enterprise
+   Sharp corners, monospace accents, border-grid aesthetic,
+   inverted hovers. A completely different editorial feel.
+   ============================================================================ */
+
+/* --- 2.1 Body / Page Background — Subtle Grid --- */
+
+html[data-design="2"] body {
+  background-image: linear-gradient(rgba(26,46,26,0.02) 1px, transparent 1px),
+                     linear-gradient(90deg, rgba(26,46,26,0.02) 1px, transparent 1px);
+  background-size: 60px 60px;
+  background-color: #FAFAF8;
+}
+
+/* --- 2.2 Remove ALL Rounded Corners --- */
+
+html[data-design="2"] *[class*="rounded"] {
+  border-radius: 0 !important;
+}
+
+/* --- 2.3 Navigation — Sharp, Minimal --- */
+
+html[data-design="2"] nav {
+  top: 0 !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  border-radius: 0 !important;
+  background: #fff !important;
+  border-bottom: 1px solid #D5E8D4;
+}
+
+html[data-design="2"] nav > div {
+  max-width: 1400px !important;
+  padding-left: 2rem !important;
+  padding-right: 2rem !important;
+  margin: 0 auto !important;
+}
+
+html[data-design="2"] nav > div > div {
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  border: none !important;
+  background: transparent !important;
+  backdrop-filter: none !important;
+}
+
+/* --- 2.4 Typography — Monospace Accents & Underlines ---
+   NOTE: D2 components handle their own // prefixes and accent lines
+   in their scoped styles. Global ::before/::after rules removed to
+   prevent doubled prefixes and conflicting accent lines. */
+
+/* --- 2.5 Cards & Articles — Sharp, Border-Left Accent --- */
+
+html[data-design="2"] article,
+html[data-design="2"] [class*="border"][class*="rounded"] {
+  border-radius: 0 !important;
+  border-left: 3px solid transparent;
+  transition: all 0.4s ease;
+}
+
+html[data-design="2"] article:hover,
+html[data-design="2"] .group:hover {
+  border-left-color: #52C17A !important;
+  transform: translateY(-2px);
+}
+
+/* Inverted card hover — D2 components handle their own hover inversions
+   via scoped styles. Global article hover overrides removed to prevent
+   conflicts with component-specific hover effects. */
+
+/* --- 2.6 Buttons — Sharp, Uppercase, Wide Tracking --- */
+
+html[data-design="2"] a[class*="bg-[#52C17A]"],
+html[data-design="2"] a[class*="bg-gradient"],
+html[data-design="2"] button[class*="bg-gradient"] {
+  border-radius: 0 !important;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 0.8rem;
+  font-weight: 700;
+  background: #1a2e1a !important;
+  color: white !important;
+}
+
+html[data-design="2"] a[class*="bg-[#52C17A]"]:hover,
+html[data-design="2"] a[class*="bg-gradient"]:hover,
+html[data-design="2"] button[class*="bg-gradient"]:hover {
+  background: #52C17A !important;
+}
+
+/* --- 2.7 Form Elements — Sharp --- */
+
+html[data-design="2"] input,
+html[data-design="2"] select,
+html[data-design="2"] textarea {
+  border-radius: 0 !important;
+}
+
+/* --- 2.8 Footer — Sharp, Border-Top Accent --- */
+
+html[data-design="2"] footer {
+  border-radius: 0 !important;
+  border-top: 2px solid #52C17A;
+}
+
+/* --- 2.9 Section Separators --- */
+
+html[data-design="2"] main > section + section {
+  border-top: 1px solid #D5E8D4;
+}
+
+/* --- 2.10 Icon Containers — Sharp, Bordered --- */
+
+html[data-design="2"] [class*="rounded-2xl"][class*="bg-[#E8F5E9]"] {
+  border-radius: 0 !important;
+  border: 1px solid #D5E8D4;
+}
+
+/* --- 2.11 Green Accent Sections — Border-Based --- */
+
+html[data-design="2"] [class*="bg-gradient-to-br"][class*="from-[#52C17A]"] {
+  background: #1a2e1a !important;
+  border: 1px solid #52C17A;
+  border-radius: 0 !important;
+}
+
+
+/* ============================================================================
+   DESIGN 3 — Software Boutique
+   Clean, minimal dark theme. Neutral backgrounds (zinc/slate),
+   refined typography, generous whitespace. Green used sparingly.
+   Inspired by Linear, Vercel, Notion — premium & sophisticated.
+   ============================================================================ */
+
+/* --- 3.1 Body / Page Background — Neutral Dark --- */
+
+html[data-design="3"] body {
+  background-color: #111115 !important;
+  color: #f0f0f2 !important;
+}
+
+/* --- 3.2 Navigation — Premium Full-Width --- */
+
+html[data-design="3"] nav {
+  top: 0 !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  background: #fff !important;
+  border-bottom: 1px solid #E5E7EB !important;
+  backdrop-filter: none !important;
+}
+
+html[data-design="3"] nav > div {
+  max-width: 1400px !important;
+  padding-left: 2rem !important;
+  padding-right: 2rem !important;
+  margin: 0 auto !important;
+}
+
+html[data-design="3"] nav > div > div {
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  border: none !important;
+  background: transparent !important;
+  backdrop-filter: none !important;
+}
+
+/* Nav links — dark text, no background by default */
+html[data-design="3"] nav a,
+html[data-design="3"] nav button {
+  color: #374151 !important;
+  background: transparent !important;
+  border-radius: 6px !important;
+}
+
+html[data-design="3"] nav a:hover {
+  color: #52C17A !important;
+  background: rgba(82,193,122,0.06) !important;
+}
+
+/* Active nav link */
+html[data-design="3"] nav a[class*="text-[#52C17A]"] {
+  background: rgba(82,193,122,0.08) !important;
+  color: #52C17A !important;
+}
+
+/* Nav CTA button — solid green, no border */
+html[data-design="3"] nav a[class*="bg-gradient"],
+html[data-design="3"] nav button[class*="bg-gradient"],
+html[data-design="3"] nav a[class*="from-[#52C17A]"] {
+  background: #52C17A !important;
+  border: none !important;
+  border-radius: 8px !important;
+  color: #fff !important;
+  box-shadow: none !important;
+}
+
+html[data-design="3"] nav a[class*="bg-gradient"]:hover,
+html[data-design="3"] nav a[class*="from-[#52C17A]"]:hover {
+  background: #3D9E5F !important;
+  box-shadow: 0 4px 12px rgba(82,193,122,0.3) !important;
+}
+
+/* Mobile menu on V3 */
+html[data-design="3"] nav #mobile-menu {
+  border-color: #E5E7EB !important;
+}
+
+html[data-design="3"] nav #mobile-menu a {
+  color: #374151 !important;
+  border-radius: 6px !important;
+}
+
+html[data-design="3"] nav #mobile-menu a:hover {
+  color: #52C17A !important;
+  background: rgba(82,193,122,0.06) !important;
+}
+
+/* --- 3.3–3.8 REMOVED ---
+   D3 components now handle their own colors explicitly via scoped styles.
+   Global typography, section bg, card, icon, and button overrides removed
+   to allow mixed light/dark sections within D3 pages. */
+
+/* --- 3.9 REMOVED — Form elements styled in-component --- */
+
+/* --- 3.10 Footer — Light Premium --- */
+
+html[data-design="3"] footer {
+  background: #FAFAFA !important;
+  border-top: 1px solid #E5E7EB !important;
+  color: #374151 !important;
+}
+
+html[data-design="3"] footer h4 {
+  color: #111115 !important;
+}
+
+html[data-design="3"] footer a,
+html[data-design="3"] footer p,
+html[data-design="3"] footer span {
+  color: #6B7280 !important;
+}
+
+html[data-design="3"] footer a:hover {
+  color: #52C17A !important;
+}
+
+html[data-design="3"] footer .border-t,
+html[data-design="3"] footer [class*="border-t"] {
+  border-color: #E5E7EB !important;
+}
+
+/* Footer nav columns — no card appearance */
+html[data-design="3"] footer nav {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* --- 3.11 REMOVED — CTA sections handled in-component --- */
+
+/* --- 3.12 Address / Contact Info --- */
+
+html[data-design="3"] address a {
+  color: #9ca3af !important;
+}
+
+html[data-design="3"] address a:hover {
+  color: #f0f0f2 !important;
+}

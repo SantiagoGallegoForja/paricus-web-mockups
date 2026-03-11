@@ -1,0 +1,217 @@
+---
+import { getLocalizedPath } from '../../i18n/utils';
+import Icon from '../../components/common/Icon.astro';
+
+interface Props { lang?: string; }
+const { lang = 'en' } = Astro.props;
+
+const title = 'Customer Service';
+const icon = 'headphones';
+const description = 'Deliver exceptional customer experiences with our dedicated bilingual support teams trained in your brand voice and processes.';
+const features = [
+  { name: '24/7 Multichannel Support', description: 'Round-the-clock assistance across phone, email, chat, and social media channels.' },
+  { name: 'Bilingual English/Spanish Teams', description: 'Native-level agents fluent in both languages for seamless communication.' },
+  { name: 'Custom CRM Integration', description: 'Deep integration with your existing tools and workflows for unified operations.' },
+  { name: 'Quality Assurance Programs', description: 'Continuous monitoring and coaching to maintain the highest service standards.' },
+  { name: 'Scalable Team Models', description: 'Flexible staffing that grows or contracts with your business demands.' },
+];
+const benefits = [
+  { stat: '40%', label: 'Cost Reduction' },
+  { stat: '95%', label: 'Customer Satisfaction' },
+  { stat: '24/7', label: 'Coverage' },
+  { stat: '100%', label: 'Seamless Integration' },
+];
+const useCases = [
+  { title: 'E-commerce Support', description: 'Handle order inquiries, returns, and product questions with speed and empathy across all your sales channels.' },
+  { title: 'Healthcare Patient Services', description: 'Manage appointment scheduling, insurance verification, and patient follow-ups with HIPAA-compliant processes.' },
+  { title: 'SaaS Technical Assistance', description: 'Provide expert onboarding support, troubleshooting, and account management for your software users.' },
+];
+---
+
+<!-- V2 — Editorial Enterprise: ServiceDetail -->
+<section class="d2-service-detail bg-white">
+
+  <!-- HERO -->
+  <div class="d2-sd-hero relative overflow-hidden bg-white pt-32">
+    <div class="d2-sd-grid-pattern"></div>
+    <div class="max-w-7xl mx-auto px-6 py-24 lg:py-32 relative z-10">
+      <a href={getLocalizedPath('/services', lang)}
+         class="d2-sd-back inline-flex items-center gap-3 text-[#1a2e1a] font-bold uppercase tracking-widest text-sm border-b-2 border-[#52C17A] pb-1 hover:text-[#52C17A] transition-colors mb-12" data-sa="fade-up">
+        <span class="rotate-180">&rarr;</span> Back to Services
+      </a>
+      <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-[#5D6D7E] block mb-6" data-sa="fade-up" data-sa-delay="80">// SERVICE DETAIL</span>
+      <div class="flex items-center gap-6 mb-8">
+        <div class="d2-sd-icon-box">
+          <Icon name={icon} class="w-7 h-7 text-[#52C17A]" />
+        </div>
+        <h1 class="font-black tracking-[-0.04em] leading-[0.9] uppercase text-[#1a2e1a] text-5xl md:text-6xl lg:text-7xl" data-sa="fade-up" data-sa-delay="160">
+          {title}
+        </h1>
+      </div>
+      <div class="w-12 h-[2px] bg-[#52C17A] mb-8" data-sa="fade-up" data-sa-delay="240"></div>
+      <p class="max-w-2xl text-lg text-[#5D6D7E] font-light leading-relaxed" data-sa="fade-up" data-sa-delay="320">
+        {description}
+      </p>
+    </div>
+  </div>
+
+  <!-- FEATURES — Numbered list -->
+  <div class="max-w-7xl mx-auto px-6 py-24 lg:py-36 border-t border-[#D5E8D4]">
+    <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-[#5D6D7E] block mb-12" data-sa="fade-up">// CAPABILITIES</span>
+    <div class="space-y-0">
+      {features.map((feature, i) => (
+        <div class="d2-sd-feature-row flex flex-col lg:flex-row items-start gap-6 lg:gap-12 py-8 border-b border-[#D5E8D4]"
+             data-sa="fade-up" data-sa-delay={`${i * 100}`}>
+          <span class="font-mono text-5xl lg:text-6xl font-black text-[#D5E8D4] select-none lg:w-32 flex-shrink-0">
+            {String(i + 1).padStart(2, '0')}
+          </span>
+          <div class="flex-1">
+            <h3 class="text-xl lg:text-2xl font-bold tracking-tight text-[#1a2e1a] mb-2">
+              {feature.name}
+            </h3>
+            <p class="text-[#5D6D7E] leading-relaxed max-w-xl">{feature.description}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <!-- BENEFITS — Bordered grid -->
+  <div class="max-w-7xl mx-auto px-6 py-24 lg:py-36 border-t border-[#D5E8D4] bg-[#FAFAF8]">
+    <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-[#5D6D7E] block mb-12" data-sa="fade-up">// KEY BENEFITS</span>
+    <div class="grid grid-cols-2 lg:grid-cols-4">
+      {benefits.map((benefit, i) => (
+        <div class={`d2-sd-benefit-cell p-8 ${i > 0 ? 'border-l border-[#D5E8D4]' : ''}`}
+             data-sa="fade-up" data-sa-delay={`${i * 60}`}>
+          <div class="text-4xl lg:text-5xl font-black text-[#1a2e1a] mb-2">{benefit.stat}</div>
+          <div class="w-8 h-[2px] bg-[#52C17A] mb-3"></div>
+          <div class="font-mono text-[10px] uppercase tracking-[0.2em] text-[#5D6D7E]">{benefit.label}</div>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <!-- USE CASES — Editorial blocks -->
+  <div class="max-w-7xl mx-auto px-6 py-24 lg:py-36 border-t border-[#D5E8D4]">
+    <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-[#5D6D7E] block mb-12" data-sa="fade-up">// USE CASES</span>
+    <div class="space-y-0">
+      {useCases.map((uc, i) => (
+        <div class="d2-sd-usecase flex flex-col lg:flex-row items-start gap-8 lg:gap-16 py-10 border-b border-[#D5E8D4]">
+          <div class="lg:w-1/3" data-sa="slide-right" data-sa-delay={`${i * 100}`}>
+            <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-[#52C17A] block mb-3">// CASE {String(i + 1).padStart(2, '0')}</span>
+            <h3 class="text-2xl lg:text-3xl font-black uppercase tracking-tight text-[#1a2e1a]">
+              {uc.title}
+            </h3>
+          </div>
+          <div class="lg:w-2/3" data-sa="slide-left" data-sa-delay={`${i * 100}`}>
+            <p class="text-[#5D6D7E] text-lg leading-relaxed">{uc.description}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="max-w-7xl mx-auto px-6 py-24 lg:py-36 border-t border-[#D5E8D4] bg-[#FAFAF8]">
+    <div class="d2-sd-cta" data-sa="scale-in">
+      <div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
+        <div>
+          <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-[#52C17A] block mb-4">// GET STARTED</span>
+          <h2 class="text-3xl md:text-4xl lg:text-5xl font-black uppercase tracking-[-0.04em] leading-[0.9] text-[#1a2e1a] mb-4" data-sa="fade-up">
+            Ready to Transform<br/>Your Customer Experience?
+          </h2>
+          <p class="text-[#5D6D7E] max-w-xl text-lg font-light">
+            Let us build a dedicated support team tailored to your brand and customers.
+          </p>
+        </div>
+        <a href={getLocalizedPath('/contact', lang)}
+           class="d2-sd-cta-btn inline-flex items-center gap-3 px-10 py-5 bg-[#1a2e1a] text-white font-bold uppercase tracking-widest text-sm hover:bg-[#52C17A] transition-colors flex-shrink-0">
+          Contact Us <span>&rarr;</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<style>
+  /* === V2 Editorial Enterprise — ServiceDetail === */
+
+  .d2-service-detail {
+    min-height: 100vh;
+  }
+
+  /* Grid pattern */
+  .d2-sd-grid-pattern {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(213, 232, 212, 0.3) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(213, 232, 212, 0.3) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+  }
+
+  /* Icon box */
+  .d2-sd-icon-box {
+    width: 60px; height: 60px;
+    border: 2px solid #D5E8D4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  /* Feature rows */
+  .d2-sd-feature-row {
+    transition: all 0.3s ease;
+  }
+  .d2-sd-feature-row:hover {
+    background: #1a2e1a;
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+  .d2-sd-feature-row:hover span {
+    color: #52C17A;
+  }
+  .d2-sd-feature-row:hover h3 {
+    color: #ffffff;
+  }
+  .d2-sd-feature-row:hover p {
+    color: #94a3b8;
+  }
+
+  /* Benefit cells */
+  .d2-sd-benefit-cell {
+    transition: all 0.3s ease;
+  }
+  .d2-sd-benefit-cell:hover {
+    background: #1a2e1a;
+  }
+  .d2-sd-benefit-cell:hover .text-4xl,
+  .d2-sd-benefit-cell:hover .lg\:text-5xl {
+    color: #ffffff;
+  }
+  .d2-sd-benefit-cell:hover .font-mono {
+    color: #94a3b8;
+  }
+
+  /* Use case blocks */
+  .d2-sd-usecase {
+    transition: all 0.3s ease;
+  }
+  .d2-sd-usecase:hover {
+    background: #f8faf8;
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+
+  /* CTA */
+  .d2-sd-cta {
+    border: 2px solid #D5E8D4;
+    padding: 3rem;
+  }
+  .d2-sd-cta-btn {
+    transition: all 0.3s ease;
+  }
+</style>
