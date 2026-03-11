@@ -387,9 +387,12 @@ html[data-design="4"] *[class*="rounded"] {
   border-radius: 0 !important;
 }
 
-/* --- 4.3 Navigation — Sharp, Corporate --- */
+/* --- 4.3 Navigation — Sharp, Corporate (header nav only) --- */
 
-html[data-design="4"] nav {
+html[data-design="4"] header nav,
+html[data-design="4"] body > nav:first-of-type,
+html[data-design="4"] nav[class*="fixed"],
+html[data-design="4"] nav[class*="sticky"] {
   top: 0 !important;
   padding-left: 0 !important;
   padding-right: 0 !important;
@@ -398,14 +401,18 @@ html[data-design="4"] nav {
   border-bottom: 2px solid #1a2e1a;
 }
 
-html[data-design="4"] nav > div {
+html[data-design="4"] header nav > div,
+html[data-design="4"] nav[class*="fixed"] > div,
+html[data-design="4"] nav[class*="sticky"] > div {
   max-width: 1400px !important;
   padding-left: 2rem !important;
   padding-right: 2rem !important;
   margin: 0 auto !important;
 }
 
-html[data-design="4"] nav > div > div {
+html[data-design="4"] header nav > div > div,
+html[data-design="4"] nav[class*="fixed"] > div > div,
+html[data-design="4"] nav[class*="sticky"] > div > div {
   border-radius: 0 !important;
   box-shadow: none !important;
   border: none !important;
@@ -449,7 +456,24 @@ html[data-design="4"] textarea {
 
 html[data-design="4"] footer {
   border-radius: 0 !important;
-  border-top: 2px solid #1a2e1a;
+  border-top: 2px solid #52C17A;
+}
+
+/* Footer nav columns — no card appearance */
+html[data-design="4"] footer nav {
+  background: transparent !important;
+  border: none !important;
+  border-bottom: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  top: auto !important;
+}
+
+html[data-design="4"] footer article,
+html[data-design="4"] footer [class*="border"][class*="rounded"] {
+  border: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
 }
 
 /* --- 4.8 Section Separators --- */
