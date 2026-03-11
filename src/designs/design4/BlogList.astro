@@ -1,0 +1,143 @@
+---
+import { getLocalizedPath } from '../../i18n/utils';
+import Icon from '../../components/common/Icon.astro';
+import { placeholderImages } from '../../data/placeholder-images';
+
+interface Props { lang?: string; }
+const { lang = 'en' } = Astro.props;
+
+const articles = [
+  { title: 'How Nearshore BPO is Transforming US Business Operations', description: 'Discover why more US companies are turning to nearshore outsourcing partners in Latin America for superior service delivery.', category: 'Industry Insights', author: 'Paricus Team', date: 'March 5, 2026', slug: 'nearshore-bpo-transforming-operations', readTime: '5 min read' },
+  { title: 'The Future of Customer Service: AI-Powered Human Support', description: 'How artificial intelligence is enhancing human agents rather than replacing them, creating better customer experiences.', category: 'Technology', author: 'Paricus Team', date: 'February 20, 2026', slug: 'future-customer-service-ai', readTime: '7 min read' },
+  { title: '5 Key Metrics Every BPO Client Should Track', description: 'Learn which performance indicators matter most when measuring the success of your outsourcing partnership.', category: 'Best Practices', author: 'Paricus Team', date: 'February 10, 2026', slug: 'key-metrics-bpo-clients', readTime: '4 min read' },
+  { title: 'Building a Bilingual Customer Support Team', description: 'Strategies for creating and managing an effective multilingual support operation that delights customers.', category: 'Operations', author: 'Paricus Team', date: 'January 28, 2026', slug: 'building-bilingual-support-team', readTime: '6 min read' },
+  { title: 'HIPAA Compliance in Outsourced Healthcare Support', description: 'Essential guidelines for maintaining healthcare data security when working with BPO partners.', category: 'Compliance', author: 'Paricus Team', date: 'January 15, 2026', slug: 'hipaa-compliance-outsourced-support', readTime: '8 min read' },
+  { title: 'Scaling Your E-Commerce Support for Peak Seasons', description: 'How to prepare your customer service operations for high-volume periods without sacrificing quality.', category: 'E-Commerce', author: 'Paricus Team', date: 'January 5, 2026', slug: 'scaling-ecommerce-support-peak', readTime: '5 min read' },
+];
+
+const featured = articles[0];
+const gridArticles = articles.slice(1);
+---
+
+<!-- V4 — Premium Corporate: BlogList -->
+<section class="d4-blog-list">
+
+  <!-- HEADER -->
+  <div class="bg-[#FAFAF8] py-28 lg:py-36">
+    <div class="max-w-[1400px] mx-auto px-6 lg:px-12">
+      <div class="flex items-center gap-4 mb-6" data-sa="fade-up">
+        <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-[#5D6D7E]">// BLOG</span>
+        <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-[#52C17A]">&mdash; {articles.length} Articles</span>
+      </div>
+      <h1 class="font-black text-4xl md:text-5xl lg:text-7xl uppercase tracking-[-0.04em] leading-[0.9] text-[#2C3E50] mb-6" data-sa="fade-up" data-sa-delay="100ms">
+        Insights &<br/>Resources
+      </h1>
+      <div class="w-16 h-[3px] bg-[#52C17A] mb-8" data-sa="fade-up" data-sa-delay="200ms"></div>
+      <p class="text-[#5D6D7E] text-lg lg:text-xl max-w-2xl leading-relaxed font-light" data-sa="fade-up" data-sa-delay="300ms">
+        Stay informed with the latest trends, best practices, and expert perspectives in business process outsourcing.
+      </p>
+    </div>
+  </div>
+
+  <!-- FEATURED ARTICLE -->
+  <div class="bg-white py-24 lg:py-32">
+    <div class="max-w-[1400px] mx-auto px-6 lg:px-12">
+      <a href={getLocalizedPath(`/blog/${featured.slug}`, lang)} class="d4-featured-card block group">
+        <div class="flex flex-col lg:flex-row gap-0">
+
+          <!-- Image -->
+          <div class="w-full lg:w-[60%] overflow-hidden" data-sa="slide-right">
+            <img
+              src={placeholderImages.blog[0].url}
+              alt={featured.title}
+              class="w-full h-[300px] lg:h-[450px] object-cover group-hover:scale-[1.02] transition-transform duration-500"
+              loading="lazy"
+            />
+          </div>
+
+          <!-- Content -->
+          <div class="w-full lg:w-[40%] p-8 lg:p-12 flex flex-col justify-center border border-l-0 border-[#D5E8D4]" data-sa="slide-left">
+            <span class="inline-block font-mono text-[10px] uppercase tracking-[0.2em] text-[#52C17A] border border-[#52C17A] px-3 py-1 w-fit mb-6">
+              {featured.category}
+            </span>
+            <h2 class="font-black text-2xl lg:text-3xl uppercase tracking-[-0.03em] leading-[0.95] text-[#2C3E50] mb-4 group-hover:text-[#1a2e1a] transition-colors">
+              {featured.title}
+            </h2>
+            <p class="text-[#5D6D7E] leading-relaxed mb-6">{featured.description}</p>
+            <div class="flex items-center gap-4 mb-6">
+              <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-[#5D6D7E]">{featured.author}</span>
+              <span class="w-1 h-1 bg-[#D5E8D4]"></span>
+              <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-[#5D6D7E]">{featured.date}</span>
+              <span class="w-1 h-1 bg-[#D5E8D4]"></span>
+              <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-[#5D6D7E]">{featured.readTime}</span>
+            </div>
+            <span class="inline-flex items-center gap-2 font-bold uppercase tracking-widest text-sm text-[#1a2e1a] group-hover:text-[#52C17A] transition-colors">
+              Continue reading <span>&rarr;</span>
+            </span>
+          </div>
+
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <!-- ARTICLE GRID -->
+  <div class="bg-white pb-24 lg:pb-32">
+    <div class="max-w-[1400px] mx-auto px-6 lg:px-12">
+      <div class="flex items-center gap-6 mb-12 border-b border-[#D5E8D4] pb-6" data-sa="fade-up">
+        <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-[#5D6D7E]">// ALL ARTICLES</span>
+        <div class="flex-1 h-[1px] bg-[#D5E8D4]"></div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {gridArticles.map((article, i) => (
+          <a
+            href={getLocalizedPath(`/blog/${article.slug}`, lang)}
+            class="d4-article-card block group"
+            data-sa="fade-up"
+            data-sa-delay={`${i * 100}ms`}
+          >
+            <div class="border-t-[3px] border-t-[#52C17A] border border-[#D5E8D4] p-6 lg:p-8 h-full flex flex-col">
+              <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-[#52C17A] mb-4 block">
+                {article.category}
+              </span>
+              <h3 class="font-bold text-lg lg:text-xl tracking-tight text-[#2C3E50] mb-3 group-hover:text-[#1a2e1a] transition-colors leading-snug">
+                {article.title}
+              </h3>
+              <p class="text-[#5D6D7E] text-sm leading-relaxed mb-6 flex-1">
+                {article.description}
+              </p>
+              <div class="flex items-center justify-between pt-4 border-t border-[#D5E8D4]">
+                <div class="flex items-center gap-3">
+                  <span class="font-mono text-[9px] uppercase tracking-[0.2em] text-[#5D6D7E]">{article.author}</span>
+                  <span class="w-1 h-1 bg-[#D5E8D4]"></span>
+                  <span class="font-mono text-[9px] uppercase tracking-[0.2em] text-[#5D6D7E]">{article.date}</span>
+                </div>
+                <span class="font-mono text-[9px] uppercase tracking-[0.2em] text-[#52C17A]">{article.readTime}</span>
+              </div>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<style>
+  .d4-featured-card {
+    transition: all 0.3s ease;
+  }
+  .d4-featured-card:hover {
+    box-shadow: 0 8px 30px rgba(26, 46, 26, 0.08);
+  }
+
+  .d4-article-card > div {
+    transition: all 0.3s ease;
+  }
+  .d4-article-card:hover > div {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 30px rgba(26, 46, 26, 0.08);
+    border-color: #52C17A;
+  }
+</style>

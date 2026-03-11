@@ -1,0 +1,142 @@
+---
+import { getLocalizedPath } from '../../i18n/utils';
+import Icon from '../../components/common/Icon.astro';
+
+interface Props { lang?: string; }
+const { lang = 'en' } = Astro.props;
+
+const services = [
+  {
+    icon: 'headphones',
+    title: 'Customer Service',
+    shortDescription: 'Multilingual customer support that builds lasting relationships and drives satisfaction across every channel.',
+    slug: 'customer-service',
+    features: ['24/7 Multilingual Support', 'Omnichannel Management', 'Quality Assurance', 'Customer Retention Programs', 'Real-time Analytics'],
+    image: 'https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=600&h=400&fit=crop',
+  },
+  {
+    icon: 'file-text',
+    title: 'Back Office Operations',
+    shortDescription: 'Streamline your administrative processes with accurate, efficient back-office support that keeps your business running smoothly.',
+    slug: 'back-office',
+    features: ['Data Entry & Processing', 'Document Management', 'Invoice Processing', 'Record Keeping', 'Compliance Monitoring'],
+    image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=400&fit=crop',
+  },
+  {
+    icon: 'calculator',
+    title: 'Sales & Lead Generation',
+    shortDescription: 'Accelerate your revenue pipeline with skilled sales teams and proven lead generation strategies.',
+    slug: 'sales-lead-generation',
+    features: ['Outbound Campaigns', 'Lead Qualification', 'Appointment Setting', 'CRM Management', 'Performance Tracking'],
+    image: 'https://images.unsplash.com/photo-1553877522-43269d4ea984?w=600&h=400&fit=crop',
+  },
+  {
+    icon: 'wrench',
+    title: 'Technical Support',
+    shortDescription: 'Expert technical assistance that resolves issues quickly and keeps your customers productive.',
+    slug: 'technical-support',
+    features: ['Tier 1-3 Support', 'Remote Troubleshooting', 'Knowledge Base Management', 'Escalation Handling', 'SLA Compliance'],
+    image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&h=400&fit=crop',
+  },
+];
+---
+
+<!-- V4 — Premium Corporate: ServicesList -->
+<section class="d4-services-list">
+
+  <!-- HERO HEADER -->
+  <div class="bg-[#1a2e1a] py-28 lg:py-36">
+    <div class="max-w-[1400px] mx-auto px-6 lg:px-12">
+      <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-[#52C17A] block mb-6" data-sa="fade-up">// OUR SERVICES</span>
+      <h1 class="font-black text-4xl md:text-5xl lg:text-7xl uppercase tracking-[-0.04em] leading-[0.9] text-white mb-6" data-sa="fade-up" data-sa-delay="100ms">
+        Services That Elevate<br/>Your Business
+      </h1>
+      <div class="w-16 h-[3px] bg-[#52C17A] mb-8" data-sa="fade-up" data-sa-delay="200ms"></div>
+      <p class="text-white/70 text-lg lg:text-xl max-w-2xl leading-relaxed font-light" data-sa="fade-up" data-sa-delay="300ms">
+        Comprehensive BPO solutions designed to optimize your operations and accelerate growth.
+      </p>
+    </div>
+  </div>
+
+  <!-- SERVICES — Alternating Image+Text -->
+  <div class="bg-white">
+    <div class="max-w-[1400px] mx-auto px-6 lg:px-12">
+      {services.map((service, i) => (
+        <div class={`py-24 lg:py-32 ${i > 0 ? 'border-t border-[#D5E8D4]' : ''}`}>
+          <div class={`flex flex-col ${i % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'} items-center gap-12 lg:gap-20`}>
+
+            <!-- Image Side -->
+            <div class="w-full lg:w-1/2 relative" data-sa={i % 2 === 0 ? 'slide-right' : 'slide-left'} data-sa-delay={`${i * 100}ms`}>
+              <div class="relative">
+                <span class="absolute -top-8 -left-4 font-black text-[120px] lg:text-[180px] leading-none text-[#D5E8D4]/30 select-none z-0">
+                  {String(i + 1).padStart(2, '0')}
+                </span>
+                <img
+                  src={service.image}
+                  alt={service.title}
+                  class="relative z-10 w-full h-[350px] lg:h-[450px] object-cover"
+                  loading="lazy"
+                />
+              </div>
+            </div>
+
+            <!-- Text Side -->
+            <div class="w-full lg:w-1/2" data-sa={i % 2 === 0 ? 'slide-left' : 'slide-right'} data-sa-delay={`${i * 100 + 100}ms`}>
+              <div class="flex items-center gap-4 mb-6">
+                <div class="w-12 h-12 border-2 border-[#D5E8D4] flex items-center justify-center flex-shrink-0">
+                  <Icon name={service.icon} class="w-5 h-5 text-[#52C17A]" />
+                </div>
+                <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-[#5D6D7E]">// SERVICE {String(i + 1).padStart(2, '0')}</span>
+              </div>
+              <h2 class="font-black text-3xl lg:text-4xl uppercase tracking-[-0.03em] leading-[0.95] text-[#2C3E50] mb-5">
+                {service.title}
+              </h2>
+              <p class="text-[#5D6D7E] text-lg leading-relaxed mb-8">
+                {service.shortDescription}
+              </p>
+              <ul class="space-y-3 mb-10">
+                {service.features.map((feature) => (
+                  <li class="flex items-center gap-3 text-[#2C3E50]">
+                    <span class="w-1.5 h-1.5 bg-[#52C17A] flex-shrink-0"></span>
+                    <span class="text-sm font-medium">{feature}</span>
+                  </li>
+                ))}
+              </ul>
+              <a
+                href={getLocalizedPath(`/services/${service.slug}`, lang)}
+                class="inline-flex items-center gap-2 font-bold uppercase tracking-widest text-sm text-[#1a2e1a] border-b-2 border-[#52C17A] pb-1 hover:text-[#52C17A] transition-colors"
+              >
+                Learn more <span>&rarr;</span>
+              </a>
+            </div>
+
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="bg-[#1a2e1a] py-24 lg:py-32">
+    <div class="max-w-[1400px] mx-auto px-6 lg:px-12" data-sa="scale-in">
+      <div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-10">
+        <div>
+          <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-[#52C17A] block mb-4">// NEXT STEP</span>
+          <h2 class="font-black text-3xl md:text-4xl lg:text-5xl uppercase tracking-[-0.04em] leading-[0.9] text-white mb-4" data-sa="fade-up">
+            Ready to Transform<br/>Your Operations?
+          </h2>
+          <p class="text-white/60 text-lg max-w-xl font-light leading-relaxed">
+            Partner with us to unlock operational excellence and drive measurable results.
+          </p>
+        </div>
+        <a
+          href={getLocalizedPath('/contact', lang)}
+          class="inline-flex items-center gap-3 px-10 py-5 bg-[#52C17A] text-white font-bold uppercase tracking-widest text-sm hover:bg-[#3D9E5F] transition-colors flex-shrink-0"
+        >
+          Start a Conversation <span>&rarr;</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+</section>

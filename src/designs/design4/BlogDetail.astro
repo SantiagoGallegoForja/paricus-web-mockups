@@ -1,0 +1,172 @@
+---
+import { getLocalizedPath } from '../../i18n/utils';
+import Icon from '../../components/common/Icon.astro';
+import { placeholderImages } from '../../data/placeholder-images';
+
+interface Props { lang?: string; }
+const { lang = 'en' } = Astro.props;
+
+const article = {
+  title: 'How Nearshore BPO is Transforming US Business Operations',
+  author: 'Paricus Team',
+  category: 'Industry Insights',
+  date: 'March 5, 2026',
+  readTime: '8 min read',
+};
+
+const tags = ['Nearshore', 'BPO', 'Outsourcing', 'Cost Savings', 'Latin America'];
+
+const relatedArticles = [
+  { title: 'The Future of Customer Experience', category: 'Technology', readTime: '6 min read', slug: 'future-customer-experience' },
+  { title: 'Building Effective Bilingual Teams', category: 'Operations', readTime: '5 min read', slug: 'building-bilingual-teams' },
+  { title: 'Cost Optimization Through Strategic Outsourcing', category: 'Strategy', readTime: '7 min read', slug: 'cost-optimization-strategic-outsourcing' },
+];
+---
+
+<!-- V4 — Premium Corporate: BlogDetail -->
+<section class="d4-blog-detail">
+
+  <!-- HEADER -->
+  <div class="bg-[#FAFAF8] pt-32">
+    <div class="max-w-[1400px] mx-auto px-6 lg:px-12 py-20 lg:py-28">
+      <a
+        href={getLocalizedPath('/blog', lang)}
+        class="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.2em] text-[#5D6D7E] hover:text-[#52C17A] transition-colors mb-10"
+        data-sa="fade-up"
+      >
+        <span>&larr;</span> // BACK TO BLOG
+      </a>
+
+      <div class="mb-6" data-sa="fade-up" data-sa-delay="80ms">
+        <span class="inline-block font-mono text-[10px] uppercase tracking-[0.2em] text-[#52C17A] border border-[#52C17A] px-3 py-1">
+          {article.category}
+        </span>
+      </div>
+
+      <h1 class="font-black text-3xl md:text-4xl lg:text-6xl uppercase tracking-[-0.04em] leading-[0.9] text-[#2C3E50] mb-8 max-w-4xl" data-sa="fade-up" data-sa-delay="160ms">
+        {article.title}
+      </h1>
+
+      <div class="w-16 h-[3px] bg-[#52C17A] mb-8" data-sa="fade-up" data-sa-delay="240ms"></div>
+
+      <div class="flex flex-wrap items-center gap-4" data-sa="fade-up" data-sa-delay="320ms">
+        <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-[#5D6D7E]">{article.author}</span>
+        <span class="w-1 h-1 bg-[#D5E8D4]"></span>
+        <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-[#5D6D7E]">{article.date}</span>
+        <span class="w-1 h-1 bg-[#D5E8D4]"></span>
+        <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-[#5D6D7E]">{article.readTime}</span>
+      </div>
+    </div>
+
+    <!-- Featured Image -->
+    <div class="max-w-[1400px] mx-auto px-6 lg:px-12" data-sa="fade-up" data-sa-delay="400ms">
+      <img
+        src={placeholderImages.blog[1].url}
+        alt={article.title}
+        class="w-full h-[300px] lg:h-[500px] object-cover"
+        loading="lazy"
+      />
+    </div>
+  </div>
+
+  <!-- ARTICLE BODY -->
+  <div class="bg-white py-24 lg:py-32">
+    <div class="max-w-3xl mx-auto px-6 lg:px-12">
+      <div class="d4-article-content" data-sa="fade-up">
+        <p class="text-[#2C3E50] text-lg leading-[1.8] mb-8">
+          The landscape of business process outsourcing is undergoing a fundamental shift. As US companies seek to optimize operations while maintaining quality, nearshore partnerships in Latin America have emerged as the strategic choice for forward-thinking organizations.
+        </p>
+
+        <p class="text-[#2C3E50] text-lg leading-[1.8] mb-8">
+          Unlike traditional offshore models, nearshore BPO offers a unique combination of cost efficiency, cultural alignment, and time zone compatibility that makes real-time collaboration not just possible but seamless. This proximity advantage translates directly into faster response times, better communication, and ultimately, superior service delivery.
+        </p>
+
+        <h2 class="font-black text-2xl lg:text-3xl uppercase tracking-[-0.03em] text-[#2C3E50] mt-12 mb-6">
+          The Nearshore Advantage
+        </h2>
+
+        <p class="text-[#2C3E50] text-lg leading-[1.8] mb-8">
+          Companies that have made the transition to nearshore partners report significant improvements across multiple dimensions. The shared time zones between the US and Latin American countries eliminate the delays that plague offshore operations, enabling real-time decision making and agile workflow adjustments.
+        </p>
+
+        <!-- Blockquote -->
+        <blockquote class="border-l-[4px] border-l-[#52C17A] pl-8 py-4 my-12 bg-[#FAFAF8]">
+          <p class="text-[#2C3E50] text-xl lg:text-2xl font-bold leading-snug italic">
+            "Companies that embrace nearshore partnerships see an average of 40% cost reduction while maintaining or improving service quality."
+          </p>
+        </blockquote>
+
+        <p class="text-[#2C3E50] text-lg leading-[1.8] mb-8">
+          The cultural affinity between US and Latin American teams is another critical factor. Shared business practices, similar work ethics, and bilingual capabilities create a foundation for partnership that goes beyond simple task execution. Teams integrate naturally, adopting company cultures and brand voices with minimal friction.
+        </p>
+
+        <h2 class="font-black text-2xl lg:text-3xl uppercase tracking-[-0.03em] text-[#2C3E50] mt-12 mb-6">
+          Measurable Impact
+        </h2>
+
+        <p class="text-[#2C3E50] text-lg leading-[1.8] mb-8">
+          The data speaks clearly: organizations leveraging nearshore BPO partnerships consistently outperform those relying solely on internal teams or distant offshore providers. From customer satisfaction scores to operational efficiency metrics, the nearshore model delivers results that justify the strategic investment.
+        </p>
+
+        <p class="text-[#2C3E50] text-lg leading-[1.8] mb-8">
+          As we look toward the future, the trend is unmistakable. More US companies are recognizing that nearshore BPO is not just about cost savings — it is about building resilient, scalable operations that can adapt to rapidly changing market demands while delivering consistent quality.
+        </p>
+
+        <!-- Tags -->
+        <div class="mt-16 pt-8 border-t border-[#D5E8D4]">
+          <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-[#5D6D7E] block mb-4">// TAGS</span>
+          <div class="flex flex-wrap gap-2">
+            {tags.map((tag) => (
+              <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-[#5D6D7E] border border-[#D5E8D4] px-4 py-2 hover:border-[#52C17A] hover:text-[#52C17A] transition-colors cursor-pointer">
+                {tag}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RELATED ARTICLES -->
+  <div class="bg-[#FAFAF8] py-24 lg:py-32">
+    <div class="max-w-[1400px] mx-auto px-6 lg:px-12">
+      <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-[#5D6D7E] block mb-12" data-sa="fade-up">// RELATED ARTICLES</span>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {relatedArticles.map((related, i) => (
+          <a
+            href={getLocalizedPath(`/blog/${related.slug}`, lang)}
+            class="d4-related-card block group"
+            data-sa="fade-up"
+            data-sa-delay={`${i * 100}ms`}
+          >
+            <div class="border-t-[3px] border-t-[#52C17A] border border-[#D5E8D4] bg-white p-6 lg:p-8 h-full flex flex-col">
+              <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-[#52C17A] mb-4 block">
+                {related.category}
+              </span>
+              <h3 class="font-bold text-lg lg:text-xl tracking-tight text-[#2C3E50] mb-4 group-hover:text-[#1a2e1a] transition-colors leading-snug flex-1">
+                {related.title}
+              </h3>
+              <div class="flex items-center justify-between pt-4 border-t border-[#D5E8D4]">
+                <span class="font-mono text-[9px] uppercase tracking-[0.2em] text-[#5D6D7E]">Paricus Team</span>
+                <span class="font-mono text-[9px] uppercase tracking-[0.2em] text-[#52C17A]">{related.readTime}</span>
+              </div>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<style>
+  .d4-related-card > div {
+    transition: all 0.3s ease;
+  }
+  .d4-related-card:hover > div {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 30px rgba(26, 46, 26, 0.08);
+    border-color: #52C17A;
+  }
+</style>

@@ -1,0 +1,265 @@
+---
+import { getLocalizedPath } from '../../i18n/utils';
+import Icon from '../../components/common/Icon.astro';
+import { placeholderImages } from '../../data/placeholder-images';
+
+interface Props { lang?: string; }
+const { lang = 'en' } = Astro.props;
+
+const heading = 'Built on';
+const headingHighlight = 'Trust';
+const headingEnd = 'Driven by Results';
+const description1 = 'Paricus combines the warmth of a true partnership with the confidence of deep expertise. Based in Colombia, we serve US companies with bilingual teams that understand both cultures and deliver exceptional results.';
+const description2 = 'Since 2009, we have been helping businesses of all sizes transform their operations through nearshore outsourcing that feels like an extension of their own team.';
+const buttonText = 'Partner with Us';
+const stats = [
+  { icon: 'users', value: '100+', label: 'Team Members' },
+  { icon: 'globe', value: '2', label: 'Countries Served' },
+  { icon: 'award', value: '15+', label: 'Years Experience' },
+  { icon: 'trending-up', value: '98%', label: 'Client Satisfaction' },
+];
+const leaders = [
+  { name: 'Jorge E. Perea', position: 'Managing Partner', initials: 'JP' },
+  { name: 'Jay Jones', position: 'Managing Partner', initials: 'JJ' },
+];
+const values = [
+  { title: 'Bilingual Excellence', desc: 'Fluent English and Spanish teams that bridge communication gaps effortlessly across every project.', num: '01' },
+  { title: 'Cultural Alignment', desc: 'Deep understanding of both US and Latin American business cultures ensures seamless collaboration.', num: '02' },
+  { title: 'Proven Track Record', desc: 'Over 15 years of consistently delivering results that exceed expectations for businesses worldwide.', num: '03' },
+  { title: 'Innovation Focus', desc: 'Cutting-edge processes and technologies that drive continuous improvement and competitive advantage.', num: '04' },
+];
+---
+
+<!-- ============================================================
+     DESIGN V4 — PREMIUM CORPORATE / ABOUT PAGE
+     Sharp corners, monospace labels, split-screen layouts,
+     structured corporate feel with V2 color palette
+     ============================================================ -->
+
+<!-- ==================== SECTION 1: HERO (Split-Screen) ==================== -->
+<section class="relative bg-[#FAFAF8] py-28 lg:py-0 overflow-hidden">
+  <div class="max-w-[1280px] mx-auto px-6 lg:px-16">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-20 items-center lg:min-h-[90vh] py-12 lg:py-24">
+
+      <!-- Left: Text content -->
+      <div data-sa="slide-right">
+        <!-- Monospace label -->
+        <p class="font-mono text-[10px] uppercase tracking-[0.2em] text-[#5D6D7E] mb-8">
+          // ABOUT US
+        </p>
+
+        <!-- Large heading -->
+        <h1 class="text-4xl sm:text-5xl lg:text-5xl xl:text-6xl font-black leading-[0.95] tracking-[-0.03em] text-[#1a2e1a] mb-6" data-sa="fade-up" data-sa-delay="100">
+          {heading}{' '}
+          <span class="text-[#52C17A]">{headingHighlight}</span><br />
+          {headingEnd}
+        </h1>
+
+        <!-- Accent line -->
+        <div class="w-16 h-[2px] bg-[#52C17A] mb-8" data-sa="fade-up" data-sa-delay="150"></div>
+
+        <!-- Description paragraphs -->
+        <p class="text-lg text-[#2C3E50] leading-relaxed mb-4" data-sa="fade-up" data-sa-delay="200">
+          {description1}
+        </p>
+        <p class="text-lg text-[#5D6D7E] leading-relaxed mb-10" data-sa="fade-up" data-sa-delay="250">
+          {description2}
+        </p>
+
+        <!-- CTA -->
+        <a
+          href={getLocalizedPath('/contact', lang)}
+          class="inline-flex items-center gap-3 px-8 py-4 bg-[#1a2e1a] text-white font-mono text-xs uppercase tracking-[0.15em] hover:bg-[#52C17A] transition-all duration-300"
+          data-sa="fade-up"
+          data-sa-delay="300"
+        >
+          {buttonText}
+          <Icon name="arrow-right" size={14} />
+        </a>
+      </div>
+
+      <!-- Right: Image with offset border + floating stat card -->
+      <div class="relative" data-sa="slide-left">
+        <div class="relative">
+          <!-- Offset green border decoration -->
+          <div class="absolute -top-5 -right-5 w-full h-full border-2 border-[#52C17A]"></div>
+          <!-- Image -->
+          <img
+            src={placeholderImages.team[0].url}
+            alt={placeholderImages.team[0].alt}
+            loading="lazy"
+            class="relative z-10 w-full h-[500px] lg:h-[600px] object-cover"
+          />
+          <!-- Floating stat card -->
+          <div class="absolute -bottom-6 -left-6 z-20 bg-white border-2 border-[#1a2e1a] p-6" data-sa="scale-in" data-sa-delay="400">
+            <p class="font-mono text-[9px] uppercase tracking-[0.2em] text-[#5D6D7E] mb-1">// Team Size</p>
+            <p class="text-3xl font-black text-[#1a2e1a] tracking-tight">100+</p>
+            <p class="text-xs text-[#5D6D7E]">Team Members</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ==================== SECTION 2: STATS BANNER ==================== -->
+<section class="relative bg-[#1a2e1a] py-16 lg:py-20 overflow-hidden">
+  <div class="max-w-[1280px] mx-auto px-6 lg:px-16">
+    <div class="v4-about-stats flex flex-wrap justify-center items-stretch">
+      {stats.map((stat: any, i: number) => (
+        <div
+          class={`flex-1 min-w-[200px] text-center py-8 lg:py-0 ${i < stats.length - 1 ? 'v4-about-stat-divider' : ''}`}
+          data-sa="fade-up"
+          data-sa-delay={`${i * 80}ms`}
+        >
+          <div class="flex items-center justify-center mb-3">
+            <Icon name={stat.icon} size={20} class="text-[#52C17A]" />
+          </div>
+          <span class="block text-4xl lg:text-5xl font-black text-white tracking-tight mb-2">{stat.value}</span>
+          <span class="block font-mono text-[10px] uppercase tracking-[0.2em] text-[#52C17A]">{stat.label}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+
+<!-- ==================== SECTION 3: LEADERSHIP ==================== -->
+<section class="relative bg-white py-28 lg:py-40">
+  <div class="max-w-[1280px] mx-auto px-6 lg:px-16">
+    <!-- Section header -->
+    <div class="mb-16" data-sa="fade-up">
+      <p class="font-mono text-[10px] uppercase tracking-[0.2em] text-[#5D6D7E] mb-4">// LEADERSHIP</p>
+      <div class="w-12 h-[2px] bg-[#52C17A] mb-6"></div>
+      <h2 class="text-4xl lg:text-5xl font-bold text-[#1a2e1a] tracking-[-0.03em]">
+        The Partners
+      </h2>
+    </div>
+
+    <!-- Leader cards side by side -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      {leaders.map((leader: any, i: number) => (
+        <div
+          class="group bg-white border-l-[4px] border-l-[#52C17A] border border-[#D5E8D4] p-10 lg:p-12 transition-all duration-500 hover:shadow-lg"
+          data-sa="fade-up"
+          data-sa-delay={`${i * 100}ms`}
+        >
+          <!-- Large initials -->
+          <div class="w-20 h-20 bg-[#1a2e1a] flex items-center justify-center mb-8">
+            <span class="text-2xl font-black text-white font-mono">{leader.initials}</span>
+          </div>
+
+          <!-- Name -->
+          <h3 class="text-2xl font-bold text-[#1a2e1a] tracking-tight mb-2">
+            {leader.name}
+          </h3>
+
+          <!-- Position -->
+          <p class="font-mono text-[10px] uppercase tracking-[0.2em] text-[#5D6D7E]">
+            {leader.position}
+          </p>
+
+          <!-- Accent line -->
+          <div class="w-12 h-[2px] bg-[#52C17A] mt-8 group-hover:w-full transition-all duration-700"></div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+
+<!-- ==================== SECTION 4: VALUES ==================== -->
+<section class="relative bg-[#FAFAF8] py-28 lg:py-40">
+  <div class="max-w-[1280px] mx-auto px-6 lg:px-16">
+    <!-- Section header -->
+    <div class="mb-16" data-sa="fade-up">
+      <p class="font-mono text-[10px] uppercase tracking-[0.2em] text-[#5D6D7E] mb-4">// VALUES</p>
+      <div class="w-12 h-[2px] bg-[#52C17A] mb-6"></div>
+      <h2 class="text-4xl lg:text-5xl font-bold text-[#1a2e1a] tracking-[-0.03em]">
+        What We Stand For
+      </h2>
+    </div>
+
+    <!-- 2x2 values grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-0 border-t border-l border-[#D5E8D4]">
+      {values.map((value: any, i: number) => (
+        <div
+          class="group bg-white border-b border-r border-[#D5E8D4] p-10 lg:p-12 transition-all duration-500 hover:bg-[#1a2e1a] cursor-default"
+          data-sa="fade-up"
+          data-sa-delay={`${i * 100}ms`}
+        >
+          <!-- Number -->
+          <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-[#D5E8D4] group-hover:text-[#52C17A] transition-colors duration-500 block mb-4">
+            {value.num}
+          </span>
+
+          <!-- Title -->
+          <h3 class="text-xl lg:text-2xl font-bold text-[#1a2e1a] group-hover:text-white tracking-tight mb-3 transition-colors duration-500">
+            {value.title}
+          </h3>
+
+          <!-- Description -->
+          <p class="text-sm text-[#5D6D7E] group-hover:text-white/70 leading-relaxed transition-colors duration-500">
+            {value.desc}
+          </p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+
+<!-- ==================== SECTION 5: CTA ==================== -->
+<section class="relative bg-[#1a2e1a] py-28 lg:py-40 overflow-hidden" data-sa="scale-in">
+  <!-- Subtle radial green glow -->
+  <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#52C17A] opacity-[0.05] rounded-full blur-[180px]"></div>
+
+  <div class="relative z-10 max-w-4xl mx-auto px-6 lg:px-16 text-center">
+    <!-- Monospace label -->
+    <p class="font-mono text-[10px] uppercase tracking-[0.2em] text-[#52C17A] mb-6">
+      // NEXT STEP
+    </p>
+
+    <!-- Heading -->
+    <h2 class="text-4xl sm:text-5xl lg:text-6xl font-black text-white tracking-[-0.04em] leading-[0.95] mb-8" data-sa="fade-up">
+      Ready to Partner?
+    </h2>
+
+    <!-- Description -->
+    <p class="text-lg text-white/70 font-light max-w-xl mx-auto mb-12" data-sa="fade-up" data-sa-delay="100">
+      Transform your operations with a nearshore partner that delivers exceptional results.
+    </p>
+
+    <!-- CTA Button -->
+    <div data-sa="fade-up" data-sa-delay="200">
+      <a
+        href={getLocalizedPath('/contact', lang)}
+        class="inline-flex items-center gap-3 px-10 py-5 bg-[#52C17A] text-white font-mono text-xs uppercase tracking-[0.15em] hover:bg-white hover:text-[#1a2e1a] transition-all duration-300"
+      >
+        Get Started
+        <Icon name="arrow-right" size={14} />
+      </a>
+    </div>
+
+    <!-- Bottom accent line -->
+    <div class="mt-16 w-16 h-[2px] bg-[#52C17A] mx-auto"></div>
+  </div>
+</section>
+
+
+<style>
+  /* Stats banner dividers */
+  .v4-about-stat-divider {
+    border-right: 1px solid rgba(82, 193, 122, 0.2);
+  }
+  @media (max-width: 768px) {
+    .v4-about-stat-divider {
+      border-right: none;
+      border-bottom: 1px solid rgba(82, 193, 122, 0.2);
+    }
+    .v4-about-stats {
+      flex-direction: column;
+    }
+  }
+</style>

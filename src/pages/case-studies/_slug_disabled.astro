@@ -4,6 +4,7 @@ import AnimatedSection from '../../components/common/AnimatedSection.astro';
 import Icon from '../../components/common/Icon.astro';
 import { getLocalizedPath } from '../../i18n/utils';
 import { getCaseStudies, getCaseStudyBySlug, getStrapiImageUrl } from '../../lib/strapi';
+import D4CaseStudyDetail from '../../designs/design4/CaseStudyDetail.astro';
 
 export async function getStaticPaths() {
   const studies = await getCaseStudies('en');
@@ -189,6 +190,7 @@ const hasBlocks = caseStudy.blocks && caseStudy.blocks.length > 0;
       </AnimatedSection>
     </div>
   </article>
+  <div data-design="4" style="display:none;"><D4CaseStudyDetail lang={lang} /></div>
 </Layout>
 
 <style>

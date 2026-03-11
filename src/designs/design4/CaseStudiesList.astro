@@ -1,0 +1,171 @@
+---
+import { getLocalizedPath } from '../../i18n/utils';
+import Icon from '../../components/common/Icon.astro';
+
+interface Props {
+  lang?: string;
+}
+
+const { lang = 'en' } = Astro.props;
+
+const caseStudies = [
+  {
+    title: 'Healthcare Provider Reduces Response Time by 60%',
+    industry: 'Healthcare',
+    challenge: 'A major healthcare provider struggled with long patient wait times and inconsistent support quality across multiple channels.',
+    solution: 'We deployed a dedicated bilingual team with HIPAA training, implemented omnichannel routing, and established real-time quality monitoring.',
+    results: [
+      { icon: 'clock', value: '60%', label: 'Faster Response Time' },
+      { icon: 'star', value: '95%', label: 'Patient Satisfaction' },
+      { icon: 'trending-down', value: '40%', label: 'Cost Reduction' },
+    ],
+    slug: 'healthcare-response-time',
+  },
+  {
+    title: 'E-Commerce Brand Scales Support for 300% Growth',
+    industry: 'E-Commerce',
+    challenge: 'A fast-growing e-commerce company needed to triple their customer support capacity without sacrificing quality during peak seasons.',
+    solution: 'We built a scalable team structure with flexible staffing, AI-powered ticket routing, and comprehensive product training programs.',
+    results: [
+      { icon: 'users', value: '3x', label: 'Team Scale-up' },
+      { icon: 'message-circle', value: '< 2min', label: 'Avg Response Time' },
+      { icon: 'award', value: '4.8/5', label: 'CSAT Score' },
+    ],
+    slug: 'ecommerce-growth-scaling',
+  },
+  {
+    title: 'FinTech Startup Achieves 99.5% SLA Compliance',
+    industry: 'Finance',
+    challenge: 'A fintech startup needed enterprise-level technical support with strict SLA requirements and regulatory compliance.',
+    solution: 'We implemented tiered support with dedicated senior agents, automated SLA tracking, and compliance-first processes.',
+    results: [
+      { icon: 'check-circle', value: '99.5%', label: 'SLA Compliance' },
+      { icon: 'shield', value: '100%', label: 'Audit Pass Rate' },
+      { icon: 'zap', value: '45%', label: 'Efficiency Gain' },
+    ],
+    slug: 'fintech-sla-compliance',
+  },
+];
+---
+
+<!-- ============================================================
+     SECTION 1: HEADER
+     ============================================================ -->
+<section class="bg-[#1a2e1a] py-24 md:py-32">
+  <div class="max-w-[1400px] mx-auto px-6 md:px-12">
+    <div class="max-w-3xl" data-sa="fade-up">
+      <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-[#52C17A] mb-4 block">
+        // CASE STUDIES
+      </span>
+      <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
+        Client Success Stories
+      </h1>
+      <p class="text-lg text-gray-300 leading-relaxed">
+        Real results from real partnerships. See how we have helped businesses transform their operations.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 2: CASE STUDIES
+     ============================================================ -->
+<section class="bg-white py-24 md:py-32">
+  <div class="max-w-[1400px] mx-auto px-6 md:px-12">
+    <div class="space-y-16">
+      {caseStudies.map((study, index) => (
+        <div>
+          <div
+            class="bg-white border-l-4 border-[#52C17A] p-8 md:p-12"
+            data-sa="fade-up"
+            data-sa-delay={`${index * 150}ms`}
+          >
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
+              <!-- Left: Info -->
+              <div class="lg:col-span-2">
+                <span class="inline-block font-mono text-[10px] uppercase tracking-[0.2em] text-white bg-[#1a2e1a] px-3 py-1 mb-4">
+                  {study.industry}
+                </span>
+                <h2 class="text-2xl md:text-3xl font-bold text-[#2C3E50] mb-8">
+                  {study.title}
+                </h2>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                  <div>
+                    <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-[#5D6D7E] mb-3 block">
+                      // CHALLENGE
+                    </span>
+                    <p class="text-[#5D6D7E] leading-relaxed">
+                      {study.challenge}
+                    </p>
+                  </div>
+                  <div>
+                    <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-[#5D6D7E] mb-3 block">
+                      // SOLUTION
+                    </span>
+                    <p class="text-[#5D6D7E] leading-relaxed">
+                      {study.solution}
+                    </p>
+                  </div>
+                </div>
+
+                <a
+                  href={getLocalizedPath(`/case-studies/${study.slug}`, lang)}
+                  class="inline-flex items-center font-mono text-[10px] uppercase tracking-[0.2em] text-[#52C17A] hover:text-[#1a2e1a] transition-colors"
+                >
+                  Read Full Story &rarr;
+                </a>
+              </div>
+
+              <!-- Right: Metrics -->
+              <div class="flex flex-col justify-center space-y-6">
+                {study.results.map((result) => (
+                  <div class="text-center lg:text-right">
+                    <div class="flex items-center justify-center lg:justify-end gap-3 mb-1">
+                      <Icon name={result.icon} class="w-5 h-5 text-[#52C17A]" />
+                      <span class="text-3xl md:text-4xl font-bold text-[#1a2e1a]">
+                        {result.value}
+                      </span>
+                    </div>
+                    <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-[#5D6D7E]">
+                      {result.label}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {index < caseStudies.length - 1 && (
+            <div class="border-b border-[#D5E8D4] mt-16" />
+          )}
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 3: CTA
+     ============================================================ -->
+<section class="bg-[#1a2e1a] py-24 md:py-32">
+  <div class="max-w-[1400px] mx-auto px-6 md:px-12 text-center">
+    <div data-sa="fade-up">
+      <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-[#52C17A] mb-4 block">
+        // NEXT STEP
+      </span>
+      <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6">
+        Let's build your success story.
+      </h2>
+      <p class="text-lg text-gray-300 mb-10 max-w-2xl mx-auto">
+        Partner with us to create measurable impact for your business.
+      </p>
+      <a
+        href={getLocalizedPath('/contact', lang)}
+        class="inline-block bg-[#52C17A] text-[#1a2e1a] font-mono text-[10px] uppercase tracking-[0.2em] px-10 py-4 hover:bg-[#3da862] transition-colors"
+      >
+        Start a Conversation
+      </a>
+    </div>
+  </div>
+</section>

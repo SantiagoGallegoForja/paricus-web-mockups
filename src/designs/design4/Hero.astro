@@ -1,0 +1,338 @@
+---
+import { getLocalizedPath } from '../../i18n/utils';
+import Icon from '../../components/common/Icon.astro';
+
+interface Props {
+  lang?: string;
+}
+
+const { lang = 'en' } = Astro.props;
+
+const badge = 'Your Trusted BPO Partner';
+const title = 'Transform Your Operations with';
+const titleHighlight = 'Friendly';
+const titleEnd = 'Outsourcing';
+const description = 'Paricus helps global companies streamline operations, improve efficiency, and scale with confidence through nearshore BPO solutions from Colombia.';
+const primaryButtonText = 'Explore Services';
+const secondaryButtonText = 'Get in Touch';
+const stats = [
+  { value: '100+', label: 'Team Members' },
+  { value: '15+', label: 'Years Experience' },
+  { value: '98%', label: 'Satisfaction Rate' },
+];
+const services = [
+  { icon: 'headphones', title: 'Customer Service', shortDescription: 'Multilingual customer support that builds lasting relationships and drives satisfaction across every channel.', slug: 'customer-service' },
+  { icon: 'file-text', title: 'Back Office Operations', shortDescription: 'Streamline your administrative processes with accurate, efficient back-office support.', slug: 'back-office' },
+  { icon: 'calculator', title: 'Sales & Lead Generation', shortDescription: 'Accelerate your revenue pipeline with skilled sales teams and proven strategies.', slug: 'sales-lead-generation' },
+  { icon: 'wrench', title: 'Technical Support', shortDescription: 'Expert technical assistance that resolves issues quickly and keeps customers productive.', slug: 'technical-support' },
+];
+const valuePoints = [
+  { icon: 'trending-up', title: 'Unmatched Quality', description: 'Rigorous quality assurance and continuous improvement processes that exceed expectations every time.' },
+  { icon: 'award', title: 'Global Reach', description: 'Multilingual teams serving clients across continents with cultural fluency and local market insight.' },
+  { icon: 'zap', title: 'Scalable Solutions', description: 'Flexible team structures that grow with your business, scaling up or down to match demand seamlessly.' },
+  { icon: 'target', title: 'Tech-Forward', description: 'Cutting-edge platforms and integrated AI tools that drive efficiency and deliver data-driven insights.' },
+];
+const statsBanner = [
+  { value: '100+', label: 'Team Members' },
+  { value: '15+', label: 'Years Experience' },
+  { value: '98%', label: 'Client Satisfaction' },
+  { value: '24/7', label: 'Available Support' },
+];
+const industries = [
+  { icon: 'heart', title: 'Healthcare', description: 'HIPAA-compliant support services' },
+  { icon: 'package', title: 'E-Commerce', description: 'Seamless customer experiences' },
+  { icon: 'cpu', title: 'Technology', description: 'Technical support excellence' },
+  { icon: 'landmark', title: 'Finance', description: 'Secure financial services support' },
+  { icon: 'shopping-bag', title: 'Travel & Hospitality', description: 'Memorable guest experiences' },
+];
+---
+
+<!-- ============================================================
+     DESIGN V4 — PREMIUM CORPORATE
+     Sharp corners, monospace labels, split-screen layouts,
+     structured corporate feel with V2 color palette
+     ============================================================ -->
+
+<!-- ==================== SECTION 1: HERO (Split-Screen) ==================== -->
+<section class="v4-hero relative min-h-screen flex overflow-hidden">
+  <!-- Left Panel: 55% dark background -->
+  <div class="relative w-full lg:w-[55%] bg-[#1a2e1a] flex flex-col justify-center px-8 sm:px-12 lg:px-20 xl:px-28 py-32 lg:py-24 z-10">
+    <!-- Monospace badge -->
+    <p class="font-mono text-[10px] uppercase tracking-[0.2em] text-[#52C17A] mb-8" data-sa="fade-up">
+      // {badge}
+    </p>
+
+    <!-- Headline -->
+    <h1 class="text-4xl sm:text-5xl lg:text-5xl xl:text-6xl font-black leading-[0.95] tracking-[-0.03em] text-white mb-6" data-sa="fade-up" data-sa-delay="100">
+      {title}{' '}
+      <span class="text-[#52C17A]">{titleHighlight}</span>{' '}
+      {titleEnd}
+    </h1>
+
+    <!-- Thin accent line -->
+    <div class="w-16 h-[2px] bg-[#52C17A] mb-8" data-sa="fade-up" data-sa-delay="150"></div>
+
+    <!-- Description -->
+    <p class="text-lg text-white/70 max-w-xl font-light leading-relaxed mb-12" data-sa="fade-up" data-sa-delay="200">
+      {description}
+    </p>
+
+    <!-- CTAs -->
+    <div class="flex flex-wrap gap-4 mb-16" data-sa="fade-up" data-sa-delay="300">
+      <a
+        href={getLocalizedPath('/services', lang)}
+        class="inline-flex items-center gap-3 px-8 py-4 bg-[#52C17A] text-white font-mono text-xs uppercase tracking-[0.15em] hover:bg-[#3da85f] transition-all duration-300"
+      >
+        {primaryButtonText}
+        <Icon name="arrow-right" size={14} />
+      </a>
+      <a
+        href={getLocalizedPath('/contact', lang)}
+        class="inline-flex items-center gap-3 px-8 py-4 border border-white/40 text-white font-mono text-xs uppercase tracking-[0.15em] hover:bg-white/10 transition-all duration-300"
+      >
+        {secondaryButtonText}
+      </a>
+    </div>
+
+    <!-- Stats row -->
+    <div class="flex items-center gap-0 border-t border-white/10 pt-8">
+      {stats.map((stat: { value: string; label: string }, i: number) => (
+        <div class={`pr-8 ${i > 0 ? 'pl-8 border-l border-white/10' : ''}`} data-sa="fade-up" data-sa-delay={`${400 + i * 80}ms`}>
+          <span class="block text-2xl lg:text-3xl font-black text-white tracking-tight">{stat.value}</span>
+          <span class="block font-mono text-[10px] uppercase tracking-[0.15em] text-white/50 mt-1">{stat.label}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <!-- Right Panel: 45% full-height image -->
+  <div class="hidden lg:block absolute right-0 top-0 bottom-0 w-[45%]" data-sa="fade-in">
+    <img
+      src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=800&h=900&fit=crop"
+      alt="Business team collaboration"
+      loading="eager"
+      class="w-full h-full object-cover"
+    />
+    <!-- Gradient overlay from left -->
+    <div class="absolute inset-0" style="background: linear-gradient(to right, #1a2e1a 0%, transparent 40%);"></div>
+  </div>
+</section>
+
+
+<!-- ==================== SECTION 2: SERVICES GRID ==================== -->
+<section class="relative bg-white py-28 lg:py-40">
+  <div class="max-w-[1280px] mx-auto px-6 lg:px-16">
+
+    <!-- Section header -->
+    <div class="mb-20" data-sa="fade-up">
+      <p class="font-mono text-[10px] uppercase tracking-[0.2em] text-[#5D6D7E] mb-4">// WHAT WE DO</p>
+      <div class="w-12 h-[2px] bg-[#52C17A] mb-6"></div>
+      <h2 class="text-4xl lg:text-5xl font-bold text-[#1a2e1a] tracking-[-0.03em] leading-tight">
+        Our Services
+      </h2>
+    </div>
+
+    <!-- 2x2 Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-0">
+      {services.map((service: any, i: number) => (
+        <a
+          href={getLocalizedPath(`/services/${service.slug}`, lang)}
+          class="v4-service-card group relative bg-white border-t-[3px] border-t-[#52C17A] border-b border-r border-[#D5E8D4] p-10 lg:p-12 transition-all duration-400 hover:bg-[#FAFAF8]"
+          data-sa="fade-up"
+          data-sa-delay={`${i * 100}ms`}
+        >
+          <!-- Service number -->
+          <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-[#D5E8D4] mb-6 block">
+            {String(i + 1).padStart(2, '0')}
+          </span>
+
+          <!-- Icon -->
+          <div class="mb-5 text-[#5D6D7E] group-hover:text-[#52C17A] transition-colors duration-400">
+            <Icon name={service.icon} size={28} />
+          </div>
+
+          <!-- Title -->
+          <h3 class="text-xl lg:text-2xl font-bold text-[#1a2e1a] tracking-tight mb-3 group-hover:text-[#52C17A] transition-colors duration-400">
+            {service.title}
+          </h3>
+
+          <!-- Description -->
+          <p class="text-sm text-[#5D6D7E] leading-relaxed max-w-md mb-6">
+            {service.shortDescription}
+          </p>
+
+          <!-- Learn more link -->
+          <div class="flex items-center gap-2 text-[#5D6D7E] group-hover:text-[#52C17A] transition-all duration-400">
+            <span class="font-mono text-[10px] uppercase tracking-[0.2em]">Learn more</span>
+            <Icon name="arrow-right" size={12} class="transform group-hover:translate-x-2 transition-transform duration-400" />
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+
+<!-- ==================== SECTION 3: WHY PARICUS (Image + Text Split) ==================== -->
+<section class="relative bg-[#FAFAF8] py-28 lg:py-40">
+  <div class="max-w-[1280px] mx-auto px-6 lg:px-16">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+
+      <!-- Left: Image with offset border decoration -->
+      <div class="relative" data-sa="slide-right">
+        <div class="relative">
+          <!-- Offset green border decoration -->
+          <div class="absolute -bottom-5 -right-5 w-full h-full border-2 border-[#52C17A]"></div>
+          <img
+            src="https://images.unsplash.com/photo-1553877522-43269d4ea984?w=600&h=700&fit=crop"
+            alt="Strategy planning session"
+            loading="lazy"
+            class="relative z-10 w-full h-[500px] lg:h-[600px] object-cover"
+          />
+        </div>
+      </div>
+
+      <!-- Right: Content -->
+      <div data-sa="slide-left">
+        <p class="font-mono text-[10px] uppercase tracking-[0.2em] text-[#5D6D7E] mb-4">// WHY PARICUS</p>
+        <div class="w-12 h-[2px] bg-[#52C17A] mb-6"></div>
+        <h2 class="text-3xl lg:text-4xl xl:text-5xl font-bold text-[#1a2e1a] tracking-[-0.03em] leading-tight mb-12">
+          Why Leading Brands Choose Paricus
+        </h2>
+
+        <!-- Value points as icon+text rows -->
+        <div class="space-y-8">
+          {valuePoints.map((point: any, i: number) => (
+            <div class="flex gap-5" data-sa="fade-up" data-sa-delay={`${i * 100}ms`}>
+              <div class="flex-shrink-0 w-12 h-12 bg-[#1a2e1a] flex items-center justify-center">
+                <Icon name={point.icon} size={20} class="text-[#52C17A]" />
+              </div>
+              <div>
+                <h3 class="text-lg font-bold text-[#1a2e1a] tracking-tight mb-1">{point.title}</h3>
+                <p class="text-sm text-[#5D6D7E] leading-relaxed">{point.description}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ==================== SECTION 4: STATISTICS BANNER ==================== -->
+<section class="relative bg-[#1a2e1a] py-20 lg:py-28 overflow-hidden">
+  <div class="max-w-[1280px] mx-auto px-6 lg:px-16">
+    <div class="v4-stats-row flex flex-wrap justify-center items-center">
+      {statsBanner.map((stat: { value: string; label: string }, i: number) => (
+        <div
+          class={`flex-1 min-w-[200px] text-center py-8 lg:py-0 ${i < statsBanner.length - 1 ? 'v4-stat-divider' : ''}`}
+          data-sa="fade-up"
+          data-sa-delay={`${i * 100}ms`}
+        >
+          <span class="block text-4xl lg:text-5xl xl:text-6xl font-black text-white tracking-tight mb-2">{stat.value}</span>
+          <span class="block font-mono text-[10px] uppercase tracking-[0.2em] text-[#52C17A]">{stat.label}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+
+<!-- ==================== SECTION 5: INDUSTRIES ==================== -->
+<section class="relative bg-white py-28 lg:py-40">
+  <div class="max-w-[1280px] mx-auto px-6 lg:px-16">
+
+    <!-- Section header -->
+    <div class="mb-16" data-sa="fade-up">
+      <p class="font-mono text-[10px] uppercase tracking-[0.2em] text-[#5D6D7E] mb-4">// INDUSTRIES</p>
+      <div class="w-12 h-[2px] bg-[#52C17A] mb-6"></div>
+      <h2 class="text-4xl lg:text-5xl font-bold text-[#1a2e1a] tracking-[-0.03em]">
+        Industries We Serve
+      </h2>
+    </div>
+
+    <!-- Industries horizontal row -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 border-t border-[#D5E8D4]">
+      {industries.map((industry: any, i: number) => (
+        <div
+          class="group relative border-b lg:border-b-0 lg:border-r border-[#D5E8D4] last:border-r-0 p-8 lg:py-10 lg:px-6 cursor-default transition-all duration-300"
+          data-sa="fade-up"
+          data-sa-delay={`${i * 100}ms`}
+        >
+          <!-- Icon -->
+          <div class="mb-5 text-[#5D6D7E] group-hover:text-[#52C17A] transition-colors duration-300">
+            <Icon name={industry.icon} size={24} />
+          </div>
+
+          <!-- Title -->
+          <h3 class="text-base font-bold text-[#1a2e1a] group-hover:text-[#52C17A] tracking-tight mb-2 transition-colors duration-300">
+            {industry.title}
+          </h3>
+
+          <!-- Description -->
+          <p class="text-xs text-[#5D6D7E] leading-relaxed">
+            {industry.description}
+          </p>
+
+          <!-- Expanding bottom line on hover -->
+          <div class="absolute bottom-0 left-0 h-[2px] bg-[#52C17A] w-0 group-hover:w-full transition-all duration-500 ease-out"></div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+
+<!-- ==================== SECTION 6: CTA ==================== -->
+<section class="relative bg-[#1a2e1a] py-32 lg:py-48 overflow-hidden" data-sa="scale-in">
+  <!-- Subtle radial green glow -->
+  <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[#52C17A] opacity-[0.05] rounded-full blur-[200px]"></div>
+
+  <div class="relative z-10 max-w-[1280px] mx-auto px-6 lg:px-16 text-center">
+    <!-- Monospace label -->
+    <p class="font-mono text-[10px] uppercase tracking-[0.2em] text-[#52C17A] mb-6">
+      // READY TO START
+    </p>
+
+    <!-- Large heading -->
+    <h2 class="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black text-white tracking-[-0.04em] leading-[0.95] max-w-4xl mx-auto mb-8" data-sa="fade-up">
+      Transform Your Operations Today
+    </h2>
+
+    <p class="text-lg text-white/70 font-light max-w-2xl mx-auto mb-12" data-sa="fade-up" data-sa-delay="100">
+      Partner with Paricus and unlock the full potential of your business through nearshore excellence.
+    </p>
+
+    <!-- CTA Button -->
+    <div data-sa="fade-up" data-sa-delay="200">
+      <a
+        href={getLocalizedPath('/contact', lang)}
+        class="inline-flex items-center gap-3 px-10 py-5 bg-[#52C17A] text-white font-mono text-xs uppercase tracking-[0.15em] hover:bg-white hover:text-[#1a2e1a] transition-all duration-300"
+      >
+        Get Started
+        <Icon name="arrow-right" size={14} />
+      </a>
+    </div>
+
+    <!-- Bottom accent line -->
+    <div class="mt-20 w-16 h-[2px] bg-[#52C17A] mx-auto"></div>
+  </div>
+</section>
+
+
+<style>
+  /* Stats banner dividers */
+  .v4-stat-divider {
+    border-right: 1px solid rgba(82, 193, 122, 0.2);
+  }
+  @media (max-width: 768px) {
+    .v4-stat-divider {
+      border-right: none;
+      border-bottom: 1px solid rgba(82, 193, 122, 0.2);
+    }
+    .v4-stats-row {
+      flex-direction: column;
+    }
+  }
+</style>

@@ -3,6 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import Design1Hero from '../designs/design1/Hero.astro';
 import Design2Hero from '../designs/design2/Hero.astro';
 import Design3Hero from '../designs/design3/Hero.astro';
+import Design4Hero from '../designs/design4/Hero.astro';
 const lang = 'en';
 ---
 
@@ -25,5 +26,10 @@ const lang = 'en';
   <!-- Design V3: Bold SaaS -->
   <div data-design="3" style="display:none;">
     <Design3Hero lang={lang} />
+  </div>
+
+  <!-- Design V4 -->
+  <div data-design="4" style="display:none;">
+    <Design4Hero lang={lang} />
   </div>
 </Layout>

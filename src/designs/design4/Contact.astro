@@ -1,0 +1,243 @@
+---
+import { getLocalizedPath } from '../../i18n/utils';
+import Icon from '../../components/common/Icon.astro';
+import { placeholderImages } from '../../data/placeholder-images';
+
+interface Props { lang?: string; }
+const { lang = 'en' } = Astro.props;
+
+const contactDetails = [
+  { icon: 'phone', label: 'Phone', value: '+1 (555) 123-4567' },
+  { icon: 'mail', label: 'Email', value: 'contact@paricus.com' },
+  { icon: 'map-pin', label: 'Location', value: 'Bogotá, Colombia' },
+];
+const businessHours = [
+  { day: 'Monday - Friday', hours: '9:00 AM - 6:00 PM EST' },
+  { day: 'Saturday', hours: '10:00 AM - 4:00 PM EST' },
+  { day: 'Sunday', hours: 'Closed' },
+];
+const industryOptions = ['Healthcare', 'E-Commerce', 'Technology', 'Finance', 'Travel & Hospitality', 'Other'];
+const serviceOptions = ['Customer Service', 'Back Office Operations', 'Sales & Lead Generation', 'Technical Support', 'Other'];
+---
+
+<!-- ============================================================
+     DESIGN V4 — PREMIUM CORPORATE / CONTACT PAGE
+     Sharp corners, monospace labels, split-screen layouts,
+     structured corporate feel with V2 color palette
+     ============================================================ -->
+
+<!-- ==================== SECTION 1: HERO HEADER ==================== -->
+<section class="relative bg-[#1a2e1a] py-28 lg:py-36 overflow-hidden">
+  <!-- Subtle grid background -->
+  <div class="absolute inset-0 opacity-[0.03]" style="background-image: linear-gradient(#52C17A 1px, transparent 1px), linear-gradient(90deg, #52C17A 1px, transparent 1px); background-size: 60px 60px;"></div>
+
+  <div class="relative max-w-[1400px] mx-auto px-6 lg:px-16 text-center">
+    <!-- Monospace label -->
+    <p class="font-mono text-[10px] uppercase tracking-[0.2em] text-[#52C17A] mb-8" data-sa="fade-up">
+      // CONTACT
+    </p>
+
+    <!-- Heading -->
+    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black leading-[0.95] tracking-[-0.03em] text-white mb-6" data-sa="fade-up" data-sa-delay="100">
+      Let's Start a <span class="text-[#52C17A]">Conversation</span>
+    </h1>
+
+    <!-- Accent line -->
+    <div class="w-16 h-[2px] bg-[#52C17A] mx-auto mb-8" data-sa="fade-up" data-sa-delay="150"></div>
+
+    <!-- Subtitle -->
+    <p class="text-lg text-white/70 max-w-2xl mx-auto font-light leading-relaxed" data-sa="fade-up" data-sa-delay="200">
+      Ready to transform your operations? Our team is here to help you find the perfect outsourcing solution.
+    </p>
+  </div>
+</section>
+
+<!-- ==================== SECTION 2: CONTACT INFO + FORM (Split) ==================== -->
+<section class="relative bg-white py-24 lg:py-32">
+  <div class="max-w-[1400px] mx-auto px-6 lg:px-16">
+    <div class="grid grid-cols-1 lg:grid-cols-5 gap-16 lg:gap-20">
+
+      <!-- Left Side: Contact Details (40% = 2/5) -->
+      <div class="lg:col-span-2" data-sa="slide-right">
+        <!-- Monospace label -->
+        <p class="font-mono text-[10px] uppercase tracking-[0.2em] text-[#5D6D7E] mb-6">
+          // CONTACT DETAILS
+        </p>
+
+        <h2 class="text-2xl sm:text-3xl font-black tracking-[-0.02em] text-[#1a2e1a] mb-10">
+          Reach Out to Us
+        </h2>
+
+        <!-- Contact info cards -->
+        <div class="space-y-4 mb-12">
+          {contactDetails.map((detail) => (
+            <div class="flex items-center gap-4 p-5 border-l-[3px] border-[#52C17A] bg-[#FAFAF8]">
+              <div class="w-10 h-10 flex items-center justify-center bg-[#1a2e1a] text-[#52C17A]">
+                <Icon name={detail.icon} size={18} />
+              </div>
+              <div>
+                <p class="font-mono text-[10px] uppercase tracking-[0.15em] text-[#5D6D7E] mb-1">{detail.label}</p>
+                <p class="text-[#2C3E50] font-medium">{detail.value}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <!-- Business Hours -->
+        <div class="border-2 border-[#D5E8D4] p-6 mb-8">
+          <p class="font-mono text-[10px] uppercase tracking-[0.2em] text-[#5D6D7E] mb-5">
+            // BUSINESS HOURS
+          </p>
+          <div class="space-y-3">
+            {businessHours.map((item) => (
+              <div class="flex justify-between items-center py-2 border-b border-[#D5E8D4] last:border-b-0">
+                <span class="text-[#2C3E50] font-medium text-sm">{item.day}</span>
+                <span class={`text-sm font-mono ${item.hours === 'Closed' ? 'text-[#5D6D7E]' : 'text-[#1a2e1a]'}`}>{item.hours}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <!-- Response time note -->
+        <div class="flex items-center gap-3 p-4 bg-[#FAFAF8] border-l-[3px] border-[#52C17A]">
+          <Icon name="clock" size={16} class="text-[#52C17A]" />
+          <p class="text-sm text-[#5D6D7E]">Expect a reply within <span class="text-[#1a2e1a] font-semibold">24 hours</span></p>
+        </div>
+      </div>
+
+      <!-- Right Side: Contact Form (60% = 3/5) -->
+      <div class="lg:col-span-3" data-sa="slide-left">
+        <!-- Monospace label -->
+        <p class="font-mono text-[10px] uppercase tracking-[0.2em] text-[#5D6D7E] mb-6">
+          // INQUIRY FORM
+        </p>
+
+        <h2 class="text-2xl sm:text-3xl font-black tracking-[-0.02em] text-[#1a2e1a] mb-10">
+          Get in Touch
+        </h2>
+
+        <!-- Form -->
+        <form class="space-y-6" data-sa="fade-up" data-sa-delay="100">
+          <!-- First Name + Last Name (2-col) -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div>
+              <label class="block font-mono text-[10px] uppercase tracking-[0.15em] text-[#5D6D7E] mb-2">First Name</label>
+              <input
+                type="text"
+                name="firstName"
+                required
+                class="w-full px-4 py-3 border-2 border-[#D5E8D4] bg-white text-[#2C3E50] text-sm focus:border-[#52C17A] focus:border-l-[3px] focus:border-l-[#52C17A] outline-none transition-all duration-200 placeholder:text-[#5D6D7E]/50"
+                placeholder="John"
+              />
+            </div>
+            <div>
+              <label class="block font-mono text-[10px] uppercase tracking-[0.15em] text-[#5D6D7E] mb-2">Last Name</label>
+              <input
+                type="text"
+                name="lastName"
+                required
+                class="w-full px-4 py-3 border-2 border-[#D5E8D4] bg-white text-[#2C3E50] text-sm focus:border-[#52C17A] focus:border-l-[3px] focus:border-l-[#52C17A] outline-none transition-all duration-200 placeholder:text-[#5D6D7E]/50"
+                placeholder="Doe"
+              />
+            </div>
+          </div>
+
+          <!-- Email + Phone (2-col) -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div>
+              <label class="block font-mono text-[10px] uppercase tracking-[0.15em] text-[#5D6D7E] mb-2">Email Address</label>
+              <input
+                type="email"
+                name="email"
+                required
+                class="w-full px-4 py-3 border-2 border-[#D5E8D4] bg-white text-[#2C3E50] text-sm focus:border-[#52C17A] focus:border-l-[3px] focus:border-l-[#52C17A] outline-none transition-all duration-200 placeholder:text-[#5D6D7E]/50"
+                placeholder="john@company.com"
+              />
+            </div>
+            <div>
+              <label class="block font-mono text-[10px] uppercase tracking-[0.15em] text-[#5D6D7E] mb-2">Phone Number</label>
+              <input
+                type="tel"
+                name="phone"
+                class="w-full px-4 py-3 border-2 border-[#D5E8D4] bg-white text-[#2C3E50] text-sm focus:border-[#52C17A] focus:border-l-[3px] focus:border-l-[#52C17A] outline-none transition-all duration-200 placeholder:text-[#5D6D7E]/50"
+                placeholder="+1 (555) 000-0000"
+              />
+            </div>
+          </div>
+
+          <!-- Company Name (full width) -->
+          <div>
+            <label class="block font-mono text-[10px] uppercase tracking-[0.15em] text-[#5D6D7E] mb-2">Company Name</label>
+            <input
+              type="text"
+              name="company"
+              class="w-full px-4 py-3 border-2 border-[#D5E8D4] bg-white text-[#2C3E50] text-sm focus:border-[#52C17A] focus:border-l-[3px] focus:border-l-[#52C17A] outline-none transition-all duration-200 placeholder:text-[#5D6D7E]/50"
+              placeholder="Your Company"
+            />
+          </div>
+
+          <!-- Industry Dropdown -->
+          <div>
+            <label class="block font-mono text-[10px] uppercase tracking-[0.15em] text-[#5D6D7E] mb-2">Industry</label>
+            <select
+              name="industry"
+              class="w-full px-4 py-3 border-2 border-[#D5E8D4] bg-white text-[#2C3E50] text-sm focus:border-[#52C17A] focus:border-l-[3px] focus:border-l-[#52C17A] outline-none transition-all duration-200 appearance-none cursor-pointer"
+            >
+              <option value="">Select your industry</option>
+              {industryOptions.map((opt) => (
+                <option value={opt.toLowerCase().replace(/\s+/g, '-')}>{opt}</option>
+              ))}
+            </select>
+          </div>
+
+          <!-- Service Required Dropdown -->
+          <div>
+            <label class="block font-mono text-[10px] uppercase tracking-[0.15em] text-[#5D6D7E] mb-2">Service Required</label>
+            <select
+              name="service"
+              class="w-full px-4 py-3 border-2 border-[#D5E8D4] bg-white text-[#2C3E50] text-sm focus:border-[#52C17A] focus:border-l-[3px] focus:border-l-[#52C17A] outline-none transition-all duration-200 appearance-none cursor-pointer"
+            >
+              <option value="">Select a service</option>
+              {serviceOptions.map((opt) => (
+                <option value={opt.toLowerCase().replace(/\s+/g, '-')}>{opt}</option>
+              ))}
+            </select>
+          </div>
+
+          <!-- Message Textarea -->
+          <div>
+            <label class="block font-mono text-[10px] uppercase tracking-[0.15em] text-[#5D6D7E] mb-2">Your Message</label>
+            <textarea
+              name="message"
+              rows="5"
+              class="w-full px-4 py-3 border-2 border-[#D5E8D4] bg-white text-[#2C3E50] text-sm focus:border-[#52C17A] focus:border-l-[3px] focus:border-l-[#52C17A] outline-none transition-all duration-200 resize-vertical placeholder:text-[#5D6D7E]/50"
+              placeholder="Tell us about your project and requirements..."
+            ></textarea>
+          </div>
+
+          <!-- Hidden UTM fields -->
+          <input type="hidden" name="utm_source" value="" />
+          <input type="hidden" name="utm_medium" value="" />
+          <input type="hidden" name="utm_campaign" value="" />
+          <input type="hidden" name="utm_term" value="" />
+          <input type="hidden" name="utm_content" value="" />
+
+          <!-- Submit Button -->
+          <button
+            type="submit"
+            class="inline-flex items-center gap-3 px-10 py-4 bg-[#1a2e1a] text-white font-mono text-xs uppercase tracking-[0.15em] hover:bg-[#52C17A] transition-all duration-300 w-full sm:w-auto justify-center"
+          >
+            Submit Inquiry
+            <Icon name="arrow-right" size={14} />
+          </button>
+
+          <!-- Privacy note -->
+          <p class="text-xs text-[#5D6D7E] mt-4">
+            Your information is protected. Read our <a href={getLocalizedPath('/privacy', lang)} class="text-[#52C17A] hover:text-[#3D9E5F] underline transition-colors">Privacy Policy</a>.
+          </p>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</section>

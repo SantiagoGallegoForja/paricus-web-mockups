@@ -4,6 +4,7 @@ import AnimatedSection from '../../components/common/AnimatedSection.astro';
 import Icon from '../../components/common/Icon.astro';
 import { t, getLocalizedPath } from '../../i18n/utils';
 import { getServices, getServiceBySlug } from '../../lib/strapi';
+import D4ServiceDetail from '../../designs/design4/ServiceDetail.astro';
 
 export async function getStaticPaths() {
   const services = await getServices('en');
@@ -188,6 +189,7 @@ const metaDescription = service.metaDescription || service.shortDescription.slic
       </div>
     </div>
   </article>
+  <div data-design="4" style="display:none;"><D4ServiceDetail lang={lang} /></div>
 </Layout>
 
 <style>

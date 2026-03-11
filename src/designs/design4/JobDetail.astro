@@ -1,0 +1,198 @@
+---
+import { getLocalizedPath } from '../../i18n/utils';
+import Icon from '../../components/common/Icon.astro';
+
+interface Props {
+  lang?: string;
+}
+
+const { lang = 'en' } = Astro.props;
+
+const job = {
+  title: 'Senior Customer Service Representative',
+  department: 'Operations',
+  location: 'Bogota, Colombia',
+  type: 'Full-time',
+  summary: 'Lead our customer service team and deliver exceptional multilingual support experiences. As a Senior Representative, you will handle complex inquiries, mentor junior team members, and help maintain our industry-leading satisfaction ratings.',
+  responsibilities: [
+    'Handle escalated customer inquiries with professionalism and efficiency',
+    'Mentor and train new team members on best practices and procedures',
+    'Maintain 95%+ satisfaction ratings across all interactions',
+    'Collaborate with QA team to identify and implement process improvements',
+    'Provide bilingual support in English and Spanish across multiple channels',
+  ],
+  requirements: [
+    '3+ years of experience in customer service or BPO environment',
+    'Fluent in English and Spanish (written and verbal)',
+    'Experience with CRM platforms (Salesforce, Zendesk, or similar)',
+    'Strong problem-solving skills and attention to detail',
+    'Availability for rotating shifts including weekends',
+  ],
+  benefits: [
+    { icon: 'trending-up', text: 'Competitive salary + performance bonuses' },
+    { icon: 'heart', text: 'Health insurance and wellness programs' },
+    { icon: 'award', text: 'Career development and training opportunities' },
+    { icon: 'monitor', text: 'Modern office in Bogota with hybrid options' },
+  ],
+};
+---
+
+<!-- ============================================================
+     SECTION 1: HEADER
+     ============================================================ -->
+<section class="bg-[#1a2e1a] py-24 md:py-32">
+  <div class="max-w-[1400px] mx-auto px-6 md:px-12">
+    <a
+      href={getLocalizedPath('/careers', lang)}
+      class="inline-flex items-center font-mono text-[10px] uppercase tracking-[0.2em] text-gray-400 hover:text-[#52C17A] transition-colors mb-10"
+      data-sa="fade-up"
+    >
+      &larr; Back to Careers
+    </a>
+
+    <div class="max-w-4xl" data-sa="fade-up" data-sa-delay="100ms">
+      <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-[#52C17A] mb-6 block">
+        // JOB OPENING
+      </span>
+      <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-8 uppercase">
+        {job.title}
+      </h1>
+      <div class="flex flex-wrap items-center gap-6 text-gray-300">
+        <span class="flex items-center gap-2">
+          <Icon name="briefcase" class="w-4 h-4 text-[#52C17A]" />
+          {job.department}
+        </span>
+        <span class="flex items-center gap-2">
+          <Icon name="map-pin" class="w-4 h-4 text-[#52C17A]" />
+          {job.location}
+        </span>
+        <span class="flex items-center gap-2">
+          <Icon name="clock" class="w-4 h-4 text-[#52C17A]" />
+          {job.type}
+        </span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 2: OVERVIEW
+     ============================================================ -->
+<section class="bg-white py-20 md:py-24">
+  <div class="max-w-[1400px] mx-auto px-6 md:px-12">
+    <div class="max-w-3xl" data-sa="fade-up">
+      <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-[#5D6D7E] mb-4 block">
+        // OVERVIEW
+      </span>
+      <p class="text-lg text-[#5D6D7E] leading-relaxed">
+        {job.summary}
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 3: DETAILS (TWO COLUMN)
+     ============================================================ -->
+<section class="bg-[#FAFAF8] py-24 md:py-32">
+  <div class="max-w-[1400px] mx-auto px-6 md:px-12">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
+      <!-- Responsibilities -->
+      <div data-sa="slide-left">
+        <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-[#5D6D7E] mb-4 block">
+          // RESPONSIBILITIES
+        </span>
+        <h2 class="text-2xl md:text-3xl font-bold text-[#2C3E50] mb-8">
+          What You'll Do
+        </h2>
+        <ul class="space-y-5">
+          {job.responsibilities.map((item, index) => (
+            <li class="flex items-start gap-4">
+              <span class="flex-shrink-0 w-8 h-8 bg-[#1a2e1a] text-[#52C17A] flex items-center justify-center font-mono text-sm font-bold">
+                {String(index + 1).padStart(2, '0')}
+              </span>
+              <span class="text-[#5D6D7E] leading-relaxed pt-1">
+                {item}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Requirements -->
+      <div data-sa="slide-right">
+        <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-[#5D6D7E] mb-4 block">
+          // REQUIREMENTS
+        </span>
+        <h2 class="text-2xl md:text-3xl font-bold text-[#2C3E50] mb-8">
+          What You'll Need
+        </h2>
+        <ul class="space-y-5">
+          {job.requirements.map((item) => (
+            <li class="flex items-start gap-4">
+              <span class="flex-shrink-0 mt-1">
+                <Icon name="check-circle" class="w-5 h-5 text-[#52C17A]" />
+              </span>
+              <span class="text-[#5D6D7E] leading-relaxed">
+                {item}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 4: BENEFITS
+     ============================================================ -->
+<section class="bg-white py-24 md:py-32">
+  <div class="max-w-[1400px] mx-auto px-6 md:px-12">
+    <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-[#5D6D7E] mb-4 block" data-sa="fade-up">
+      // WHAT WE OFFER
+    </span>
+    <h2 class="text-2xl md:text-3xl font-bold text-[#2C3E50] mb-12" data-sa="fade-up" data-sa-delay="100ms">
+      Benefits & Perks
+    </h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      {job.benefits.map((benefit, index) => (
+        <div
+          class="flex items-start gap-4 p-6 border border-[#D5E8D4]"
+          data-sa="fade-up"
+          data-sa-delay={`${index * 100}ms`}
+        >
+          <div class="flex-shrink-0">
+            <Icon name={benefit.icon} class="w-6 h-6 text-[#52C17A]" />
+          </div>
+          <span class="text-[#2C3E50] leading-relaxed">
+            {benefit.text}
+          </span>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 5: APPLY CTA
+     ============================================================ -->
+<section class="bg-[#1a2e1a] py-24 md:py-32">
+  <div class="max-w-[1400px] mx-auto px-6 md:px-12 text-center">
+    <div data-sa="fade-up">
+      <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6">
+        Ready to Join Our Team?
+      </h2>
+      <p class="text-lg text-gray-300 mb-10 max-w-2xl mx-auto">
+        Take the next step in your career. Apply today and become part of a team that's making a difference.
+      </p>
+      <a
+        href={getLocalizedPath('/contact', lang)}
+        class="inline-block bg-[#52C17A] text-[#1a2e1a] font-mono text-[10px] uppercase tracking-[0.2em] px-10 py-4 hover:bg-[#3da862] transition-colors"
+      >
+        Apply Now
+      </a>
+    </div>
+  </div>
+</section>

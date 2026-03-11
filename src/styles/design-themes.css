@@ -366,3 +366,109 @@ html[data-design="3"] address a {
 html[data-design="3"] address a:hover {
   color: #f0f0f2 !important;
 }
+
+
+/* ============================================================================
+   DESIGN 4 — Corporate Premium
+   Structured corporate layout with V2's editorial color palette.
+   Split-screen heroes, generous spacing, professional rhythm.
+   Inspired by qualitas-payroll.co.uk structure, original compositions.
+   ============================================================================ */
+
+/* --- 4.1 Body / Page Background --- */
+
+html[data-design="4"] body {
+  background-color: #FAFAF8;
+}
+
+/* --- 4.2 Remove ALL Rounded Corners (sharp like V2) --- */
+
+html[data-design="4"] *[class*="rounded"] {
+  border-radius: 0 !important;
+}
+
+/* --- 4.3 Navigation — Sharp, Corporate --- */
+
+html[data-design="4"] nav {
+  top: 0 !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  border-radius: 0 !important;
+  background: #fff !important;
+  border-bottom: 2px solid #1a2e1a;
+}
+
+html[data-design="4"] nav > div {
+  max-width: 1400px !important;
+  padding-left: 2rem !important;
+  padding-right: 2rem !important;
+  margin: 0 auto !important;
+}
+
+html[data-design="4"] nav > div > div {
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  border: none !important;
+  background: transparent !important;
+  backdrop-filter: none !important;
+}
+
+/* --- 4.4 Cards & Articles --- */
+
+html[data-design="4"] article,
+html[data-design="4"] [class*="border"][class*="rounded"] {
+  border-radius: 0 !important;
+  transition: all 0.4s ease;
+}
+
+html[data-design="4"] article:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(26, 46, 26, 0.08);
+}
+
+/* --- 4.5 Buttons — Sharp, Corporate --- */
+
+html[data-design="4"] a[class*="bg-[#52C17A]"],
+html[data-design="4"] a[class*="bg-gradient"],
+html[data-design="4"] button[class*="bg-gradient"] {
+  border-radius: 0 !important;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 700;
+}
+
+/* --- 4.6 Form Elements — Sharp --- */
+
+html[data-design="4"] input,
+html[data-design="4"] select,
+html[data-design="4"] textarea {
+  border-radius: 0 !important;
+}
+
+/* --- 4.7 Footer — Corporate, Border-Top --- */
+
+html[data-design="4"] footer {
+  border-radius: 0 !important;
+  border-top: 2px solid #1a2e1a;
+}
+
+/* --- 4.8 Section Separators --- */
+
+html[data-design="4"] main > section + section {
+  border-top: 1px solid #D5E8D4;
+}
+
+/* --- 4.9 Icon Containers — Sharp --- */
+
+html[data-design="4"] [class*="rounded-2xl"][class*="bg-[#E8F5E9]"] {
+  border-radius: 0 !important;
+  border: 1px solid #D5E8D4;
+}
+
+/* --- 4.10 Green Accent Sections --- */
+
+html[data-design="4"] [class*="bg-gradient-to-br"][class*="from-[#52C17A]"] {
+  background: #1a2e1a !important;
+  border: 1px solid #52C17A;
+  border-radius: 0 !important;
+}

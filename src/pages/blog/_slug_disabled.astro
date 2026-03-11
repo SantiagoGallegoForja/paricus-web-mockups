@@ -4,6 +4,7 @@ import AnimatedSection from '../../components/common/AnimatedSection.astro';
 import Icon from '../../components/common/Icon.astro';
 import { t } from '../../i18n/utils';
 import { getArticles, getArticleBySlug, getStrapiImageUrl, formatDate, getAlternateArticlePath } from '../../lib/strapi';
+import D4BlogDetail from '../../designs/design4/BlogDetail.astro';
 
 const lang = 'en';
 const SITE_URL = 'https://paricus.com';
@@ -368,6 +369,7 @@ const breadcrumbSchema = {
       </AnimatedSection>
     </div>
   </article>
+  <div data-design="4" style="display:none;"><D4BlogDetail lang={lang} /></div>
 </Layout>
 
 <style>
